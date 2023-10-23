@@ -4,13 +4,29 @@
 		
 		Cilj ovog projekta je razviti programsku podršku za stvaranje web aplikacije "IME APLIKACIJE". Ideja aplikacije je ponuditi običnim građanima jednostavan i efikasan način prijave oštećenja javnih površina i cesta u gradu te dobivanje povratnih informacija konkretnom oštećenju i njihovoj prijavi. 
 		
-		Građani će svojim djelovanjem putem aplikacije unaprjeđivati kvalitetu života u svojoj zajednici. Svojim prijavama, koje će biti javno dostupne, građani će poticati gradske urede da saniraju prijavljena oštećenja.
+		Građani će svojim djelovanjem putem aplikacije unaprjeđivati kvalitetu života u svojoj zajednici. Svojim prijavama, koje će biti javno dostupne, građani će poticati gradske urede da saniraju prijavljena oštećenja. Aplikacija će također pomoći gradskim uredima u obavljanju svojih zadaća. Naime, preko aplikacije uredi će imati puno bolji uvid u probleme koji postoje u zajednici. Zahvaljujući aplikaciji uredi će moći brže i kvalitetnije reagirati na probleme u zajednici.
 		
-		Aplikacija će također pomoći gradskim uredima u obavljanju svojih zadaća. Naime, preko aplikacije uredi će imati puno bolji uvid u probleme koji postoje u zajednici. Zahvaljujući aplikaciji uredi će moći brže i kvalitetnije reagirati na probleme u zajednici.
+		Građani koriste web aplikaciju u anonimnom načinu, to jest ne prijavljuju se u sustav. Na naslovnoj stranici korisniku građaninu ponuđene su opcije podnošenja nove prijave, pregleda postojećih prijava i pregled statistike prijava.
 		
-		Građani koriste web aplikaciju u anonimnom načinu, to jest ne prijavljuju se u sustav. <<<IZGLED POČETNE STRANICE>>>
+		Korisniku se prilikom odabira podnošenja nove prijave otvara obrazac koji je potrebno ispuniti. Prijava sadrži naslov koji definira oštećenje. Slijedi kratak opis u kojem korisnik detaljnije opisuje oštećenje u slobodnoj formi. Korisnik dalje prilaže geografski položaj oštećenja koje se prijavljuje. Geografski položaj se definira odabirom položaja na karti koja će se moći otvoriti prilikom ispunjavanja obrasca ili upisivanjem adrese na kojoj se nalazi oštećenje. Također korisnik će moći priložiti geografski položaj automatski preko svoje trenutne lokacije. Korisniku se nudi opcija da uz prijavu priloži fotografije oštećenja. Ukoliko korisnik priloži fotografije, aplikacija će pokušati iz njih izvući podatke o lokaciji te ih ponuditi korisniku kao lokaciju oštećenja. Korisnik u prijavi mora odabrati gradski ured nadležan za konkretan problem. Prilikom opisivanja oštećenja aplikacija će pokušati sama zaključiti koji ured bi mogao biti nadležan za problem koji se prijavljuje te će isti predložiti korisniku. Također, ako u sustavu već postoji slična nedavna prijava na istoj lokaciji aplikacija će predložiti korisniku već postojeću prijavu i ponuditi mu da svoju prijavu nadoveže na već postojeću. Korisnik u prijavi može ostaviti mail na koji želi dobivati obavijesti o statusu njegove prijave. Nakon podnošenja prijave aplikacija korisniku daje jedinstveni kod podnesene prijave koja služi za praćenje te prijave preko same aplikacije.
 		
-		Korisnik na glavnoj stranici može napraviti novu prijavu. Time mu se otvara obrazac prijave koji je potrebno ispuniti. Prijava sadrži naslov koji definira oštećenje. Slijedi kratak opis u kojem korisnik detaljnije opisuje oštećenje u slobodnoj formi. Korisnik dalje prilaže geografski položaj oštećenja koje se prijavljuje. Geografski položaj se definira odabirom položaja na karti koja će biti priložena u obrascu ili upisivanjem adrese na kojoj se nalazi oštećenje. Također korisnik će moći priložiti geografski položaj automatski preko svoje trenutne lokacije. Korisniku se nudi opcija da uz prijavu priloži fotografije oštećenja.
+		Prilikom odabira pregleda postojećih prijava korisniku se otvara lista svih aktivnih prijava. Lista se može filtrirati po vremenu podnošenja prijave, lokaciji, statusu, nadležnom gradskom uredu, vrsti oštećenja i slično. Korisnik također može pretraživati prijave po jedinstvenom kodu prijave. Na taj način svaki korisnik može pregledavati svoje prijave na aplikaciji. Za svaku prijavu se prikazuju informacije iz podnesenog obrasca. Također se prikazuje status prijave (na čekanju, rješava se, riješena), broj prijava koje su vezane za ovu prijavu, odnosno prijava za koju je vezana ova prijava. Prijave sa riješenim statusom su korisniku dostupne jedino preko odgovarajućeg koda prijave. Pregled prijava je također moguć preko karte.
+		
+		Prikaz statistike prijava nudi filtriranje podataka po lokaciji prijave, vremenu podnošenja prijave, uredu i vrsti oštećenja. Za odabrane parametre aplikacija prikazuje:
+		\begin{packed_item}
+			\item ukupan broj podnešenih prijava
+			\item broj prijava koje su na čekanju i njihov udio
+			\item broj prijava koje su u procesu rješavanja i njihov udio
+			\item broj prijava koje su riješene i njihov udio
+			\item prosječan broj podnesenih prijava u danu
+			\item prosječan broj dana koji prijava provede na čekanju
+			\item prosječan broj dana za vrijeme kojih je prijava u procesu rješavanja
+		\end{packed_item}
+		
+		
+		---------------------
+		
+		
 		
 		\textit{Na osnovi projektnog zadatka detaljno opisati korisničke zahtjeve. Što jasnije opisati cilj projektnog zadatka, razraditi problematiku zadatka, dodati nove aspekte problema i potencijalnih rješenja. Očekuje se minimalno 3, a poželjno 4-5 stranica opisa.	Teme koje treba dodatno razraditi u ovom poglavlju su:}
 		\begin{packed_item}
