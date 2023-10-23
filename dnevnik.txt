@@ -1,0 +1,7 @@
+1. SASTANAK (23.10.2023)
+----------------------------------------
+	- napravljen git repozitorij
+	- rasprava o zadatku:
+		- definirani ključni nefunkcijski i funkcijski zahtjevi
+		- razmjena ideja oko aplikacije
+	- podjela poslova (opis zadatka, UML dijagrami, zahtjevi u tekstualnom obliku, opis zadatka i drugo)
