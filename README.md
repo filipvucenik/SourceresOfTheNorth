@@ -6,6 +6,7 @@ aktivno sudjeluju u otkrivanju šteta na javnim površinama te time potpomognu r
 ### 1. Korisniško sučelje
 - Razvoj web sučelja za pristup putem internetskog preglednika.
 - Grafički prijateljsko sučelje za korisnike.
+- Mogućnost prijave korisnika u sustav.
 ### 2. Prijava problema
 - Omogućavanje građanima da prijave oštećenja na javnim površinama i cestama.
 - Prijava sadrži: naziv problema, kratak opis, geografske koordinate te opcionalno fotografije.
@@ -13,7 +14,7 @@ aktivno sudjeluju u otkrivanju šteta na javnim površinama te time potpomognu r
 ### 3. Odabir lokacija
 - Mogućnost odabira koordinata putem interaktivne karte.
 - Unos adrese kao alternativnog načina odabira lokacije.
-- Automatsko izvlačenje geografskih koordinata iz meta podataka slika.
+- Automatsko izvlačenje geografskih koordinata iz meta podataka slika ili iz trenutne lokacije uređaja.
 ### 4. Anonimna prijava
 - Omogućavanje građanima da podnose prijave anonimno.
 - Praćenje statusa prijave putem jedinstvenog broja prijave.
@@ -23,7 +24,7 @@ aktivno sudjeluju u otkrivanju šteta na javnim površinama te time potpomognu r
 ### 6. Obrada prijava
 - Gradski uredi odgovorni za obradu i rješavanje prijava građana.
 - Mogućnost gradskih ureda da promijene status prijave (aktivna, u postupku, riješena).
-- Korisnička mogućnost praćenja statusa prijave putem broja prijave.
+- Korisnička mogućnost praćenja statusa prijave putem broja prijave i preko svojeg profila.
 ### 7. Javna vidljivost prijave
 - Sve prijave su javno vidljive i grupirane po temi i lokaciji.
 - Statistika statusa prijava i vremena potrebnog za obradu u realnome vremenu.
