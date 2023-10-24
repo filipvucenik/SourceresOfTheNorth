@@ -1,0 +1,12 @@
+Nefunkcijski zahtjevi:
+
+Sama aplikacija će se vrtjeti na web stranici te neće biti direktne podrške za mobilne uređaje(mobilne aplikacije), samo će se stranica prilagođavati dimenzijama uređaja.
+Stranici se mora moći pristupiti sa svih "čestih" uređaja na taj način da je njezino korištenje lagano.
+
+Aplikacija će biti na hrvatskom jeziku, te će podržavati prijevod na engleski i neke ostale jezike. 
+Prevođenjem stranice se mijenja isključivo tekst na stranici(prevodi se) te sve ostalo ostaje isto.
+
+Svi inputi moraju biti pravilno obrađeni da se izbjegne mogućnost od „XSS napada“. 
+Backend provjerava linkove te nema direktnog dodira korisnika s bazom podataka kako bi se izbjegli „SQL injection“ napadi na bazu podataka.
+Koristi se HTTPS protokol i potrebne enkripcije za sigurnost.
+Podatci koji se šalju su digitalno potpisani kako bi se izbjeglo njihovo neovlašteno modificiranje.
