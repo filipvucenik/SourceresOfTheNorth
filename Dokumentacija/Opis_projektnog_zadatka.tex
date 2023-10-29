@@ -26,30 +26,30 @@
 		
 		Građanima se prilikom podnošenja nove prijave otvara obrazac koji je potrebno ispuniti. Prijava sadrži naslov koji definira oštećenje. Slijedi kratak opis u kojem korisnik detaljnije opisuje oštećenje u slobodnoj formi. Korisnik dalje prilaže geografski položaj oštećenja koje se prijavljuje. Geografski položaj se prilaže odabirom položaja na karti koja će se moći otvoriti prilikom ispunjavanja obrasca ili upisivanjem adrese na kojoj se nalazi oštećenje. Također korisnik će moći priložiti geografski položaj automatski preko svoje trenutne lokacije. Korisniku se nudi opcija da uz prijavu priloži fotografije oštećenja. Ukoliko korisnik priloži fotografije, aplikacija će pokušati iz njih izvući podatke o lokaciji te ih ponuditi korisniku kao lokaciju oštećenja. Korisnik u prijavi mora odabrati gradski ured nadležan za konkretan problem. Prilikom opisivanja oštećenja aplikacija će pokušati sama zaključiti koji ured bi mogao biti nadležan za problem koji se prijavljuje te će isti predložiti korisniku. Također, ako u sustavu već postoji slična nedavna prijava na istoj lokaciji aplikacija će predložiti korisniku već postojeću prijavu i ponuditi mu da svoju prijavu nadoveže na već postojeću. Nakon podnošenja prijave aplikacija korisniku daje jedinstveni kod podnesene prijave koja služi za praćenje te prijave preko same aplikacije. Prijavljeni korisnici će također primati obaviejsti o svojoj prijavi preko emaila.
 		
-		Prilikom pregleda postojećih prijava korisniku se otvara lista svih aktivnih prijava. Lista se može filtrirati po vremenu podnošenja prijave, lokaciji, statusu, nadležnom gradskom uredu. Korisnik također može pretraživati prijave po jedinstvenom kodu prijave. Na taj način svaki korisnik može pregledavati svoje prijave na aplikaciji. Za svaku prijavu se prikazuju informacije iz podnesenog obrasca. Također se prikazuje status prijave (na čekanju, rješava se), broj prijava koje su vezane za ovu prijavu, odnosno prijava za koju je vezana ova prijava. Prijavljeni korisnici također vide svoje prijave na pregledu svojeg profila. Pregled prijava je također moguć preko karte. Prijave koje su riješene mogu se pregledati jedino preko njihovog koda ili preko pregleda korisničkog profila kod registriranih korisnika. U drugim slučajevima takve prijave nisu više dostupne za pregled.
+		Prilikom pregleda postojećih prijava korisniku se otvara lista svih aktivnih prijava. Lista se može filtrirati po vremenu podnošenja prijave, lokaciji, statusu, nadležnom gradskom uredu. Korisnik također može pretraživati prijave po jedinstvenom kodu prijave. Na taj način svaki korisnik može pregledavati svoje prijave na aplikaciji. Za svaku prijavu se prikazuju informacije iz podnesenog obrasca. Također se prikazuje status prijave (\textit{na čekanju}, \textit{u procesu rješavanja}), broj prijava koje su vezane za ovu prijavu, odnosno prijava za koju je vezana ova prijava. Prijavljeni korisnici također vide svoje prijave na pregledu svojeg profila. Pregled prijava je također moguć preko karte. Prijave koje su riješene mogu se pregledati jedino preko njihovog koda ili preko pregleda korisničkog profila kod registriranih korisnika. U drugim slučajevima takve prijave nisu više dostupne za pregled.
 		
 		Prikaz statistike prijava nudi filtriranje podataka po lokaciji prijave, vremenu podnošenja prijave i nadležnom uredu. Za odabrane parametre aplikacija prikazuje:
 		\begin{packed_item}
 			\item ukupan broj podnešenih prijava
-			\item broj prijava koje su na čekanju i njihov udio
-			\item broj prijava koje su u procesu rješavanja i njihov udio
-			\item broj prijava koje su riješene i njihov udio
+			\item broj prijava sa statusom \textit{na čekanju} i njihov udio
+			\item broj prijava sa statusom \textit{u procesu rješavanja} i njihov udio
+			\item broj prijava sa statusom \textit{riješena} i njihov udio
 			\item prosječan broj podnesenih prijava u danu
 			\item prosječan broj dana koji prijava provede na čekanju
 			\item prosječan broj dana za vrijeme kojih je prijava u procesu rješavanja
 		\end{packed_item}
 		
-		\underbar{Djelatnici gradskog ureda} se obavezno u sustav prijavljuju preko profila gradskog ureda. Djelatnici na svojoj naslovnoj stranici imaju 3 liste prijava: novopristigle, one u procesu rješavanja i riješene prijave. Djelatnici ureda imaju isključivo pristup prijavama za probleme za koje je nadležan njihov ured. Ostale prijave djelatnicima nisu vidljive.
+		\underbar{Djelatnici gradskog ureda} se obavezno u sustav prijavljuju preko profila gradskog ureda. Djelatnici na svojoj naslovnoj stranici imaju 3 liste prijava, jedna za svaku vrstu statusa: novopristigle, one u procesu rješavanja i riješene prijave. Djelatnici ureda imaju isključivo pristup prijavama za probleme za koje je nadležan njihov ured. Ostale prijave djelatnicima nisu vidljive.
 		
 		Djelatnici pregledavaju pristigle prijave i stavljaju ih u proces rješavanja. Time prijave prelaze u listu prijava u procesu rješavanja i mijenjaju svoj status. Aplikacija u tom slučaju automatski šalje mail prijavitelju ako se radi o registriranom korisniku.
 		
-		Kada neka prijava bude riješena, djelatnik prijavi mijenja status u riješenu. Prijava prelazi u za to predviđenu listu te aplikacija šalje mail  prijavitelju, ako se radi o registriranom korisniku.
+		Kada neka prijava bude riješena, djelatnik prijavi mijenja status u \textit{riješena}. Prijava prelazi u za to predviđenu listu te aplikacija šalje mail  prijavitelju, ako se radi o registriranom korisniku.
 		
 		Djalatnik ima mogućnost objedinjavanja prijava. Naime, ako se pristigla prijava referira na problem koji je već ranije prijavljen ili je prijavljen u još nekoj pristigloj prijavi, djelatnik može grupirati te prijave. U tom slučaju se najstarija od tih prijava tretira kao glavna prijava, a ostale prijave postaju nadovezane na tu prijavu. Aplikacija u tom slučaju šalje prikladnu obavijest registriranim korisnicima čije su prijave sada nadovezane na glavnu prijavu.
 		
 		Kao i kod običnih korisnika, djelatnici ureda mogu pregledavati prijave preko karte. Također mogu pregledavati statistiku prijava kao i obični korisnici, uz restrikciju na prijave vezane na njihov ured, kao što je prije navedeno.
 		
-		Aplikacija je napravljena tako da podržava višejezičnost. Aplikacija će podržavati hrvatski i engleski jezik te će biti otvorena mogućnost dodavanja novih jezika.
+		Aplikacija je napravljena tako da podržava višejezičnost. Aplikacija podržava hrvatski i engleski jezik.
 		
 		Aplikacija je napravljena na primjeru Grada Zagreba, prvenstveno u smislu da će aplikacija predviđati postojanje gradskih ureda relevantnih za ovu problematiku kakvi su ustrojeni u Zagrebu. Konkretno, aplikacija predviđa postojanje sljedećih ureda:
 		\begin{packed_item}

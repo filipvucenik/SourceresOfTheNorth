@@ -4,55 +4,64 @@
 			
 			\textbf{\textit{dio 1. revizije}}\\
 			
-			\textit{Navesti \textbf{dionike} koji imaju \textbf{interes u ovom sustavu} ili  \textbf{su nositelji odgovornosti}. To su prije svega korisnici, ali i administratori sustava, naručitelji, razvojni tim.}\\
-				
-			\textit{Navesti \textbf{aktore} koji izravno \textbf{koriste} ili \textbf{komuniciraju sa sustavom}. Oni mogu imati inicijatorsku ulogu, tj. započinju određene procese u sustavu ili samo sudioničku ulogu, tj. obavljaju određeni posao. Za svakog aktora navesti funkcionalne zahtjeve koji se na njega odnose.}\\
-			
-			
 			\noindent \textbf{Dionici:}
 			
 			\begin{packed_enum}
-				
-				\item Dionik 1
-				\item Dionik 2				
-				\item ...
-				
+				\item Gradska uprava
+				\item Djelatnici gradskih ureda		
+				\item Građani grada
+				\item[] \begin{packed_item}
+					\item Registrirani korisnici
+					\item Neregistrirani korisnici
+				\end{packed_item}
+				\item Razvojni tim
 			\end{packed_enum}
+			
 			
 			\noindent \textbf{Aktori i njihovi funkcionalni zahtjevi:}
 			
-			
 			\begin{packed_enum}
-				\item  \underbar{Aktor 1 (inicijator) može:}
 				
+				\item  \underbar{Neregistrirani korisnik (inicijator) može:}
 				\begin{packed_enum}
-					
-					\item funkcionalnost 1
-					\item funkcionalnost 2
-					\begin{packed_enum}
-						
-						\item  podfunkcionalnost 1 
-						\item  podfunkcionalnost 2
-				
-					\end{packed_enum}
-					\item  funkcionalnost 3
-					
+					\item napraviti svoj profil za koji mu je potrebno ime, prezime, datum rođenja, email adresa, lozinka i opcionalno profilna slika
+					\item podnositi anonimnu prijavu koja sadrži naslov, opis, lokaciju i nadležni gradski ured, a opcionalno i fotografiju i prijavu na koju se nadovezuje
+					\item  pregledavati postojeće prijave preko liste ili karte te ih filtrirati po lokaciji, vremenu, statusu i nadležnom gradskom uredu
+					\item pregledavati statistiku postojećih prijava za odabran period, lokaciju i nadležan gradski ured			
 				\end{packed_enum}
-			
-				\item  \underbar{Aktor 2 (sudionik) može:}
+								
+				\item  \underbar{Registrirani korisnik (inicijator) može:}				
+				\begin{packed_enum}					
+					\item pregledavati i mijenjati osobne podatke
+					\item obrisati svoj profil
+					\item pregledavati svoje prošle prijave
+					\item podnositi prijavu koja sadrži naslov, opis, lokaciju i nadležni gradski ured, a opcionalno i fotografiju i prijavu na koju se nadovezuje
+					\item  pregledavati postojeće prijave preko liste ili karte te ih filtrirati po lokaciji, vremenu, statusu i nadležnom gradskom uredu
+					\item pregledavati statistiku postojećih prijava za odabran period, lokaciju i nadležan gradski ured
+				\end{packed_enum}
 				
+				\item  \underbar{Djelatnik gradskog ureda (inicijator) može:}
 				\begin{packed_enum}
-					
-					\item funkcionalnost 1
-					\item funkcionalnost 2
-					
+					\item pregledavati prijave pristigle u njihov ured prema njihovom statusu
+					\item prijavama sa statusom \textit{na čekanju} mijenjati status u \textit{u procesu rješavanja}
+					\item prijavama sa statusom \textit{u procesu rješavanja} mijenjati status u \textit{riješena}
+					\item objediniti prijave ako se referiraju na isti problem
+					\item pregledavati prijave na karti
+					\item pregledavati statistiku prijava pristiglih u njihov ured
 				\end{packed_enum}
+				
+				\item  \underbar{Baza podataka (sudionik) može:}
+				\begin{packed_enum}
+					\item spremati sve podatke o korisnicima
+					\item spremati sve podatke o prijavama
+				\end{packed_enum}
+				
 			\end{packed_enum}
-			
+						
 			\eject 
 			
-			
 				
+						
 			\subsection{Obrasci uporabe}
 				
 				\textbf{\textit{dio 1. revizije}}
