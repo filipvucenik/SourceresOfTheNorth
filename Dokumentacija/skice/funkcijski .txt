@@ -12,7 +12,7 @@ Web aplikacija mora implementirati sljedeće funckijske zahtjeve:
 
 		Prilikom kreiranja prijave sustav će automatski predložiti kojem uredu bi korisnik trebao poslati svoju prijavu, no korisnik može ručno odabrati željeni ured.
 
-		Sustav će prilokom podnošenja prijave predložiti korisniku da svoju prijavu nadoveže na već postojeću ako zaključi da se radi o istom problemu.
+		Ako korisnik prijavljuje oštećenje koje je već evidentirano u sustavu, sustav će korisniku predložiti nadovezivanje svoje prijave na već postojeću. Korisnik tu preporuku može odbiti ako procijeni da se ne radi o istim oštećenjima.
 
 	Korisnici mogu pregledavati već postojeće prijave.
 		Korisnici prijave mogu pretraživati preko koda prijave te filtrirati prijave po vremenu prijave, lokaciji, nadležnom uredu i vrsti oštećenja.
