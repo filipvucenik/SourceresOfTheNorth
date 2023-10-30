@@ -29,6 +29,7 @@ CREATE TABLE ReportGroup
 
 CREATE TABLE Category
 (
+  categoryKeywords VARCHAR NOT NULL,
   categoryName VARCHAR(20) NOT NULL,
   categoryID BIGINT NOT NULL,
   cityOfficeId BIGINT NOT NULL,
