@@ -41,4 +41,4 @@ Aplikacija je namijenjena svim proaktivnim građanima koji žele prijaviti ošte
 
 ## Organizacija Tima
 **Voditelj**: Petar Belošević <br>
-**Članovi**: Vinko Brkić, Tomislav Grudić, Fran Meglić, Bruno Mikulan, Eno Pešić, Filip Vučenik
+**Članovi**: Vinko Brkić, Tomislav Grudić, Fran Meglić, Bruno Mikulan, Eno Peršić, Filip Vučenik
