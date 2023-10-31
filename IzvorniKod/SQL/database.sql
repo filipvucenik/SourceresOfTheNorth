@@ -20,16 +20,12 @@ CREATE TABLE CityOffice
 
 CREATE TABLE ReportGroup
 (
-  reportStatus VARCHAR(10) NOT NULL,
   groupID BIGINT NOT NULL,
-  cityOfficeId BIGINT NOT NULL,
   PRIMARY KEY (groupID),
-  FOREIGN KEY (cityOfficeId) REFERENCES CityOffice(cityOfficeId)
 );
 
 CREATE TABLE Category
 (
-  categoryKeywords VARCHAR NOT NULL,
   categoryName VARCHAR(20) NOT NULL,
   categoryID BIGINT NOT NULL,
   cityOfficeId BIGINT NOT NULL,
@@ -59,4 +55,15 @@ CREATE TABLE Image
   reportID BIGINT NOT NULL,
   PRIMARY KEY (imageID, reportID),
   FOREIGN KEY (reportID) REFERENCES Report(reportID)
+);
+
+CREATE TABLE feedback
+(
+  status VARCHAR(20) NOT NULL,
+  changeTS TIMESTAMP NOT NULL,
+  groupID BIGINT NOT NULL,
+  cityOfficeId BIGINT NOT NULL,
+  PRIMARY KEY (groupID, cityOfficeId),
+  FOREIGN KEY (groupID) REFERENCES ReportGroup(groupID),
+  FOREIGN KEY (cityOfficeId) REFERENCES CityOffice(cityOfficeId)
 );
