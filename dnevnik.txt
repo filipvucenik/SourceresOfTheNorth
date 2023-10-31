@@ -5,3 +5,9 @@
 		- definirani ključni nefunkcijski i funkcijski zahtjevi
 		- razmjena ideja oko aplikacije
 	- podjela poslova (opis zadatka, UML dijagrami, zapisivanje zahtjeva i drugo)
+
+2. SASTANAK (30.10.2023)
+----------------------------------------
+	- razrađen dizajn baze podataka
+	- rasprava o dizajnu aplikacije
+	- razrađena neka svojstva aplikacije
