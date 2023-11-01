@@ -9,7 +9,7 @@ public class Category {
     @Column(unique = true, nullable = false)
     private String categoryName;
 
-    @OneToOne
+    @JoinColumn(name = "cityOfiiceID")
     private Long cityOfficeID; //???
 
     public Long getCatgoryID() {
@@ -23,7 +23,8 @@ public class Category {
     public Long getCityOfficeID() {
         return cityOfficeID;
     }
-
+    public Category() {
+    }
     public Category(Long catgoryID, String categoryName, Long cityOfficeID) {
         this.catgoryID = catgoryID;
         this.categoryName = categoryName;

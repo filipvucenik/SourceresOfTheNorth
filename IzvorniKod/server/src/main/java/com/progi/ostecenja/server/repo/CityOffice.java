@@ -32,6 +32,9 @@ public class CityOffice {
     public String getGetCityOfficePassword() {
         return getCityOfficePassword;
     }
+    public CityOffice(){
+
+    }
     public CityOffice(long cityOfficeID, String cityOfficeName, String getCityOfficeEmail, String getCityOfficePassword) {
         this.cityOfficeID = cityOfficeID;
         this.cityOfficeName = cityOfficeName;

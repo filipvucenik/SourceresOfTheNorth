@@ -11,5 +11,6 @@ public class Report {
     private Long reportID;
 
     @Column
+    private String location;
 
 }
