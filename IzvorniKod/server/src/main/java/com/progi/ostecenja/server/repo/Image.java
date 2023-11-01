@@ -1,13 +1,18 @@
 package com.progi.ostecenja.server.repo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 
+@Entity(name="Image")
 public class Image {
 
     @Id
+    @GeneratedValue
     private Long imageID;
 
+    @Id
     @JoinColumn(name ="reportID")
     private Long reportID;
 

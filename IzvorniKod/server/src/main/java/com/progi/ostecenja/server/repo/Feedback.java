@@ -1,14 +1,17 @@
 package com.progi.ostecenja.server.repo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 
 import java.sql.Timestamp;
 
+@Entity(name ="Feedback")
 public class Feedback {
-
+    @Id
     @JoinColumn(name ="groupID")
     private Long groupID;
-
+    @Id
     @JoinColumn(name = "cityOfficeID")
     private Long cityOfficeID;
 
