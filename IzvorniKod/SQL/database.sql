@@ -1,4 +1,4 @@
-CREATE TABLE User
+CREATE TABLE Users
 (
   email VARCHAR NOT NULL,
   firstName VARCHAR(20) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE CityOffice
 CREATE TABLE ReportGroup
 (
   groupID BIGINT NOT NULL,
-  PRIMARY KEY (groupID),
+  PRIMARY KEY (groupID)
 );
 
 CREATE TABLE Category
@@ -43,7 +43,7 @@ CREATE TABLE Report
   groupID BIGINT NOT NULL,
   categoryID BIGINT NOT NULL,
   PRIMARY KEY (reportID),
-  FOREIGN KEY (userID) REFERENCES User(userID),
+  FOREIGN KEY (userID) REFERENCES Users(userID),
   FOREIGN KEY (groupID) REFERENCES ReportGroup(groupID),
   FOREIGN KEY (categoryID) REFERENCES Category(categoryID)
 );
