@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres
+    restart: always
+    container_name: baza
+    environment:
+      - POSTGRES_PASSWORD=progi
+      - POSTGRES_USER=progi
+      - POSTGRS_DB=ostecenja
+    ports:
+      - "5555:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresq/data
+      - ./SQL/database.sql:/docker-entrypoint-initdb.d/database.sql
