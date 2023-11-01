@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 CREATE TABLE Users
+=======
+
+CREATE TABLE User
+>>>>>>> bbb23fa (initilazing postgresql database in docker container)
 (
   email VARCHAR NOT NULL,
   firstName VARCHAR(20) NOT NULL,
@@ -57,7 +62,7 @@ CREATE TABLE Image
   FOREIGN KEY (reportID) REFERENCES Report(reportID)
 );
 
-CREATE TABLE feedback
+CREATE TABLE Feedback
 (
   status VARCHAR(20) NOT NULL,
   changeTS TIMESTAMP NOT NULL,
