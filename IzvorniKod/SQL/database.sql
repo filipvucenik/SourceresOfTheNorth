@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-CREATE TABLE Users
-=======
 
-CREATE TABLE User
->>>>>>> bbb23fa (initilazing postgresql database in docker container)
+CREATE TABLE Users
 (
   email VARCHAR NOT NULL,
   firstName VARCHAR(20) NOT NULL,
