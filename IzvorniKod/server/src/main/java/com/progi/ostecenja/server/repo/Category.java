@@ -9,8 +9,8 @@ public class Category {
     @Column(unique = true, nullable = false)
     private String categoryName;
 
-    @JoinColumn(name = "cityOfiiceID")
-    private Long cityOfficeID; //???
+    @JoinColumn(name = "cityOfficeID")
+    private Long cityOfficeID;
 
     public Long getCatgoryID() {
         return catgoryID;
