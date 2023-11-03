@@ -70,41 +70,107 @@
 					\textit{Funkcionalne zahtjeve razraditi u obliku obrazaca uporabe. Svaki obrazac je potrebno razraditi prema donjem predlošku. Ukoliko u nekom koraku može doći do odstupanja, potrebno je to odstupanje opisati i po mogućnosti ponuditi rješenje kojim bi se tijek obrasca vratio na osnovni tijek.}\\
 					
 
-					\noindent \underbar{\textbf{UC$<$broj obrasca$>$ -$<$ime obrasca$>$}}
+					\noindent \underbar{\textbf{UC1 -Prijava oštećenja}}
 					\begin{packed_item}
 	
-						\item \textbf{Glavni sudionik: }$<$sudionik$>$
-						\item  \textbf{Cilj:} $<$cilj$>$
-						\item  \textbf{Sudionici:} $<$sudionici$>$
-						\item  \textbf{Preduvjet:} $<$preduvjet$>$
-						\item  \textbf{Opis osnovnog tijeka:}
+						\item \textbf{Glavni sudionik:} Korisnik
+						\item  \textbf{Cilj:} Prijaviti oštećenje nadležnom gradskom uredu
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} Korisnik je pronašao oštećenje koje želi prijaviti
 						
+						\item  \textbf{Opis osnovnog tijeka:}
 						\item[] \begin{packed_enum}
-	
-							\item $<$opis korak jedan$>$
-							\item $<$opis korak dva$>$
-							\item $<$opis korak tri$>$
-							\item $<$opis korak četiri$>$
-							\item $<$opis korak pet$>$
+							\item Korisnik odabire opciju za prijavljivanje oštećenja
+							\item Korisnik popunjava podatke za prijavu oštećenja i podnosi prijavu
+							\item Prijava se sprema u bazu podataka
+							\item Korisnik dobiva jedinstveni kod svoje prijave.
 						\end{packed_enum}
 						
 						\item  \textbf{Opis mogućih odstupanja:}
-						
 						\item[] \begin{packed_item}
-	
-							\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+							\item[2.a] Korisnik nije unio sve obavezne podatke u prijavu.
 							\item[] \begin{packed_enum}
-								
-								\item $<$opis rješenja mogućeg scenarija korak 1$>$
-								\item $<$opis rješenja mogućeg scenarija korak 2$>$
-								
+								\item Korisnik dobiva obavijest.
+								\item Korisnik popunjava preostala obavezna polja ili odustaje od podnošenja prijave
 							\end{packed_enum}
-							\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-							\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
 							
 						\end{packed_item}
 					\end{packed_item}
+					
+					
+					\noindent \underbar{\textbf{UC2 -Pregled svih prijava}}
+					\begin{packed_item}
+						
+						\item \textbf{Glavni sudionik:} Korisnik
+						\item  \textbf{Cilj:} Pregled aktivnih prijava u sustavu
+						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Preduvjet:} -
+						
+						\item  \textbf{Opis osnovnog tijeka:}
+						\item[] \begin{packed_enum}
+							\item Korisnik odabire opciju za pregledavanje prijava
+							\item Aplikacija prikazuje prijave
+							\item Korisnik odabire prijavu
+							\item Prikazuju se podaci o prijavi
+						\end{packed_enum}
+					\end{packed_item}
 				
+				
+				\noindent \underbar{\textbf{UC3 -Filtriranje prijava}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Korisnik
+					\item  \textbf{Cilj:} Filtriranje prijava prilikom pregleda
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} Korisnik je odabrao opciju pregleda svih prijava
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Korisnik odabire opcije kod filtriranja
+						\item Aplikacija prikazuje filtrirane prijave
+					\end{packed_enum}
+					
+					\item  \textbf{Opis mogućih odstupanja:}
+					\item[] \begin{packed_item}
+						\item[1.a] Korisnik ne želi filtrirati prijave
+						\item[] \begin{packed_enum}
+							\item Aplikacija prikazuje nefiltrirane prijave
+						\end{packed_enum}
+						
+					\end{packed_item}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC4 -Pregled statistike prijava}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Korisnik
+					\item  \textbf{Cilj:} Pregled statistike prijava u sustavu
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} -
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Korisnik odabire opciju za pregledavanje statistike prijava
+						\item Aplikacija prikazuje razne podatke za prijave u sustavu
+					\end{packed_enum}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC5 -Filtriranje statistike prijava}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Korisnik
+					\item  \textbf{Cilj:} Filtriranje prijava prilikom pregleda statistike
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} Korisnik je odabrao opciju pregleda statistike prijava
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Korisnik odabire opcije kod filtriranja
+						\item Aplikacija prikazuje statistiku za filtrirane prijave
+					\end{packed_enum}
+				\end{packed_item}
 					
 				\subsubsection{Dijagrami obrazaca uporabe}
 					
