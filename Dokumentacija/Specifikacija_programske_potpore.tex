@@ -65,17 +65,13 @@
 			\subsection{Obrasci uporabe}
 				
 				\textbf{\textit{dio 1. revizije}}
-				
-				\subsubsection{Opis obrazaca uporabe}
-					\textit{Funkcionalne zahtjeve razraditi u obliku obrazaca uporabe. Svaki obrazac je potrebno razraditi prema donjem predlošku. Ukoliko u nekom koraku može doći do odstupanja, potrebno je to odstupanje opisati i po mogućnosti ponuditi rješenje kojim bi se tijek obrasca vratio na osnovni tijek.}\\
-					
 
-					\noindent \underbar{\textbf{UC1 -Prijava oštećenja}}
+					\noindent \underbar{\textbf{UC1 - Prijava oštećenja}}
 					\begin{packed_item}
 	
 						\item \textbf{Glavni sudionik:} Korisnik
 						\item  \textbf{Cilj:} Prijaviti oštećenje nadležnom gradskom uredu
-						\item  \textbf{Sudionici:} Baza podataka
+						\item  \textbf{Sudionici:} Gradski ured, Baza podataka
 						\item  \textbf{Preduvjet:} Korisnik je pronašao oštećenje koje želi prijaviti
 						
 						\item  \textbf{Opis osnovnog tijeka:}
@@ -98,7 +94,7 @@
 					\end{packed_item}
 					
 					
-					\noindent \underbar{\textbf{UC2 -Pregled svih prijava}}
+					\noindent \underbar{\textbf{UC2 - Pregled svih prijava}}
 					\begin{packed_item}
 						
 						\item \textbf{Glavni sudionik:} Korisnik
@@ -116,7 +112,7 @@
 					\end{packed_item}
 				
 				
-				\noindent \underbar{\textbf{UC3 -Filtriranje prijava}}
+				\noindent \underbar{\textbf{UC3 - Filtriranje prijava}}
 				\begin{packed_item}
 					
 					\item \textbf{Glavni sudionik:} Korisnik
@@ -141,10 +137,10 @@
 				\end{packed_item}
 				
 				
-				\noindent \underbar{\textbf{UC4 -Pregled statistike prijava}}
+				\noindent \underbar{\textbf{UC4 - Pregled statistike prijava}}
 				\begin{packed_item}
 					
-					\item \textbf{Glavni sudionik:} Korisnik
+					\item \textbf{Glavni sudionik:} Korisnik ili Djelatnik gradskog ureda
 					\item  \textbf{Cilj:} Pregled statistike prijava u sustavu
 					\item  \textbf{Sudionici:} Baza podataka
 					\item  \textbf{Preduvjet:} -
@@ -157,24 +153,318 @@
 				\end{packed_item}
 				
 				
-				\noindent \underbar{\textbf{UC5 -Filtriranje statistike prijava}}
+				\noindent \underbar{\textbf{UC5 - Filtriranje statistike prijava}}
 				\begin{packed_item}
 					
-					\item \textbf{Glavni sudionik:} Korisnik
+					\item \textbf{Glavni sudionik:} Korisnik ili Djelatnik Gradskog ureda
 					\item  \textbf{Cilj:} Filtriranje prijava prilikom pregleda statistike
 					\item  \textbf{Sudionici:} Baza podataka
 					\item  \textbf{Preduvjet:} Korisnik je odabrao opciju pregleda statistike prijava
 					
 					\item  \textbf{Opis osnovnog tijeka:}
 					\item[] \begin{packed_enum}
-						\item Korisnik odabire opcije kod filtriranja
+						\item Korisnik odabire opcije za filtriranje
 						\item Aplikacija prikazuje statistiku za filtrirane prijave
 					\end{packed_enum}
 				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC6 - Registracija}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Neregistrirani korisnik
+					\item  \textbf{Cilj:} Izrada korisničkog računa za korisnika
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} -
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Neregistrirani korisnik odabire opciju registracije
+						\item Neregistrirani korisnik popunjava podatke za izradu korisničkog računa i potvrđuje registraciju
+					\end{packed_enum}
+					
+					\item  \textbf{Opis mogućih odstupanja:}
+					\item[] \begin{packed_item}
+						\item[2.a] Unesena email adresa je već zauzeta
+						\item[] \begin{packed_enum}
+							\item Aplikacija prikazuje prikladnu obavijest i vraća korisnika na stranicu za registraciju
+							\item Neregistrirani korisnik unosi drugu email adresu ili odustaje od registracije
+						\end{packed_enum}
+					\end{packed_item}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC7 - Pregled vlastitih prijava}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Registrirani korisnik
+					\item  \textbf{Cilj:} Pregled prijava koje je korisnik do sada podnio
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} -
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Registrirani korisnik odabire ikonu svojeg profila
+						\item Registrirani korisnik na ponuđenom izborniku odabire opciju pregleda vlastitih prijava
+						\item Aplikacija prikazuje listu dosadašnjih prijava Registriranog korisnika
+						\item Registrirani korisnik odabire prijavu
+						\item Prikazuju se podaci o prijavi
+					\end{packed_enum}
+					
+					\item  \textbf{Opis mogućih odstupanja:}
+					\item[] \begin{packed_item}
+						\item[4.a] Registrirani korisnik nema podnesenih prijava
+						\item[] \begin{packed_enum}
+							\item Aplikacija prikazuje praznu listu
+							\item Registrirani korisnik odustaje od pregleda vlastitih prijava
+						\end{packed_enum}
+					\end{packed_item}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC8 - Pregled podataka o računu}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Registrirani korisnik
+					\item  \textbf{Cilj:} Pregled podataka o korisničkom računu
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} -
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Registrirani korisnik odabire ikonu svojeg profila
+						\item Registrirani korisnik na ponuđenom izborniku odabire opciju pregleda podataka o računu
+						\item Aplikacija prikazuje podatke o korisničkom računu
+					\end{packed_enum}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC9 - Promjena podataka o računu}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Registrirani korisnik
+					\item  \textbf{Cilj:} Promjena podataka o korisničkom računu
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} -
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Registrirani korisnik odabire ikonu svojeg profila
+						\item Registrirani korisnik na ponuđenom izborniku odabire opciju pregleda podataka o računu
+						\item Aplikacija prikazuje podatke o korisničkom računu
+						\item Registrirani korisnik odabire opciju uređivanja korisničkog računa
+						\item Registrirani korisnik mijenja željene podatke o računu i potvrđuje izmjene
+					\end{packed_enum}
+					
+					\item  \textbf{Opis mogućih odstupanja:}
+					\item[] \begin{packed_item}
+						\item[5.a] Registrirani korisnik mijenja email adresu u već zauzetu email adresu
+						\item[] \begin{packed_enum}
+							\item Aplikacija javlja pogrešku s odgovarajućom porukom
+							\item Registrirani korisnik unosi drugu email adresu ili odustaje od promjene email adrese ili uređivanja podataka o korisničkom računu
+						\end{packed_enum}
+					\end{packed_item}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC10 - Brisanje korisničkog računa}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Registrirani korisnik
+					\item  \textbf{Cilj:} Brisanje korisničkog računa
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} -
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Registrirani korisnik odabire ikonu svojeg profila
+						\item Registrirani korisnik na ponuđenom izborniku odabire opciju brisanja korisničkog računa
+						\item Korisnički račun se briše, korisnik postaje Neregistrirani korisnik i aplikacija ga vraća na početnu stranicu
+					\end{packed_enum}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC11 - Prijava u sustav}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Registrirani korisnik ili Djelatnik gradskog ureda
+					\item  \textbf{Cilj:} Prijava korisnika u sustav
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} -
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Korisnik odabire opciju prijave
+						\item Korisnik unosi svoju email adresu i lozinku
+						\item Aplikacija otvara početnu stranicu
+					\end{packed_enum}
+					
+					\item  \textbf{Opis mogućih odstupanja:}
+					\item[] \begin{packed_item}
+						\item[2.a] Registrirani korisnik unosi nevažeću kombinaciju email adrese i lozinke
+						\item[] \begin{packed_enum}
+							\item Aplikacija javlja pogrešku s odgovarajućom porukom i traži ponovnu prijavu
+							\item Korisnik unosi ispravnu kombinaciju ili odustaje od prijave i koristi aplikaciju u anonimnom načinu
+						\end{packed_enum}
+					\end{packed_item}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC12 - Odjava iz sustava}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Registrirani korisnik ili Djelatnik gradskog ureda
+					\item  \textbf{Cilj:} Odjava korisnika iz sustav
+					\item  \textbf{Sudionici:} -
+					\item  \textbf{Preduvjet:} -
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item korisnik odabire ikonu svojeg profila
+						\item Korisnik na ponuđenom izborniku odabire opciju odjave iz sustava
+						\item Aplikacija otvara početnu stranicu u anonimnom načinu
+					\end{packed_enum}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC13 - Obrada prijava}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Djelatnik gradskog ureda
+					\item  \textbf{Cilj:} Obrada prijave u gradskom uredu
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} Djelatnik pregledava prijave ureda
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Djelatnik gradskog ureda odabire pijavu
+						\item Djelatnik mijenja status prijave
+					\end{packed_enum}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC14 - Odbacivanje pristigle prijave}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Djelatnik gradskog ureda
+					\item  \textbf{Cilj:} Odbacivanje nevaljale prijave
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} Djelatnik gradskog ureda obrađuje prijavu, prijava ima status \textit{na čekanju}
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Djelatnik procjenjuje da prijava nije utemeljena
+						\item Djelatnik odabire opciju za odbacivanje prijave
+					\end{packed_enum}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC15 - Prebacivanje prijave na drugi ured}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Djelatnik gradskog ureda
+					\item  \textbf{Cilj:} Prosljeđivanje prijave nadležnom gradskom uredu
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} Djelatnik gradskog ureda obrađuje prijavu, prijava ima status \textit{na čekanju}
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Djelatnik procjenjuje da je neki drugi ured nadležan za ovu prijavu
+						\item Djelatnik odabire opciju prebacivanja prijave na drugi ured
+						\item Djelatnik odabire gradski ured kojemu želi proslijediti prijavu i potvrđuje unos
+					\end{packed_enum}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC16 - Objedinjenje nepovezanih prijava}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Djelatnik gradskog ureda
+					\item  \textbf{Cilj:} Objedinjavanje prijava istog oštećenja
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} Djelatnik gradskog ureda obrađuje prijavu, prijava ima status \textit{na čekanju}
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Djelatnik procjenjuje da postoji više prijava istog oštećenja
+						\item Djelatnik odabire opciju objedinjavanja prijava
+						\item Djelatnik odabire prijave koje žei objediniti i potvrđuje odabir
+					\end{packed_enum}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC17 - Slanje povratnih informacija}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Djelatnik gradskog ureda
+					\item  \textbf{Cilj:} Informiranje prijavitelja o promjenama u njegovoj prijavi
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} Djelatnik gradskog ureda je prilikom obrade prijave izvršio neku radnju/promjenu nad prijavom
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Aplikacija šalje email kojim obavještava prijavitelja o promjenama vezanim uz prijavu
+					\end{packed_enum}
+					
+						\item  \textbf{Opis mogućih odstupanja:}
+					\item[] \begin{packed_item}
+						\item[1.a] Prijava je anonimna
+						\item[] \begin{packed_enum}
+							\item Aplikacija ne radi ništa
+						\end{packed_enum}
+					\end{packed_item}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC18 - Pregled prijava gradskog ureda}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Djelatnik gradskog ureda
+					\item  \textbf{Cilj:} Pregledavanje prijava koje gradski ured obrađuje/treba obraditi/je obradio
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} -
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Djelatnik gradskog ureda je na glavnoj stranici za Djelatnike gradskog ureda
+						\item Aplikacija prikazuje prijave iz liste novopristiglih prijava
+					\end{packed_enum}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC19 - Filtriranje prijava gradskog ureda}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Djelatnik gradskog ureda
+					\item  \textbf{Cilj:} Filtriranje prijava koje gradski ured mora obraditi/obrađuje/je obradio
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} Djelatnik gradskog ureda pregledava prijave
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Djelatnik gradskog ureda odabire listu prijava prema statusu prijava
+						\item Aplikacija prikazuje odabranu listu prijava
+						\item Djelatnik unosi dodatne parametre za filtriranje
+						\item Aplikacija prikazuje filtriranu listu prijava
+					\end{packed_enum}
+				\end{packed_item}
+				
+				\eject
 					
 				\subsubsection{Dijagrami obrazaca uporabe}
 					
-					\textit{Prikazati odnos aktora i obrazaca uporabe odgovarajućim UML dijagramom. Nije nužno nacrtati sve na jednom dijagramu. Modelirati po razinama apstrakcije i skupovima srodnih funkcionalnosti.}
+					\begin{figure}[H]
+						\includegraphics[width=\textwidth]{slike/Funkcionalnosti_korisnika.jpg} %veličina u odnosu na širinu linije
+						\caption{Dijagram obrasca uporabe, funkcionalnosti korisnika}
+						\label{fig:dijagramObrascaUporabe1} %label mora biti drugaciji za svaku sliku
+					\end{figure}
+					
+					\begin{figure}[H]
+						\includegraphics[width=\textwidth]{slike/Obrada_prijava.jpg} %veličina u odnosu na širinu linije
+						\caption{Dijagram obrasca uporabe, obrada prijava}
+						\label{fig:dijagramObrascaUporabe2} %label mora biti drugaciji za svaku sliku
+					\end{figure}
+					
 				\eject		
 				
 			\subsection{Sekvencijski dijagrami}
