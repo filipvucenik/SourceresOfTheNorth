@@ -1,4 +1,4 @@
-CREATE TABLE User
+CREATE TABLE Users
 (
   email VARCHAR NOT NULL,
   firstName VARCHAR(20) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE CityOffice
 CREATE TABLE ReportGroup
 (
   groupID BIGINT NOT NULL,
-  PRIMARY KEY (groupID),
+  PRIMARY KEY (groupID)
 );
 
 CREATE TABLE Category
@@ -35,7 +35,9 @@ CREATE TABLE Category
 
 CREATE TABLE Report
 (
+  
   reportID BIGINT NOT NULL,
+  reportHeadline VARCHAR(30) NOT NULL, 
   location VARCHAR(20) NOT NULL,
   description VARCHAR(100) NOT NULL,
   reportTS TIMESTAMP NOT NULL,
