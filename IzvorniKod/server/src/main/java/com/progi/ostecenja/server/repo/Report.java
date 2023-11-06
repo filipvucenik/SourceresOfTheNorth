@@ -8,7 +8,8 @@ import java.sql.Timestamp;
 public class Report {
     @Id @GeneratedValue
     private Long reportID;
-
+    @Column
+    private String reportHeadline;
     @Column
     private String location;
 
