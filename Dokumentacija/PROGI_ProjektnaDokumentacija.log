@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.23)  4 NOV 2023 13:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.23)  7 NOV 2023 00:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1669,16 +1669,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [21]
-<slike/Funkcionalnosti_korisnika.jpg, id=376, 1037.8775pt x 696.6025pt>
-File: slike/Funkcionalnosti_korisnika.jpg Graphic file (type jpg)
-<use slike/Funkcionalnosti_korisnika.jpg>
-Package pdftex.def Info: slike/Funkcionalnosti_korisnika.jpg  used on input lin
-e 457.
+<slike/Funkcionalnosti_korisnikaUCD.jpg, id=377, 1037.8775pt x 696.6025pt>
+File: slike/Funkcionalnosti_korisnikaUCD.jpg Graphic file (type jpg)
+<use slike/Funkcionalnosti_korisnikaUCD.jpg>
+Package pdftex.def Info: slike/Funkcionalnosti_korisnikaUCD.jpg  used on input 
+line 465.
 (pdftex.def)             Requested size: 435.6108pt x 292.37973pt.
-<slike/Obrada_prijava.jpg, id=377, 862.22125pt x 593.21625pt>
-File: slike/Obrada_prijava.jpg Graphic file (type jpg)
-<use slike/Obrada_prijava.jpg>
-Package pdftex.def Info: slike/Obrada_prijava.jpg  used on input line 463.
+<slike/Obrada_prijavaUCD.jpg, id=378, 862.22125pt x 593.21625pt>
+File: slike/Obrada_prijavaUCD.jpg Graphic file (type jpg)
+<use slike/Obrada_prijavaUCD.jpg>
+Package pdftex.def Info: slike/Obrada_prijavaUCD.jpg  used on input line 471.
 (pdftex.def)             Requested size: 435.6108pt x 299.70308pt.
 
 
@@ -1694,8 +1694,8 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.3.1})
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.467 					
-            <./slike/Funkcionalnosti_korisnika.jpg>]
+l.475 					
+            <./slike/Funkcionalnosti_korisnikaUCD.jpg>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1709,9 +1709,9 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.3.2})
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.468 				\eject
-                		 <./slike/Obrada_prijava.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 472--473
+l.476 				\eject
+                		 <./slike/Obrada_prijavaUCD.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 480--481
 
  []
 
@@ -1724,7 +1724,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [24]
-Underfull \hbox (badness 10000) in paragraph at lines 479--480
+Underfull \hbox (badness 10000) in paragraph at lines 487--488
 
  []
 
@@ -2086,8 +2086,8 @@ anged.
 (rerunfilecheck)             Checksum: 9A91B2F970D8B1C79EDF0EDE14DC49B6;4565.
  ) 
 Here is how much of TeX's memory you used:
- 17753 strings out of 474503
- 311707 string characters out of 5756704
+ 17754 strings out of 474503
+ 311757 string characters out of 5756704
  2068043 words of memory out of 5000000
  39200 multiletter control sequences out of 15000+600000
  624176 words of font info for 177 fonts, out of 8000000 for 9000
@@ -2103,10 +2103,10 @@ dist/fonts/type1/public/kpfonts/jkpmi.pfb><c:/texlive/2023/texmf-dist/fonts/typ
 e1/public/kpfonts/jkpmit8a.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/k
 pfonts/jkpmn8a.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/kpfonts/jkpsy
 .pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/kpfonts/jkpttmn8a.pfb>
-Output written on PROGI_ProjektnaDokumentacija.pdf (43 pages, 2355632 bytes).
+Output written on PROGI_ProjektnaDokumentacija.pdf (43 pages, 2355771 bytes).
 PDF statistics:
- 591 PDF objects out of 1000 (max. 8388607)
- 520 compressed objects within 6 object streams
- 182 named destinations out of 1000 (max. 500000)
+ 592 PDF objects out of 1000 (max. 8388607)
+ 521 compressed objects within 6 object streams
+ 183 named destinations out of 1000 (max. 500000)
  237 words of extra memory for PDF output out of 10000 (max. 10000000)
 
