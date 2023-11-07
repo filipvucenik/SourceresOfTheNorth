@@ -11,3 +11,8 @@
 	- razrađen dizajn baze podataka
 	- rasprava o dizajnu aplikacije
 	- razrađena neka svojstva aplikacije
+
+3. SASTANAK (6.11.2023.)
+----------------------------------------
+	- izvještaj svakog dijela tima o napretku
+	- rad na dizajnu aplikacije

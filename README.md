@@ -1,44 +1,74 @@
-# Aplikacija za prijavu šteta na javnim površinama
-## Opis projekta
-Ovaj projekt razvijan je u sklopu projeknog zadatka kolegija Programsko Inženjerstvo na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu. Cilj ovog projekta je razvoj web aplikacije koja će olakšati proces prijave oštećenja javnih površina i cesta u gradovima te analiza povratnih informacija. Aplikacija će potaknuti građane da 
-aktivno sudjeluju u otkrivanju šteta na javnim površinama te time potpomognu radu gradskih ureda na sanaciji štete i poboljšanju životnih uvjeta svih građana. Ovakav bi pristup sanacijama ne samo uvelike olakšao sanaciju štete na javnim površinama nego bi i podigao svijest građana na čuvanje javnih površina. Osim navedenih prednosti projekt bi također dao transparentan uvid u sam postupak sanacije što bi dodatno motiviralo gradske urede na što brže i kvalitetnije obnavljanje oštećenih javnih površina.
-## Opseg projektnog zadatka:
-### 1. Korisniško sučelje
-- Razvoj web sučelja za pristup putem internetskog preglednika.
-- Grafički prijateljsko sučelje za korisnike.
-- Mogućnost prijave korisnika u sustav.
-### 2. Prijava problema
-- Omogućavanje građanima da prijave oštećenja na javnim površinama i cestama.
-- Prijava sadrži: naziv problema, kratak opis, geografske koordinate te opcionalno fotografije.
-- Kategorizacija problema i predlaganje odgovarajućeg gradskog ureda.
-### 3. Odabir lokacija
-- Mogućnost odabira koordinata putem interaktivne karte.
-- Unos adrese kao alternativnog načina odabira lokacije.
-- Automatsko izvlačenje geografskih koordinata iz meta podataka slika ili iz trenutne lokacije uređaja.
-### 4. Anonimna prijava
-- Omogućavanje građanima da podnose prijave anonimno.
-- Praćenje statusa prijave putem jedinstvenog broja prijave.
-### 5. Povezivanje sličnih prijava
-- Prepoznavanje i povezivanje sličnih prijava na istoj lokaciji.
-- Mogućnost građana da povežu svoju prijavu s postojećim prijavama.
-### 6. Obrada prijava
-- Gradski uredi odgovorni za obradu i rješavanje prijava građana.
-- Mogućnost gradskih ureda da promijene status prijave (aktivna, u postupku, riješena).
-- Korisnička mogućnost praćenja statusa prijave putem broja prijave i preko svojeg profila.
-### 7. Javna vidljivost prijave
-- Sve prijave su javno vidljive i grupirane po temi i lokaciji.
-- Statistika statusa prijava i vremena potrebnog za obradu u realnome vremenu.
-### 8. Zaštita i sigurnost podataka
-- Implementacija sigurnih mehanizama zaštite osobnih podataka građana.
-- Zaštita podataka o prijavama i njihovoj obradi.
-### 9. Korisnička podrška
-- Osiguravanje uputa i vodiča za korištenje aplikacije.
-### 10 Održavanje
-- Periodično održavanje i nadogradnje aplikacije kako bi se održala funkcionalnost i sigurnost.
-- Ispravci grešaka i poboljšanja prema povratnim informacijama korisnika.
-## Ciljana publika
-Aplikacija je namijenjena svim proaktivnim građanima koji žele prijaviti oštećenja na javnim površinama i cestama te gradskim uredima koji će obrađivati te prijave i organizirati sanaciju.
+# Programsko inženjerstvo - aplikacija za prijavu oštećenja
 
-## Organizacija Tima
-**Voditelj**: Petar Belošević <br>
-**Članovi**: Vinko Brkić, Tomislav Grudić, Fran Meglić, Bruno Mikulan, Eno Peršić, Filip Vučenik
+ Ovaj projekt je reultat timskog rada u sklopu projeknog zadatka kolegija [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz) na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu. 
+
+# Opis projekta
+
+U sklopu ovog projekta razvijamo web aplikaciju za prijavu oštećenja na javnim površinama u gradu. Aplikacija omogućava građanima jednostavan način prijave oštećenja i praćenja postojećih prijava u sustavu. Gradskim uredima aplikacija omogućava bolji uvid u postojeće probleme u zajednici. Također unaprijeđuje transparentnost rada gradskih ureda s obzirom da će njihovo obrađivanje prijava biti javno dostupno. 
+
+Cilj ovoga projekta je na praktičan način naučiti kako se razvija jednostavno programsko rješenje u timu. Kroz proces razvoja programske potpore cilj nam je naučiti kako se organizirati i raditi kao tim. Također kroz projekt želimo naučiti koristiti nove tehnologije i koristiti već postojeću programsku potporu za neke zahtjeve. Kroz projekt usvajamo korištenje React i Spring Boot radnih okvira.
+
+# Funkcijski zahtjevi
+Ključni funkcijski zahtjevi ovog projekta su:
+- F01: registracija korisnika
+- F02: prijava korisnika
+- F03: anoniman korisnik
+- F04: podnošenje prijave oštećenja (naslov, opis, lokacija, slika - opcionalno, kategorija)
+- F05: odabir lokacije oštećenja preko interaktivne karte
+- F06: odabir lokacije oštećenja preko unosa adrese
+- F07: iščitavanje lokacije oštećenja iz metapodataka slike
+- F08: automatsko prepoznavanje kategorije prijave
+- F09: mogućnost automatskog predlaganja nadovezivanja prijave na već postojeću
+- F10: Prijava ima status (na čekanju, u procesu rješavanja, riješena)
+- F11: nakon podnošenja prijave korisnik dobiva kod
+- F12: pregledavanje podataka o korisničkom računu prijavljenog korisnika
+- F13: uređivanje podataka o korisničkom računu prijavljenog korisnika
+- F14: pregledavanje prijava prijavljenog korisnika
+- F15: pregledavanje svih prijava u sustavu preko interaktivne karte
+- F16: prijave sa statusom riješena su dostupne isključivo pretraživanjem preko koda
+- F17: mogućnost filtriranja prijava u sustavu prilikom pregledavanja
+- F18: pretraživanje prijave preko koda
+- F19: pregled statistike za prijave odabrane filtrom
+- F20: prijava djelatnika gradskog ureda u sustav
+- F21: djelatnik gradskog ureda može odbaciti nevažeću prijavu
+- F22: djelatnik gradskog ureda može proslijediti prijavu drugom uredu
+- F23: djelatnik gradskog ureda može mijenjati status prijave
+- F24: povratna informacija korisniku (ako je registrirani) za svaku promjenu nad prijavom
+- F25: djelatnik gradskog ureda ima uvid samo prijave pristigle na njegov ured
+- F26: pregled prijava kroz 3 liste (jedna za svaki status) za djelatnike gradskog ureda
+- F27: dodatno filtriranje liste prijava za djelatnike gradskog ureda
+- F28: pregled statistike za prijave odabrane filtrom za djelatnike gradskog ureda
+
+# Tehnologije
+U ovom projektu se koriste Spring Boot i React radni okviri.
+
+# Članovi tima 
+- Petar Belošević (https://github.com/PetarBelosevic)
+- Vinko Brkić (https://github.com/v-brkic)
+- Tomislav Grudić (https://github.com/tomGru55)
+- Fran Meglić (https://github.com/meglicfran)
+- Bruno Mikulan (https://github.com/b-mikulan)
+- Eno Peršić (https://github.com/wowow-02)
+- Filip Vučenik (https://github.com/filipvucenik)
+
+Voditelj tima: Petar Belošević
+
+# 📝 Kodeks ponašanja [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
+Kroz rad na ovom projektu svi članovi slijede [KODEKS PONAŠANJA STUDENATA FAKULTETA ELEKTROTEHNIKE I RAČUNARSTVA SVEUČILIŠTA U ZAGREBU](https://www.fer.hr/_download/repository/Kodeks_ponasanja_studenata_FER-a_procisceni_tekst_2016%5B1%5D.pdf), naputke za timski rad sa predmeta [Programsko inženjerstvo](https://wwww.fer.hr) i poštuju [etički kodeks IEEE-a](https://www.ieee.org/about/corporate/governance/p7-8.html).
+
+U timu imamo podjelu rada na frontend (3 člana), backend (3 člana) i dokumentaciju (1 član). Tim ima formalni sastanak jednom tjedno, a po potrebi i dodatne neformalne sastanke. Na sastanku svaki član izvještava ostatak tima o napretku na svojem radu, korigiraju se dosadašnja rješenja i definiraju daljnji koraci.
+
+# 📝 Licenca
+Važeča (1)
+[![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
+
+Ovaj repozitorij sadrži otvoreni obrazovni sadržaji (eng. Open Educational Resources)  i licenciran je prema pravilima Creative Commons licencije koja omogućava da preuzmete djelo, podijelite ga s drugima uz 
+uvjet da navođenja autora, ne upotrebljavate ga u komercijalne svrhe te dijelite pod istim uvjetima [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License HR][cc-by-nc-sa].  
+
+[![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
+
+[cc-by-nc-sa]: https://creativecommons.org/licenses/by-nc/4.0/deed.hr 
+[cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
+[cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
+
+### Reference na licenciranje repozitorija
