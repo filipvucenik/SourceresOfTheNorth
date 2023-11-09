@@ -36,9 +36,6 @@ public class Report {
         return reportHeadline;
     }
 
-
-
-
     public Long getReportID() {
         return reportID;
     }
