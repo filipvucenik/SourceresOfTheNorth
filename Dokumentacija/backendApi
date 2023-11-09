@@ -13,7 +13,7 @@ category: - get:/category - "vraca sva imena kategorija"
 
 keywords: - get:/keyords - "vraca sve ključne riječi i njihove pridjeljenje kategorije {imena}"
 
-filters: - get:/filtered/{categoryID, TS prijave od,TS prijave do, status, lokacija, radijus u km} - "vraca sve prijave koje zadovoljavaju uvjete i ovlasti korisnika iz trenutnog sessiona"
+filters: - get:/filtered/{categoryID, TS prijave od,TS prijave do, status, lokacija, radijus u km} - "vraca sve prijave koje zadovoljavaju uvjete i ovlasti korisnika iz trenutnog sessiona, za predane prazne vrijednosti vracaju se sve entorke koje zadovoljavaju ostale kriterije"
 
 
 
