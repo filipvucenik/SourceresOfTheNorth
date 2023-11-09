@@ -6,15 +6,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 
 @Entity(name="categoryKeywords")
-public class categoryKeywords {
-    @Id@GeneratedValue
+public class CategoryKeywords {
+    @Id @GeneratedValue
     private long keywordID;
 
     private String keyword;
-    @Id @JoinColumn
+
+    @JoinColumn
     private long categoryID;
-    public categoryKeywords(){}
-    public categoryKeywords(long keywordID, String keyword, long categoryID) {
+
+    public CategoryKeywords(){}
+
+    public CategoryKeywords(long keywordID, String keyword, long categoryID) {
         this.keywordID = keywordID;
         this.keyword = keyword;
         this.categoryID = categoryID;

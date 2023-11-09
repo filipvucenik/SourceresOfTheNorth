@@ -1,5 +1,6 @@
 package com.progi.ostecenja.server.controler;
 
+import com.progi.ostecenja.server.service.RequestDeniedException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -23,4 +24,12 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(props, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(RequestDeniedException.class)
+    public ResponseEntity<?>handleRequestDenied(Exception e, WebRequest req){
+        Map<String, String> props = new HashMap<>();
+        props.put("message", e.getMessage());
+        props.put("status", "400");
+        props.put("error", "Bad Request");
+        return new ResponseEntity<>(props, HttpStatus.BAD_REQUEST);
+    }
 }
