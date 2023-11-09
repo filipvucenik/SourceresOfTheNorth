@@ -3,7 +3,7 @@ package com.progi.ostecenja.server.repo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
-@Entity
+@Entity(name="USERS")
 public class Users {
     @Id
     @GeneratedValue

@@ -53,6 +53,8 @@ public class UsersController {
 
     @PutMapping("/{id}")
     public Users updateUser(@PathVariable("id") long id, @RequestBody Users user){
+        if(user.getUserId()==null)
+            throw new IllegalArgumentException("User ID missing");
         if(!user.getUserId().equals(id))
             throw new IllegalArgumentException("User ID must be preserved");
         return usersService.updateUser(user);
