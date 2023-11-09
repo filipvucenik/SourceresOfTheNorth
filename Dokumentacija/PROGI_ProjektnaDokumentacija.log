@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.23)  9 NOV 2023 22:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.23)  10 NOV 2023 00:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1198,8 +1198,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 33--33
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 33--33
-[]\OT1/jkp/m/n/12 07.09.2013. 
+Underfull \hbox (badness 10000) in paragraph at lines 33--33
+[]\OT1/jkp/m/n/12 Petar
  []
 
 
@@ -1304,8 +1304,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 33--33
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 33--33
-[]\OT1/jkp/m/n/12 07.09.2013. 
+Underfull \hbox (badness 10000) in paragraph at lines 33--33
+[]\OT1/jkp/m/n/12 Petar
  []
 
 
@@ -1435,8 +1435,19 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1})
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.28 		
+l.27 		
         <./slike/GradskoOko.png>]
+Overfull \hbox (23.58878pt too wide) in paragraph at lines 28--29
+\OT1/jkp/m/n/12 ozna[]cenim pri-ja-vama na njoj. Pri-jave se mogu do-datno fil-
+tri-rati po vre-menu podno[]senja
+ []
+
+
+Overfull \hbox (4.6336pt too wide) in paragraph at lines 28--29
+\OT1/jkp/m/n/12 pri-jave, sta-tusu, ka-te-go-riji o[]ste[]cenja i nadle[]znom g
+rad-skom uredu. Ko-ris-nik tako[]der
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1446,9 +1457,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [7]
-Overfull \hbox (7.40594pt too wide) in paragraph at lines 57--58
-\OT1/jkp/m/n/12 o[]ste[]cenja na ko-mu-nal-noj in-fras-truk-turi ve-za-noj za o
-bo-rin-ske vode, povr[]sinama
+Overfull \hbox (15.92409pt too wide) in paragraph at lines 49--50
+[]\OT1/jkp/m/n/12 Ako pro-ci-jeni da je pris-ti-gla pri-java pos-lana na krivi 
+ured, dje-lat-nik ima mogu[]cnost
+ []
+
+
+Overfull \hbox (22.68246pt too wide) in paragraph at lines 51--52
+[]\OT1/jkp/m/n/12 Sli[]cno, ako pro-ci-jeni da pris-ti-gla pri-java uop[]ce nij
+e va-ljana, dje-lat-nik ima mogu[]cnost
  []
 
 
@@ -1460,13 +1477,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [8]
-Overfull \hbox (19.43768pt too wide) in paragraph at lines 62--63
+Overfull \hbox (7.40594pt too wide) in paragraph at lines 60--61
+\OT1/jkp/m/n/12 o[]ste[]cenja na ko-mu-nal-noj in-fras-truk-turi ve-za-noj za o
+bo-rin-ske vode, povr[]sinama
+ []
+
+
+Overfull \hbox (19.43768pt too wide) in paragraph at lines 65--66
 []\OT1/jkp/m/n/12 Uz male pre-inake mogu[]ce je pri-la-go-diti apli-ka-ciju da 
 pru[]za istu pot-poru gra[]danima
  []
 
 
-Overfull \hbox (3.86078pt too wide) in paragraph at lines 62--63
+Overfull \hbox (3.86078pt too wide) in paragraph at lines 65--66
 \OT1/jkp/m/n/12 blem. Takvo pona[]sanje bi se mo-glo im-ple-men-ti-rati uz malo
  prera[]divanja i kori[]stenje
  []
@@ -1480,12 +1503,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 68--69
+Underfull \hbox (badness 10000) in paragraph at lines 71--72
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 74--75
+Underfull \hbox (badness 10000) in paragraph at lines 77--78
 
  []
 
@@ -1517,11 +1540,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 <slike/aktivnost.PNG, id=219, 670.75594pt x 689.57625pt>
 File: slike/aktivnost.PNG Graphic file (type png)
 <use slike/aktivnost.PNG>
-Package pdftex.def Info: slike/aktivnost.PNG  used on input line 147.
+Package pdftex.def Info: slike/aktivnost.PNG  used on input line 150.
 (pdftex.def)             Requested size: 268.2976pt x 275.8256pt.
 File: slike/aktivnost.PNG Graphic file (type png)
 <use slike/aktivnost.PNG>
-Package pdftex.def Info: slike/aktivnost.PNG  used on input line 154.
+Package pdftex.def Info: slike/aktivnost.PNG  used on input line 157.
 (pdftex.def)             Requested size: 435.6108pt x 447.82993pt.
 
 
@@ -1537,7 +1560,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.2.2})
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.158 		
+l.161 		
          <./slike/aktivnost.PNG>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1552,7 +1575,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.2.3})
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.161 		\eject
+l.164 		\eject
               ])
 \openout2 = `Specifikacija_programske_potpore.aux'.
 
@@ -2345,7 +2368,7 @@ e.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/kpfonts/jkpmn8a.pfb><c:/te
 xlive/2023/texmf-dist/fonts/type1/public/kpfonts/jkpmne.pfb><c:/texlive/2023/te
 xmf-dist/fonts/type1/public/kpfonts/jkpsy.pfb><c:/texlive/2023/texmf-dist/fonts
 /type1/public/kpfonts/jkpttmn8a.pfb>
-Output written on PROGI_ProjektnaDokumentacija.pdf (55 pages, 2872127 bytes).
+Output written on PROGI_ProjektnaDokumentacija.pdf (55 pages, 2872627 bytes).
 PDF statistics:
  702 PDF objects out of 1000 (max. 8388607)
  605 compressed objects within 7 object streams
