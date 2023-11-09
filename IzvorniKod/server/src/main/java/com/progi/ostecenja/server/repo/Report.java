@@ -28,6 +28,17 @@ public class Report {
     @JoinColumn(name="categoryID")
     private Long categoryID;
 
+    public void setReportHeadline(String reportHeadline) {
+        this.reportHeadline = reportHeadline;
+    }
+
+    public String getReportHeadline() {
+        return reportHeadline;
+    }
+
+
+
+
     public Long getReportID() {
         return reportID;
     }
@@ -58,8 +69,9 @@ public class Report {
 
     public Report(){
     }
-    public Report(Long reportID, String location, String description, Timestamp reportTS, Long userID, Long groupID, Long categoryID) {
+    public Report(Long reportID,String reportHeadline, String location, String description, Timestamp reportTS, Long userID, Long groupID, Long categoryID) {
         this.reportID = reportID;
+        this.reportHeadline=reportHeadline;
         this.location = location;
         this.description = description;
         this.reportTS = reportTS;
