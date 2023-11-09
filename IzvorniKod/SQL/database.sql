@@ -32,7 +32,14 @@ CREATE TABLE Category
   PRIMARY KEY (categoryID),
   FOREIGN KEY (cityOfficeId) REFERENCES CityOffice(cityOfficeId)
 );
-
+CREATE TABLE categoryKeywords
+(
+  keywordID BIGINT NOT NULL,
+  keyword VARCHAR(20) NOT NULL,
+  categoryID BIGINT NOT NULL,
+  PRIMARY KEY (keywordID),
+  FOREIGN KEY(categoryID) REFERENCES Category(categoryID)
+);
 CREATE TABLE Report
 (
   
