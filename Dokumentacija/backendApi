@@ -4,10 +4,12 @@ login: 	- post:/users -"sprema podatke za novog korisnika u bazu"
 	- get:/users?userName=username - "šalje username za provjeru logina, vracaju se podaci o useru, pamti se u sessionu"
 	- put:/users - "promjena podataka za korisnika"
 
-report:	- post:/reports -"sprema novu prijavu u bazu"
+report:	- post:/reports -"sprema novu prijavu u bazu, trazeni parametri su: {ong reportID, String reportHeadline, String location, String description, Long categoryID}"
+	- post:/reports/uploadImage - "sprema sliku na server i vraca putanju slike unutar izlozene mape, index.html u static fileovima na serveru je demo"
 	- get:/reports  -"ovisno o prijavljenom korisniku vraća ili sve korisnikove prijave ili sve prijave od ureda"
 	- get:/reports/{id} - "salje sve podatke o jednom reporu"
 	- put:/reports/{id} - "sluzi administratoru za promjenu statusa"
+	- get:/reports/images/{reportid} - "salje listu slika od reportida"
 
 report location: - get:/reportsLocation - "vraca sve lokacije, zadnje statuse, naslove i kratke opise nerijesenih grupa prijava" {za veliku mapu"}
 
@@ -15,7 +17,7 @@ category: - get:/category - "vraca sva imena kategorija"
 
 keywords: - get:/keyords - "vraca sve ključne riječi i njihove pridjeljenje kategorije {imena}"
 
-filters: - get:/filtered/{categoryID, TS prijave od,TS prijave do, status, lokacija, radijus u km} - "vraca sve prijave koje zadovoljavaju uvjete i ovlasti korisnika iz trenutnog sessiona, za predane prazne vrijednosti vracaju se sve entorke koje zadovoljavaju ostale kriterije"
+filters: - get:/filtered/{categoryID, TS prijave od,TS prijave do, status, lokacija, radijus u km} - "vraca sve prijave koje zadovoljavaju uvjete i ovlasti korisnika iz trenutnog sessiona"
 
 
 
