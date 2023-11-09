@@ -1,7 +1,7 @@
 login: 	- post:/users -"sprema podatke za novog korisnika u bazu"
 	- get:/users - "vraca listu svih korisnika"
-	- get:/users?email=abc@gmail.com - "šalje email za provjeru za logina, vracaju se podaci o useru, pamti se u sessionu"
-	- get:/users?userName=username - "šalje username za provjeru za logina, vracaju se podaci o useru, pamti se u sessionu"
+	- get:/users?email=abc@gmail.com - "šalje email za provjeru logina, vracaju se podaci o useru, pamti se u sessionu"
+	- get:/users?userName=username - "šalje username za provjeru logina, vracaju se podaci o useru, pamti se u sessionu"
 	- put:/users - "promjena podataka za korisnika"
 
 report:	- post:/reports -"sprema novu prijavu u bazu"
