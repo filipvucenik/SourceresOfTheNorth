@@ -12,7 +12,6 @@ public class Image {
     @GeneratedValue
     private Long imageID;
 
-    @Id
     @JoinColumn(name ="reportID")
     private Long reportID;
 
