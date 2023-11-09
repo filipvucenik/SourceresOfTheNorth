@@ -49,36 +49,170 @@
 
 		\section{Baza podataka}
 			
-			\textbf{\textit{dio 1. revizije}}\\
+		\textbf{\textit{dio 1. revizije}}\\
+			
+		Ovaj sustav će za svoje potrebe koristiti relacijsku bazu podataka implementirana u PostgreSQL-u. Ovakav tip baze podataka svojom strukturom omogućuje jednostavno modeliranje elemenata iz stvarnog svijeta i zbog toga je široko primjenjiv. Odabrali smo implementaciju u PostgreSQL-u jer smo s ovom implementacijom već dobro upoznati. Relacijske baze podataka se sastoje od relacija. Relacije su predstavljene tablicama koje su definirane svojim nazivom i skupom atributima. Bazu podataka koristimo za jednostavnu i sigurnu pohranu, izmjenu, umetanje i dohvat podataka potrebnih za rad sustava. Naša baza podataka se sastoji od sljedećih relacija, odnosno tablica:
+		
+		\begin{packed_item}
+			\item Users
+			\item Report
+			\item Image
+			\item Category
+			\item CategoryKeywords
+			\item ReportGroup 
+			\item Feedback
+			\item CityOffice
+		\end{packed_item}
 			
 		\textit{Potrebno je opisati koju vrstu i implementaciju baze podataka ste odabrali, glavne komponente od kojih se sastoji i slično.}
 		
 			\subsection{Opis tablica}
 			
-
-				\textit{Svaku tablicu je potrebno opisati po zadanom predlošku. Lijevo se nalazi točno ime varijable u bazi podataka, u sredini se nalazi tip podataka, a desno se nalazi opis varijable. Svjetlozelenom bojom označite primarni ključ. Svjetlo plavom označite strani ključ}
-				
-				
-				\begin{longtblr}[
-					label=none,
+			\textbf{Users} tablica čuva podatke o korisničkim računima koje korisnici izrađuju tijekom registracije. Tablica je povezana vezom \textit{One-to-Many} s tablicom \textit{Report} preko atributa \textit{userID}.
+			
+			\begin{longtblr}[
+					label=Users,
 					entry=none
-					]{
-						width = \textwidth,
-						colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
-						rowhead = 1,
-					} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
-					\hline \SetCell[c=3]{c}{\textbf{korisnik - ime tablice}}	 \\ \hline[3pt]
-					\SetCell{LightGreen}IDKorisnik & INT	&  	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  	\\ \hline
-					korisnickoIme	& VARCHAR &   	\\ \hline 
-					email & VARCHAR &   \\ \hline 
-					ime & VARCHAR	&  		\\ \hline 
-					\SetCell{LightBlue} primjer	& VARCHAR &   	\\ \hline 
-				\end{longtblr}
+				]{
+					width = \textwidth,
+					colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
+					rowhead = 1,
+				} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+				\hline \SetCell[c=3]{c}{\textbf{Users}}	 \\ \hline[3pt]
+				\SetCell{LightGreen} userID & INT & jedinstveni identifikator korisnika \\ \hline
+				email & VARCHAR & email adresa korisnika \\ \hline 
+				firstName & VARCHAR & ime korisnika \\ \hline
+				lastName & VARCHAR & prezime korisnika \\ \hline 
+				password & VARCHAR & kriptirana lozinka za korisnički račun \\ \hline 
+			\end{longtblr}
+			
+			\textbf{Report} tablica čuva podatke o pojedinim prijavama oštećenja koje korisnici podnose. Tablica je povezana vezom \textit{Many-to-One} s tablicom \textit{Users} preko atributa \textit{userID}, \textit{Many-to-One} vezom s tablicom \textit{Category} preko atributa \textit{categoryID} i \textit{Many-to-One} vezom s tablicom ReportGroup preko atributa groupID.
+			
+			\begin{longtblr}[
+				label=Report,
+				entry=none
+				]{
+					width = \textwidth,
+					colspec={|X[8,l]|X[6, l]|X[20, l]|}, 
+					rowhead = 1,
+				} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+				\hline \SetCell[c=3]{c}{\textbf{Report}}	 \\ \hline[3pt]
+				\SetCell{LightGreen} reportID & INT & jedinstveni identifikator prijave \\ \hline
+				location & VARCHAR & lokacija oštećenja \\ \hline
+				description & VARCHAR & opis oštećenja \\ \hline 
+				reportTS & TIMESTAMP & vrijeme prijave \\ \hline 
+				reportHeadline & VARCHAR & naslov prijave \\ \hline 
+				\SetCell{LightBlue} userID & INT & jedinstveni identifikator korisnika koji je podnio prijavu \\ \hline 
+				\SetCell{LightBlue} categoryID & INT & jedinstveni identifikator kategorije oštećenja \\ \hline
+				\SetCell{LightBlue} groupID & INT & jedinstveni identifikator grupe prijave \\ \hline
+			\end{longtblr}
+			
+			\textbf{Image} tablica čuva podatke o slikama koje se prilažu u prijavama oštećenja. Tablica je povezana \textit{Many-to-One} vezom s tablicom \textit{Report} preko atributa \textit{reportID}.
+			
+			\begin{longtblr}[
+				label=Image,
+				entry=none
+				]{
+					width = \textwidth,
+					colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
+					rowhead = 1,
+				} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+				\hline \SetCell[c=3]{c}{\textbf{Image}}	 \\ \hline[3pt]
+				\SetCell{LightGreen} imageID & INT & jedinstveni identifikator slike \\ \hline
+				\SetCell{LightBlue} reportID & INT & jedinstveni identifikator prijave kojoj slika pripada \\ \hline
+				URL & VARCHAR & URL slike \\ \hline 
+			\end{longtblr}
+			
+			\textbf{Category} tablica čuva podatke o kategorijama kojima oštećenje može pripadati. Tablica je povezana \textit{One-to-Many} vezom s tablicom \textit{Report} preko atributa \textit{categoryID}, \textit{Many-to-One} vezom s tablicom \textit{CityOffice} preko atributa \textit{cityOfficeID} i \textit{One-to-Many} vezom s tablicom \textit{CategoryKeywords} preko atributa \textit{categoryID}.
+			
+			\begin{longtblr}[
+				label=Category,
+				entry=none
+				]{
+					width = \textwidth,
+					colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
+					rowhead = 1,
+				} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+				\hline \SetCell[c=3]{c}{\textbf{Category}}	 \\ \hline[3pt]
+				\SetCell{LightGreen} categoryID & INT & jedinstveni identifikator kategorije \\ \hline
+				categoryName & VARCHAR & naziv kategorije \\ \hline 
+				\SetCell{LightBlue} cityOfficeID & INT & jedinstveni identifikator gradskog ureda koji obrađuje prijave oštećenja iz ove kategorije \\ \hline
+			\end{longtblr}
+
+			\textbf{CategoryKeywords} tablica čuva podatke o ključnim riječima po kojima se može identificirati kategorija oštećenja. Tablica je povezana \textit{Many-to-One} vezom s tablicom \textit{Category} preko atributa \textit{categoryID}.
+
+			\begin{longtblr}[
+				label=CategoryKeywords,
+				entry=none
+				]{
+					width = \textwidth,
+					colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
+					rowhead = 1,
+				} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+				\hline \SetCell[c=3]{c}{\textbf{CategoryKeywords}}	 \\ \hline[3pt]
+				\SetCell{LightGreen} keywordID & INT & jedinstveni identifikator ključne riječi \\ \hline
+				keyword & VARCHAR & ključna riječ \\ \hline 
+				\SetCell{LightBlue} categoryID & INT & jedinstveni identifikator kategorije kojoj ključna riječ pripada. \\ \hline
+			\end{longtblr}
+			
+			\textbf{ReportGroup} tablica predstavlja grupu prijava koje su objedinjene. Tablica je povezana \textit{One-to-Many} vezom s tablicom \textit{Report} preko atributa \textit{groupID} i \textit{One-to-Many} vezom s tablicom \textit{Feedback} preko atributa \textit{groupID}.
+			
+			\begin{longtblr}[
+				label=ReportGroup,
+				entry=none
+				]{
+					width = \textwidth,
+					colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
+					rowhead = 1,
+				} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+				\hline \SetCell[c=3]{c}{\textbf{ReportGroup}}	 \\ \hline[3pt]
+				\SetCell{LightGreen} groupID & INT & jedinstveni identifikator grupe prijava \\ \hline
+			\end{longtblr}
+			
+			\textbf{Feedback} tablica čuva podatke o statusu pojedine grupe prijava. Također čuva podatke potrebne za slanje povratnih informacija korisnicima i računanje nekih statistika. Tablica je povezana \textit{Many-to-One} vezom s tablicom \textit{ReportGroup} preko atributa \textit{groupID} i \textit{Many-to-One} vezom s tablicom \textit{CityOffice} preko atributa \textit{cityOfficeID}.
+			
+			\begin{longtblr}[
+				label=Feedback,
+				entry=none
+				]{
+					width = \textwidth,
+					colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
+					rowhead = 1,
+				} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+				\hline \SetCell[c=3]{c}{\textbf{Feedback}}	 \\ \hline[3pt]
+				\SetCell{LightGreen} cityOfficeID & INT & jedinstveni identifikator gradskog ureda \\ \hline
+				\SetCell{LightGreen} groupID & INT & jedinstveni identifikator grupe prijava na koju se podaci referiraju \\ \hline
+				status & VARCHAR & status prijava u referiranoj grupi \\ \hline 
+				changeTS & TIMESTAMP & vrijeme kada se postavio status prijava iz referirane grupe \\ \hline
+			\end{longtblr}
+			
+			\textbf{CityOffice} tablica čuva podatke o računima gradskih ureda. Tablica je povezana \textit{One-to-Many} vezom s tablicom \textit{Feedback} preko atributa \textit{cityOfficeID} i \textit{One-to Many} vezom s tablicom \textit{Category} preko atributa \textit{cityOfficeID}.
+			
+			\begin{longtblr}[
+				label=CityOffice,
+				entry=none
+				]{
+					width = \textwidth,
+					colspec={|X[10,l]|X[6, l]|X[20, l]|}, 
+					rowhead = 1,
+				} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+				\hline \SetCell[c=3]{c}{\textbf{CityOffice}}	 \\ \hline[3pt]
+				\SetCell{LightGreen} cityOfficeID & INT & jedinstveni identifikator gradskog ureda \\ \hline
+				cityOfficeName & VARCHAR & naziv gradskog ureda \\ \hline
+				cityOfficeEmail & VARCHAR & email adresa gradskog ureda \\ \hline 
+				cityOfficePassword & VARCHAR & kriptirana lozinka za račun gradskog ureda \\ \hline
+			\end{longtblr}
+		
 				
 				
 			
 			\subsection{Dijagram baze podataka}
-				\textit{ U ovom potpoglavlju potrebno je umetnuti dijagram baze podataka. Primarni i strani ključevi moraju biti označeni, a tablice povezane. Bazu podataka je potrebno normalizirati. Podsjetite se kolegija "Baze podataka".}
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/relacijski.png} %veličina u odnosu na širinu linije
+				\caption{relacijski dijagram baze podataka}
+				\label{fig:DijagramBazePodataka} %label mora biti drugaciji za svaku sliku
+			\end{figure}
 			
 			\eject
 			
