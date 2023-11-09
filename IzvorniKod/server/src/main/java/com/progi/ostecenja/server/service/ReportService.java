@@ -21,5 +21,5 @@ public interface ReportService {
     List<Report> findByAttributes(@Param("categoryID") Long categoryID,
                                   @Param("TSbegin") Timestamp TSbegin,
                                   @Param("TSend") Timestamp TSend,
-                                  @Param("location") String location);
+                                  @Param("location") String location); //ako se po nekom atributu ne filtrira taj atribut mora biti null
 }
