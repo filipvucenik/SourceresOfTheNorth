@@ -10,7 +10,7 @@ Cilj ovoga projekta je na praktičan način naučiti kako se razvija jednostavno
 
 # Funkcijski zahtjevi
 Ključni funkcijski zahtjevi ovog projekta su:
-- F01: registracija korisnika
+- F01: registracija novog korisnika
 - F02: prijava korisnika
 - F03: anoniman korisnik
 - F04: podnošenje prijave oštećenja (naslov, opis, lokacija, slika - opcionalno, kategorija)
@@ -19,8 +19,8 @@ Ključni funkcijski zahtjevi ovog projekta su:
 - F07: iščitavanje lokacije oštećenja iz metapodataka slike
 - F08: automatsko prepoznavanje kategorije prijave
 - F09: mogućnost automatskog predlaganja nadovezivanja prijave na već postojeću
-- F10: Prijava ima status (na čekanju, u procesu rješavanja, riješena)
-- F11: nakon podnošenja prijave korisnik dobiva kod
+- F10: prijava ima status (na čekanju, u procesu rješavanja, riješena)
+- F11: dobivanje koda nakon podnošenja prijave
 - F12: pregledavanje podataka o korisničkom računu prijavljenog korisnika
 - F13: uređivanje podataka o korisničkom računu prijavljenog korisnika
 - F14: pregledavanje prijava prijavljenog korisnika
@@ -30,14 +30,16 @@ Ključni funkcijski zahtjevi ovog projekta su:
 - F18: pretraživanje prijave preko koda
 - F19: pregled statistike za prijave odabrane filtrom
 - F20: prijava djelatnika gradskog ureda u sustav
-- F21: djelatnik gradskog ureda može odbaciti nevažeću prijavu
-- F22: djelatnik gradskog ureda može proslijediti prijavu drugom uredu
-- F23: djelatnik gradskog ureda može mijenjati status prijave
-- F24: povratna informacija korisniku (ako je registrirani) za svaku promjenu nad prijavom
-- F25: djelatnik gradskog ureda ima uvid samo prijave pristigle na njegov ured
-- F26: pregled prijava kroz 3 liste (jedna za svaki status) za djelatnike gradskog ureda
-- F27: dodatno filtriranje liste prijava za djelatnike gradskog ureda
-- F28: pregled statistike za prijave odabrane filtrom za djelatnike gradskog ureda
+- F21: registracija novog gradskog ureda
+- F22: djelatnik gradskog ureda može odbaciti nevažeću prijavu
+- F23: djelatnik gradskog ureda može proslijediti prijavu drugom uredu
+- F24: djelatnik gradskog ureda može mijenjati status prijave
+- F25: djelatnik gradskog ureda može objediniti prijave istog oštećenja
+- F26: povratna informacija korisniku (ako je registrirani) za svaku promjenu nad prijavom
+- F27: djelatnik gradskog ureda ima uvid samo prijave pristigle na njegov ured
+- F28: pregled prijava kroz 3 liste (jedna za svaki status) za djelatnike gradskog ureda
+- F29: dodatno filtriranje liste prijava za djelatnike gradskog ureda
+- F30: pregled statistike za prijave odabrane filtrom za djelatnike gradskog ureda
 
 # Tehnologije
 U ovom projektu se koriste Spring Boot i React radni okviri.
