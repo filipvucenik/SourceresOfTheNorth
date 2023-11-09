@@ -5,9 +5,11 @@ import com.progi.ostecenja.server.dao.UsersRepository;
 import com.progi.ostecenja.server.repo.Report;
 import com.progi.ostecenja.server.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ReportServiceJpa implements ReportService {
     @Autowired
     ReportRepository reportRepo;
