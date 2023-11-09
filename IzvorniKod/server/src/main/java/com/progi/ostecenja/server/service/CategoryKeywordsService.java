@@ -1,9 +1,9 @@
 package com.progi.ostecenja.server.service;
 
-import com.progi.ostecenja.server.repo.categoryKeywords;
+import com.progi.ostecenja.server.repo.CategoryKeywords;
 
 import java.util.List;
 
 public interface CategoryKeywordsService {
-    List<categoryKeywords> listAll();
+    List<CategoryKeywords> listAll();
 }

@@ -1,4 +1,4 @@
-package com.progi.ostecenja.server.service.impl;
+package com.progi.ostecenja.server.service;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

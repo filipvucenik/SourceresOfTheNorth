@@ -3,6 +3,7 @@ package com.progi.ostecenja.server.service;
 import com.progi.ostecenja.server.repo.Users;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UsersService {
     /**
@@ -11,6 +12,8 @@ public interface UsersService {
      */
     List<Users> listAll();
 
+
+    Optional<Users> findByUserId(long userId);
     /**
      * Creates new student in the system.
      * @param user object to create, with ID set to null
@@ -19,4 +22,14 @@ public interface UsersService {
      * or its ID is not null
      */
     Users createUser(Users user);
+
+    Users fetch(long id);
+
+    Users updateUser(Users user);
+
+    Optional<Users> findByEmail(String email);
+
+    Optional<Users> findByUserName(String userName);
+
+    Users deleteUser(long id);
 }
