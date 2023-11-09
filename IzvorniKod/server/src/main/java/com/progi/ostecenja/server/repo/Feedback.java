@@ -8,21 +8,22 @@ import java.sql.Timestamp;
 
 @Entity(name ="Feedback")
 public class Feedback {
+    /*
     @Id
     @JoinColumn(name ="groupID")
     private Long groupID;
-    @Id
+    */
     @JoinColumn(name = "cityOfficeID")
     private Long cityOfficeID;
 
-    private String status;
+    @Id
+    private FeedbackID key;
 
     private Timestamp changeTS;
 
-    public Feedback(Long groupID, Long cityOfficeID, String status, Timestamp changeTS) {
-        this.groupID = groupID;
+    public Feedback(Long groupID, String status, Long cityOfficeID, Timestamp changeTS) {
+        this.key = new FeedbackID(groupID, status);
         this.cityOfficeID = cityOfficeID;
-        this.status = status;
         this.changeTS = changeTS;
     }
 
@@ -31,15 +32,15 @@ public class Feedback {
     }
 
     public Long getGroupID() {
-        return groupID;
+        return key.getGroupID();
     }
 
     public void setGroupID(Long groupID) {
-        this.groupID = groupID;
+        key.setGroupID(groupID);
     }
 
     public Long getCityOfficeID() {
-        return cityOfficeID;
+        return this.cityOfficeID;
     }
 
     public void setCityOfficeID(Long cityOfficeID) {
@@ -47,11 +48,11 @@ public class Feedback {
     }
 
     public String getStatus() {
-        return status;
+        return key.getStatus();
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        key.setStatus(status);
     }
 
     public Timestamp getChangeTS() {

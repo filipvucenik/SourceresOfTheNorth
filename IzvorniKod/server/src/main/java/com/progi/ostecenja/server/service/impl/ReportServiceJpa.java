@@ -27,6 +27,7 @@ public class ReportServiceJpa implements ReportService {
     public  Report createReport(Report report){
        return reportRepo.save(report);
     }
+   /*
     @Override
     public List<Report> findByAttributes(@Param("categoryID") Long categoryID,
                                   @Param("TSbegin") Timestamp TSbegin,
@@ -34,6 +35,8 @@ public class ReportServiceJpa implements ReportService {
                                   @Param("location") String location){
        return reportRepo.findByAttributes(categoryID,TSbegin,TSend,location);
     }
+
+    */
 
     @Override
     public Report getReport(Long reportID) {

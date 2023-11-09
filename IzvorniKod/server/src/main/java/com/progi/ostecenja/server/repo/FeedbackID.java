@@ -7,43 +7,41 @@ import java.io.Serializable;
 @Embeddable
 public class FeedbackID implements Serializable {
     private Long groupID;
-    private Long citiOfficeID;
+    private String status;
 
-    public FeedbackID(Long groupID, Long citiOfficeID) {
+    public FeedbackID(Long groupID, String status) {
         this.groupID = groupID;
-        this.citiOfficeID = citiOfficeID;
+        this.status = status;
     }
 
     public FeedbackID() {
 
     }
-
     public Long getGroupID() {
         return groupID;
-    }
-
-    public Long getCitiOfficeID() {
-        return citiOfficeID;
     }
 
     public void setGroupID(Long groupID) {
         this.groupID = groupID;
     }
 
-    public void setCitiOfficeID(Long citiOfficeID) {
-        this.citiOfficeID = citiOfficeID;
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
     public int hashCode() {
-        return groupID.hashCode() + citiOfficeID.hashCode();
+        return groupID.hashCode() + status.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof FeedbackID){
-            FeedbackID other = (FeedbackID) obj;
-            return this.citiOfficeID.equals(other.citiOfficeID) && this.groupID.equals(other.groupID);
+        if(obj instanceof FeedbackID other){
+            return this.status.equals(other.status) && this.groupID.equals(other.groupID);
         }
         return false;
     }

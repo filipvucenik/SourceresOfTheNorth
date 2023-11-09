@@ -16,4 +16,9 @@ public class CategoryServiceJpa implements CategoryService {
     public List<Category> listAll() {
         return categoryRepo.findAll();
     }
+
+    @Override
+    public Long getCityOfficeID(Long categoryID) {
+        return categoryRepo.getReferenceById(categoryID).getCityOfficeID();
+    }
 }
