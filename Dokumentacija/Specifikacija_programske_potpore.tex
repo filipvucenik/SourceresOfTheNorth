@@ -172,15 +172,15 @@
 				\noindent \underbar{\textbf{UC6 - Registracija}}
 				\begin{packed_item}
 					
-					\item \textbf{Glavni sudionik:} Neregistrirani korisnik
-					\item  \textbf{Cilj:} Izrada korisničkog računa za korisnika
+					\item \textbf{Glavni sudionik:} Neregistrirani korisnik ili Djelatnik gradskog ureda
+					\item  \textbf{Cilj:} Izrada korisničkog računa za korisnika ili novi gradski ured
 					\item  \textbf{Sudionici:} Baza podataka
 					\item  \textbf{Preduvjet:} -
 					
 					\item  \textbf{Opis osnovnog tijeka:}
 					\item[] \begin{packed_enum}
-						\item Neregistrirani korisnik odabire opciju registracije
-						\item Neregistrirani korisnik popunjava podatke za izradu korisničkog računa i potvrđuje registraciju
+						\item Korisnik odabire opciju registracije
+						\item Korisnik popunjava podatke za izradu korisničkog računa i potvrđuje registraciju
 					\end{packed_enum}
 					
 					\item  \textbf{Opis mogućih odstupanja:}
@@ -188,7 +188,7 @@
 						\item[2.a] Unesena email adresa je već zauzeta
 						\item[] \begin{packed_enum}
 							\item Aplikacija prikazuje prikladnu obavijest i vraća korisnika na stranicu za registraciju
-							\item Neregistrirani korisnik unosi drugu email adresu ili odustaje od registracije
+							\item Korisnik unosi drugu email adresu ili odustaje od registracije
 						\end{packed_enum}
 					\end{packed_item}
 				\end{packed_item}
@@ -406,7 +406,7 @@
 						\item Aplikacija šalje email kojim obavještava prijavitelja o promjenama vezanim uz prijavu
 					\end{packed_enum}
 					
-						\item  \textbf{Opis mogućih odstupanja:}
+					\item  \textbf{Opis mogućih odstupanja:}
 					\item[] \begin{packed_item}
 						\item[1.a] Prijava je anonimna
 						\item[] \begin{packed_enum}
@@ -447,6 +447,14 @@
 						\item Djelatnik unosi dodatne parametre za filtriranje
 						\item Aplikacija prikazuje filtriranu listu prijava
 					\end{packed_enum}
+					
+					\item  \textbf{Opis mogućih odstupanja:}
+					\item[] \begin{packed_item}
+						\item[3.a] Djelatnik ne želi dodatno filtrirati prijave
+						\item[] \begin{packed_enum}
+							\item Preskače se dodatno filtriranje
+						\end{packed_enum}
+					\end{packed_item}
 				\end{packed_item}
 				
 				\eject
@@ -454,13 +462,13 @@
 				\subsubsection{Dijagrami obrazaca uporabe}
 					
 					\begin{figure}[H]
-						\includegraphics[width=\textwidth]{slike/Funkcionalnosti_korisnika.jpg} %veličina u odnosu na širinu linije
+						\includegraphics[width=\textwidth]{slike/Funkcionalnosti_korisnikaUCD.jpg} %veličina u odnosu na širinu linije
 						\caption{Dijagram obrasca uporabe, funkcionalnosti korisnika}
 						\label{fig:dijagramObrascaUporabe1} %label mora biti drugaciji za svaku sliku
 					\end{figure}
 					
 					\begin{figure}[H]
-						\includegraphics[width=\textwidth]{slike/Obrada_prijava.jpg} %veličina u odnosu na širinu linije
+						\includegraphics[width=\textwidth]{slike/Obrada_prijavaUCD.jpg} %veličina u odnosu na širinu linije
 						\caption{Dijagram obrasca uporabe, obrada prijava}
 						\label{fig:dijagramObrascaUporabe2} %label mora biti drugaciji za svaku sliku
 					\end{figure}
@@ -471,15 +479,56 @@
 				
 				\textbf{\textit{dio 1. revizije}}\\
 				
-				\textit{Nacrtati sekvencijske dijagrame koji modeliraju najvažnije dijelove sustava (max. 4 dijagrama). Ukoliko postoji nedoumica oko odabira, razjasniti s asistentom. Uz svaki dijagram napisati detaljni opis dijagrama.}
+				\textbf{Obrasci uporabe - UC06, UC11 - Registracija u sustav, Prijava u sustav}
+				
+				Korisnik(može biti i djelatnik) na naslovnoj stranici odabire opciju prijave ili registracije te mu se zatim otvara prikladna stranica. Ako se radi o stranici za prijavu, korisnik unosi svoj email i zaporku i potvrđuje unos. Ako su uneseni podaci validni korisniku se prikazuje naslovna stranica za prijavljenog korisnika, odnosno za djelatnika gradskog ureda. U suprotnom se korisnika obavještava o grešci i ponovno traži unos podataka za prijavu. Ako se radi o stranici za registraciju, korisnik mora unijeti svoje ime, prezime, datum rođenja, email adresu i lozinku. Ako se registrira novi gradski ured, potrebno je označiti tu opciju. U tom slučaju se traži unos imena ureda, email adresa i lozinka. Sustav provjerava u bazi ako za danu email adresu već postoji korisnički račun. Ako račun već postoji, sustav korisniku javlja grešku i ponovno traži unos podataka za registraciju. Ako je unos dobar, korisniku se prikazuje naslovna stranica za prijavljenog korisnika, odnosno za djelatnika gradskog ureda. Korisnik ne mora odabrati opciju prijave ili registracije. U tom slučaju koristi stranicu kao anoniman neregistrirani korisnik. Djelatnik se mora prijaviti ili registrirati ured da bi obavljao svoju funkcionalnost.
+				
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{slike/Prijava_registracijaSD.jpg} %veličina u odnosu na širinu linije
+					\caption{Sekvencijski dijagram, prijava/registracija}
+					\label{fig:sekvencijskiDijagram1} %label mora biti drugaciji za svaku sliku
+				\end{figure}
 				\eject
+				
+				\textbf{Obrasci uporabe - UC1, UC2, UC3, UC4, UC5 - Prijava oštećenja, Pregled svih prijava, Filtriranje prijava, Pregled statistike prijava, Filtriranje statistike prijava}
+				
+				Korisnik odabire opciju podnošenja nove prijave oštećenja. U prijavi korisnik upisuje kratak naslov, opis oštećenja, lokaciju i kategoriju. Korisnik također može priložiti sliku oštećenja. Lokaciju korisnik može priložiti preko interaktivne karte, upisom adrese ili se lokacija može izvući iz metapodataka slike. Aplikacija će sama pokušati prepoznati kategoriju oštećenja i na temelju toga i ponuditi nadležan ured. Nakon podnošenja prijave korisnik dobiva kod prijave preko koje može pratiti njezino stanje. 
+				Korisnik odabirom pregleda prijava može pregledavati postojeće aktive prijave u sustavu preko interaktivne karte. Prijave može dodatno filtrirati po vremenu, gradskom uredu i kategoriji. Odabirom neke prijave na karti korisniku se prikazuju podaci o toj prijavi.
+				Korisnik odabirom statistike prijava također može pregledavati statistiku za prijave filtrirane po lokaciji, vremenu i gradskom uredu. U statistici se nalaze podaci o broju prijava svakog statusa, prosječno vrijeme koje je prijava imala neki status, prosječan broj prijava u danu i ukupan broj prijava.
+				
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{slike/Funkcionalnosti_korisnikaSD.jpg} %veličina u odnosu na širinu linije
+					\caption{Sekvencijski dijagram, funkcionalnosti korisnika}
+					\label{fig:sekvencijskiDijagram2} %label mora biti drugaciji za svaku sliku
+				\end{figure}
+				\eject
+				
+				\textbf{Obrasci uporabe - UC13, UC14, UC15, UC16, UC17, UC18, UC19 - Obrada prijava, Odbacivanje pristigle prijave, Prebacivanje prijave na drugi ured, Objedinjenje nepovezanih prijava, Slanje povratnih informacija, Pregled prijava gradskog ureda, filtriranje prijava gradskog ureda}
+				
+				Djelatnik gradskog ureda odabire jednu od 3 lista prijava, jedna za svaki status. Djelatnik može dodatno filtrirati prijave u listi po vremenu i kategoriji. Odabirom jedne od prijava djelatniku se prikazuju podaci o toj prijavi. Djelatnik dalje može promijeniti status prijave. Ako vidi da je oštećenje u toj prijavu već prijavljeno, djelatnik može odabrati sve takve prijave i objediniti ih. Ako utvrdi da njegov ured nije nadležan za ovu prijavu, djelatnik odabire nadležan ured i prosljeđuje mu prijavu. Ako je prijava u potpunosti nevaljana djelatnik ju može odbaciti. Bilo koja od ovih radnji nad prijavom rezultirati će slanjem povratne informacije korisniku koji je podnio prijavu, ako je taj korisnik registriran.
+				
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{slike/Obrada_prijavaSD.jpg} %veličina u odnosu na širinu linije
+					\caption{Sekvencijski dijagram, obrada prijava}
+					\label{fig:sekvencijskiDijagram3} %label mora biti drugaciji za svaku sliku
+				\end{figure}
+				\eject
+
+
 	
 		\section{Ostali zahtjevi}
 		
 			\textbf{\textit{dio 1. revizije}}\\
-		 
-			 \textit{Nefunkcionalni zahtjevi i zahtjevi domene primjene dopunjuju funkcionalne zahtjeve. Oni opisuju \textbf{kako se sustav treba ponašati} i koja \textbf{ograničenja} treba poštivati (performanse, korisničko iskustvo, pouzdanost, standardi kvalitete, sigurnost...). Primjeri takvih zahtjeva u Vašem projektu mogu biti: podržani jezici korisničkog sučelja, vrijeme odziva, najveći mogući podržani broj korisnika, podržane web/mobilne platforme, razina zaštite (protokoli komunikacije, kriptiranje...)... Svaki takav zahtjev potrebno je navesti u jednoj ili dvije rečenice.}
-			 
-			 
-			 
-	
+			
+			\begin{packed_item}
+				\item Sustav treba podržati rad više korisnika u stvarnom vremenu
+				\item Aplikacija podržava korisničko sučelje na hrvatskom i engleskom jeziku
+				\item Sustav treba biti implementiran kao web aplikacija sa responzivnim dizajnom
+				\item Rad i veza s bazom podataka moraju biti sigurni i pouzdani
+				\item Aplikacija mora koristiti HTTPS protokol
+				\item Aplikacija mora biti jednostavna za korištenje
+				\item Neispravno korištenje korisničkog sučelja ne smije narušiti cijeloukupan rad sustava
+				\item Izvršavanje bilo koje akcije na aplikaciji ne smije trajati dulje od 5 sekundi
+				\item Osjetljivi podaci, kao što su lozinke korisnika, se u bazi moraju spremati u kriptiranom obliku
+			\end{packed_item}
+			
