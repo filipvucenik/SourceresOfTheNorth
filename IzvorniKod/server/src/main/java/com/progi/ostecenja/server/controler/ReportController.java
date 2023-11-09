@@ -1,30 +1,72 @@
 package com.progi.ostecenja.server.controler;
 
+import com.progi.ostecenja.server.repo.Image;
 import com.progi.ostecenja.server.repo.Report;
 import com.progi.ostecenja.server.service.ReportService;
+import com.progi.ostecenja.server.service.impl.ImageService;
+import com.progi.ostecenja.server.service.impl.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Timestamp;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/reports")
 public class ReportController {
     @Autowired
-    ReportService reportService;
-    @GetMapping("/filtered") // /filtered?categoryID=value1&TSbegin=value2&TSend=value3&status=value4&location=value5&locationRadius=value6
-    public List<Report> listFilteredReports(
-            @RequestParam(name = "categoryID", required = false) Long categoryID,
-            @RequestParam(name = "TSbegin", required = false) Timestamp TSbegin,
-            @RequestParam(name = "TSend", required = false) Timestamp TSend,
-           // @RequestParam(name = "status", required = false) String status,@RequestParam(name = "locationRadius", required = false) String locationRadius
-            @RequestParam(name = "location", required = false) String location) {
+    private  StorageService storageService;
 
+    @Autowired
+    private ReportService reportService;
 
-        return reportService.findByAttributes(categoryID,TSbegin,TSend,location);
+    @Autowired
+    private ImageService imageService;
+
+    @GetMapping()
+    public List<Report> listAllReports(){
+        return reportService.listAll();
     }
+
+
+    @PostMapping
+    public Long createReport(@RequestBody Report report, Long OfficeId){
+
+        Report newReport = reportService.createReport(report);
+
+        return newReport.getReportID();
+    }
+
+    @PostMapping("/uploadImage")
+    public String uploadImage(@RequestParam("imageFile") MultipartFile imageFile){
+        String returnValue = "";
+        try{
+            returnValue = storageService.saveImage(imageFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return returnValue;
+    }
+
+    @PostMapping("/uploadImagesPath")
+    public List<Image> uploadedImages(@RequestParam("images") List<Image> images){
+        return imageService.fillImages(images);
+    }
+
+    @GetMapping("/images")
+    public List<Image> listImagesForRepordID(@RequestParam("reportID") Long reportID){
+        return imageService.listAllId(reportID);
+    }
+    /*
+    @GetMapping()
+    public Report getReport(@RequestParam("reportID") Long reportID)
+    {
+        return reportService.getReport(reportID);
+    }
+
+    @PutMapping()
+    public Report changeStatus(@RequestParam("re"))
+    */
 }
