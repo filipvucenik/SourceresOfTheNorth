@@ -5,15 +5,15 @@ import jakarta.persistence.*;
 @Entity(name = "Category")
 public class Category {
     @Id @GeneratedValue
-    private Long catgoryID;
+    private Long categoryID;
     @Column(unique = true, nullable = false)
     private String categoryName;
 
     @JoinColumn(name = "cityOfficeID")
     private Long cityOfficeID;
 
-    public Long getCatgoryID() {
-        return catgoryID;
+    public Long getCategoryID() {
+        return categoryID;
     }
 
     public String getCategoryName() {
@@ -26,7 +26,7 @@ public class Category {
     public Category() {
     }
     public Category(Long catgoryID, String categoryName, Long cityOfficeID) {
-        this.catgoryID = catgoryID;
+        this.categoryID = catgoryID;
         this.categoryName = categoryName;
         this.cityOfficeID = cityOfficeID;
     }
