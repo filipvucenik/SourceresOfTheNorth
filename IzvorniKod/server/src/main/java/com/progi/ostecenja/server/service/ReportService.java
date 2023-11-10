@@ -15,19 +15,18 @@ public interface ReportService {
 
     public Report getReport(Long reportID);
 
-    /*
+
     @Query("SELECT r FROM Report r " +
             "WHERE (:categoryID IS NULL OR r.categoryID = :categoryID) " +
             "  AND (:TSbegin IS NULL OR r.reportTS >= :TSbegin ) " +
             "  AND (:TSend IS NULL OR r.reportTS <= :TSend) " +
             "  AND (:location IS NULL OR r.location=:location)"
     )
-
     List<Report> findByAttributes(@Param("categoryID") Long categoryID,
                                   @Param("TSbegin") Timestamp TSbegin,
                                   @Param("TSend") Timestamp TSend,
                                   @Param("location") String location); //ako se po nekom atributu ne filtrira taj atribut mora biti null
 
-    */
+
 }
 
