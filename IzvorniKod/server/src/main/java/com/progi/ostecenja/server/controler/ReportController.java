@@ -39,12 +39,12 @@ public class ReportController {
     @Autowired
     private ReportGroupService reportGroupService;
 
-    @GetMapping()
+    /*@GetMapping()
     public List<Report> listAllReports(){
         //krivo, treba dodati session i iz njega procitati userID
 
         return reportService.listAll();
-    }
+    }*/
 
 
     @PostMapping

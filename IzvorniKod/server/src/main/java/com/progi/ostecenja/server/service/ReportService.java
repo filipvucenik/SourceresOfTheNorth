@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface ReportService {
 
-    List<Report> listAll();
+   // List<Report> listAll();
     Report createReport(Report report);
 
     public Report getReport(Long reportID);

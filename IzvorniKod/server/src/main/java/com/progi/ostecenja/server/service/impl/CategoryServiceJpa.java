@@ -12,11 +12,10 @@ import java.util.List;
 public class CategoryServiceJpa implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepo;
-    @Override
+   @Override
     public List<Category> listAll() {
         return categoryRepo.findAll();
     }
-
     @Override
     public Long getCityOfficeID(Long categoryID) {
         return categoryRepo.getReferenceById(categoryID).getCityOfficeID();

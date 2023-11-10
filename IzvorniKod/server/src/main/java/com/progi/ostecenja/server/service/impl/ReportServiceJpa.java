@@ -21,8 +21,8 @@ public class ReportServiceJpa implements ReportService {
     ReportRepository reportRepo;
 
 
-    @Override
-    public List<Report> listAll(){return reportRepo.findAll();}
+    /*@Override
+    public List<Report> listAll(){return reportRepo.findAll();}*/
     @Override
     public  Report createReport(Report report){
        return reportRepo.save(report);
