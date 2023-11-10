@@ -15,7 +15,6 @@ public class CityOffice {
 
   @Column(unique=true, nullable=false)
   private String cityOfficeEmail;
-
   @Column(nullable=false)
   private String cityOfficePassword;
 
@@ -44,4 +43,15 @@ public class CityOffice {
         this.cityOfficeEmail = cityOfficeEmail;
         this.cityOfficePassword = cityOfficePassword;
   }
+
+    @Override
+    public String toString() {
+        return "CityOffice{" +
+                "cityOfficeId=" + cityOfficeId +
+                ", cityOfficeName='" + cityOfficeName + '\'' +
+                ", cityOfficeEmail='" + cityOfficeEmail + '\'' +
+                ", cityOfficePassword='" + cityOfficePassword + '\'' +
+                '}';
+    }
+
 }

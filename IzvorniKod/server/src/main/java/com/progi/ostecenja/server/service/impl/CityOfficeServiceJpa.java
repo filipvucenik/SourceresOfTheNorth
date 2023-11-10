@@ -4,11 +4,13 @@ import com.progi.ostecenja.server.dao.CityOfficeRepository;
 import com.progi.ostecenja.server.repo.CityOffice;
 import com.progi.ostecenja.server.service.CityOfficeService;
 import com.progi.ostecenja.server.service.EntityMissingException;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CityOfficeServiceJpa implements CityOfficeService {
@@ -27,6 +29,14 @@ public class CityOfficeServiceJpa implements CityOfficeService {
         return cityOfficeRepo.findByCityOfficeId(officeId).orElseThrow(
                 () -> new EntityMissingException(CityOffice.class, officeId)
         );
+    }
+
+    public void funk(HttpSession session){
+        String userId = (String) session.getAttribute("USER");
+    }
+    @Override
+    public Optional<CityOffice> findByCityOfficeEmail(String email) {
+        return cityOfficeRepo.findByCityOfficeEmail(email);
     }
 
     @Override

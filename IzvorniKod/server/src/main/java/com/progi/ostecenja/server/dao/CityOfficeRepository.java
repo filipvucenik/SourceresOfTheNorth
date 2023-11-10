@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface CityOfficeRepository extends JpaRepository<CityOffice, Long> {
     Optional<CityOffice> findByCityOfficeId(Long officeID);
+    Optional<CityOffice> findByCityOfficeEmail(String email);
     int countByCityOfficeEmail(String email);
     int countByCityOfficeName(String name);
 

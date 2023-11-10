@@ -27,6 +27,18 @@ public class Users {
     @Size(max=50)
     private String lastName;
 
+    @Override
+    public String toString() {
+        return "Users{" +
+                "userId=" + userId +
+                ", email='" + email + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
+
     public Users(){}
     public Users(Long userId, String email, String firstName, String lastName, String password, String userName) {
         this.userId = userId;
