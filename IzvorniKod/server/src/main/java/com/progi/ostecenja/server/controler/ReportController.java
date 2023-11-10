@@ -48,20 +48,14 @@ public class ReportController {
 
 
     @PostMapping
-    public void createReport(@RequestBody Long reportID, String reportHeadline,
-                             String location, String description, Long categoryID){
-        Report report;
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
-        Long userID = 1L; // TREBA IZVLACITI IZ SESSIONA!!!
-        Long groupID;
-        if(false){
-            //Neka logika za groupID
-        }else{
-            groupID = reportID;
+    public void createReport(@RequestBody Report report){
+        Timestamp timestamp = report.getReportTS();
+        Long groupID = report.getGroupID();
+        if(report.getGroupID() == null){
+            groupID = report.getReportID();
+            report.setGroupID(groupID);
             reportGroupService.createReportGroup(groupID);
         }
-        report = new Report(reportID, reportHeadline, location, description,timestamp, userID, groupID, categoryID);
-
         reportService.createReport(report);
         feedbackService.createFeedback(groupID, timestamp);
     }

@@ -64,6 +64,34 @@ public class Report {
         return categoryID;
     }
 
+    public void setReportID(Long reportID) {
+        this.reportID = reportID;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setReportTS(Timestamp reportTS) {
+        this.reportTS = reportTS;
+    }
+
+    public void setUserID(Long userID) {
+        this.userID = userID;
+    }
+
+    public void setGroupID(Long groupID) {
+        this.groupID = groupID;
+    }
+
+    public void setCategoryID(Long categoryID) {
+        this.categoryID = categoryID;
+    }
+
     public Report(){
     }
     public Report(Long reportID,String reportHeadline, String location, String description, Timestamp reportTS, Long userID, Long groupID, Long categoryID) {
