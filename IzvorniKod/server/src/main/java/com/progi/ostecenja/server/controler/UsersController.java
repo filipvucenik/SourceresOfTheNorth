@@ -46,7 +46,7 @@ public class UsersController {
     }
 
     @PostMapping
-    public Users createStudent(@RequestBody Users user) { return usersService.createUser(user); }
+    public Users createUser(@RequestBody Users user) { return usersService.createUser(user); }
 
     @GetMapping("/{id}")
     public Users getUser(@PathVariable("id") long id){ return usersService.fetch(id); }
