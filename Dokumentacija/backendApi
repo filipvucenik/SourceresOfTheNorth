@@ -8,7 +8,7 @@ report:	- post:/reports -"sprema novu prijavu u bazu, trazeni parametri su: {ong
 	- post:/reports/uploadImage - "sprema sliku na server i vraca putanju slike unutar izlozene mape, index.html u static fileovima na serveru je demo"
 	- get:/reports  -"ovisno o prijavljenom korisniku vraća ili sve korisnikove prijave ili sve prijave od ureda"
 	- get:/reports/{id} - "salje sve podatke o jednom reporu"
-	- put:/reports/{id} - "sluzi administratoru za promjenu statusa"
+	- post:/reports/updateStatus - "sluzi administratoru za promjenu statusa, prima {reportID}"
 	- get:/reports/images/{reportid} - "salje listu slika od reportida"
 
 report location: - get:/reportsLocation - "vraca sve lokacije, zadnje statuse, naslove i kratke opise nerijesenih grupa prijava" {za veliku mapu"}
