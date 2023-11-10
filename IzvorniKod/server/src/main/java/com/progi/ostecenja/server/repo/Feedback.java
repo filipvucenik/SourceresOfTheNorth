@@ -13,17 +13,14 @@ public class Feedback {
     @JoinColumn(name ="groupID")
     private Long groupID;
     */
-    @JoinColumn(name = "cityOfficeID")
-    private Long cityOfficeID;
 
     @Id
     private FeedbackID key;
 
     private Timestamp changeTS;
 
-    public Feedback(Long groupID, String status, Long cityOfficeID, Timestamp changeTS) {
+    public Feedback(Long groupID, String status, Timestamp changeTS) {
         this.key = new FeedbackID(groupID, status);
-        this.cityOfficeID = cityOfficeID;
         this.changeTS = changeTS;
     }
 
@@ -39,13 +36,6 @@ public class Feedback {
         key.setGroupID(groupID);
     }
 
-    public Long getCityOfficeID() {
-        return this.cityOfficeID;
-    }
-
-    public void setCityOfficeID(Long cityOfficeID) {
-        this.cityOfficeID = cityOfficeID;
-    }
 
     public String getStatus() {
         return key.getStatus();

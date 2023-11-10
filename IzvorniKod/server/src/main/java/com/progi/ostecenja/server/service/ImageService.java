@@ -1,4 +1,4 @@
-package com.progi.ostecenja.server.service.impl;
+package com.progi.ostecenja.server.service;
 
 import com.progi.ostecenja.server.repo.Image;
 

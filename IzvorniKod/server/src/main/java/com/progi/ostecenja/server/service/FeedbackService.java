@@ -6,5 +6,7 @@ import java.sql.Timestamp;
 
 public interface FeedbackService {
 
-    Feedback createFeedback(Long groupID, Long cityOfficeID, Timestamp changeTS);
+    Feedback createFeedback(Long groupID, Timestamp changeTS);
+
+    void updateService(Long groupID, String stanje);
 }
