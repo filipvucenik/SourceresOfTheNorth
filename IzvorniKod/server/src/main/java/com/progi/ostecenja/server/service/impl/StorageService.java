@@ -24,6 +24,6 @@ public class StorageService implements IStorageService {
         String name = String.valueOf(counter++) + "." + extension;
         Files.createDirectories(path);
         Files.write(Path.of(path +"/"+ name), file.getBytes());
-        return "./images"+name;
+        return "./images/"+name;
     }
 }
