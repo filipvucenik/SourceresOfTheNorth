@@ -71,8 +71,6 @@ CREATE TABLE feedback
   status VARCHAR(20) NOT NULL,
   changeTS TIMESTAMP NOT NULL,
   groupID BIGINT NOT NULL,
-  cityOfficeId BIGINT NOT NULL,
-  PRIMARY KEY (groupID, cityOfficeId),
+  PRIMARY KEY (groupID, status),
   FOREIGN KEY (groupID) REFERENCES ReportGroup(groupID),
-  FOREIGN KEY (cityOfficeId) REFERENCES CityOffice(cityOfficeId)
 );
