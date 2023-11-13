@@ -23,6 +23,20 @@ public class Category {
     public Long getCityOfficeID() {
         return cityOfficeID;
     }
+
+    public void setCategoryID(Long categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public void setCityOfficeID(Long cityOfficeID) {
+        this.cityOfficeID = cityOfficeID;
+    }
+
+
     public Category() {
     }
     public Category(Long catgoryID, String categoryName, Long cityOfficeID) {
