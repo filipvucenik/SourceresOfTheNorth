@@ -9,6 +9,7 @@ import com.progi.ostecenja.server.service.ReportGroupService;
 import com.progi.ostecenja.server.service.ReportService;
 import com.progi.ostecenja.server.service.ImageService;
 import com.progi.ostecenja.server.service.impl.StorageService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,28 +35,35 @@ public class ReportController {
     private FeedbackService feedbackService;
 
     @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
     private ReportGroupService reportGroupService;
+    @GetMapping("/all")
+    public List<Report> listReports(HttpSession session){
+        Long userId = (Long) session.getAttribute("USER");
+        Long officeID = (Long) session.getAttribute("OFFICE");
+        if(userId != null){
+            return reportService.listAllforUsers(userId);
+        }else if (officeID != null){
+            return reportService.listAllforOffice(officeID);
+        }else {
+            throw new IllegalStateException("Session error: both USER and OFFICE are null");
+        }
 
-    /*@GetMapping()
-    public List<Report> listAllReports(){
-        //krivo, treba dodati session i iz njega procitati userID
-
-        return reportService.listAll();
-    }*/
+    }
 
 
     @PostMapping
-    public void createReport(@RequestBody Report report){
+    public void createReport(@RequestBody Report report, HttpSession session){
         Timestamp timestamp = report.getReportTS();
+        if(timestamp == null){
+            timestamp = Timestamp.valueOf(LocalDateTime.now());
+        }
         Long groupID = report.getGroupID();
         if(report.getGroupID() == null){
             groupID = report.getReportID();
             report.setGroupID(groupID);
             reportGroupService.createReportGroup(groupID);
         }
+        report.setUserID((Long) session.getAttribute("USER"));
         reportService.createReport(report);
         feedbackService.createFeedback(groupID, timestamp);
     }
@@ -80,7 +88,7 @@ public class ReportController {
     public List<Image> listImagesForRepordID(@RequestParam("reportID") Long reportID){
         return imageService.listAllId(reportID);
     }
-    @GetMapping()
+    @GetMapping("/id")
     public Report getReport(@RequestParam("reportID") Long reportID)
     {
         return reportService.getReport(reportID);
