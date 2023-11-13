@@ -90,9 +90,9 @@ public class ReportController {
         return imageService.fillImages(images);
     }
 
-    @GetMapping("/images")
-    public List<Image> listImagesForRepordID(@RequestParam("reportID") Long reportID){
-        return imageService.listAllId(reportID);
+    @GetMapping("/images/{id}")
+    public List<Image> listImagesForRepordID(@PathVariable Long id){
+        return imageService.listAllId(id);
     }
     @GetMapping("/{id}")
     public Report getReport(@PathVariable Long id)
