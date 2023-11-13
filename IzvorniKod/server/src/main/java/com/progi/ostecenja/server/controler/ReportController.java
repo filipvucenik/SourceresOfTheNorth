@@ -50,21 +50,27 @@ public class ReportController {
 
     }
 
-
     @PostMapping
     public void createReport(@RequestBody Report report, HttpSession session){
         Timestamp timestamp = report.getReportTS();
         if(timestamp == null){
             timestamp = Timestamp.valueOf(LocalDateTime.now());
         }
-        Long groupID = report.getGroupID();
-        if(report.getGroupID() == null){
-            groupID = report.getReportID();
-            report.setGroupID(groupID);
-            reportGroupService.createReportGroup(groupID);
+        Long userId;
+        try{
+            userId  = (long)session.getAttribute("USER");
+
+        }catch (RuntimeException e){
+            userId = null;
         }
-        report.setUserID((Long) session.getAttribute("USER"));
+        Long groupID = reportGroupService.createReportGroup().getGroupID();
+
+        report.setUserID(userId);
+        report.setReportTS(timestamp);
+        report.setGroupID(groupID);
         reportService.createReport(report);
+
+
         feedbackService.createFeedback(groupID, timestamp);
     }
 

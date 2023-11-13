@@ -37,7 +37,7 @@ public class CityOffice {
   public CityOffice(){
 
   }
-  public CityOffice(long cityOfficeId, String cityOfficeName, String cityOfficeEmail, String cityOfficePassword) {
+  public CityOffice(Long cityOfficeId, String cityOfficeName, String cityOfficeEmail, String cityOfficePassword) {
         this.cityOfficeId = cityOfficeId;
         this.cityOfficeName = cityOfficeName;
         this.cityOfficeEmail = cityOfficeEmail;
