@@ -5,6 +5,7 @@ import com.progi.ostecenja.server.repo.Category;
 import com.progi.ostecenja.server.repo.CityOffice;
 import com.progi.ostecenja.server.repo.Image;
 import com.progi.ostecenja.server.repo.Report;
+import com.progi.ostecenja.server.service.EntityMissingException;
 import com.progi.ostecenja.server.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -50,11 +51,16 @@ public class ReportServiceJpa implements ReportService {
        return reportRepo.findByAttributes(categoryID,TSbegin,TSend,location);
     }
 
-
+    @Override
+    public Optional<Report> findByUserId(Long reportID) {
+        return reportRepo.findById(reportID);
+    }
 
     @Override
     public Report getReport(Long reportID) {
-        return reportRepo.getReferenceById(reportID);
+        return findByUserId(reportID).orElseThrow(
+                () -> new EntityMissingException(Report.class, reportID)
+        );
     }
 
 }

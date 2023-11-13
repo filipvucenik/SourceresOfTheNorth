@@ -14,7 +14,7 @@ public interface ReportService {
     List<Report> listAllforOffice(long cityOfficeID);
     Report createReport(Report report);
 
-    public Report getReport(Long reportID);
+    Report getReport(Long reportID);
 
 
     @Query("SELECT r FROM Report r " +
@@ -28,6 +28,6 @@ public interface ReportService {
                                   @Param("TSend") Timestamp TSend,
                                   @Param("location") String location); //ako se po nekom atributu ne filtrira taj atribut mora biti null
 
-
+    Optional<Report> findByUserId(Long reportID);
 }
 
