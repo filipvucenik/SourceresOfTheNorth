@@ -94,6 +94,7 @@ public class ReportController {
     public List<Image> listImagesForRepordID(@RequestParam("reportID") Long reportID){
         return imageService.listAllId(reportID);
     }
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/id")
     public Report getReport(@RequestParam("reportID") Long reportID)
     {
