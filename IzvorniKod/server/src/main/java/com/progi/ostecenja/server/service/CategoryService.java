@@ -9,4 +9,6 @@ public interface CategoryService {
     List<Category> listAll();
 
     Long getCityOfficeID(Long categoryID);
+
+    Category createCategory(Category category);
 }

@@ -19,5 +19,10 @@ public class CategoryServiceJpa implements CategoryService {
     @Override
     public Long getCityOfficeID(Long categoryID) {
         return categoryRepo.getReferenceById(categoryID).getCityOfficeID();
+
+    }
+    @Override
+    public Category createCategory(Category category) {
+        return categoryRepo.save(category);
     }
 }
