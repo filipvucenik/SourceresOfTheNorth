@@ -25,9 +25,9 @@
 				\item  \underbar{Neregistrirani korisnik (inicijator) može:}
 				\begin{packed_enum}
 					\item napraviti svoj profil za koji mu je potrebno ime, prezime, datum rođenja, email adresa, lozinka i opcionalno profilna slika
-					\item podnositi anonimnu prijavu koja sadrži naslov, opis, lokaciju i nadležni gradski ured, a opcionalno i fotografiju i prijavu na koju se nadovezuje
-					\item  pregledavati postojeće prijave preko liste ili karte te ih filtrirati po lokaciji, vremenu, statusu i nadležnom gradskom uredu
-					\item pregledavati statistiku postojećih prijava za odabran period, lokaciju i nadležan gradski ured			
+					\item podnositi anonimnu prijavu koja sadrži naslov, opis, lokaciju i kategoriju oštećenja, a opcionalno i fotografiju i prijavu na koju se nadovezuje
+					\item  pregledavati postojeće prijave preko karte te ih filtrirati po vremenu, statusu, kategoriji oštećenja i nadležnom gradskom uredu
+					\item pregledavati statistiku postojećih prijava za odabran period, kategoriju oštećenja i nadležan gradski ured			
 				\end{packed_enum}
 								
 				\item  \underbar{Registrirani korisnik (inicijator) može:}				
@@ -35,19 +35,20 @@
 					\item pregledavati i mijenjati osobne podatke
 					\item obrisati svoj profil
 					\item pregledavati svoje prošle prijave
-					\item podnositi prijavu koja sadrži naslov, opis, lokaciju i nadležni gradski ured, a opcionalno i fotografiju i prijavu na koju se nadovezuje
-					\item  pregledavati postojeće prijave preko liste ili karte te ih filtrirati po lokaciji, vremenu, statusu i nadležnom gradskom uredu
-					\item pregledavati statistiku postojećih prijava za odabran period, lokaciju i nadležan gradski ured
+					\item podnositi prijavu koja sadrži naslov, opis, lokaciju i kategoriju oštećenja, a opcionalno i fotografiju i prijavu na koju se nadovezuje
+					\item  pregledavati postojeće prijave preko karte te ih filtrirati po vremenu, statusu, kategoriji oštećenja i nadležnom gradskom uredu
+					\item pregledavati statistiku postojećih prijava za odabran period, kategoriju oštećenja i nadležan gradski ured
 				\end{packed_enum}
 				
 				\item  \underbar{Djelatnik gradskog ureda (inicijator) može:}
 				\begin{packed_enum}
 					\item pregledavati prijave pristigle u njihov ured prema njihovom statusu
+					\item dodatno filtrirati prijave prilikom pregleda
 					\item prijavama sa statusom \textit{na čekanju} mijenjati status u \textit{u procesu rješavanja}
 					\item prijavama sa statusom \textit{u procesu rješavanja} mijenjati status u \textit{riješena}
 					\item objediniti prijave ako se referiraju na isti problem
-					\item pregledavati prijave na karti
 					\item pregledavati statistiku prijava pristiglih u njihov ured
+					\item dodatno filtrirati za koje prijave želi pregledati statistiku
 				\end{packed_enum}
 				
 				\item  \underbar{Baza podataka (sudionik) može:}
@@ -481,7 +482,7 @@
 				
 				\textbf{Obrasci uporabe - UC06, UC11 - Registracija u sustav, Prijava u sustav}
 				
-				Korisnik(može biti i djelatnik) na naslovnoj stranici odabire opciju prijave ili registracije te mu se zatim otvara prikladna stranica. Ako se radi o stranici za prijavu, korisnik unosi svoj email i zaporku i potvrđuje unos. Ako su uneseni podaci validni korisniku se prikazuje naslovna stranica za prijavljenog korisnika, odnosno za djelatnika gradskog ureda. U suprotnom se korisnika obavještava o grešci i ponovno traži unos podataka za prijavu. Ako se radi o stranici za registraciju, korisnik mora unijeti svoje ime, prezime, datum rođenja, email adresu i lozinku. Ako se registrira novi gradski ured, potrebno je označiti tu opciju. U tom slučaju se traži unos imena ureda, email adresa i lozinka. Sustav provjerava u bazi ako za danu email adresu već postoji korisnički račun. Ako račun već postoji, sustav korisniku javlja grešku i ponovno traži unos podataka za registraciju. Ako je unos dobar, korisniku se prikazuje naslovna stranica za prijavljenog korisnika, odnosno za djelatnika gradskog ureda. Korisnik ne mora odabrati opciju prijave ili registracije. U tom slučaju koristi stranicu kao anoniman neregistrirani korisnik. Djelatnik se mora prijaviti ili registrirati ured da bi obavljao svoju funkcionalnost.
+				Korisnik(može biti i djelatnik) na naslovnoj stranici odabire opciju prijave ili registracije te mu se zatim otvara prikladna stranica. Ako se radi o stranici za prijavu, korisnik unosi svoj email i zaporku i potvrđuje unos. Ako su uneseni podaci validni korisniku se prikazuje naslovna stranica za prijavljenog korisnika, odnosno za djelatnika gradskog ureda. U suprotnom se korisnika obavještava o grešci i ponovno traži unos podataka za prijavu. Ako se radi o stranici za registraciju, korisnik mora unijeti svoje ime, prezime, datum rođenja, email adresu i lozinku. Ako se registrira novi gradski ured, potrebno je označiti tu opciju. U tom slučaju se traži unos imena ureda, email adresa, lozinka i barem jedna kategorija za koju će novi gradski ured biti nadležan. Sustav provjerava u bazi ako za danu email adresu već postoji korisnički račun. Ako račun već postoji, sustav korisniku javlja grešku i ponovno traži unos podataka za registraciju. Ako je unos dobar, korisniku se prikazuje naslovna stranica za prijavljenog korisnika, odnosno za djelatnika gradskog ureda. Korisnik ne mora odabrati opciju prijave ili registracije. U tom slučaju koristi stranicu kao anoniman neregistrirani korisnik. Djelatnik se mora prijaviti ili registrirati ured da bi obavljao svoju funkcionalnost.
 				
 				\begin{figure}[H]
 					\includegraphics[width=\textwidth]{slike/Prijava_registracijaSD.jpg} %veličina u odnosu na širinu linije
@@ -494,7 +495,7 @@
 				
 				Korisnik odabire opciju podnošenja nove prijave oštećenja. U prijavi korisnik upisuje kratak naslov, opis oštećenja, lokaciju i kategoriju. Korisnik također može priložiti sliku oštećenja. Lokaciju korisnik može priložiti preko interaktivne karte, upisom adrese ili se lokacija može izvući iz metapodataka slike. Aplikacija će sama pokušati prepoznati kategoriju oštećenja i na temelju toga i ponuditi nadležan ured. Nakon podnošenja prijave korisnik dobiva kod prijave preko koje može pratiti njezino stanje. 
 				Korisnik odabirom pregleda prijava može pregledavati postojeće aktive prijave u sustavu preko interaktivne karte. Prijave može dodatno filtrirati po vremenu, gradskom uredu i kategoriji. Odabirom neke prijave na karti korisniku se prikazuju podaci o toj prijavi.
-				Korisnik odabirom statistike prijava također može pregledavati statistiku za prijave filtrirane po lokaciji, vremenu i gradskom uredu. U statistici se nalaze podaci o broju prijava svakog statusa, prosječno vrijeme koje je prijava imala neki status, prosječan broj prijava u danu i ukupan broj prijava.
+				Korisnik odabirom statistike prijava također može pregledavati statistiku za prijave filtrirane po vremenu, kategoriji oštećenja i gradskom uredu. U statistici se nalaze podaci o broju prijava svakog statusa, prosječno vrijeme koje je prijava imala neki status, prosječan broj prijava u danu i ukupan broj prijava.
 				
 				\begin{figure}[H]
 					\includegraphics[width=\textwidth]{slike/Funkcionalnosti_korisnikaSD.jpg} %veličina u odnosu na širinu linije
