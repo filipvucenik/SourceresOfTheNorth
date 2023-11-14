@@ -1,0 +1,20 @@
+.report-columns {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  padding: 10px;
+}
+
+.report {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 3px;
+  border-radius: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 10px;
+  padding-top: 0px;
+}
