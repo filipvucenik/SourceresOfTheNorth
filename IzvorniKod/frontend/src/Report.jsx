@@ -37,17 +37,17 @@ const Report = ({ report }) => {
         <div>Image placeholder</div>
         <div>{data.reportHeadline}</div>
         <div>
-          <p>{report.description}</p>
+          <p>{data.description}</p>
         </div>
-        <div>{report.date}</div>
+        <div>{data.reportTS}</div>
       </div>
       <div className="report-right">
-        <div>{report.location}</div>
+        <div>{data.location}</div>
         <div>
           <select value={value} onChange={handleChange}>
             <option value="aktivna">Aktivna</option>
-            <option value="wait">Na Čekanju</option>
-            <option value="done">Rješeno</option>
+            <option value="neodrađena">Neobrađena</option>
+            <option value="odrađena">Odrađena</option>
           </select>
         </div>
         <button>Update status</button>
