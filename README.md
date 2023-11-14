@@ -24,22 +24,21 @@ Ključni funkcijski zahtjevi ovog projekta su:
 - F12: pregledavanje podataka o korisničkom računu prijavljenog korisnika
 - F13: uređivanje podataka o korisničkom računu prijavljenog korisnika
 - F14: pregledavanje prijava prijavljenog korisnika
-- F15: pregledavanje svih prijava u sustavu preko interaktivne karte
-- F16: prijave sa statusom riješena su dostupne isključivo pretraživanjem preko koda
-- F17: mogućnost filtriranja prijava u sustavu prilikom pregledavanja
-- F18: pretraživanje prijave preko koda
-- F19: pregled statistike za prijave odabrane filtrom
-- F20: prijava djelatnika gradskog ureda u sustav
-- F21: registracija novog gradskog ureda
-- F22: djelatnik gradskog ureda može odbaciti nevažeću prijavu
-- F23: djelatnik gradskog ureda može proslijediti prijavu drugom uredu
-- F24: djelatnik gradskog ureda može mijenjati status prijave
-- F25: djelatnik gradskog ureda može objediniti prijave istog oštećenja
-- F26: povratna informacija korisniku (ako je registrirani) za svaku promjenu nad prijavom
-- F27: djelatnik gradskog ureda ima uvid samo prijave pristigle na njegov ured
-- F28: pregled prijava kroz 3 liste (jedna za svaki status) za djelatnike gradskog ureda
-- F29: dodatno filtriranje liste prijava za djelatnike gradskog ureda
-- F30: pregled statistike za prijave odabrane filtrom za djelatnike gradskog ureda
+- F15: pregledavanje svih aktivnih prijava u sustavu preko interaktivne karte
+- F16: mogućnost filtriranja prijava u sustavu prilikom pregledavanja
+- F17: pretraživanje prijave preko koda
+- F18: pregled statistike za prijave odabrane filtrom
+- F19: prijava djelatnika gradskog ureda u sustav
+- F20: registracija novog gradskog ureda
+- F21: djelatnik gradskog ureda može odbaciti nevažeću prijavu
+- F22: djelatnik gradskog ureda može proslijediti prijavu drugom uredu
+- F23: djelatnik gradskog ureda može mijenjati status prijave
+- F24: djelatnik gradskog ureda može objediniti prijave istog oštećenja
+- F25: povratna informacija korisniku (ako je registrirani) za svaku promjenu nad prijavom
+- F26: djelatnik gradskog ureda ima uvid samo prijave pristigle na njegov ured
+- F27: pregled prijava kroz 3 liste (jedna za svaki status) za djelatnike gradskog ureda
+- F28: dodatno filtriranje liste prijava za djelatnike gradskog ureda
+- F29: pregled statistike za prijave odabrane filtrom za djelatnike gradskog ureda
 
 # Tehnologije
 U ovom projektu se koriste Spring Boot i React radni okviri.

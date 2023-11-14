@@ -16,3 +16,10 @@
 ----------------------------------------
 	- izvještaj svakog dijela tima o napretku
 	- rad na dizajnu aplikacije
+
+
+4. SASTANAK (13.11.2023.)
+----------------------------------------
+	- izvještaj svakog dijela tima o napretku
+	- korekcije na pojedinim komponentama
+	- rad na povezivanju komponenti sustava
