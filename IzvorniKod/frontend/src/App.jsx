@@ -7,6 +7,8 @@ import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import Admin from "./Admin.jsx";
 import Main from "./Main.jsx";
 import Reports from "./Report.jsx";
+import Lforma from "./Lforma.jsx";
+import Rforma from "./Rforma.jsx";
 
 const App = () => {
   return (
@@ -15,6 +17,8 @@ const App = () => {
         <Route path="/" element={<Main />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/report" element={<Reports />} />
+        <Route path="/login" element={<Lforma />} />
+        <Route path="/prijava" element={<Rforma></Rforma>} />
       </Routes>
     </BrowserRouter>
   );

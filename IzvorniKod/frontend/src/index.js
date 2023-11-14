@@ -1,9 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
 
-import Reports from "./Report";
-import Admin from "./Admin";
 import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

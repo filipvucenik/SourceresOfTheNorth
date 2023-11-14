@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import "./Main.css";
 
 function Main() {
-  const signedIn = true;
+  const signedIn = false;
   return (
     <div className="App">
       <div className="welcome">
