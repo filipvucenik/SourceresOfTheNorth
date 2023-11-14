@@ -1,14 +1,16 @@
 \babel@toc {croatian}{}\relax 
 \contentsline {chapter}{\numberline {1}Dnevnik promjena dokumentacije}{3}{chapter.1}%
 \contentsline {chapter}{\numberline {2}Opis projektnog zadatka}{5}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Primjeri u \LaTeX u}{11}{section.2.1}%
+\contentsline {section}{\numberline {2.1}Postojeća rješenja za slični problem}{9}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Mogućnosti nadogradnje i skaliranja rješenja}{10}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Primjeri u \LaTeX u}{11}{section.2.3}%
 \contentsline {chapter}{\numberline {3}Specifikacija programske potpore}{14}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Funkcionalni zahtjevi}{14}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Obrasci uporabe}{16}{subsection.3.1.1}%
-\contentsline {subsubsection}{Dijagrami obrazaca uporabe}{23}{subsubsection*.2}%
-\contentsline {subsection}{\numberline {3.1.2}Sekvencijski dijagrami}{25}{subsection.3.1.2}%
-\contentsline {section}{\numberline {3.2}Ostali zahtjevi}{31}{section.3.2}%
-\contentsline {chapter}{\numberline {4}Arhitektura i dizajn sustava}{32}{chapter.4}%
+\contentsline {subsection}{\numberline {3.1.1}Obrasci uporabe}{17}{subsection.3.1.1}%
+\contentsline {subsubsection}{Dijagrami obrazaca uporabe}{24}{subsubsection*.2}%
+\contentsline {subsection}{\numberline {3.1.2}Sekvencijski dijagrami}{26}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}Ostali zahtjevi}{32}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Arhitektura i dizajn sustava}{33}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Baza podataka}{35}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Opis tablica}{35}{subsection.4.1.1}%
 \contentsline {subsection}{\numberline {4.1.2}Dijagram baze podataka}{39}{subsection.4.1.2}%

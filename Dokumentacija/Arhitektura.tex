@@ -1,8 +1,5 @@
 \chapter{Arhitektura i dizajn sustava}
 		
-		\textbf{\textit{dio 1. revizije}}\\
-		
-		
 		Arhitektura ovog sustava je bazirana na arhitekturi klijent-poslužitelj. Sustav se sastoji od 3 sloja: sloj korisničkog sučelja, sloj aplikacijske logike, sloj podataka.
 		
 		Korisnik koristi aplikaciju preko web preglednika. Web preglednik je program koji omogućuje klijentu komunikaciju s web poslužiteljem aplikacije. Preglednik nam omogućava prikaz sloja korisničkog sučelja sustava. Korisnik preko web preglednika komunicira s web poslužiteljem slanjem i primanjem HTTP zahtjeva. Primljene podatke i datoteke web preglednik zna interpretirati i prikazati korisniku tako da sama interakcija s aplikacijom bude jednostavna.
@@ -38,11 +35,7 @@
 		
 	\eject
 	
-		
-
 		\section{Baza podataka}
-			
-		\textbf{\textit{dio 1. revizije}}\\
 			
 		Ovaj sustav će za svoje potrebe koristiti relacijsku bazu podataka implementirana u PostgreSQL-u. Ovakav tip baze podataka svojom strukturom omogućuje jednostavno modeliranje elemenata iz stvarnog svijeta i zbog toga je široko primjenjiv. Odabrali smo implementaciju u PostgreSQL-u jer smo s ovom implementacijom već dobro upoznati. Relacijske baze podataka se sastoje od relacija. Relacije su predstavljene tablicama koje su definirane svojim nazivom i skupom atributima. Bazu podataka koristimo za jednostavnu i sigurnu pohranu, izmjenu, umetanje i dohvat podataka potrebnih za rad sustava. Naša baza podataka se sastoji od sljedećih relacija, odnosno tablica:
 		
@@ -193,9 +186,6 @@
 				cityOfficeEmail & VARCHAR & email adresa gradskog ureda \\ \hline 
 				cityOfficePassword & VARCHAR & kriptirana lozinka za račun gradskog ureda \\ \hline
 			\end{longtblr}
-		
-				
-				
 			
 			\subsection{Dijagram baze podataka}
 			

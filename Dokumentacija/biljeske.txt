@@ -1,8 +1,3 @@
-Stao na opisu prikaza statistike. Opisana statistika za prijave.
-Ideja objasniti statistiku po uredima.
-
-Nakon toga opisati ulogu gradskih ureda u aplikaciji i njihovo sučelje aplikacije.
+Treba dodati Gradsku službu kao aktora ako je u dijagramu?
 
 Razrada nefunkcionalnih zahtjeva.
-
-Vidi što još piše na predlošku i originalnom opisu zadatka.
