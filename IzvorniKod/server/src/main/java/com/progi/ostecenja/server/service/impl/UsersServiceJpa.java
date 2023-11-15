@@ -33,11 +33,6 @@ public class UsersServiceJpa implements UsersService {
         return usersRepo.findByEmail(email);
     }
 
-    @Override
-    public Optional<Users> findByUserName(String userName){
-        Assert.notNull(userName, "Username must be given");
-        return usersRepo.findByUserName(userName);
-    }
 
     @Override
     public Users fetch(long userId) {
@@ -58,11 +53,6 @@ public class UsersServiceJpa implements UsersService {
             throw new IllegalArgumentException("User with email '"+ user.getEmail() +"' already exists");
         }
 
-        //Unique username
-        if(usersRepo.countByUserName(user.getUserName()) > 0){
-            throw new IllegalArgumentException("User with username '"+ user.getUserName() +"' already exists");
-        }
-
         return usersRepo.save(user);
     }
 
@@ -78,11 +68,6 @@ public class UsersServiceJpa implements UsersService {
         //Email conflict
         if(usersRepo.existsByEmailAndUserIdNot(user.getEmail(),userId)){
             throw new RequestDeniedException("User with Email " + user.getEmail() + " already exists");
-        }
-
-        //Username conflict
-        if(usersRepo.existsByUserNameAndUserIdNot(user.getUserName(), userId)){
-            throw new RequestDeniedException("User with Username " + user.getUserName() + " already exists");
         }
 
         return usersRepo.save(user);
@@ -105,13 +90,6 @@ public class UsersServiceJpa implements UsersService {
         Assert.isTrue(email.matches(EMAIL_REGEX), "Invalid email format");
         if(email.length()>100){
             Assert.isTrue(false,"Email can't be longer than 100 characters");
-        }
-
-        //Username validation
-        String username = user.getUserName();
-        Assert.hasText(username,"Username can't be empty");
-        if(username.length()>100){
-            Assert.isTrue(false, "Username can't be longer than 100 characters");
         }
 
         //password validation

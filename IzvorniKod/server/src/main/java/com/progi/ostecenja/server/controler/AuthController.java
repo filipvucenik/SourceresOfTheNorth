@@ -5,7 +5,6 @@ import com.progi.ostecenja.server.repo.Users;
 import com.progi.ostecenja.server.service.CityOfficeService;
 import com.progi.ostecenja.server.service.UsersService;
 import jakarta.servlet.http.HttpSession;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,17 +23,21 @@ public class AuthController {
     @ResponseBody
     public ResponseEntity<String> loginAuth(HttpSession session, @RequestBody UserCredentials userCredentials){
 
-        String username= userCredentials.username;
+        String email= userCredentials.email;
         if(session.getAttribute("USER")!=null)
             return new ResponseEntity<>(session.getAttribute("USER").toString(), HttpStatus.OK);
 
-        Users user = usersService.findByUserName(username).isPresent() ? usersService.findByUserName(username).get() : null;
+        Users user = usersService.findByEmail(email).isPresent() ? usersService.findByEmail(email).get() : null;
 
         if(user==null)
             return new ResponseEntity<>("User doesn't exist", HttpStatus.BAD_REQUEST);
+        if(user.getPassword().equals(userCredentials.password)){
+              session.setAttribute("USER",user.getUserId());
+              return new ResponseEntity<>("Success", HttpStatus.OK);   
+        }
+        return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
 
-        session.setAttribute("USER",user.getUserId());
-        return new ResponseEntity<>("Success", HttpStatus.OK);
+
     }
 
 
@@ -47,9 +50,11 @@ public class AuthController {
 
         if(office==null)
             return new ResponseEntity<>("User doesn't exist", HttpStatus.BAD_REQUEST);
-
-        session.setAttribute("OFFICE",office.getCityOfficeId());
-        return new ResponseEntity<>("Success", HttpStatus.OK);
+        if(office.getCityOfficePassword().equals(password)){
+            session.setAttribute("OFFICE",office.getCityOfficeId());
+            return new ResponseEntity<>("Success", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
     }
     
     @PostMapping("/userRegister")
@@ -58,13 +63,14 @@ public class AuthController {
             return new ResponseEntity<>(session.getAttribute("USER").toString(), HttpStatus.OK);
 
         Users createdUser = null;
+
         try {
             createdUser = usersService.createUser(user);
         } catch (Exception e) {
-
+            throw e;
         }
-
         if (createdUser!=null){
+            session.setAttribute("USER",user.getUserId());   
             return new ResponseEntity<>("Success", HttpStatus.OK);
         }
         return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
@@ -74,11 +80,11 @@ public class AuthController {
 
 
 class UserCredentials {
-    public String username;
+    public String email;
     public String password;
 
-    public UserCredentials(String username, String password) {
-        this.username = username;
+    public UserCredentials(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 }

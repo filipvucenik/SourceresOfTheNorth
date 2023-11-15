@@ -64,10 +64,10 @@ public class ReportController {
             userId = null;
         }
         Long groupID = reportGroupService.createReportGroup().getGroupID();
+
         report.setUserID(userId);
         report.setReportTS(timestamp);
         report.setGroupID(groupID);
-        report.setTrStatus("neobrađeno");
         reportService.createReport(report);
 
 
