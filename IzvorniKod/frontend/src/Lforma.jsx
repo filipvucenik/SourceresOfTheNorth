@@ -27,7 +27,6 @@ const Lforma = () => {
       body: stuff,
     }).then((response) => {
       if (response.status === 200) {
-        Navigate;
       }
     });
   };
