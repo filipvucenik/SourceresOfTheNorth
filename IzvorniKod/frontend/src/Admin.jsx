@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import "./admin_view.css";
 
 const ReportListElement = ({ repo }) => {
@@ -49,11 +50,26 @@ function Admin() {
 
   return (
     <div>
-      <h1>Admin view all reports</h1>
+      <h1>POPIS SVIH PRIJAVA</h1>
       <div className="Sorting_buttons">
-        <button onClick={() => updateDisplay("aktivna")}>Aktivne</button>
-        <button onClick={() => updateDisplay("wait")}>Na čekanju</button>
-        <button onClick={() => updateDisplay("done")}>Riješene</button>
+        <button
+          className="selector-button"
+          onClick={() => updateDisplay("aktivna")}
+        >
+          Aktivne
+        </button>
+        <button
+          className="selector-button"
+          onClick={() => updateDisplay("wait")}
+        >
+          Na čekanju
+        </button>
+        <button
+          className="selector-button"
+          onClick={() => updateDisplay("done")}
+        >
+          Riješene
+        </button>
       </div>
       {displaied_data.length > 0 && (
         <div className="report-columns">
@@ -66,9 +82,11 @@ function Admin() {
       <div className="report-list">
         <ul>
           {displaied_data.map((repo) => (
-            <li key={repo.id}>
-              <ReportListElement repo={repo}></ReportListElement>
-            </li>
+            <Link to="/report" className="repo-link">
+              <li key={repo.id}>
+                <ReportListElement repo={repo}></ReportListElement>
+              </li>
+            </Link>
           ))}
         </ul>
       </div>
