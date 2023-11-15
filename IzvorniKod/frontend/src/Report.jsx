@@ -4,12 +4,10 @@ import { useParams } from "react-router-dom";
 
 const server = "http://localhost:8080/";
 
-const Report = ({ report }) => {
-  const s = report.status;
-  const id = report.id;
-  const { t_id } = useParams();
+const Report = ({ id }) => {
+  console.log(id);
 
-  const [value, setValue] = useState(s);
+  const [value, setValue] = useState();
   const handleChange = (event) => {
     setValue(event.target.value);
   };
@@ -18,10 +16,11 @@ const Report = ({ report }) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${server}reports/1`);
+      const response = await fetch(`${server}reports/${id}`);
       const result = await response.json();
       setData(result);
       console.log(result);
+      setValue(result.trStatus);
     } catch (error) {
       console.log(error);
     }
@@ -49,10 +48,10 @@ const Report = ({ report }) => {
           {data.location}
         </div>
         <div>
-          <select value={data.trStatus} onChange={handleChange}>
-            <option value="aktivna">Aktivna</option>
-            <option value="neodrađeno">Neobrađeno</option>
-            <option value="odrađena">Odrađena</option>
+          <select value={value} onChange={handleChange}>
+            <option value="aktivno">Aktivno</option>
+            <option value="neobrađeno">Neobrađeno</option>
+            <option value="obrađeno">Odrađeno</option>
           </select>
         </div>
         <button>Update status</button>
@@ -72,11 +71,13 @@ function Reports() {
     status: "aktivna",
   };
 
+  const { t_id } = useParams();
+
   return (
     <div>
       <h1>REPORT</h1>
       <div className="page">
-        <Report report={testerData}></Report>
+        <Report id={t_id}></Report>
       </div>
     </div>
   );

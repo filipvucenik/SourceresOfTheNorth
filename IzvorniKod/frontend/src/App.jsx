@@ -18,7 +18,7 @@ function App() {
         <Route path="/prijava" element={<PrijavaSteteComponent />} />
         <Route path="/login" element={<LoginComponent />} />
         <Route path="/statistika" element={<StatisticComponent />} />
-        <Route path="/report" element={<Reports />} />
+        <Route path="/report/:id" element={<Reports />} />
         <Route path="/admin" element={<Admin />} />
 
         {/*}<Route path="/registracija" element={<RegisterComponent />} />

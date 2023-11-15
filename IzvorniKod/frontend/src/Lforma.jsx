@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Lforma.css";
+import { Navigate } from "react-router-dom";
 
 const Lforma = () => {
   const [username, setUsername] = useState("");
@@ -16,9 +17,7 @@ const Lforma = () => {
 
     let url = "http://localhost:8080/auth/userLogin";
 
-    console.log(jsonData);
     var stuff = JSON.stringify(jsonData);
-    console.log(stuff);
 
     fetch(url, {
       method: "POST",
@@ -26,10 +25,11 @@ const Lforma = () => {
         "Content-Type": "application/json",
       },
       body: stuff,
-    })
-      .then((response) => console.log(response))
-      .then((data) => console.log("Login Success:", data))
-      .catch((error) => console.error("Login Error:", error));
+    }).then((response) => {
+      if (response.status === 200) {
+        Navigate;
+      }
+    });
   };
 
   const handleLoginInputChange = (e) => {
@@ -73,7 +73,7 @@ const Lforma = () => {
   return (
     <>
       <div className="welcome">
-        <h1>Dobro Došli!</h1>
+        <h1>Dobrodošli!</h1>
       </div>
       <div className="form-container">
         <form className="login-form">
