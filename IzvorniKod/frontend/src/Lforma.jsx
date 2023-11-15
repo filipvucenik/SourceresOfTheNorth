@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import Cookies from "js-cookie";
 import "./Lforma.css";
-import { Navigate } from "react-router-dom";
 
-const Lforma = () => {
+const LoginComponent = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -11,7 +11,7 @@ const Lforma = () => {
 
   const handleButtonClick = () => {
     let jsonData = {
-      username: username,
+      email: email,
       password: password,
     };
 
@@ -21,18 +21,21 @@ const Lforma = () => {
 
     fetch(url, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       body: stuff,
     }).then((response) => {
+      console.log(response);
       if (response.status === 200) {
+        Cookies.set("name", "maillllllllic yeah");
       }
     });
   };
 
   const handleLoginInputChange = (e) => {
-    setUsername(e.target.value);
+    setEmail(e.target.value);
   };
 
   const handlePasswordInputChange = (e) => {
@@ -79,7 +82,7 @@ const Lforma = () => {
           <h2>Prijava</h2>
           <input
             type="text"
-            placeholder="Korisničko ime"
+            placeholder="Email"
             id="UserLogin"
             required=""
             onChange={handleLoginInputChange}
@@ -116,4 +119,4 @@ const Lforma = () => {
   );
 };
 
-export default Lforma;
+export default LoginComponent;

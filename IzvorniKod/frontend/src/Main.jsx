@@ -1,23 +1,26 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import MapComponent from "./MapComponent.jsx";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 // import PrijavaSteteComponent from "./PrijavaSteteComponent.jsx";
 // import LoginComponent from "./LoginComponent.jsx";
 import "./Main.css";
+import Cookies from "js-cookie";
 
 function Main() {
-    const [postojiKolacic, postaviPostojiKolacic] = useState(false);
+  const [postojiKolacic, postaviPostojiKolacic] = useState(false);
 
-    useEffect(() => {
-      const kolacici = document.cookie;
-  
-      if (kolacici) {
-        postaviPostojiKolacic(true);
-      }
-    }, []);
+  useEffect(() => {
+    const kolacici = Cookies.get(); // Dohvaćanje svih kolačića
 
-    //const signedIn = false;
-  
+    console.log(kolacici);
+
+    if (Object.keys(kolacici).length > 0) {
+      postaviPostojiKolacic(true);
+    }
+  }, []);
+
+  //const signedIn = false;
+
   return (
     <div className="App">
       <div className="title">

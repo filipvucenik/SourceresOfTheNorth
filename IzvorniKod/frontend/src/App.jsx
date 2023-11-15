@@ -17,6 +17,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/prijava" element={<PrijavaSteteComponent />} />
         <Route path="/login" element={<LoginComponent />} />
+        <Route path="/login" element={<LoginComponent />} />
         <Route path="/statistika" element={<StatisticComponent />} />
         <Route path="/report/:id" element={<Reports />} />
         <Route path="/admin" element={<Admin />} />
