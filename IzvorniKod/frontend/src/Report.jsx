@@ -34,15 +34,20 @@ const Report = ({ report }) => {
   return (
     <div className="Report">
       <div className="report-left">
-        <div>Image placeholder</div>
-        <div>{data.reportHeadline}</div>
         <div>
-          <p>{data.description}</p>
+          <img src="https://picsum.photos/400/300" />
         </div>
-        <div>{data.reportTS}</div>
+        <div>Naslov: {data.reportHeadline}</div>
+        <div>
+          <p>Opis: {data.description}</p>
+        </div>
+        <div>Datum: {data.reportTS}</div>
       </div>
       <div className="report-right">
-        <div>{data.location}</div>
+        <div>
+          <img src="https://picsum.photos/300/300" />
+          {data.location}
+        </div>
         <div>
           <select value={value} onChange={handleChange}>
             <option value="aktivna">Aktivna</option>
@@ -70,7 +75,7 @@ function Reports() {
   return (
     <div>
       <h1>REPORT</h1>
-      <div>
+      <div className="page">
         <Report report={testerData}></Report>
       </div>
     </div>

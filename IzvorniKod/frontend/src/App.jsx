@@ -1,79 +1,47 @@
-import { useState } from "react";
-import "./admin_view.css";
+import React from 'react';
+import MapComponent from './MapComponent.jsx';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import PrijavaSteteComponent from './Rforma.jsx';
+import LoginComponent from './Lforma.jsx';
+import StatisticComponent from './StatisticComponent.jsx';
+import './App.css';
 
-const ReportListElement = ({ repo }) => {
-  return (
-    <div className="report">
-      <div className="report-info">{repo.name}</div>
-      <div className="report-info">{repo.kategorija}</div>
-      <div className="report-info">{repo.lokacija}</div>
-      <div className="report-info">{repo.status}</div>
-    </div>
-  );
-};
 
 function App() {
-  const data = [
-    {
-      id: 1,
-      name: "problem s vodom",
-      status: "aktivna",
-      lokacija: "vrbik",
-      kategorija: "voda",
-    },
-    {
-      id: 2,
-      name: "problem s vodom",
-      status: "aktivna",
-      lokacija: "FER",
-      kategorija: "voda",
-    },
-    {
-      id: 3,
-      name: "problem s vodom",
-      status: "done",
-      lokacija: "knezija",
-      kategorija: "voda",
-    },
-  ];
-  const [displaied_data, set_display] = useState([]);
-  const updateDisplay = (status) => {
-    set_display(
-      data.filter((repo) => {
-        if (repo.status === status) {
-          return true;
-        } else return false;
-      })
-    );
-  };
-
+  const signedIn = false;
   return (
-    <div>
-      <h1>Admin view all reports</h1>
-      <div className="Sorting_buttons">
-        <button onClick={() => updateDisplay("aktivna")}>Aktivne</button>
-        <button onClick={() => updateDisplay("wait")}>Na čekanju</button>
-        <button onClick={() => updateDisplay("done")}>Riješene</button>
-      </div>
-      {displaied_data.length > 0 && (
-        <div className="report-columns">
-          <div className="report-info-column">Naziv</div>
-          <div className="report-info-column">Kategorija</div>
-          <div className="report-info-column">Lokacija</div>
-          <div className="report-info-column">Status</div>
+    <Router>
+    <div className="App">
+      <div className='title'><h1> Mapa prijavljenih šteta</h1></div>
+      <div className='header'>
+        <div className='left'>
+          <Link to="/prijava" className="profile-button"><button className='prijavaStete'>Prijava štete</button></Link>
+          <Link to="/statistika" className="profile-button"><button className='prijavaStete'>Statistika</button></Link>
         </div>
-      )}
-      <div className="report-list">
-        <ul>
-          {displaied_data.map((repo) => (
-            <li key={repo.id}>
-              <ReportListElement repo={repo}></ReportListElement>
-            </li>
-          ))}
-        </ul>
-      </div>
+          {signedIn ? (
+            <Link to="/profile" className="profile-button"><button className='username'>Prijavljeni korisnik</button></Link>
+          ) : (
+            <>
+            <div className='right'>
+              <Link to="/login" className="profile-button"><button className='login'>Log in</button></Link>
+              <Link to="/registracija" className="profile-button"><button className='login'>Register</button></Link>
+            </div>
+            </>
+          )}
+        </div>
+      <div className='footer'></div>
+      <Routes>
+          <Route path="/" element={<MapComponent />} />
+          <Route path="/prijava" element={<PrijavaSteteComponent />} />
+          <Route path="/login" element={<LoginComponent />} />
+          <Route path="/statistika" element={<StatisticComponent />} />
+          {/*}<Route path="/registracija" element={<RegisterComponent />} />
+          <Route path="/profile" element={<ProfilePage />} />{*/}
+    </Routes>
     </div>
+    </Router>
   );
 }
 
 export default App;
+
