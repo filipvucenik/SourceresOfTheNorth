@@ -19,6 +19,9 @@ public class Report {
     @Column
     private Timestamp reportTS;
 
+    @Column
+    private String trStatus;
+
     @JoinColumn(name="userID")
     private Long userID;
 
@@ -90,6 +93,14 @@ public class Report {
 
     public void setCategoryID(Long categoryID) {
         this.categoryID = categoryID;
+    }
+
+    public String getTrStatus() {
+        return trStatus;
+    }
+
+    public void setTrStatus(String trStatus) {
+        this.trStatus = trStatus;
     }
 
     public Report(){
