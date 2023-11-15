@@ -8,21 +8,21 @@ public class Users {
     @Id
     @GeneratedValue
     private Long userId;
+
     @Column(unique = true, nullable = false)
     @NotBlank
     @Size(max = 100)
     @Email
     private String email;
-    @Column(unique = true)
-    @NotBlank
-    @Size(max=100)
-    private String userName;
+
     @NotBlank
     @Size(min=8, max=100)
     private String password;
+
     @NotBlank
     @Size(max=50)
     private String firstName;
+
     @NotBlank
     @Size(max=50)
     private String lastName;
@@ -32,7 +32,6 @@ public class Users {
         return "Users{" +
                 "userId=" + userId +
                 ", email='" + email + '\'' +
-                ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -40,13 +39,12 @@ public class Users {
     }
 
     public Users(){}
-    public Users(Long userId, String email, String firstName, String lastName, String password, String userName) {
+    public Users(Long userId, String email, String firstName, String lastName, String password) {
         this.userId = userId;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.userName = userName;
     }
     public Long getUserId() {
         return userId;
@@ -87,11 +85,4 @@ public class Users {
         this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 }

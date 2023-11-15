@@ -18,29 +18,18 @@ public class UsersController {
 
     @GetMapping
     public List<Users> listUsers(@RequestParam(defaultValue = "") String email, @RequestParam(defaultValue = "") String userName){
-        if(email.equals("") && userName.equals("")){
+        if(email.equals("")){
             return usersService.listAll();
-        }
-        if(!email.equals("")&&!userName.equals("")){
-            throw new RequestDeniedException("Email and Username both provided");
         }
 
         ArrayList<Users> list = new ArrayList<>();
 
-        if(userName.equals("")){
-            Optional<Users> Op = usersService.findByEmail(email);
-            if(Op.isPresent()){
-                Users user = Op.get();
-                list.add(user);
-                return list;
-            }
-        }else{
-            Optional<Users> Op = usersService.findByUserName(userName);
-            if(Op.isPresent()){
-                Users user = Op.get();
-                list.add(user);
-                return list;
-            }
+
+        Optional<Users> Op = usersService.findByEmail(email);
+        if(Op.isPresent()){
+            Users user = Op.get();
+            list.add(user);
+            return list;
         }
         return list;
     }

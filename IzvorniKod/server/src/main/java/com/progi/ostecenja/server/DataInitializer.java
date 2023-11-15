@@ -26,10 +26,10 @@ public class DataInitializer {
     @EventListener
     public void appReady(ApplicationReadyEvent event){
         Users[] users = new Users[4];
-        users[0] = new Users(null, "abc@gmail.com","xx","yy","pass1234","username");
-        users[1] = new Users(null, "abc2@gmail.com","xx","yy","pass1234","username2");
-        users[2] = new Users(null, "abc3@gmail.com","xx","yy","pass1234","username3");
-        users[3] = new Users(null, "abc4@gmail.com","xx","yy","pass1234","username4");
+        users[0] = new Users(null, "abc@gmail.com","xx","yy","pass1234");
+        users[1] = new Users(null, "abc2@gmail.com","xx","yy","pass1234");
+        users[2] = new Users(null, "abc3@gmail.com","xx","yy","pass1234");
+        users[3] = new Users(null, "abc4@gmail.com","xx","yy","pass1234");
         for(Users user : users){
             usersService.createUser(user);
         }

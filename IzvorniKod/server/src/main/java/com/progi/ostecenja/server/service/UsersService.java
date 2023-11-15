@@ -29,7 +29,5 @@ public interface UsersService {
 
     Optional<Users> findByEmail(String email);
 
-    Optional<Users> findByUserName(String userName);
-
     Users deleteUser(long id);
 }
