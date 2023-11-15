@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import MapComponent from "./MapComponent.jsx";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 // import PrijavaSteteComponent from "./PrijavaSteteComponent.jsx";
@@ -6,10 +6,21 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import "./Main.css";
 
 function Main() {
-  const signedIn = false;
+    const [postojiKolacic, postaviPostojiKolacic] = useState(false);
+
+    useEffect(() => {
+      const kolacici = document.cookie;
+  
+      if (kolacici) {
+        postaviPostojiKolacic(true);
+      }
+    }, []);
+
+    //const signedIn = false;
+  
   return (
     <div className="App">
-      <div className="welcome">
+      <div className="title">
         <h1> Mapa prijavljenih šteta</h1>
       </div>
       <div className="header">
@@ -21,7 +32,7 @@ function Main() {
             <button className="prijavaStete">Statistika</button>
           </Link>
         </div>
-        {signedIn ? (
+        {postojiKolacic ? (
           <Link to="/profile" className="profile-button">
             <button className="username">Prijavljeni korisnik</button>
           </Link>
