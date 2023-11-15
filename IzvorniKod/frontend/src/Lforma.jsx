@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import "./Lforma.css";
+import { useNavigate } from "react-router-dom";
 
 const LoginComponent = () => {
   const [username, setUsername] = useState("");
@@ -8,6 +9,7 @@ const LoginComponent = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
   const handleButtonClick = () => {
     let jsonData = {
@@ -17,19 +19,21 @@ const LoginComponent = () => {
 
     let url = "http://localhost:8080/auth/userLogin";
 
-    var stuff = JSON.stringify(jsonData);
-
     fetch(url, {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-      body: stuff,
+      body: JSON.stringify(jsonData),
     }).then((response) => {
       console.log(response);
+
       if (response.status === 200) {
         Cookies.set("name", "maillllllllic yeah");
+        navigate("/");
+      } else {
+        alert("User does not exist!");
       }
     });
   };
