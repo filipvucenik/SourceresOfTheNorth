@@ -31,9 +31,13 @@ public class AuthController {
 
         if(user==null)
             return new ResponseEntity<>("User doesn't exist", HttpStatus.BAD_REQUEST);
+        if(user.getPassword().equals(userCredentials.password)){
+              session.setAttribute("USER",user.getUserId());
+              return new ResponseEntity<>("Success", HttpStatus.OK);   
+        }
+        return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
 
-        session.setAttribute("USER",user.getUserId());
-        return new ResponseEntity<>("Success", HttpStatus.OK);
+
     }
 
 
@@ -46,9 +50,11 @@ public class AuthController {
 
         if(office==null)
             return new ResponseEntity<>("User doesn't exist", HttpStatus.BAD_REQUEST);
-
-        session.setAttribute("OFFICE",office.getCityOfficeId());
-        return new ResponseEntity<>("Success", HttpStatus.OK);
+        if(office.getCityOfficePassword().equals(password)){
+            session.setAttribute("OFFICE",office.getCityOfficeId());
+            return new ResponseEntity<>("Success", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
     }
     
     @PostMapping("/userRegister")
@@ -57,12 +63,12 @@ public class AuthController {
             return new ResponseEntity<>(session.getAttribute("USER").toString(), HttpStatus.OK);
 
         Users createdUser = null;
+
         try {
             createdUser = usersService.createUser(user);
         } catch (Exception e) {
-
+            throw e;
         }
-
         if (createdUser!=null){
             session.setAttribute("USER",user.getUserId());   
             return new ResponseEntity<>("Success", HttpStatus.OK);
