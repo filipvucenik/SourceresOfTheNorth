@@ -7,39 +7,51 @@ import jakarta.persistence.Id;
 
 @Entity(name = "CityOffice")
 public class CityOffice {
-    @Id @GeneratedValue
-  private long cityOfficeID;
+  @Id @GeneratedValue
+  private Long cityOfficeId;
 
   @Column(unique=true, nullable=false)
   private String cityOfficeName;
 
   @Column(unique=true, nullable=false)
-  private String getCityOfficeEmail;
+  private String cityOfficeEmail;
+  @Column(nullable=false)
+  private String cityOfficePassword;
 
-  @Column(unique=true, nullable=false)
-  private String getCityOfficePassword;
-  public long getCityOfficeID() {
-        return cityOfficeID;
+  public Long getCityOfficeId() {
+        return cityOfficeId;
     }
-    public String getCityOfficeName() {
+
+  public String getCityOfficeName() {
         return cityOfficeName;
     }
 
-    public String getGetCityOfficeEmail() {
-        return getCityOfficeEmail;
+  public String getCityOfficeEmail() {
+        return cityOfficeEmail;
     }
 
-    public String getGetCityOfficePassword() {
-        return getCityOfficePassword;
+  public String getCityOfficePassword() {
+        return cityOfficePassword;
     }
-    public CityOffice(){
 
-    }
-    public CityOffice(long cityOfficeID, String cityOfficeName, String getCityOfficeEmail, String getCityOfficePassword) {
-        this.cityOfficeID = cityOfficeID;
+  public CityOffice(){
+
+  }
+  public CityOffice(Long cityOfficeId, String cityOfficeName, String cityOfficeEmail, String cityOfficePassword) {
+        this.cityOfficeId = cityOfficeId;
         this.cityOfficeName = cityOfficeName;
-        this.getCityOfficeEmail = getCityOfficeEmail;
-        this.getCityOfficePassword = getCityOfficePassword;
+        this.cityOfficeEmail = cityOfficeEmail;
+        this.cityOfficePassword = cityOfficePassword;
+  }
+
+    @Override
+    public String toString() {
+        return "CityOffice{" +
+                "cityOfficeId=" + cityOfficeId +
+                ", cityOfficeName='" + cityOfficeName + '\'' +
+                ", cityOfficeEmail='" + cityOfficeEmail + '\'' +
+                ", cityOfficePassword='" + cityOfficePassword + '\'' +
+                '}';
     }
 
 }

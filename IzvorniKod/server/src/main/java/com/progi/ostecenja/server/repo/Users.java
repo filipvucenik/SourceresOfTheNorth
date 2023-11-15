@@ -1,34 +1,54 @@
 package com.progi.ostecenja.server.repo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
-@Entity
+@Entity(name="USERS")
 public class Users {
     @Id
     @GeneratedValue
     private Long userId;
 
+    @Column(unique = true, nullable = false)
+    @NotBlank
+    @Size(max = 100)
+    @Email
     private String email;
-    private String firstName;
-    private String lastName;
-    private String password;
-    private String userName;
 
-    public Long getUserId() {
-        return userId;
+    @NotBlank
+    @Size(min=8, max=100)
+    private String password;
+
+    @NotBlank
+    @Size(max=50)
+    private String firstName;
+
+    @NotBlank
+    @Size(max=50)
+    private String lastName;
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "userId=" + userId +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
+
     public Users(){}
-    public Users(Long userId, String email, String firstName, String lastName, String password, String userName) {
+    public Users(Long userId, String email, String firstName, String lastName, String password) {
         this.userId = userId;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.userName = userName;
     }
-
+    public Long getUserId() {
+        return userId;
+    }
     public void setUserId(Long userId) {
         this.userId = userId;
     }
@@ -65,11 +85,4 @@ public class Users {
         this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 }
