@@ -49,9 +49,9 @@ const Report = ({ report }) => {
           {data.location}
         </div>
         <div>
-          <select value={value} onChange={handleChange}>
+          <select value={data.trStatus} onChange={handleChange}>
             <option value="aktivna">Aktivna</option>
-            <option value="neodrađena">Neobrađena</option>
+            <option value="neodrađeno">Neobrađeno</option>
             <option value="odrađena">Odrađena</option>
           </select>
         </div>

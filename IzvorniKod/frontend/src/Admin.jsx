@@ -82,7 +82,7 @@ function Admin() {
       <div className="report-list">
         <ul>
           {displaied_data.map((repo) => (
-            <Link to="/report" className="repo-link">
+            <Link to={`/report/${repo.id}`} className="repo-link">
               <li key={repo.id}>
                 <ReportListElement repo={repo}></ReportListElement>
               </li>
