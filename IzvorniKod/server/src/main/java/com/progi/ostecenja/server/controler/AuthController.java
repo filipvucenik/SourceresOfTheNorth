@@ -64,6 +64,7 @@ public class AuthController {
         }
 
         if (createdUser!=null){
+            session.setAttribute("USER",user.getUserId());   
             return new ResponseEntity<>("Success", HttpStatus.OK);
         }
         return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
