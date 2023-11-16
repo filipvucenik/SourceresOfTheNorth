@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./report.css";
 import { useParams } from "react-router-dom";
 
-const server = "http://localhost:8080/";
+const server = "https://ostecenja-progi-fer.onrender.com";
 
 const Report = ({ id }) => {
   console.log(id.id);
