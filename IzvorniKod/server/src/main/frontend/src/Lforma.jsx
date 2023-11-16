@@ -15,7 +15,7 @@ const LoginComponent = () => {
     const isLoggedIn = Cookies.get();
 
     if (Object.keys(isLoggedIn).length > 0) {
-      navigate('/');
+      navigate("/");
     }
   }, [navigate]);
 
@@ -25,7 +25,7 @@ const LoginComponent = () => {
       password: password,
     };
 
-    let url = "http://localhost:8080/auth/userLogin";
+    let url = "https://ostecenja-progi-fer.onrender.com/auth/userLogin";
 
     fetch(url, {
       method: "POST",
@@ -55,7 +55,7 @@ const LoginComponent = () => {
   };
 
   const handleBuildRegJson = () => {
-    let url = "http://localhost:8080/auth/userRegister";
+    let url = "https://ostecenja-progi-fer.onrender.com/auth/userRegister";
     let pass = document.getElementById("passReg").value;
     let name = document.getElementById("imeReg").value;
     let surr = document.getElementById("prezReg").value;
@@ -65,7 +65,7 @@ const LoginComponent = () => {
       email: mail,
       firstName: name,
       lastName: surr,
-      password: pass
+      password: pass,
     };
 
     console.log(jsonData);
