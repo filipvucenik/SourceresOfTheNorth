@@ -4,9 +4,9 @@ import "./Lforma.css";
 import { useNavigate } from "react-router-dom";
 
 const LoginComponent2 = () => {
+    const navigate = useNavigate();
     const handleBuildRegJson = () => {
         let url = "http://localhost:8080/auth/userRegister";
-        let username = document.getElementById("userReg").value;
         let pass = document.getElementById("passReg").value;
         let name = document.getElementById("imeReg").value;
         let surr = document.getElementById("prezReg").value;
@@ -16,14 +16,14 @@ const LoginComponent2 = () => {
           email: mail,
           firstName: name,
           lastName: surr,
-          password: pass,
-          userName: username,
+          password: pass
         };
     
         console.log(jsonData);
     
         fetch(url, {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },

@@ -28,7 +28,7 @@ function StatisticComponent() {
       };
 
   return (
-    <div>
+    <div className="report-form">
       <form onSubmit={handleSubmit}>
         <label>
           ID Kategorije:

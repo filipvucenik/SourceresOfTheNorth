@@ -45,7 +45,7 @@ function Main() {
               <Link to="/login" className="profile-button">
                 <button className="login">Log in</button>
               </Link>
-              <Link to="/login" className="profile-button">
+              <Link to="/registracija" className="profile-button">
                 <button className="login">Register</button>
               </Link>
             </div>

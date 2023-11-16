@@ -7,6 +7,7 @@ import StatisticComponent from "./StatisticComponent.jsx";
 import Main from "./Main.jsx";
 import Reports from "./Report.jsx";
 import Admin from "./Admin.jsx";
+import RegistrationComponent from "./Regforma.jsx"
 import "./App.css";
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/prijava" element={<PrijavaSteteComponent />} />
         <Route path="/login" element={<LoginComponent />} />
-        <Route path="/login" element={<LoginComponent />} />
+        <Route path="/registracija" element={<RegistrationComponent />} />
         <Route path="/statistika" element={<StatisticComponent />} />
         <Route path="/report/:id" element={<Reports />} />
         <Route path="/admin" element={<Admin />} />

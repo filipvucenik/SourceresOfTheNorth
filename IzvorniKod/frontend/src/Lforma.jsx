@@ -102,6 +102,7 @@ const LoginComponent = () => {
             Prijava
           </button>
         </form>
+        {/*}
         <form className="register-form">
           <h2>Registracija</h2>
           <input
@@ -117,7 +118,7 @@ const LoginComponent = () => {
           <button type="button" onClick={handleBuildRegJson}>
             Registracija
           </button>
-        </form>
+  </form>{*/}
       </div>
     </>
   );
