@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import "./Lforma.css";
 import { useNavigate } from "react-router-dom";
 
 const LoginComponent = () => {
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Provjeri postoji li kolačić koji ukazuje na prijavu
+    const isLoggedIn = Cookies.get();
+
+    if (Object.keys(isLoggedIn).length > 0) {
+      navigate('/');
+    }
+  }, [navigate]);
 
   const handleButtonClick = () => {
     let jsonData = {
@@ -48,7 +56,6 @@ const LoginComponent = () => {
 
   const handleBuildRegJson = () => {
     let url = "http://localhost:8080/auth/userRegister";
-    let username = document.getElementById("userReg").value;
     let pass = document.getElementById("passReg").value;
     let name = document.getElementById("imeReg").value;
     let surr = document.getElementById("prezReg").value;
@@ -58,8 +65,7 @@ const LoginComponent = () => {
       email: mail,
       firstName: name,
       lastName: surr,
-      password: pass,
-      userName: username,
+      password: pass
     };
 
     console.log(jsonData);
@@ -102,23 +108,6 @@ const LoginComponent = () => {
             Prijava
           </button>
         </form>
-        {/*}
-        <form className="register-form">
-          <h2>Registracija</h2>
-          <input
-            type="text"
-            placeholder="Korisničko ime"
-            id="userReg"
-            required=""
-          />
-          <input type="password" placeholder="Šifra" id="passReg" required="" />
-          <input type="text" placeholder="Ime" id="imeReg" required="" />
-          <input type="text" placeholder="Prezime" id="prezReg" required="" />
-          <input type="email" placeholder="E-mail" id="mailReg" required="" />
-          <button type="button" onClick={handleBuildRegJson}>
-            Registracija
-          </button>
-  </form>{*/}
       </div>
     </>
   );

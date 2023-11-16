@@ -29,6 +29,7 @@ function StatisticComponent() {
 
   return (
     <div className="report-form">
+      <h1>Statistika prijava</h1>
       <form onSubmit={handleSubmit}>
         <label>
           ID Kategorije:
@@ -57,7 +58,6 @@ function StatisticComponent() {
         <button className="submit-btn" type="submit">Filter</button>
       </form>
 
-      <h2>Statistika</h2>
       <ul>
         {filteredData.map((item) => (
           <li key={item.categoryID}>

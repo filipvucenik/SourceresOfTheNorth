@@ -11,7 +11,6 @@ function Main() {
 
   useEffect(() => {
     const kolacici = Cookies.get(); // Dohvaćanje svih kolačića
-
     console.log(kolacici);
 
     if (Object.keys(kolacici).length > 0) {

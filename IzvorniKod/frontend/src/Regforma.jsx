@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import "./Lforma.css";
 import { useNavigate } from "react-router-dom";
 
 const LoginComponent2 = () => {
     const navigate = useNavigate();
+
+    useEffect(() => {
+      const isLoggedIn = Cookies.get();
+  
+      if (Object.keys(isLoggedIn).length > 0) {
+        navigate('/');
+      }
+    }, [navigate]);
+
     const handleBuildRegJson = () => {
         let url = "http://localhost:8080/auth/userRegister";
         let pass = document.getElementById("passReg").value;
