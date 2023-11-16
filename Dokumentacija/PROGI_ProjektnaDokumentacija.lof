@@ -1,17 +1,17 @@
 \babel@toc {croatian}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Aplikacija \textit {Gradsko oko} Grada Rijeke}}{9}{figure.2.1}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Primjer slike s potpisom}}{12}{figure.2.2}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Primjer slike s potpisom 2}}{13}{figure.2.3}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Aplikacija \textit {Gradsko oko} Grada Rijeke}}{7}{figure.2.1}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Dijagram obrasca uporabe, mogućnosti korisnika}}{24}{figure.3.1}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Dijagram obrasca uporabe, obrada prijava}}{25}{figure.3.2}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Sekvencijski dijagram, prijava/registracija}}{27}{figure.3.3}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Sekvencijski dijagram, podnošenje prijave}}{29}{figure.3.4}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Sekvencijski dijagram, obrada prijava}}{31}{figure.3.5}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Dijagram obrasca uporabe, mogućnosti korisnika}}{19}{figure.3.1}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Dijagram obrasca uporabe, obrada prijava}}{20}{figure.3.2}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Sekvencijski dijagram, prijava/registracija}}{22}{figure.3.3}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Sekvencijski dijagram, podnošenje prijave}}{24}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Sekvencijski dijagram, obrada prijava}}{26}{figure.3.5}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces prikaz komponenti u MVC arhitekturi}}{34}{figure.4.1}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces relacijski dijagram baze podataka}}{39}{figure.4.2}%
-\addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Prikaz Spring Boot arhitekture}}{29}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Relacijski dijagram baze podataka}}{34}{figure.4.2}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Kontroleri na backendu}}{35}{figure.4.3}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Data Access Objects}}{36}{figure.4.4}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Modeli}}{37}{figure.4.5}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Servisi}}{38}{figure.4.6}%

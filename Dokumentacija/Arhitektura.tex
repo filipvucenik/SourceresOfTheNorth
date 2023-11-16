@@ -2,41 +2,42 @@
 		
 		Arhitektura ovog sustava je bazirana na arhitekturi klijent-poslužitelj. Sustav se sastoji od 3 sloja: sloj korisničkog sučelja, sloj aplikacijske logike, sloj podataka.
 		
-		Korisnik koristi aplikaciju preko web preglednika. Web preglednik je program koji omogućuje klijentu komunikaciju s web poslužiteljem aplikacije. Preglednik nam omogućava prikaz sloja korisničkog sučelja sustava. Korisnik preko web preglednika komunicira s web poslužiteljem slanjem i primanjem HTTP zahtjeva. Primljene podatke i datoteke web preglednik zna interpretirati i prikazati korisniku tako da sama interakcija s aplikacijom bude jednostavna.
+		\textbf{Web preglednik} je program preko kojeg korisnik koristi aplikaciju. Preglednik omogućuje klijentu komunikaciju s web poslužiteljem aplikacije. Preglednik nam omogućava prikaz sloja korisničkog sučelja sustava. Korisnik preko web preglednika komunicira s web poslužiteljem slanjem i primanjem HTTP zahtjeva. Primljene podatke i datoteke web preglednik zna interpretirati i prikazati korisniku tako da sama interakcija s aplikacijom bude jednostavna. Neki od popularnih web preglednika su Crome, Safari i Edge.
 		
-		Web poslužitelj je računalo na kojem se aplikacija pokreće. Na njemu se dakle nalazi sloj aplikacijske logike. Web poslužitelj aplikaciji prosljeđuje zahtjeve na obradu i njezine odgovore prosljeđuje natrag klijentima. Web aplikacija na poslužitelju obrađuje zaprimljene zahtjeve. Ako obrada zahtjeva to zahtjeva, web aplikacija dodatno komunicira sa slojem podataka.
+		\textbf{Web poslužitelj} je računalo na kojem se aplikacija pokreće. Na njemu se dakle nalazi sloj aplikacijske logike. Web poslužitelj aplikaciji prosljeđuje zahtjeve na obradu i njezine odgovore prosljeđuje natrag klijentima. Web aplikacija na poslužitelju obrađuje zaprimljene zahtjeve. Ako obrada zahtjeva to zahtjeva, web aplikacija dodatno komunicira sa slojem podataka.
 		
-		Sloj podataka je predstavljen bazom podataka. U bazi podataka se na siguran način spremaju svi podaci koje je potrebno trajno čuvati. To podrazumijeva podatke o prijavama, korisničkim računima i slično. Takvi podaci moraju ostati očuvani i ako je rad aplikacije prekinut iz bilo kojeg razloga. Baza podataka je detaljnije opisana u poglavlju  4.1.
+		\textbf{Baza Podataka} predstavlja sloj podataka. U bazi podataka se na siguran način spremaju svi podaci koje je potrebno trajno čuvati. To podrazumijeva podatke o prijavama, korisničkim računima i slično. Takvi podaci moraju ostati očuvani i ako je rad aplikacije prekinut iz bilo kojeg razloga. Baza podataka je detaljnije opisana u poglavlju  \ref{sec:bazaPodataka}.
 		
-		Web aplikacija je podijeljena na frontend i backend.
+		\textbf{Web aplikacija} je podijeljena na frontend i backend.
 		
-		Frontend je zapravo prezentacijski dio aplikacije. On zapravo oblikuje korisničko sučelje i samim time definira što će korisnik vidjeti na web pregledniku kada koristi aplikaciju.
+		\textbf{Frontend} je zapravo prezentacijski dio aplikacije i zadužen je za interakciju s korisnikom. On oblikuje korisničko sučelje i samim time definira što će korisnik vidjeti na web pregledniku kada koristi aplikaciju.
 		
-		Backend je dio aplikacije koji obrađuje zahtjeve i kontrolira rad ostalih dijelova sustava.
+		\textbf{Backend} je dio aplikacije koji obrađuje zahtjeve i kontrolira rad ostalih dijelova sustava. Baceknd je usko povezan sa web poslužiteljem.
 		
-		Arhitektura same web aplikacije je odrađena u stilu MVC arhitekture. U ovoj arhitekturi aplikacija se dijeli na 3 sloja, svaki sa svojom ulogom. Ovime se postiže podjela odgovornosti pojedinih komponenti sustava. Sama struktura aplikacije je preglednija i smislenije primjenom ove arhitekture. Također, razvoj i održavanje sustava je znatno olakšan primjenom ove arhitekture. MVC arhitektura je izuzetno popularna u razvoju web aplikacija te je stoga dobro razrađena i mnogi radni okviri podržavaju njezinu implementaciju. MVC arhitekura se sastoji od slojeva:
+		Za izradu backend dijela aplikacije odabrali smo programski jezik Java s radnim okvirom Spring Boot. Spring Boot radni okvir koristi višeslojnu arhitekturu u kojoj svaki sloj komunicira sa slojem koji se u hijerarhiji nalazi iznad ili ispod njega. Arhitektura Spring Boota se sastoji od četiri sloja:
 		\begin{packed_item}
-			\item \textbf{Model} - predstavlja komponentu aplikacije koja modelira aplikacijsku logiku. Ovaj model preslikava podatke dobivene od korisnika u bazu podataka i obrnuto. Na temelju zaprimljenih podataka vrši obradu zahtjeva.
+			\item \textbf{Prezentacijski sloj} (\textit{Presentation layer}) - Ovo je najviši sloj arhitekture i predstavlja frontend dio aplikacije. Ovaj sloj prima HTTP zahtjeve i vrši autentifikaciju. Također vrši pretvorbu JSON objekata u objekte u Javi i obrnuto. Na kraju svoje obrade Prezentacijski sloj prosljeđuje HTTP zahtjev sljedećem sloju.
 			
-			\item \textbf{Pogled(View)} - predstavlja dio aplikacije zadužen az prikaz podataka korisniku. Također omogućava korisniku interakciju s aplikacijom kroz prikaz korisničkog sučelja. Usko je povezan s frontend dijelom aplikacije.
+			\item \textbf{Poslovni sloj} (\textit{Business layer}) - Ovaj sloj sadrži svu poslovnu logiku te je zadužen za validaciju i autorizaciju.
 			
-			\item \textbf{Upravljač(Controller)} - upravlja nadolazećim zahtjevima. Ova komponenta prosljeđuje zahtjeve modelu na obradu. Od modela zaprima odgovore koje prosljeđuje komponenti za pogled na formiranje grafičkog prikaza koje se zatim prikazuje korisniku.
+			\item \textbf{Sloj postojanosti} (\textit{Persistence layer}) - Ovaj sloj sadrži logiku vezanu uz pohranu u bazu podataka. Sloj pretvara zapise iz baze podataka u objekte iz poslovnog sloja i obrnuto.
+			
+			\item \textbf{Sloj baze podataka} (\textit{Database layer}) - Ovaj sloj sadrži 	bazu podataka ili više njih. Sloj je zadužen za obavljanje CRUD (copy, read, update, delete) operacija.
 		\end{packed_item}
 		
-		Kroz međusobnu interakciju ova 3 modela omogućuju normalno funkcioniranje aplikacije.
-		
 		\begin{figure}[H]
-			\includegraphics[width=\textwidth]{slike/mvc.png} %veličina u odnosu na širinu linije
-			\caption{prikaz komponenti u MVC arhitekturi}
+			\includegraphics[width=\textwidth]{slike/slojeviArhitekture.jpg} %veličina u odnosu na širinu linije
+			\caption{Prikaz Spring Boot arhitekture}
 			\label{fig:MVC1} %label mora biti drugaciji za svaku sliku
 		\end{figure}
 		
-		Za razvoj frontend dijela aplikacije odlučili smo koristiti programski jezik JavaScript uz radni okvir React. Backend dio aplikacije je realiziran u programskom jeziku Java uz radni okvir Spring Boot.
+		Za razvoj frontend dijela aplikacije odlučili smo koristiti programski jezik JavaScript uz radni okvir React. React omogućuje jednostavanu izradu korisničkog sučelja preko JavaScripta, bez direktnog korištenja HTML-a.
 		
 	\eject
 	
 		\section{Baza podataka}
-			
+		\label{sec:bazaPodataka}
+		
 		Ovaj sustav će za svoje potrebe koristiti relacijsku bazu podataka implementirana u PostgreSQL-u. Ovakav tip baze podataka svojom strukturom omogućuje jednostavno modeliranje elemenata iz stvarnog svijeta i zbog toga je široko primjenjiv. Odabrali smo implementaciju u PostgreSQL-u jer smo s ovom implementacijom već dobro upoznati. Relacijske baze podataka se sastoje od relacija. Relacije su predstavljene tablicama koje su definirane svojim nazivom i skupom atributima. Bazu podataka koristimo za jednostavnu i sigurnu pohranu, izmjenu, umetanje i dohvat podataka potrebnih za rad sustava. Naša baza podataka se sastoji od sljedećih relacija, odnosno tablica:
 		
 		\begin{packed_item}
@@ -191,7 +192,7 @@
 			
 			\begin{figure}[H]
 				\includegraphics[width=\textwidth]{slike/relacijski.png} %veličina u odnosu na širinu linije
-				\caption{relacijski dijagram baze podataka}
+				\caption{Relacijski dijagram baze podataka}
 				\label{fig:DijagramBazePodataka} %label mora biti drugaciji za svaku sliku
 			\end{figure}
 			
@@ -199,6 +200,49 @@
 			
 			
 		\section{Dijagram razreda}
+		
+			Na slikama \ref{fig:kontroler}, \ref{fig:dao}, \ref{fig:repo}, \ref{fig:service} su prikazani razredi koji pripadaju backend dijelu aplikacije. Razredi su arhitekturom podijeljeni na kontrolere, repozitorije i servise. Također postoje Domain i DTO (Data Transfer Object) modeli.
+		
+			Slika \ref{fig:kontroler} prikazuje klase koje imaju ulogu kontrolera, tj. u kodu imaju anotaciju @RestController. Te klase definiraju endpointove i koriste se za dohvat i manipuliranje podacima iz baze podataka. Klase sa @RestController anotacijom koriste instance servisa. Servisi su klase koje imaju @Service anotaciju. Servisi implementiraju metode za upis (npr. createUser(Users);, createCitiyOffice(cityOffice), itd.), brisanje, dohvat i izmjenu podataka u bazi. Klasa ServerApplication je glavna klasa koja pokreće aplikaciju, a ServerApplicationTest služi za testiranje funkcionalosti aplikacije.
+		
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/controller.png} %veličina u odnosu na širinu linije
+				\caption{Kontroleri na backendu}
+				\label{fig:kontroler} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			\eject
+			
+			Slika \ref{fig:dao} prikazuje sučelja koja nasljeđuju sučelje JpaRepository. Sučelje JpaRepository definira razne CRUD (create, read, update, delete) metode za rad nad entitetima u bazi. Definirane metode izvršavaju razne vrste upite nad bazom podataka.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/dao.png} %veličina u odnosu na širinu linije
+				\caption{Data Access Objects}
+				\label{fig:dao} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			\eject
+			
+			Slika \ref{fig:repo} prikazuje klase u paketu repo koje reprezentiraju entitete u bazi podataka te njihove međusobne veze. Ove klase definiraju tipove atributa pojedinih entiteta, ograničenja nad atributima i primarne i strane ključeve. Svaka klasa ima implementirane metode get() i set() za svaki od atributa, kao i odgovarajuće konstruktore. Klasa FeedbackID služi kao pomoćna klasa za definiranje primarnog ključa feedback. Korisnici (Users) stvaraju prijave (Report), a gradski uredi (CityOffice) upravljaju prijavama i prilikom promjena automatski zapisuje nove povratne informacije (Feedback) u bazu podataka za tu grupu prijava.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/repo.png} %veličina u odnosu na širinu linije
+				\caption{Modeli}
+				\label{fig:repo} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			\eject
+			
+			Slika \ref{fig:service} prikazuje klase servisa koje definiraju metode za CRUD operacije nad bazom podataka. EntityMissingException i RequestDeniedException su pomoćne klase za baratanje pogreškama. Klase servisa koriste instance Repository klasa iz slike 2. za poziv metoda definiranih u sklopu sučelja Repository odnosno JpaRepository.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/service.png} %veličina u odnosu na širinu linije
+				\caption{Servisi}
+				\label{fig:service} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+		
+		
+		
 		
 			\textit{Potrebno je priložiti dijagram razreda s pripadajućim opisom. Zbog preglednosti je moguće dijagram razlomiti na više njih, ali moraju biti grupirani prema sličnim razinama apstrakcije i srodnim funkcionalnostima.}\\
 			
@@ -211,28 +255,5 @@
 			\textit{Prilikom druge predaje projekta dijagram razreda i opisi moraju odgovarati stvarnom stanju implementacije}
 			
 			
-			
 			\eject
-		
-		\section{Dijagram stanja}
 			
-			
-			\textbf{\textit{dio 2. revizije}}\\
-			
-			\textit{Potrebno je priložiti dijagram stanja i opisati ga. Dovoljan je jedan dijagram stanja koji prikazuje \textbf{značajan dio funkcionalnosti} sustava. Na primjer, stanja korisničkog sučelja i tijek korištenja neke ključne funkcionalnosti jesu značajan dio sustava, a registracija i prijava nisu. }
-			
-			
-			\eject 
-		
-		\section{Dijagram aktivnosti}
-			
-			\textbf{\textit{dio 2. revizije}}\\
-			
-			 \textit{Potrebno je priložiti dijagram aktivnosti s pripadajućim opisom. Dijagram aktivnosti treba prikazivati značajan dio sustava.}
-			
-			\eject
-		\section{Dijagram komponenti}
-		
-			\textbf{\textit{dio 2. revizije}}\\
-		
-			 \textit{Potrebno je priložiti dijagram komponenti s pripadajućim opisom. Dijagram komponenti treba prikazivati strukturu cijele aplikacije.}
