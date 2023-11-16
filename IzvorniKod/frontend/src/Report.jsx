@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 const server = "http://localhost:8080/";
 
 const Report = ({ id }) => {
-  console.log(id);
+  console.log(id.id);
 
   const [value, setValue] = useState();
   const handleChange = (event) => {
@@ -16,7 +16,7 @@ const Report = ({ id }) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${server}reports/${id}`);
+      const response = await fetch(`${server}reports/${id.id}`);
       const result = await response.json();
       setData(result);
       console.log(result);
@@ -71,13 +71,15 @@ function Reports() {
     status: "aktivna",
   };
 
-  const { t_id } = useParams();
+  const iddd = useParams();
+
+  console.log(iddd);
 
   return (
     <div>
       <h1>REPORT</h1>
       <div className="page">
-        <Report id={t_id}></Report>
+        <Report id={iddd}></Report>
       </div>
     </div>
   );
