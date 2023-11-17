@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaf
 import 'leaflet/dist/leaflet.css';
 import './Rforma.css'
 import markerIcon from'./marker.svg';
+import apiConfig from "./apiConfig";
 
 const ReportCard = () => {
   const [title, setTitle] = useState('');
