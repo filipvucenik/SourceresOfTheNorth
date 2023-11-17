@@ -8,7 +8,7 @@ U sklopu ovog projekta razvijamo web aplikaciju za prijavu oštećenja na javnim
 
 Cilj ovoga projekta je na praktičan način naučiti kako se razvija jednostavno programsko rješenje u timu. Kroz proces razvoja programske potpore cilj nam je naučiti kako se organizirati i raditi kao tim. Također kroz projekt želimo naučiti koristiti nove tehnologije i koristiti već postojeću programsku potporu za neke zahtjeve. Kroz projekt usvajamo korištenje React i Spring Boot radnih okvira.
 
-Aplikacija je se poslužuje na sljedećoj poveznici:
+Aplikacija se poslužuje na sljedećoj poveznici:
 https://ostecenja-progi-fer.onrender.com/
 
 # Funkcijski zahtjevi
