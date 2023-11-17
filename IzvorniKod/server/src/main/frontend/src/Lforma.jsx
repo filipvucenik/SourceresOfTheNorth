@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import "./Lforma.css";
 import { useNavigate } from "react-router-dom";
+import apiConfig from "./apiConfig";
 
 const LoginComponent = () => {
   const [password, setPassword] = useState("");
@@ -25,7 +26,7 @@ const LoginComponent = () => {
       password: password,
     };
 
-    let url = "https://ostecenja-progi-fer.onrender.com/auth/userLogin";
+    let url = apiConfig.getLoginUrl;
 
     fetch(url, {
       method: "POST",
@@ -52,34 +53,6 @@ const LoginComponent = () => {
 
   const handlePasswordInputChange = (e) => {
     setPassword(e.target.value);
-  };
-
-  const handleBuildRegJson = () => {
-    let url = "https://ostecenja-progi-fer.onrender.com/auth/userRegister";
-    let pass = document.getElementById("passReg").value;
-    let name = document.getElementById("imeReg").value;
-    let surr = document.getElementById("prezReg").value;
-    let mail = document.getElementById("mailReg").value;
-
-    const jsonData = {
-      email: mail,
-      firstName: name,
-      lastName: surr,
-      password: pass,
-    };
-
-    console.log(jsonData);
-
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(jsonData),
-    })
-      .then((response) => console.log(response))
-      .then((data) => console.log("Registration Success:", data))
-      .catch((error) => console.error("Registration Error:", error));
   };
 
   return (
