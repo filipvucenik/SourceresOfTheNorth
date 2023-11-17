@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import './Rforma.css'
-import apiConfig from "./apiConfig";
+import markerIcon from'./marker.svg';
 
 const ReportCard = () => {
   const [title, setTitle] = useState('');
@@ -18,7 +18,7 @@ const ReportCard = () => {
       lat: clickedLatLng.lat,
       lng: clickedLatLng.lng,
     });
-
+  
     // GEOCODING API
     const apiKey = '7fbe9533c0c9424aa41c500419e5ef83';
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${clickedLatLng.lat}+${clickedLatLng.lng}&key=${apiKey}`;
@@ -54,7 +54,7 @@ const ReportCard = () => {
       "reportHeadline": title,
       "location":  location,
       "description":description,
-      "categoryID" : null
+      "categoryID" : 1
 
     };
     let url = apiConfig.getLoginUrl;
@@ -117,7 +117,7 @@ const ReportCard = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         <MapClickHandler />
-        <Marker position={location}>
+        <Marker position={location} icon={markerIcon}>
           <Popup>Odaberi lokaciju</Popup>
         </Marker>
       </MapContainer>
