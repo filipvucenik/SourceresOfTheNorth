@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import './Rforma.css'
+import apiConfig from "./apiConfig";
+
 const ReportCard = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -55,7 +57,7 @@ const ReportCard = () => {
       "categoryID" : null
 
     };
-    
+    let url = apiConfig.getLoginUrl;
     fetch(url, {
       method: "POST",
       credentials: "include",
