@@ -2,8 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import './Rforma.css'
+import L from 'leaflet';
 import markerIcon from'./marker.svg';
 import apiConfig from "./apiConfig";
+
+const pinpointIconUrl = markerIcon; // Adjust if needed
+const customIcon = new L.Icon({
+  iconUrl: pinpointIconUrl,
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32],
+});
 
 const ReportCard = () => {
   const [title, setTitle] = useState('');
@@ -12,6 +21,7 @@ const ReportCard = () => {
   const [location, setLocation] = useState({ lat: 45.804270084085914, lng: 15.978798866271974 }); // Default na Zg
   const [picture, setPicture] = useState(null);
   const [manualAddress, setManualAddress] = useState('');
+  
 
   const handleMapClick = async (e) => {
     const clickedLatLng = e.latlng;
@@ -118,7 +128,7 @@ const ReportCard = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         <MapClickHandler />
-        <Marker position={location} icon={markerIcon}>
+        <Marker position={location} icon={customIcon}>
           <Popup>Odaberi lokaciju</Popup>
         </Marker>
       </MapContainer>

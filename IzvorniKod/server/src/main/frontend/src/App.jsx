@@ -11,14 +11,13 @@ import LoginComponent2 from "./Regforma.jsx"
 import "./App.css";
 
 function App() {
-  const signedIn = false;
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/prijava" element={<PrijavaSteteComponent />} />
+        <Route path="/prijava" element={<ReportCard />} />
         <Route path="/login" element={<LoginComponent />} />
-        <Route path="/registracija" element={<RegistrationComponent />} />
+        <Route path="/registracija" element={<LoginComponent2 />} />
         <Route path="/statistika" element={<StatisticComponent />} />
         <Route path="/report/:id" element={<Reports />} />
         <Route path="/admin" element={<Admin />} />
