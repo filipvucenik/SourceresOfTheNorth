@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Image</title>
+</head>
+<body>
+<form action="/reports/uploadImage" method="post" enctype="multipart/form-data">
+    <label for="imageFile">Upload image:</label>
+    <input type="file" name="imageFile" id="imageFile">
+    <input type="submit" value="Upload">
+</form>
+
+<form action="/reports" method="post">
+    <label for="reportHeadLine">Headline:</label>
+    <input type="text" name="reportHeadline" id="reportHeadLine">
+    <br>
+    <label for="location">Location</label>
+    <input type="text" name="location" id="location">
+    <br>
+    <label for="description">Description</label>
+    <input type="text" name="description" id="description">
+    <br>
+
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>
