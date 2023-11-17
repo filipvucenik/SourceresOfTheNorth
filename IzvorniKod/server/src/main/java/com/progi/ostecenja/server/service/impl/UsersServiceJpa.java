@@ -6,6 +6,7 @@ import com.progi.ostecenja.server.service.EntityMissingException;
 import com.progi.ostecenja.server.service.RequestDeniedException;
 import com.progi.ostecenja.server.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -17,6 +18,8 @@ public class UsersServiceJpa implements UsersService {
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@(.+)$";
     @Autowired
     private UsersRepository usersRepo;
+
+    private BCryptPasswordEncoder pswdEncoder = new BCryptPasswordEncoder();
 
     @Override
     public List<Users> listAll() {
@@ -52,7 +55,7 @@ public class UsersServiceJpa implements UsersService {
         if(usersRepo.countByEmail(user.getEmail()) > 0){
             throw new IllegalArgumentException("User with email '"+ user.getEmail() +"' already exists");
         }
-
+        user.setPassword(pswdEncoder.encode(user.getPassword()));
         return usersRepo.save(user);
     }
 
@@ -69,6 +72,7 @@ public class UsersServiceJpa implements UsersService {
         if(usersRepo.existsByEmailAndUserIdNot(user.getEmail(),userId)){
             throw new RequestDeniedException("User with Email " + user.getEmail() + " already exists");
         }
+        user.setPassword(pswdEncoder.encode(user.getPassword()));
 
         return usersRepo.save(user);
     }
