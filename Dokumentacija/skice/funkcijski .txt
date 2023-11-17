@@ -1,0 +1,27 @@
+Web aplikacija mora implementirati sljedeće funckijske zahtjeve:
+
+	Korisnici koji žele prijaviti oštećenja javnih površina stvaraju svoju prijavu tako da upišu opis oštećenja i navedu lokaciju.
+		Korisnici imaju mogućnost registracije korisničkog računa unosom email adrese i dvostrukim unosom željene lozinke
+		Korisnici koji imaju registriran korisnički profil imaju mogućnost prijave u račun unošenjem e-mail adrese i lozinke
+		Anonimni korisnici prilikom podnošenja prijave dobivaju kod prijave kojeg mogu koristiti da pročitaju povratne informacije poslane od strane nadležnog ureda i pregledati status njihove prijave
+		Registrirani korisnici status i povratne informacije svojih prijava mogu vidjeti u izborniku profila
+		Korisnici za dobivanje povratnih informacija mogu priložiti email adresu na koju će dobiti povratne informacije.
+		
+		Lokacija se može odabrati unosom najbliže adrese ili odabirom na interaktivnoj karti implementiranoj na web stranici. Svojoj prijavi korisnici mogu, ali ne moraju pridružiti 		slike 			oštećenja.
+		Lokaciju sustav može automatski ponuditi iz informacija sadržanih u metapodacima priloženih slika.
+
+		Prilikom kreiranja prijave sustav će automatski predložiti kojem uredu bi korisnik trebao poslati svoju prijavu, no korisnik može ručno odabrati željeni ured.
+
+		Ako korisnik prijavljuje oštećenje koje je već evidentirano u sustavu, sustav će korisniku predložiti nadovezivanje svoje prijave na već postojeću. Korisnik tu preporuku može odbiti ako procijeni da se ne radi o istim oštećenjima.
+
+	Korisnici mogu pregledavati već postojeće prijave.
+		Korisnici prijave mogu pretraživati preko koda prijave te filtrirati prijave po vremenu prijave, lokaciji, nadležnom uredu i vrsti oštećenja.
+		Korisnici mogu pregledavati starije nerazriješene prijave na interaktivnoj mapi
+
+	Korisnici će moći vidjeti statistiku prijava filtriranih po lokaciji, vremenu prijave, nadležnim uredima, vrsti oštećenja.
+
+	Djelatnici ureda imaju mogućnost prijave u račun gradskog ureda u kojem su zaposleni.
+	Djelatnici ureda vide samo prijave koje su poslane u njihov ured. 
+	Kada se stanje prijave promijeni, sustav šalje povratne informacije podnositeljima prijava putem broja prijave ili putem email adrese ako ju je korisnik priložio.
+	Djelatnici mogu mijenjati status prijave (npr. u tijeku, razriješeno).
+	Kada se prijava označi razriješenom, ona se stavlja u arhivu te se briše iz interaktivne karte koju vide korisnici.

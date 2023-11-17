@@ -1,0 +1,10 @@
+Nefunkcijski zahtjevi:
+
+Aplikacija će biti napravljena kao web stranica sa responzivnim dizajnom tako da bude jednostavna za korištenje i na računalima sa velikim zaslonima i na mobilnim uređajima.
+
+Aplikacija će biti na hrvatskom jeziku, te će podržavati prijevod na engleski jezik. 
+Prevođenjem stranice se mijenja isključivo tekst na stranici(prevodi se) te sve ostalo ostaje isto.
+
+Backend provjerava linkove te nema direktnog dodira korisnika s bazom podataka kako bi izbjegli „SQL injection“.
+Koristi se HTTPS protokol i potrebne enkripcije za sigurnost.
+Aplikacija omogućava stvarno-vremenski rad više korisnika.
