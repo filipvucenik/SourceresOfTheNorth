@@ -98,8 +98,8 @@
 						</goals>
 						<phase>generate-resources</phase>
 						<configuration>
-							<nodeVersion>v16.15.0</nodeVersion>
-							<npmVersion>8.5.5</npmVersion>
+							<nodeVersion>v20.9.0</nodeVersion>
+							<npmVersion>9.6.7</npmVersion>
 						</configuration>
 					</execution>
 
@@ -131,7 +131,7 @@
 				</executions>
 
 				<configuration>
-					<nodeVersion>v16.15.0</nodeVersion>
+					<nodeVersion>v20.9.0</nodeVersion>
 					<workingDirectory>src/main/frontend</workingDirectory>
 				</configuration>
 			</plugin>
