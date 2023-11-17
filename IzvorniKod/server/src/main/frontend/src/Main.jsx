@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 
 function Main() {
   const [postojiKolacic, postaviPostojiKolacic] = useState(false);
+  const email = Cookies.get("name");
 
   useEffect(() => {
     const kolacici = Cookies.get(); // Dohvaćanje svih kolačića
@@ -36,7 +37,7 @@ function Main() {
         </div>
         {postojiKolacic ? (
           <Link to="/profile" className="profile-button">
-            <button className="username">Prijavljeni korisnik</button>
+            <button className="username">{email}</button>
           </Link>
         ) : (
           <>
