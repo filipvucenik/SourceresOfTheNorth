@@ -106,7 +106,7 @@ const ReportCard = () => {
   <>
     <div className="header">
           <Link to="/" className="profile-button">
-            <button className="prijavaStete">Home</button>
+            <button className="prijavaStete2">Home</button>
           </Link>
     </div>
     <div className="report-card">
@@ -148,7 +148,7 @@ const ReportCard = () => {
       
       <button onClick={handleSubmit}>Predaj prijavu</button>
     </div>
-    <div style={{ marginTop: '10vh' }} ><FooterComponent /></div>
+    <FooterComponent />
   </>
   );
 };

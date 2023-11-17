@@ -62,7 +62,7 @@ const LoginComponent = () => {
     <>
     <div className="header">
           <Link to="/" className="profile-button">
-            <button className="prijavaStete">Home</button>
+            <button className="prijavaStete2">Home</button>
           </Link>
     </div>
       <div className="welcome">
@@ -90,7 +90,7 @@ const LoginComponent = () => {
           </button>
         </form>
       </div>
-      <div style={{ marginTop: '35vh' }} ><FooterComponent /></div>
+      <FooterComponent />
       
     </>
   );

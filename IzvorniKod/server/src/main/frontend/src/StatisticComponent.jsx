@@ -34,7 +34,7 @@ function StatisticComponent() {
   <>
   <div className="header">
           <Link to="/" className="profile-button">
-            <button className="prijavaStete">Home</button>
+            <button className="prijavaStete2">Home</button>
           </Link>
     </div>
     <div className="report-card">
@@ -80,7 +80,7 @@ function StatisticComponent() {
         ))}
       </ul>
     </div>
-    <div style={{ marginTop: '28vh' }} ><FooterComponent /></div>
+    <FooterComponent />
   </>
   );
 }
