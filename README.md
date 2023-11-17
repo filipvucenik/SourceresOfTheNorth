@@ -18,7 +18,7 @@ Ključni funkcijski zahtjevi ovog projekta su:
 - F06: odabir lokacije oštećenja preko unosa adrese
 - F07: iščitavanje lokacije oštećenja iz metapodataka slike
 - F08: automatsko prepoznavanje kategorije prijave
-- F09: mogućnost automatskog predlaganja nadovezivanja prijave na već postojeću
+- F09: mogućnost automatskog predlaganja nadovezivanja prijave na postojeću
 - F10: prijava ima status (na čekanju, u procesu rješavanja, riješena)
 - F11: dobivanje koda nakon podnošenja prijave
 - F12: pregledavanje podataka o korisničkom računu prijavljenog korisnika

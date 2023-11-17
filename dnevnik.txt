@@ -23,3 +23,14 @@
 	- izvještaj svakog dijela tima o napretku
 	- korekcije na pojedinim komponentama
 	- rad na povezivanju komponenti sustava
+
+
+5. SASTANAK (15.11.2023.)
+----------------------------------------
+	- rad na spajanju frontend i backend dijelova aplikacije
+
+
+6. SASTANAK (16.11.2023.)
+----------------------------------------
+	- rad na deploymentu aplikacije
+	– definiranje zavrsnih zadataka prije prve predaje 
