@@ -3,6 +3,8 @@ import Cookies from "js-cookie";
 import "./Lforma.css";
 import { useNavigate } from "react-router-dom";
 import apiConfig from "./apiConfig";
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import FooterComponent from "./FooterComponent";
 
 const LoginComponent = () => {
   const [password, setPassword] = useState("");
@@ -58,6 +60,11 @@ const LoginComponent = () => {
 
   return (
     <>
+    <div className="header">
+          <Link to="/" className="profile-button">
+            <button className="prijavaStete">Home</button>
+          </Link>
+    </div>
       <div className="welcome">
         <h1>Dobrodošli!</h1>
       </div>
@@ -83,6 +90,8 @@ const LoginComponent = () => {
           </button>
         </form>
       </div>
+      <div style={{ marginTop: '35vh' }} ><FooterComponent /></div>
+      
     </>
   );
 };

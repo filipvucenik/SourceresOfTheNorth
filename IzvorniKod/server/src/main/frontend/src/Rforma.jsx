@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import './Rforma.css'
+import L from 'leaflet';
 import markerIcon from'./marker.svg';
+import apiConfig from './apiConfig';
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import FooterComponent from "./FooterComponent.jsx";
 
 const ReportCard = () => {
   const [title, setTitle] = useState('');
@@ -11,9 +15,18 @@ const ReportCard = () => {
   const [location, setLocation] = useState({ lat: 45.804270084085914, lng: 15.978798866271974 }); // Default na Zg
   const [picture, setPicture] = useState(null);
   const [manualAddress, setManualAddress] = useState('');
+  const pinpointIconUrl = markerIcon;
+  const customIcon = new L.Icon({
+    iconUrl: pinpointIconUrl,
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  });
+
 
   const handleMapClick = async (e) => {
     const clickedLatLng = e.latlng;
+    
     setLocation({
       lat: clickedLatLng.lat,
       lng: clickedLatLng.lng,
@@ -49,7 +62,7 @@ const ReportCard = () => {
       picture,
       manualAddress,
     });
-    // Trebam Filipa...
+   
     const jsonServerSendData={
       "reportHeadline": title,
       "location":  location,
@@ -90,6 +103,12 @@ const ReportCard = () => {
   }, [location]);
 
   return (
+  <>
+    <div className="header">
+          <Link to="/" className="profile-button">
+            <button className="prijavaStete">Home</button>
+          </Link>
+    </div>
     <div className="report-card">
       <h2>Prijava oštečenja</h2>
 
@@ -117,7 +136,7 @@ const ReportCard = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         <MapClickHandler />
-        <Marker position={location} icon={markerIcon}>
+        <Marker position={location} icon={customIcon}>
           <Popup>Odaberi lokaciju</Popup>
         </Marker>
       </MapContainer>
@@ -129,6 +148,8 @@ const ReportCard = () => {
       
       <button onClick={handleSubmit}>Predaj prijavu</button>
     </div>
+    <div style={{ marginTop: '10vh' }} ><FooterComponent /></div>
+  </>
   );
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 const FooterComponent = () => {
   return (
-    <footer style={{ marginTop: '30px', width: '100%' }}>
+    <footer style={{ marginTop: '25px',width: '100%'}}>
       <hr style={{ width: '100%' }} />
       <p style={{ textAlign: 'center' }}>SourceresOfTheNorth 2023</p>
     </footer>

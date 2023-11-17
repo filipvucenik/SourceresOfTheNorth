@@ -8,6 +8,23 @@
   .title {
     margin-top: 5%;
   }
+
+  @media screen and (max-width: 820px) {
+
+    .title {
+      color: white;
+    }
+    .prijavaStete{
+      width:40%;
+      height: 10%;
+      text-align: center;
+    }
+    .login{
+      width: 46%;
+      height: 15%;
+      text-align: center;
+    }
+  }
   
   .header {
     display: flex;

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import "./App.css"
+import FooterComponent from './FooterComponent';
 
 const server = "http://localhost:8080/";
 
@@ -29,6 +31,12 @@ function StatisticComponent() {
       };
 
   return (
+  <>
+  <div className="header">
+          <Link to="/" className="profile-button">
+            <button className="prijavaStete">Home</button>
+          </Link>
+    </div>
     <div className="report-card">
       <h1>Statistika prijava</h1>
       <form onSubmit={handleSubmit}>
@@ -72,6 +80,8 @@ function StatisticComponent() {
         ))}
       </ul>
     </div>
+    <div style={{ marginTop: '28vh' }} ><FooterComponent /></div>
+  </>
   );
 }
 
