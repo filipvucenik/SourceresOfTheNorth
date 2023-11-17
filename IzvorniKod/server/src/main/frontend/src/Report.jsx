@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import "./report.css";
 import { useParams } from "react-router-dom";
+import apiConfig from "./apiConfig";
 
-const server = "https://ostecenja-progi-fer.onrender.com";
+const server = apiConfig.getUrl;
 
 const Report = ({ id }) => {
   console.log(id.id);

@@ -48,7 +48,11 @@ const LoginComponent2 = () => {
           });
       };
 
-    return (  
+    return (
+        <>
+        <div className="welcome">
+        <h1>Dobrodošli!</h1>
+      </div>
         <div className="form-container">
 
         <form className="register-form">
@@ -62,6 +66,7 @@ const LoginComponent2 = () => {
           </button>
         </form>
         </div>
+        </>
     );
 }
  

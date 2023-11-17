@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+
 const server = "http://localhost:8080/";
 
 function StatisticComponent() {
@@ -28,7 +29,7 @@ function StatisticComponent() {
       };
 
   return (
-    <div className="report-form">
+    <div className="report-card">
       <h1>Statistika prijava</h1>
       <form onSubmit={handleSubmit}>
         <label>

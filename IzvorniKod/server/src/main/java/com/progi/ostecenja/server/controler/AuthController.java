@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -20,6 +21,8 @@ public class AuthController {
     private UsersService usersService;
     private CityOfficeService officeService;
 
+    private BCryptPasswordEncoder pswdEncoder = new BCryptPasswordEncoder();
+
     @PostMapping("/userLogin")
     @ResponseBody
     public ResponseEntity<String> loginAuth(HttpSession session, @RequestBody UserCredentials userCredentials){
@@ -30,9 +33,12 @@ public class AuthController {
 
         Users user = usersService.findByEmail(email).isPresent() ? usersService.findByEmail(email).get() : null;
 
+        //userCredentials.password= pswdEncoder.encode(userCredentials.password);
+
+
         if(user==null)
             return new ResponseEntity<>("User doesn't exist", HttpStatus.BAD_REQUEST);
-        if(user.getPassword().equals(userCredentials.password)){
+        if(pswdEncoder.matches(userCredentials.password, user.getPassword())){
               session.setAttribute("USER",user.getUserId());
               return new ResponseEntity<>("Success", HttpStatus.OK);   
         }
