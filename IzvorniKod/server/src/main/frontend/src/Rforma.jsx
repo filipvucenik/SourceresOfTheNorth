@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import './Rforma.css'
+import apiConfig from "./apiConfig";
+
 const ReportCard = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -48,6 +50,30 @@ const ReportCard = () => {
       manualAddress,
     });
     // Trebam Filipa...
+    const jsonServerSendData={
+      "reportHeadline": title,
+      "location":  location,
+      "description":description,
+      "categoryID" : null
+
+    };
+    let url = apiConfig.getLoginUrl;
+    fetch(url, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(jsonServerSendData),
+    })
+      .then((response) => {
+        if(response.status==200){
+            alert("Vaša prijava je podnešena")
+        }else{
+            alert("DOŠLO JE DO GREŠKE!!!");
+        }
+      });
+
   };
 
   
