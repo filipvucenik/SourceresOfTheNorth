@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MapComponent from "./MapComponent.jsx";
+import FooterComponent from "./FooterComponent.jsx";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 // import PrijavaSteteComponent from "./PrijavaSteteComponent.jsx";
 // import LoginComponent from "./LoginComponent.jsx";
@@ -53,7 +54,7 @@ function Main() {
         )}
       </div>
       <MapComponent />
-      <div className="footer"></div>
+      <FooterComponent />
       {/*<Link to="/prijava" className="profile-button">Prijava štete</Link>
       <Link to="/login" className="profile-button">Prijava</Link>*/}
     </div>
