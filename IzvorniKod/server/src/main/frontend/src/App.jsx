@@ -1,13 +1,13 @@
 import React from "react";
 import MapComponent from "./MapComponent.jsx";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import PrijavaSteteComponent from "./Rforma.jsx";
+import ReportCard from "./Rforma.jsx";
 import LoginComponent from "./Lforma.jsx";
 import StatisticComponent from "./StatisticComponent.jsx";
 import Main from "./Main.jsx";
 import Reports from "./Report.jsx";
 import Admin from "./Admin.jsx";
-import RegistrationComponent from "./Regforma.jsx"
+import LoginComponent2 from "./Regforma.jsx"
 import "./App.css";
 
 function App() {
