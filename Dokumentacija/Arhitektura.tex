@@ -12,7 +12,7 @@
 		
 		\textbf{Frontend} je zapravo prezentacijski dio aplikacije i zadužen je za interakciju s korisnikom. On oblikuje korisničko sučelje i samim time definira što će korisnik vidjeti na web pregledniku kada koristi aplikaciju.
 		
-		\textbf{Backend} je dio aplikacije koji obrađuje zahtjeve i kontrolira rad ostalih dijelova sustava. Baceknd je usko povezan sa web poslužiteljem.
+		\textbf{Backend} je dio aplikacije koji obrađuje zahtjeve i kontrolira rad ostalih dijelova sustava. Baceknd je usko povezan s web poslužiteljem.
 		
 		Za izradu backend dijela aplikacije odabrali smo programski jezik Java s radnim okvirom Spring Boot. Spring Boot radni okvir koristi višeslojnu arhitekturu u kojoj svaki sloj komunicira sa slojem koji se u hijerarhiji nalazi iznad ili ispod njega. Arhitektura Spring Boota se sastoji od četiri sloja:
 		\begin{packed_item}
@@ -22,7 +22,7 @@
 			
 			\item \textbf{Sloj postojanosti} (\textit{Persistence layer}) - Ovaj sloj sadrži logiku vezanu uz pohranu u bazu podataka. Sloj pretvara zapise iz baze podataka u objekte iz poslovnog sloja i obrnuto.
 			
-			\item \textbf{Sloj baze podataka} (\textit{Database layer}) - Ovaj sloj sadrži 	bazu podataka ili više njih. Sloj je zadužen za obavljanje CRUD (copy, read, update, delete) operacija.
+			\item \textbf{Sloj baze podataka} (\textit{Database layer}) - Ovaj sloj sadrži bazu podataka ili više njih. Sloj je zadužen za obavljanje CRUD (copy, read, update, delete) operacija.
 		\end{packed_item}
 		
 		\begin{figure}[H]
@@ -31,7 +31,9 @@
 			\label{fig:MVC1} %label mora biti drugaciji za svaku sliku
 		\end{figure}
 		
-		Za razvoj frontend dijela aplikacije odlučili smo koristiti programski jezik JavaScript uz radni okvir React. React omogućuje jednostavanu izradu korisničkog sučelja preko JavaScripta, bez direktnog korištenja HTML-a.
+		Za razvoj frontend dijela aplikacije odlučili smo koristiti programski jezik JavaScript uz radni okvir React. React omogućuje jednostavnu izradu korisničkog sučelja preko JavaScripta, bez direktnog korištenja HTML-a.
+		
+		Za razvojne okoline smo odlučili koristiti IntelliJ IDEA za rad u Spring Boot radnom okviru i Visual Studio Code za rad u React radnom okviru.
 		
 	\eject
 	
@@ -50,6 +52,8 @@
 			\item Feedback
 			\item CityOffice
 		\end{packed_item}
+		
+		S obzirom na to da je još u fazi razvoja, aplikacija trenutno koristi H2 bazu podataka u radnoj memoriji. Ovu bazu podataka Spring Boot automatski inicijalizira i spaja s aplikacijom. Ova baza je pogodna za testiranje i razvoj te smo je zbog toga odlučili koristiti tijekom razvoja. Kasnije kada aplikacija bude gotova ćemo H2 bazu zamijeniti odvojenom PostgreSQL bazom podataka.
 		
 			\subsection{Opis tablica}
 			
@@ -201,9 +205,9 @@
 			
 		\section{Dijagram razreda}
 		
-			Na slikama \ref{fig:kontroler}, \ref{fig:dao}, \ref{fig:repo}, \ref{fig:service} su prikazani razredi koji pripadaju backend dijelu aplikacije. Razredi su arhitekturom podijeljeni na kontrolere, repozitorije i servise. Također postoje Domain i DTO (Data Transfer Object) modeli. Svi dijagrami su podložni promjenama, s obzirom da je aplikacija još uvijek u fazi razvoja.
+			Na slikama \ref{fig:kontroler}, \ref{fig:dao}, \ref{fig:repo}, \ref{fig:service} su prikazani razredi koji pripadaju backend dijelu aplikacije. Razredi su arhitekturom podijeljeni na kontrolere, repozitorije i servise. Također postoje Domain i DTO (Data Transfer Object) modeli. Svi dijagrami su podložni promjenama, s obzirom na to da je aplikacija još uvijek u fazi razvoja.
 		
-			Slika \ref{fig:kontroler} prikazuje klase koje imaju ulogu kontrolera, tj. u kodu imaju anotaciju @RestController. Te klase definiraju endpointove i koriste se za dohvat i manipuliranje podacima iz baze podataka. ClientForwardController je kontroler koji povezuje Spring server React aplikacijom. Klase sa @RestController anotacijom koriste instance servisa. Servisi su klase koje imaju @Service anotaciju. Servisi implementiraju metode za upis (npr. createUser(Users);, createCitiyOffice(cityOffice), itd.), brisanje, dohvat i izmjenu podataka u bazi. Klasa ServerApplication je glavna klasa koja pokreće aplikaciju, a ServerApplicationTest služi za testiranje funkcionalosti aplikacije, ali još nema implementiranu nikakvu funkcionalnost.
+			Slika \ref{fig:kontroler} prikazuje klase koje imaju ulogu kontrolera, tj. u kodu imaju anotaciju @RestController. Te klase definiraju endpointove i koriste se za dohvat i manipuliranje podacima iz baze podataka. ClientForwardController je kontroler koji povezuje Spring server React aplikacijom. Klase sa @RestController anotacijom koriste instance servisa. Servisi su klase koje imaju @Service anotaciju. Servisi implementiraju metode za upis (npr. createUser(Users);, createCitiyOffice(cityOffice), itd.), brisanje, dohvat i izmjenu podataka u bazi. Klasa ServerApplication je glavna klasa koja pokreće aplikaciju, a ServerApplicationTest služi za testiranje funkcionalnosti aplikacije, ali još nema implementiranu nikakvu funkcionalnost.
 		
 			\begin{figure}[H]
 				\includegraphics[width=\textwidth]{slike/controller.png} %veličina u odnosu na širinu linije
@@ -240,20 +244,6 @@
 				\caption{Servisi}
 				\label{fig:service} %label mora biti drugaciji za svaku sliku
 			\end{figure}
-		
-		
-		
-		
-			\textit{Potrebno je priložiti dijagram razreda s pripadajućim opisom. Zbog preglednosti je moguće dijagram razlomiti na više njih, ali moraju biti grupirani prema sličnim razinama apstrakcije i srodnim funkcionalnostima.}\\
-			
-			\textbf{\textit{dio 1. revizije}}\\
-			
-			\textit{Prilikom prve predaje projekta, potrebno je priložiti potpuno razrađen dijagram razreda vezan uz \textbf{generičku funkcionalnost} sustava. Ostale funkcionalnosti trebaju biti idejno razrađene u dijagramu sa sljedećim komponentama: nazivi razreda, nazivi metoda i vrste pristupa metodama (npr. javni, zaštićeni), nazivi atributa razreda, veze i odnosi između razreda.}\\
-			
-			\textbf{\textit{dio 2. revizije}}\\			
-			
-			\textit{Prilikom druge predaje projekta dijagram razreda i opisi moraju odgovarati stvarnom stanju implementacije}
-			
 			
 			\eject
 			

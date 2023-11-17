@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.23)  17 NOV 2023 11:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.23)  17 NOV 2023 20:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1406,6 +1406,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
  (./Specifikacija_programske_potpore.tex
 Poglavlje 3.
 
+Overfull \hbox (0.13753pt too wide) in paragraph at lines 15--16
+[]\OT1/jkp/m/n/12 F09: mogu[]cnost auto-mat-skog pred-la-ga-nja na-do-ve-zi-va-
+nja pri-jave na pos-toje[]cu 
+ []
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\headheight}{14.49998pt}.
@@ -1713,7 +1719,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.4.1})
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.36 	\eject
+l.38 	\eject
              <./slike/slojeviArhitekture.jpg (PNG copy)>]
 > Step: init table outer spec.
 > Step: parse table options.
@@ -1749,24 +1755,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 > Step: execute table commands.
 > Step: calculate cell and line sizes.
 > Step: build the whole table.
-> Step: init table outer spec.
-> Step: parse table options.
-> Step: split table.
-> Step: init table inner spec.
-> Step: parse table inner spec.
-> Step: execute table commands.
-> Step: calculate cell and line sizes.
 
-Overfull \hbox (1.7889pt too wide) in paragraph at lines 125--125
-[]\OT1/jkp/m/n/12 categoryName  
- []
-
-
-Overfull \hbox (1.7889pt too wide) in paragraph at lines 125--125
-[]\OT1/jkp/m/n/12 categoryName  
- []
-
-> Step: build the whole table.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1776,10 +1765,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [31]
-Overfull \hbox (1.7889pt too wide) in paragraph at lines 125--125
-[]\OT1/jkp/m/n/12 categoryName  
- []
-
 > Step: init table outer spec.
 > Step: parse table options.
 > Step: split table.
@@ -1787,7 +1772,22 @@ Overfull \hbox (1.7889pt too wide) in paragraph at lines 125--125
 > Step: parse table inner spec.
 > Step: execute table commands.
 > Step: calculate cell and line sizes.
+
+Overfull \hbox (1.7889pt too wide) in paragraph at lines 129--129
+[]\OT1/jkp/m/n/12 categoryName  
+ []
+
+
+Overfull \hbox (1.7889pt too wide) in paragraph at lines 129--129
+[]\OT1/jkp/m/n/12 categoryName  
+ []
+
 > Step: build the whole table.
+
+Overfull \hbox (1.7889pt too wide) in paragraph at lines 129--129
+[]\OT1/jkp/m/n/12 categoryName  
+ []
+
 > Step: init table outer spec.
 > Step: parse table options.
 > Step: split table.
@@ -1821,10 +1821,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 > Step: execute table commands.
 > Step: calculate cell and line sizes.
 > Step: build the whole table.
-<slike/relacijski.png, id=396, 647.41875pt x 492.84125pt>
+> Step: init table outer spec.
+> Step: parse table options.
+> Step: split table.
+> Step: init table inner spec.
+> Step: parse table inner spec.
+> Step: execute table commands.
+> Step: calculate cell and line sizes.
+> Step: build the whole table.
+<slike/relacijski.png, id=395, 647.41875pt x 492.84125pt>
 File: slike/relacijski.png Graphic file (type png)
 <use slike/relacijski.png>
-Package pdftex.def Info: slike/relacijski.png  used on input line 194.
+Package pdftex.def Info: slike/relacijski.png  used on input line 198.
 (pdftex.def)             Requested size: 435.6108pt x 331.60817pt.
 
 
@@ -1849,12 +1857,12 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.4.2})
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.199 			\eject
+l.203 			\eject
                 <./slike/relacijski.png>]
 <slike/controller.png, id=417, 1885.0425pt x 1139.25626pt>
 File: slike/controller.png Graphic file (type png)
 <use slike/controller.png>
-Package pdftex.def Info: slike/controller.png  used on input line 209.
+Package pdftex.def Info: slike/controller.png  used on input line 213.
 (pdftex.def)             Requested size: 435.6108pt x 263.25766pt.
 
 
@@ -1870,12 +1878,12 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.4.3})
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.214 			\eject
+l.218 			\eject
                 <./slike/controller.png>]
 <slike/dao.png, id=429, 1661.20625pt x 1356.06625pt>
 File: slike/dao.png Graphic file (type png)
 <use slike/dao.png>
-Package pdftex.def Info: slike/dao.png  used on input line 219.
+Package pdftex.def Info: slike/dao.png  used on input line 223.
 (pdftex.def)             Requested size: 435.6108pt x 355.58992pt.
 
 
@@ -1891,12 +1899,12 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.4.4})
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.224 			\eject
+l.228 			\eject
                 <./slike/dao.png>]
 <slike/repo.png, id=438, 903.375pt x 822.07124pt>
 File: slike/repo.png Graphic file (type png)
 <use slike/repo.png>
-Package pdftex.def Info: slike/repo.png  used on input line 229.
+Package pdftex.def Info: slike/repo.png  used on input line 233.
 (pdftex.def)             Requested size: 435.6108pt x 396.40855pt.
 
 
@@ -1912,32 +1920,13 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.4.5})
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.234 			\eject
+l.238 			\eject
                 <./slike/repo.png>]
 <slike/service.png, id=446, 1834.855pt x 866.23625pt>
 File: slike/service.png Graphic file (type png)
 <use slike/service.png>
-Package pdftex.def Info: slike/service.png  used on input line 239.
+Package pdftex.def Info: slike/service.png  used on input line 243.
 (pdftex.def)             Requested size: 435.6108pt x 205.64072pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 247--248
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 249--250
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 251--252
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 253--254
-
- []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1952,26 +1941,26 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.4.6})
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.258 			\eject
+l.248 			\eject
                 <./slike/service.png>])
 \openout2 = `Literatura.aux'.
 
  (./Literatura.tex
-Overfull \hbox (29.98021pt too wide) in paragraph at lines 13--14
+Overfull \hbox (29.98021pt too wide) in paragraph at lines 6--7
 []\OT1/jkp/m/n/12 GeeksForGeeks, Spring Boot Ar-c-hi-tec-ture, https://www.geek
 sforgeeks.org/spring-
  []
 
 
-Overfull \hbox (8.89293pt too wide) in paragraph at lines 15--16
+Overfull \hbox (8.89293pt too wide) in paragraph at lines 8--9
 []\OT1/jkp/m/n/12 Programsko in[]zenjerstvo, FER ZE-MRIS, [][]$\OT1/jkptt/m/n/1
 2 http : / / www . fer . hr / predmet / proinz$[][] 
  []
 
 
-Overfull \hbox (7.06pt too wide) in paragraph at lines 24--25
-\OT1/jkp/m/n/12 ter En-gi-ne-ering, Rut-gers Uni-ver-sity, [][]$\OT1/jkptt/m/n/
-12 http : / / www . ece . rutgers . edu / []marsic /
+Overfull \hbox (3.2323pt too wide) in paragraph at lines 16--17
+[]\OT1/jkp/m/n/12 Baeldung, Spring Boot H2 da-ta-base, https://www.baeldung.com
+/spring-boot-
  []
 
 )
@@ -2070,13 +2059,13 @@ anged.
 (rerunfilecheck)             Checksum: 30CECE63DACC01D3CAFDA36E70B48984;2999.
  ) 
 Here is how much of TeX's memory you used:
- 17733 strings out of 474503
- 311711 string characters out of 5756704
+ 17722 strings out of 474503
+ 311330 string characters out of 5756704
  2090043 words of memory out of 5000000
- 39185 multiletter control sequences out of 15000+600000
+ 39176 multiletter control sequences out of 15000+600000
  607757 words of font info for 137 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,13n,115p,1708b,1045s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,13n,115p,1711b,1045s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2023/texmf-dist/fonts/type1/public/kpfonts/jkpbit8a.pfb><c:/texli
 ve/2023/texmf-dist/fonts/type1/public/kpfonts/jkpbn8a.pfb><c:/texlive/2023/texm
 f-dist/fonts/type1/public/kpfonts/jkpbne.pfb><c:/texlive/2023/texmf-dist/fonts/
@@ -2084,10 +2073,10 @@ type1/public/kpfonts/jkpmit8a.pfb><c:/texlive/2023/texmf-dist/fonts/type1/publi
 c/kpfonts/jkpmite.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/kpfonts/jk
 pmn8a.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/kpfonts/jkpmne.pfb><c:
 /texlive/2023/texmf-dist/fonts/type1/public/kpfonts/jkpttmn8a.pfb>
-Output written on PROGI_ProjektnaDokumentacija.pdf (45 pages, 3196172 bytes).
+Output written on PROGI_ProjektnaDokumentacija.pdf (45 pages, 3192279 bytes).
 PDF statistics:
- 597 PDF objects out of 1000 (max. 8388607)
- 510 compressed objects within 6 object streams
- 196 named destinations out of 1000 (max. 500000)
+ 592 PDF objects out of 1000 (max. 8388607)
+ 505 compressed objects within 6 object streams
+ 194 named destinations out of 1000 (max. 500000)
  197 words of extra memory for PDF output out of 10000 (max. 10000000)
 
