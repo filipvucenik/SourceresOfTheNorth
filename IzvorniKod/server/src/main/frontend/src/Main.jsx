@@ -44,10 +44,10 @@ function Main() {
           <>
             <div className="right">
               <Link to="/login" className="profile-button">
-                <button className="login">Log in</button>
+                <button className="login1">Log in</button>
               </Link>
               <Link to="/registracija" className="profile-button">
-                <button className="login">Register</button>
+                <button className="login2">Register</button>
               </Link>
             </div>
           </>
