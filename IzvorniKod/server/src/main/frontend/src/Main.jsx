@@ -9,7 +9,7 @@ import Cookies from "js-cookie";
 
 function Main() {
   const [postojiKolacic, postaviPostojiKolacic] = useState(false);
-  const email = Cookies.get("name");
+  const email = Cookies.get("mail");
 
   useEffect(() => {
     const kolacici = Cookies.get(); // Dohvaćanje svih kolačića

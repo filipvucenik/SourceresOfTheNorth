@@ -26,10 +26,8 @@ const LoginComponent = () => {
       password: password,
     };
 
-
     let url = apiConfig.getLoginUrl;
     console.log(jsonData);
-
 
     fetch(url, {
       method: "POST",
@@ -42,7 +40,7 @@ const LoginComponent = () => {
       console.log(response);
 
       if (response.status === 200) {
-        Cookies.set("name", email);
+        Cookies.set("mail", email);
         navigate("/");
       } else {
         alert("User does not exist!");
