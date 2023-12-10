@@ -75,7 +75,7 @@
 				password & VARCHAR & kriptirana lozinka za korisnički račun \\ \hline 
 			\end{longtblr}
 			
-			\textbf{Report} tablica čuva podatke o pojedinim prijavama oštećenja koje korisnici podnose. Tablica je povezana vezom \textit{Many-to-One} s tablicom \textit{Users} preko atributa \textit{userID}, \textit{Many-to-One} vezom s tablicom \textit{Category} preko atributa \textit{categoryID} i \textit{Many-to-One} vezom s tablicom ReportGroup preko atributa groupID.
+			\textbf{Report} tablica čuva podatke o pojedinim prijavama oštećenja koje korisnici podnose. Tablica je povezana vezom \textit{Many-to-One} s tablicom \textit{Users} preko atributa \textit{userID}, \textit{Many-to-One} vezom s tablicom \textit{Category} preko atributa \textit{categoryID}. Također postoji auto-refleksivna \textit{Many-to-One} veza kojom se modelira nadovezivanje prijava.
 			
 			\begin{longtblr}[
 				label=Report,
@@ -93,7 +93,7 @@
 				reportHeadline & VARCHAR & naslov prijave \\ \hline 
 				\SetCell{LightBlue} userID & INT & jedinstveni identifikator korisnika koji je podnio prijavu \\ \hline 
 				\SetCell{LightBlue} categoryID & INT & jedinstveni identifikator kategorije oštećenja \\ \hline
-				\SetCell{LightBlue} groupID & INT & jedinstveni identifikator grupe prijave \\ \hline
+				\SetCell{LightBlue} isConnectedToID & INT & jedinstveni identifikator prijave na koju je ova prijava nadovezana \\ \hline
 			\end{longtblr}
 			
 			\textbf{Image} tablica čuva podatke o slikama koje se prilažu u prijavama oštećenja. Tablica je povezana \textit{Many-to-One} vezom s tablicom \textit{Report} preko atributa \textit{reportID}.
@@ -144,21 +144,7 @@
 				\SetCell{LightBlue} categoryID & INT & jedinstveni identifikator kategorije kojoj ključna riječ pripada. \\ \hline
 			\end{longtblr}
 			
-			\textbf{ReportGroup} tablica predstavlja grupu prijava koje su objedinjene. Tablica je povezana \textit{One-to-Many} vezom s tablicom \textit{Report} preko atributa \textit{groupID} i \textit{One-to-Many} vezom s tablicom \textit{Feedback} preko atributa \textit{groupID}.
-			
-			\begin{longtblr}[
-				label=ReportGroup,
-				entry=none
-				]{
-					width = \textwidth,
-					colspec={|X[6,l]|X[6, l]|X[20, l]|}, 
-					rowhead = 1,
-				} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
-				\hline \SetCell[c=3]{c}{\textbf{ReportGroup}}	 \\ \hline[3pt]
-				\SetCell{LightGreen} groupID & INT & jedinstveni identifikator grupe prijava \\ \hline
-			\end{longtblr}
-			
-			\textbf{Feedback} tablica čuva podatke o statusu pojedine grupe prijava. Također čuva podatke potrebne za slanje povratnih informacija korisnicima i računanje nekih statistika. Tablica je povezana \textit{Many-to-One} vezom s tablicom \textit{ReportGroup} preko atributa \textit{groupID} i \textit{Many-to-One} vezom s tablicom \textit{CityOffice} preko atributa \textit{cityOfficeID}.
+			\textbf{Feedback} tablica čuva podatke o statusu prijava koje su povezane. Također čuva podatke potrebne za slanje povratnih informacija korisnicima i računanje nekih statistika. Tablica je povezana \textit{Many-to-One} vezom s tablicom \textit{Report} preko atributa \textit{reportID}.
 			
 			\begin{longtblr}[
 				label=Feedback,
@@ -169,9 +155,8 @@
 					rowhead = 1,
 				} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
 				\hline \SetCell[c=3]{c}{\textbf{Feedback}}	 \\ \hline[3pt]
-				\SetCell{LightGreen} cityOfficeID & INT & jedinstveni identifikator gradskog ureda \\ \hline
-				\SetCell{LightGreen} groupID & INT & jedinstveni identifikator grupe prijava na koju se podaci referiraju \\ \hline
-				status & VARCHAR & status prijava u referiranoj grupi \\ \hline 
+				\SetCell{LightGreen} reportID & INT & jedinstveni identifikator grupe prijava na koju se podaci referiraju \\ \hline
+				\SetCell{LightGreen} status & VARCHAR & status prijava u referiranoj grupi \\ \hline 
 				changeTS & TIMESTAMP & vrijeme kada se postavio status prijava iz referirane grupe \\ \hline
 			\end{longtblr}
 			

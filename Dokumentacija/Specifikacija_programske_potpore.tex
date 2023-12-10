@@ -6,34 +6,27 @@
 			\begin{packed_item}
 				\item F01: registracija novog korisnika
 				\item F02: prijava korisnika
-				\item F03: anoniman korisnik
-				\item F04: podnošenje prijave oštećenja (naslov, opis, lokacija, slika - opcionalno, kategorija)
-				\item F05: odabir lokacije oštećenja preko interaktivne karte
-				\item F06: odabir lokacije oštećenja preko unosa adrese
-				\item F07: iščitavanje lokacije oštećenja iz metapodataka slike
-				\item F08: automatsko prepoznavanje kategorije prijave
-				\item F09: mogućnost automatskog predlaganja nadovezivanja prijave na postojeću
-				\item F10: prijava ima status (na čekanju, u procesu rješavanja, riješena)
-				\item F11: dobivanje koda nakon podnošenja prijave
-				\item F12: pregledavanje podataka o korisničkom računu prijavljenog korisnika
-				\item F13: uređivanje podataka o korisničkom računu prijavljenog korisnika
-				\item F14: pregledavanje prijava prijavljenog korisnika
-				\item F15: pregledavanje svih aktivnih prijava u sustavu preko interaktivne karte
-				\item F16: mogućnost filtriranja prijava u sustavu prilikom pregledavanja
-				\item F17: pretraživanje prijave preko koda
-				\item F18: pregled statistike za prijave odabrane filtrom
-				\item F19: prijava djelatnika gradskog ureda u sustav
-				\item F20: registracija novog gradskog ureda
-				\item F21: djelatnik gradskog ureda može odbaciti nevažeću prijavu
-				\item F22: djelatnik gradskog ureda može proslijediti prijavu drugom uredu
-				\item F23: djelatnik gradskog ureda može mijenjati status prijave
-				\item F24: djelatnik gradskog ureda može objediniti prijave istog oštećenja
-				\item F25: povratna informacija korisniku (ako je registrirani) za svaku promjenu nad prijavom
-				\item F26: djelatnik gradskog ureda ima uvid samo prijave pristigle na njegov ured
-				\item F27: pregled prijava kroz 3 liste (jedna za svaki status) za djelatnike gradskog ureda
-				\item F28: dodatno filtriranje liste prijava za djelatnike gradskog ureda
-				\item F29: pregled statistike za prijave odabrane filtrom za djelatnike gradskog ureda
+				\item F03: podnošenje prijave oštećenja (naslov, opis, lokacija, slika - opcionalno, kategorija)
+				\item F04: automatsko prepoznavanje kategorije prijave
+				\item F05: mogućnost automatskog predlaganja nadovezivanja prijave na postojeću
+				\item F06: pregledavanje podataka o korisničkom računu prijavljenog korisnika
+				\item F07: uređivanje podataka o korisničkom računu prijavljenog korisnika
+				\item F08: pregledavanje prijava prijavljenog korisnika
+				\item F09: pregledavanje svih aktivnih prijava u sustavu preko interaktivne karte
+				\item F10: mogućnost filtriranja prijava u sustavu prilikom pregledavanja
+				\item F11: pregled statistike prijava
+				\item F12: filtriranje statistike prijava
+				\item F13: djelatnik gradskog ureda može odbaciti nevažeću prijavu
+				\item F14: djelatnik gradskog ureda može proslijediti prijavu drugom uredu
+				\item F15: djelatnik gradskog ureda može mijenjati status prijave
+				\item F16: djelatnik gradskog ureda može objediniti prijave istog oštećenja
+				\item F17: povratna informacija korisniku (ako je registrirani) za svaku promjenu nad prijavom
+				\item F18: pregled prijava ureda kroz 3 liste (jedna za svaki status) za djelatnike gradskog ureda
+				\item F19: dodatno filtriranje liste prijava za djelatnike gradskog ureda
+				\item F20: odjava iz sustava
+				\item F21: brisanje korisničkog računa
 			\end{packed_item}
+			\eject
 			
 			\noindent \textbf{Dionici:}
 			
@@ -241,13 +234,7 @@
 					\end{packed_enum}
 					
 					\item  \textbf{Opis mogućih odstupanja:}
-					\item[] \begin{packed_item}
-						\item[2.a] Registrirani korisnik nema podnesenih prijava
-						\item[] \begin{packed_enum}
-							\item Aplikacija prikazuje praznu listu
-							\item Registrirani korisnik odustaje od pregleda vlastitih prijava
-						\end{packed_enum}
-						
+					\item[] \begin{packed_item}						
 						\item[3.a] Registrirani korisnik ne želi pregledati konkretnu prijavu
 						\item[] \begin{packed_enum}
 							\item Korisnik nakon pregleda liste prijava izlazi iz opcije pregleda vlastitih prijava
@@ -283,7 +270,6 @@
 					
 					\item  \textbf{Opis osnovnog tijeka:}
 					\item[] \begin{packed_enum}
-						\item Registrirani korisnik pregledava svoj korisnički račun
 						\item Registrirani korisnik odabire opciju uređivanja korisničkog računa
 						\item Registrirani korisnik mijenja željene podatke o računu
 						\item Registrirani korisnik potvrđuje izmjene i vraća se u pregled korisničkog računa
@@ -350,7 +336,7 @@
 					\item \textbf{Glavni sudionik:} Registrirani korisnik ili Djelatnik gradskog ureda
 					\item  \textbf{Cilj:} Odjava korisnika iz sustav
 					\item  \textbf{Sudionici:} -
-					\item  \textbf{Preduvjet:} -
+					\item  \textbf{Preduvjet:} Korisnik je prijavljen u sustav
 					
 					\item  \textbf{Opis osnovnog tijeka:}
 					\item[] \begin{packed_enum}
@@ -490,6 +476,42 @@
 							\item Preskače se dodatno filtriranje
 						\end{packed_enum}
 					\end{packed_item}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC20 - Prepoznavanje kategorije}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Korisnik
+					\item  \textbf{Cilj:} Automatsko prepoznavanje kategorije oštećenja
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} Korisnik podnosi prijavu oštećenja
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Aplikacija dohvaća popis ključnih riječi i njihovih kategorija
+						\item Korisnik unosi opis oštećenja
+						\item Aplikacija na temelju prepoznatih ključnih riječi predlaže kategoriju
+						\item Korisnik ostavlja predloženu kategoriju ili ručno odabire ispravnu kategoriju
+					\end{packed_enum}
+				\end{packed_item}
+				
+				
+				\noindent \underbar{\textbf{UC21 - Nadovezivanje prijave}}
+				\begin{packed_item}
+					
+					\item \textbf{Glavni sudionik:} Korisnik
+					\item  \textbf{Cilj:} Nadovezivanje prijave na već postojeću prijavu istog oštećenja
+					\item  \textbf{Sudionici:} Baza podataka
+					\item  \textbf{Preduvjet:} Korisnik podnosi prijavu oštećenja
+					
+					\item  \textbf{Opis osnovnog tijeka:}
+					\item[] \begin{packed_enum}
+						\item Korisnik potvrđuje i podnosi prijavu
+						\item Aplikacija provjerava ako u bazi podataka već postoji slična prijava
+						\item Ako takva postoji, aplikacija nudi korisniku da se nadoveže na već postojeću prijavu
+						\item Korisnik može nadovezati prijavu ili ju podnesti kao samostalnu
+					\end{packed_enum}
 				\end{packed_item}
 				
 				\eject
