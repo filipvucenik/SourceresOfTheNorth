@@ -12,12 +12,12 @@ let categoryData="";
 try{
   const fetchCategory=await fetch('https://ostecenja-progi-fer.onrender.com/category')
   const fetchData= await fetchCategory.json();
-  categoryData=fetchData[0];
+  categoryData=fetchData.map(category => category.categoryName);
 }catch(error){
   console.error(error);
   alert("Greška prilikom dohvaćanja kategorija, molimo osvježite stranicu")
 }
-
+console.log(categoryData);
 const pinpointIconUrl = markerIcon; 
 const customIcon = new L.Icon({
   iconUrl: pinpointIconUrl,
@@ -140,9 +140,9 @@ const ReportCard = () => {
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       >
-        {[categoryData].map((categoryItem) => (
-          <option key={categoryItem.categoryID} value={categoryItem.categoryName}>
-            {categoryItem.categoryName}
+        {categoryData.map((categoryName, index) => (
+          <option key={index} value={categoryName}>
+            {categoryName}
           </option>
         ))}
       </select>
