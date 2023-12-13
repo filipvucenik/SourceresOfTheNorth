@@ -5,6 +5,8 @@ import './Rforma.css'
 import L from 'leaflet';
 import markerIcon from'./marker.svg';
 import apiConfig from "./apiConfig";
+import FooterComponent from './FooterComponent';
+import HeaderComponent from './HeaderComponent';
 
 let categoryData="";
 try{
@@ -121,6 +123,8 @@ const ReportCard = () => {
   }, [location]);
 
   return (
+    <>
+    <HeaderComponent/>
     <div className="report-card">
       <h2>Prijava oštečenja</h2>
 
@@ -166,6 +170,8 @@ const ReportCard = () => {
       
       <button onClick={handleSubmit}>Predaj prijavu</button>
     </div>
+    <FooterComponent/>
+    </>
   );
 };
 

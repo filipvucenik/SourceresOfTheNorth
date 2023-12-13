@@ -84,7 +84,7 @@ function MapComponent() {
     }
   }, []);
 
-  return  <div id={uniqueMapId} style={{ width: '90%', height: '70vh' }}></div>;
+  return  <div id={uniqueMapId} style={{ width: '90%', height: '70vh' , marginLeft: '5%'}}></div>;
 }
 
 export default MapComponent;

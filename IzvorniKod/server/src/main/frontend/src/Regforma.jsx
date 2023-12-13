@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import "./Lforma.css";
 import { useNavigate } from "react-router-dom";
+import FooterComponent from "./FooterComponent";
 
 const LoginComponent2 = () => {
     const navigate = useNavigate();
@@ -72,9 +73,6 @@ const LoginComponent2 = () => {
 
     return (
         <>
-        <div className="welcome">
-        <h1>Dobrodošli!</h1>
-      </div>
         <div className="form-container">
 
         <form className="register-form">
@@ -88,6 +86,7 @@ const LoginComponent2 = () => {
           </button>
         </form>
         </div>
+        <FooterComponent/>
         </>
     );
 }
