@@ -17,6 +17,16 @@ try{
   console.error(error);
   alert("Greška prilikom dohvaćanja kategorija, molimo osvježite stranicu")
 }
+
+let keyWordData="";
+try{
+  const fecthKeyData=await fetch('https://ostecenja-progi-fer.onrender.com/keywords')
+  const fetchData=await fecthKeyData.json();
+  console.log(fetchData)
+}catch(error){
+  console.log(error);
+  alert("Greška prilikom učitavanja stranice.\n Automatski odabir kategorije neće raditi")
+}
 console.log(categoryData);
 const pinpointIconUrl = markerIcon; 
 const customIcon = new L.Icon({
