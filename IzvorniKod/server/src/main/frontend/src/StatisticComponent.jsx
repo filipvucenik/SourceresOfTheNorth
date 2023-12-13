@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
+import HeaderComponent from './HeaderComponent';
+import FooterComponent from './FooterComponent';
 
 const server = "http://localhost:8080/";
 
@@ -29,6 +30,8 @@ function StatisticComponent() {
       };
 
   return (
+    <>
+    <HeaderComponent/>
     <div className="report-card">
       <h1>Statistika prijava</h1>
       <form onSubmit={handleSubmit}>
@@ -72,6 +75,8 @@ function StatisticComponent() {
         ))}
       </ul>
     </div>
+    <FooterComponent/>
+    </>
   );
 }
 
