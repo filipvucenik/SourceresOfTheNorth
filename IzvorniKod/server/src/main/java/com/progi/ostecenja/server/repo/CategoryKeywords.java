@@ -8,7 +8,7 @@ import jakarta.persistence.JoinColumn;
 @Entity(name="categoryKeywords")
 public class CategoryKeywords {
     @Id @GeneratedValue
-    private long keywordID;
+    private Long keywordID;
 
     private String keyword;
 
@@ -17,8 +17,7 @@ public class CategoryKeywords {
 
     public CategoryKeywords(){}
 
-    public CategoryKeywords(long keywordID, String keyword, long categoryID) {
-        this.keywordID = keywordID;
+    public CategoryKeywords(Long keywordID, String keyword, long categoryID) {
         this.keyword = keyword;
         this.categoryID = categoryID;
     }
