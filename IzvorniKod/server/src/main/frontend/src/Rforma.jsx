@@ -6,7 +6,17 @@ import L from 'leaflet';
 import markerIcon from'./marker.svg';
 import apiConfig from "./apiConfig";
 
-const pinpointIconUrl = markerIcon; // Adjust if needed
+let categoryData="";
+try{
+  const fetchCategory=await fetch('https://ostecenja-progi-fer.onrender.com/category')
+  const fetchData= await fetchCategory.json();
+  categoryData=fetchData[0];
+}catch(error){
+  console.error(error);
+  alert("Greška prilikom dohvaćanja kategorija, molimo osvježite stranicu")
+}
+
+const pinpointIconUrl = markerIcon; 
 const customIcon = new L.Icon({
   iconUrl: pinpointIconUrl,
   iconSize: [32, 32],
@@ -22,6 +32,9 @@ const ReportCard = () => {
   const [picture, setPicture] = useState(null);
   const [manualAddress, setManualAddress] = useState('');
   
+  const manualAddressChange = (e) =>{
+    setManualAddress(e.target.value);
+  };
 
   const handleMapClick = async (e) => {
     const clickedLatLng = e.latlng;
@@ -29,7 +42,9 @@ const ReportCard = () => {
       lat: clickedLatLng.lat,
       lng: clickedLatLng.lng,
     });
-  
+
+    
+
     // GEOCODING API
     const apiKey = '7fbe9533c0c9424aa41c500419e5ef83';
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${clickedLatLng.lat}+${clickedLatLng.lng}&key=${apiKey}`;
@@ -46,6 +61,10 @@ const ReportCard = () => {
       console.error('Error fetching address:', error);
     }
   };
+    //dodati prepoznavanje keywordova
+  const checkForKeyword = (text) => {
+    
+  };
 
   const handlePictureChange = (file) => {
     setPicture(file);
@@ -60,7 +79,7 @@ const ReportCard = () => {
       picture,
       manualAddress,
     });
-    // Trebam Filipa...
+    
     const jsonServerSendData={
       "reportHeadline": title,
       "location":  location.lat+','+location.lng,
@@ -68,6 +87,7 @@ const ReportCard = () => {
       "categoryID" : 1
 
     };
+    
     let url = apiConfig.getReportUrl;
     fetch(url, {
       method: "POST",
@@ -105,16 +125,22 @@ const ReportCard = () => {
       <h2>Prijava oštečenja</h2>
 
       <label htmlFor="title">Naslov:</label>
-      <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+      <input type="text" id="title" value={title} onChange={(e) => {setTitle(e.target.value);checkForKeyword(e.target.value);}} />
 
       <label htmlFor="description">Opis:</label>
-      <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} />
+      <textarea id="description" value={description} onChange={(e) => {setDescription(e.target.value);checkForKeyword(e.target.value);}} />
 
       <label htmlFor="category">Kategorija:</label>
-      <select id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
-        <option value="category1">Kategorija 1</option>
-        <option value="category2">Kategorija 1</option>
-        <option value="category3">Kategorija 1</option>
+      <select
+        id="category"
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+      >
+        {[categoryData].map((categoryItem) => (
+          <option key={categoryItem.categoryID} value={categoryItem.categoryName}>
+            {categoryItem.categoryName}
+          </option>
+        ))}
       </select>
       <label htmlFor="picture">Prikvači sliku:</label>
       <input type="file" id="picture" accept="image/*" onChange={handlePictureChange} />
@@ -135,7 +161,7 @@ const ReportCard = () => {
 
       <div>
         <label htmlFor="address">Upiši adresu:</label>
-        <input type="text" id="address" value={manualAddress} readOnly />
+        <input type="text" id="address" value={manualAddress} onChange={manualAddressChange} />
       </div>
       
       <button onClick={handleSubmit}>Predaj prijavu</button>

@@ -27,9 +27,31 @@ const LoginComponent2 = () => {
           lastName: surr,
           password: pass
         };
-    
-        console.log(jsonData);
-    
+        let errorMsg="";
+        if(mail===''){
+          errorMsg=errorMsg+"Mail ne može biti prazan!\n"
+        }
+        if(!mail.includes('.') || !mail.includes('@')){
+          errorMsg=errorMsg+"Mail nije ispravan!\n";
+        }
+
+        if(name===''){
+          errorMsg=errorMsg+"Ime ne može biti prazno!\n"
+        }
+        if(surr===''){
+          errorMsg=errorMsg+"Prezime ne može biti prazno!\n"
+        }
+        if(pass.length<8 || pass.lenght>100){
+          errorMsg=errorMsg+"Šifra je mora bit između 8 i 100 znakova"
+          
+        }
+        if(errorMsg!=""){
+          alert(errorMsg);
+          return;
+        }
+
+        
+
         fetch(url, {
           method: "POST",
           credentials: "include",
@@ -57,10 +79,10 @@ const LoginComponent2 = () => {
 
         <form className="register-form">
           <h2>Registracija</h2>
-          <input type="text" placeholder="Ime" id="imeReg" required="" />
-          <input type="text" placeholder="Prezime" id="prezReg" required="" />
-          <input type="email" placeholder="E-mail" id="mailReg" required="" />
-          <input type="password" placeholder="Šifra" id="passReg" required="" />
+          <input type="text" placeholder="Ime" id="imeReg" required />
+          <input type="text" placeholder="Prezime" id="prezReg" required />
+          <input type="email" placeholder="E-mail" id="mailReg" required />
+          <input type="password" placeholder="Šifra" id="passReg" required />
           <button type="button" onClick={handleBuildRegJson}>
             Registracija
           </button>
