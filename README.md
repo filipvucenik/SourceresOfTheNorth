@@ -15,33 +15,25 @@ https://ostecenja-progi-fer.onrender.com/
 Ključni funkcijski zahtjevi ovog projekta su:
 - F01: registracija novog korisnika
 - F02: prijava korisnika
-- F03: anoniman korisnik
-- F04: podnošenje prijave oštećenja (naslov, opis, lokacija, slika - opcionalno, kategorija)
-- F05: odabir lokacije oštećenja preko interaktivne karte
-- F06: odabir lokacije oštećenja preko unosa adrese
-- F07: iščitavanje lokacije oštećenja iz metapodataka slike
-- F08: automatsko prepoznavanje kategorije prijave
-- F09: mogućnost automatskog predlaganja nadovezivanja prijave na postojeću
-- F10: prijava ima status (na čekanju, u procesu rješavanja, riješena)
-- F11: dobivanje koda nakon podnošenja prijave
-- F12: pregledavanje podataka o korisničkom računu prijavljenog korisnika
-- F13: uređivanje podataka o korisničkom računu prijavljenog korisnika
-- F14: pregledavanje prijava prijavljenog korisnika
-- F15: pregledavanje svih aktivnih prijava u sustavu preko interaktivne karte
-- F16: mogućnost filtriranja prijava u sustavu prilikom pregledavanja
-- F17: pretraživanje prijave preko koda
-- F18: pregled statistike za prijave odabrane filtrom
-- F19: prijava djelatnika gradskog ureda u sustav
-- F20: registracija novog gradskog ureda
-- F21: djelatnik gradskog ureda može odbaciti nevažeću prijavu
-- F22: djelatnik gradskog ureda može proslijediti prijavu drugom uredu
-- F23: djelatnik gradskog ureda može mijenjati status prijave
-- F24: djelatnik gradskog ureda može objediniti prijave istog oštećenja
-- F25: povratna informacija korisniku (ako je registrirani) za svaku promjenu nad prijavom
-- F26: djelatnik gradskog ureda ima uvid samo prijave pristigle na njegov ured
-- F27: pregled prijava kroz 3 liste (jedna za svaki status) za djelatnike gradskog ureda
-- F28: dodatno filtriranje liste prijava za djelatnike gradskog ureda
-- F29: pregled statistike za prijave odabrane filtrom za djelatnike gradskog ureda
+- F03: podnošenje prijave oštećenja (naslov, opis, lokacija, slika - opcionalno, kategorija)
+- F04: automatsko prepoznavanje kategorije prijave
+- F05: mogućnost automatskog predlaganja nadovezivanja prijave na postojeću
+- F06: pregledavanje podataka o korisničkom računu prijavljenog korisnika
+- F07: uređivanje podataka o korisničkom računu prijavljenog korisnika
+- F08: pregledavanje prijava prijavljenog korisnika
+- F09: pregledavanje svih aktivnih prijava u sustavu preko interaktivne karte
+- F10: mogućnost filtriranja prijava u sustavu prilikom pregledavanja
+- F11: pregled statistike prijava
+- F12: filtriranje statistike prijava
+- F13: djelatnik gradskog ureda može odbaciti nevažeću prijavu  
+- F14: djelatnik gradskog ureda može proslijediti prijavu drugom uredu
+- F15: djelatnik gradskog ureda može mijenjati status prijave
+- F16: djelatnik gradskog ureda može objediniti prijave istog oštećenja
+- F17: povratna informacija korisniku (ako je registriran) za svaku promjenu nad prijavom
+- F18: pregled prijava ureda kroz 3 liste (jedna za svaki status) za djelatnike gradskog ureda
+- F19: dodatno filtriranje liste prijava za djelatnike gradskog ureda
+- F20: odjava iz sustava
+- F21: brisanje korisničkog računa
 
 # Tehnologije
 U ovom projektu se koriste Spring Boot i React radni okviri.
