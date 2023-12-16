@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.23)  10 DEC 2023 18:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.23)  16 DEC 2023 17:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1376,7 +1376,7 @@ Overfull \hbox (63.96806pt too wide) in paragraph at lines 64--65
 -[]i-[]prijava-[]komunalnog-[]nereda /
  []
 
-<slike/GradskoOko.PNG, id=131, 1154.51324pt x 527.571pt>
+<slike/GradskoOko.PNG, id=146, 1154.51324pt x 527.571pt>
 File: slike/GradskoOko.PNG Graphic file (type png)
 <use slike/GradskoOko.PNG>
 Package pdftex.def Info: slike/GradskoOko.PNG  used on input line 67.
@@ -1551,13 +1551,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [19]
-<slike/Funkcionalnosti_korisnikaUCD.jpg, id=310, 846.16125pt x 674.52pt>
+<slike/Funkcionalnosti_korisnikaUCD.jpg, id=325, 846.16125pt x 674.52pt>
 File: slike/Funkcionalnosti_korisnikaUCD.jpg Graphic file (type jpg)
 <use slike/Funkcionalnosti_korisnikaUCD.jpg>
 Package pdftex.def Info: slike/Funkcionalnosti_korisnikaUCD.jpg  used on input 
 line 522.
 (pdftex.def)             Requested size: 435.6108pt x 347.24274pt.
-<slike/Obrada_prijavaUCD.jpg, id=311, 866.23625pt x 579.16376pt>
+<slike/Obrada_prijavaUCD.jpg, id=326, 866.23625pt x 579.16376pt>
 File: slike/Obrada_prijavaUCD.jpg Graphic file (type jpg)
 <use slike/Obrada_prijavaUCD.jpg>
 Package pdftex.def Info: slike/Obrada_prijavaUCD.jpg  used on input line 528.
@@ -1593,7 +1593,7 @@ has been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.533 				\eject
                 		 <./slike/Obrada_prijavaUCD.jpg>]
-<slike/Prijava_registracijaSD.jpg, id=325, 598.235pt x 627.34375pt>
+<slike/Prijava_registracijaSD.jpg, id=340, 598.235pt x 627.34375pt>
 File: slike/Prijava_registracijaSD.jpg Graphic file (type jpg)
 <use slike/Prijava_registracijaSD.jpg>
 Package pdftex.def Info: slike/Prijava_registracijaSD.jpg  used on input line 5
@@ -1624,7 +1624,7 @@ has been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.546 				\eject
                  <./slike/Prijava_RegistracijaSD.jpg>]
-<slike/Podnosenje_prijaveSD.jpg, id=337, 557.08125pt x 529.98pt>
+<slike/Podnosenje_prijaveSD.jpg, id=352, 557.08125pt x 529.98pt>
 File: slike/Podnosenje_prijaveSD.jpg Graphic file (type jpg)
 <use slike/Podnosenje_prijaveSD.jpg>
 Package pdftex.def Info: slike/Podnosenje_prijaveSD.jpg  used on input line 553
@@ -1660,7 +1660,7 @@ Overfull \hbox (8.8952pt too wide) in paragraph at lines 559--560
 -ma-cija, Pre-gled pri-java grad-
  []
 
-<slike/Obrada_prijavaSD.jpg, id=350, 560.0925pt x 692.5875pt>
+<slike/Obrada_prijavaSD.jpg, id=365, 560.0925pt x 692.5875pt>
 File: slike/Obrada_prijavaSD.jpg Graphic file (type jpg)
 <use slike/Obrada_prijavaSD.jpg>
 Package pdftex.def Info: slike/Obrada_prijavaSD.jpg  used on input line 564.
@@ -1722,7 +1722,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 
 ]
-<slike/slojeviArhitekture.jpg, id=373, 1055.945pt x 277.035pt>
+<slike/slojeviArhitekture.jpg, id=389, 1055.945pt x 277.035pt>
 File: slike/slojeviArhitekture.jpg Graphic file (type jpg)
 <use slike/slojeviArhitekture.jpg>
 Package pdftex.def Info: slike/slojeviArhitekture.jpg  used on input line 29.
@@ -1843,7 +1843,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 > Step: execute table commands.
 > Step: calculate cell and line sizes.
 > Step: build the whole table.
-<slike/relacijski.png, id=404, 665.48625pt x 471.7625pt>
+<slike/relacijski.png, id=419, 665.48625pt x 471.7625pt>
 File: slike/relacijski.png Graphic file (type png)
 <use slike/relacijski.png>
 Package pdftex.def Info: slike/relacijski.png  used on input line 183.
@@ -1873,7 +1873,7 @@ has been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.188 			\eject
                 <./slike/relacijski.png>]
-<slike/controller.png, id=425, 1885.0425pt x 1139.25626pt>
+<slike/controller.png, id=440, 1885.0425pt x 1139.25626pt>
 File: slike/controller.png Graphic file (type png)
 <use slike/controller.png>
 Package pdftex.def Info: slike/controller.png  used on input line 198.
@@ -1894,7 +1894,7 @@ has been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.203 			\eject
                 <./slike/controller.png>]
-<slike/dao.png, id=438, 1661.20625pt x 1356.06625pt>
+<slike/dao.png, id=453, 1661.20625pt x 1356.06625pt>
 File: slike/dao.png Graphic file (type png)
 <use slike/dao.png>
 Package pdftex.def Info: slike/dao.png  used on input line 208.
@@ -1915,7 +1915,7 @@ has been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.213 			\eject
                 <./slike/dao.png>]
-<slike/repo.png, id=446, 903.375pt x 822.07124pt>
+<slike/repo.png, id=461, 903.375pt x 822.07124pt>
 File: slike/repo.png Graphic file (type png)
 <use slike/repo.png>
 Package pdftex.def Info: slike/repo.png  used on input line 218.
@@ -1936,7 +1936,7 @@ has been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.223 			\eject
                 <./slike/repo.png>]
-<slike/service.png, id=454, 1834.855pt x 866.23625pt>
+<slike/service.png, id=469, 1834.855pt x 866.23625pt>
 File: slike/service.png Graphic file (type png)
 <use slike/service.png>
 Package pdftex.def Info: slike/service.png  used on input line 228.
@@ -1956,7 +1956,68 @@ has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.233 			\eject
-                <./slike/service.png>])
+                <./slike/service.png>]
+Overfull \hbox (7.40163pt too wide) in paragraph at lines 248--249
+[]\OT1/jkp/m/n/12 Ako je ko-ris-nik pri-jav-ljen mo[]ze pre-gle-dati po-datke o
+ svo-jem ko-risni[]ckom ra[]cunu.
+ []
+
+<slike/dijagramStanja.jpg, id=477, 941.5175pt x 688.5725pt>
+File: slike/dijagramStanja.jpg Graphic file (type jpg)
+<use slike/dijagramStanja.jpg>
+Package pdftex.def Info: slike/dijagramStanja.jpg  used on input line 251.
+(pdftex.def)             Requested size: 435.6108pt x 318.58586pt.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[40]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[41
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.7}) 
+has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.256 			\eject
+                <./slike/dijagramStanja.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 260--261
+
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[42]
+Underfull \hbox (badness 10000) in paragraph at lines 267--268
+
+ []
+
+)
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[43]
 \openout2 = `Literatura.aux'.
 
  (./Literatura.tex
@@ -1986,7 +2047,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[40
+[44
 
 
 
@@ -2004,7 +2065,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[41
+[45
 
 
 
@@ -2020,7 +2081,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[42
+[46
 
 
 ]
@@ -2032,7 +2093,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[43]
+[47]
 > Step: init table outer spec.
 > Step: parse table options.
 > Step: split table.
@@ -2050,7 +2111,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[44]
+[48]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2059,7 +2120,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[45]) 
+[49]) 
 enddocument/afterlastpage: lastpage setting LastPage.
 (./PROGI_ProjektnaDokumentacija.aux (./Dnevnik_promjena_dokumentacije.aux)
 (./Opis_projektnog_zadatka.aux) (./Specifikacija_programske_potpore.aux)
@@ -2070,26 +2131,27 @@ L3 programming layer <2023-10-10>
  ***********
 Package rerunfilecheck Info: File `PROGI_ProjektnaDokumentacija.out' has not ch
 anged.
-(rerunfilecheck)             Checksum: 30CECE63DACC01D3CAFDA36E70B48984;2999.
+(rerunfilecheck)             Checksum: 100351199FDEBE40958EB54A6D2FB1A5;3438.
  ) 
 Here is how much of TeX's memory you used:
- 17719 strings out of 474503
- 311244 string characters out of 5756704
- 2090043 words of memory out of 5000000
- 39171 multiletter control sequences out of 15000+600000
- 605007 words of font info for 131 fonts, out of 8000000 for 9000
+ 17742 strings out of 474503
+ 311628 string characters out of 5756704
+ 2089043 words of memory out of 5000000
+ 39183 multiletter control sequences out of 15000+600000
+ 606775 words of font info for 134 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  86i,13n,115p,1711b,1045s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2023/texmf-dist/fonts/type1/public/kpfonts/jkpbn8a.pfb><c:/texliv
-e/2023/texmf-dist/fonts/type1/public/kpfonts/jkpbne.pfb><c:/texlive/2023/texmf-
-dist/fonts/type1/public/kpfonts/jkpmit8a.pfb><c:/texlive/2023/texmf-dist/fonts/
-type1/public/kpfonts/jkpmite.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public
-/kpfonts/jkpmn8a.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/kpfonts/jkp
-mne.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/kpfonts/jkpttmn8a.pfb>
-Output written on PROGI_ProjektnaDokumentacija.pdf (46 pages, 3230519 bytes).
+<c:/texlive/2023/texmf-dist/fonts/type1/public/kpfonts/jkpbit8a.pfb><c:/texli
+ve/2023/texmf-dist/fonts/type1/public/kpfonts/jkpbn8a.pfb><c:/texlive/2023/texm
+f-dist/fonts/type1/public/kpfonts/jkpbne.pfb><c:/texlive/2023/texmf-dist/fonts/
+type1/public/kpfonts/jkpmit8a.pfb><c:/texlive/2023/texmf-dist/fonts/type1/publi
+c/kpfonts/jkpmite.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/kpfonts/jk
+pmn8a.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/kpfonts/jkpmne.pfb><c:
+/texlive/2023/texmf-dist/fonts/type1/public/kpfonts/jkpttmn8a.pfb>
+Output written on PROGI_ProjektnaDokumentacija.pdf (50 pages, 3492824 bytes).
 PDF statistics:
- 597 PDF objects out of 1000 (max. 8388607)
- 511 compressed objects within 6 object streams
- 199 named destinations out of 1000 (max. 500000)
- 197 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 643 PDF objects out of 1000 (max. 8388607)
+ 550 compressed objects within 6 object streams
+ 207 named destinations out of 1000 (max. 500000)
+ 226 words of extra memory for PDF output out of 10000 (max. 10000000)
 

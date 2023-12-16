@@ -232,3 +232,38 @@
 			
 			\eject
 			
+			
+			\section{Dijagram stanja}
+			
+			Dijagram stanja je vrsta UML dijagrama koja prikazuje stanja objekta i prijelaze između stanja. Prijelazi se aktiviraju određenim događajima i opcionalno dodatnim uvjetima. 
+			
+			Slika \ref{fig:dijagramStanja} prikazuje dijagram stanja za korisnika koji može, ali i ne mora biti prijavljen u sustav. Korisniku je na početku prikazana glavna stranica na kojoj je karta sa prikazanim aktivnim prijavama u sustavu. Zaglavlje stranice sadrži gumbove za podnošenje nove prijave oštećenja ("Prijava štete"), prikaz statistike prijava ("Statistika"). Također, zaglavlje sadrži gumb sa e-mailom korisnika koji služi za upravljanje korisničkim računom ako je korisnik prijavljen u sustav. Ako korisnik nije prijavljen, zaglavlje sadrži gumbove za prijavu ("Log in") i registraciju ("Register") u  sustav. S obzirom da je zaglavlje isto na svim dijelovima aplikacije, korisnik ima pristup ovim opcijama bilo gdje u aplikaciji.
+			
+			Na glavnoj stranici korisnik može odabrati filtar prijava. Pomoću tog filtra korisnik može filtrirati aktivne prijave u sustavu koje će se prikazati na karti na početnoj stranici. Odabirom neke od prikazanih prijava na karti korisniku se otvara stranica odabrane prijave. Ako je ta prijava nadovezana na drugu prijavu oštećenja, korisnik može kliknuti na tu prijavu da mu se otvori stranica nadprijave.
+			
+			Kod pregleda statistike prijava korisnik mora ispuniti obrazac filtra. Nakon potvrde obrasca korisniku se prikazuje statistika prijava koje su odabrane pomoću filtra. 
+			
+			Prilikom prijave novog oštećenja korisnik ispunjava obrazac prijave. Kada je u obrazac upisan opis oštećenja, sustav korisniku predlaže kategoriju oštećenja. Sustav korisniku prikazuje jedinstveni kod prijave kada korisnik podnese prijavu. Kada se vraća na početnu stranicu kada potvrdi da je vidio kod prijave.
+			
+			Ako je korisnik prijavljen može pregledati podatke o svojem korisničkom računu. Prilikom pregleda korisničkog računa može dodatno pregledavati vlastite prijave. Kada želi pregledati neku od prijava, korisniku se prikazuje stranica te prijave, isto kao i kod pregleda svih prijava na početnoj stranici. Korisnik također može mijenjati podatke o svojem korisničkom računu. Kod potvrde se izmjene spremaju, ako je do njih došlo. Također, korisnik kod pregleda računa može izbrisati svoj račun čime on postaje neprijavljen i neregistriran.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/dijagramStanja.jpg} %veličina u odnosu na širinu linije
+				\caption{Dijagram stanja}
+				\label{fig:dijagramStanja} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			\eject 
+			
+			\section{Dijagram aktivnosti}
+			
+			\textbf{\textit{dio 2. revizije}}\\
+			
+			\textit{Potrebno je priložiti dijagram aktivnosti s pripadajućim opisom. Dijagram aktivnosti treba prikazivati značajan dio sustava.}
+			
+			\eject
+			\section{Dijagram komponenti}
+			
+			\textbf{\textit{dio 2. revizije}}\\
+			
+			\textit{Potrebno je priložiti dijagram komponenti s pripadajućim opisom. Dijagram komponenti treba prikazivati strukturu cijele aplikacije.}
