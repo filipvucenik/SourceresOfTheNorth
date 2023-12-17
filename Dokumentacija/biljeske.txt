@@ -2,3 +2,4 @@ filtar prijava
 izbor jezika
 prava baza podataka	
 prikaz koda nakon podnošenja prijave i odlazak na glavnu stranicu
+u dijagramima dodati nadovezivanje prijava!
