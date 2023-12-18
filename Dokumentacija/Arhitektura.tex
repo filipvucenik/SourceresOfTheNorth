@@ -237,13 +237,15 @@
 			
 			Dijagram stanja je vrsta UML dijagrama koja prikazuje stanja objekta i prijelaze između stanja. Prijelazi se aktiviraju određenim događajima i opcionalno dodatnim uvjetima. 
 			
-			Slika \ref{fig:dijagramStanja} prikazuje dijagram stanja za korisnika koji može, ali i ne mora biti prijavljen u sustav. Korisniku je na početku prikazana glavna stranica na kojoj je karta sa prikazanim aktivnim prijavama u sustavu. Zaglavlje stranice sadrži gumbove za podnošenje nove prijave oštećenja ("Prijava štete"), prikaz statistike prijava ("Statistika"). Također, zaglavlje sadrži gumb sa e-mailom korisnika koji služi za upravljanje korisničkim računom ako je korisnik prijavljen u sustav. Ako korisnik nije prijavljen, zaglavlje sadrži gumbove za prijavu ("Log in") i registraciju ("Register") u  sustav. S obzirom da je zaglavlje isto na svim dijelovima aplikacije, korisnik ima pristup ovim opcijama bilo gdje u aplikaciji.
+			Slika \ref{fig:dijagramStanja} prikazuje dijagram stanja za korisnika koji može, ali i ne mora biti prijavljen u sustav. 
+			
+			Korisniku je na početku prikazana glavna stranica na kojoj je karta sa prikazanim aktivnim prijavama u sustavu. Zaglavlje stranice sadrži gumbove za podnošenje nove prijave oštećenja ("Prijava štete"), prikaz statistike prijava ("Statistika"). Također, zaglavlje sadrži gumb sa e-mailom korisnika koji služi za upravljanje korisničkim računom ako je korisnik prijavljen u sustav. Ako korisnik nije prijavljen, zaglavlje sadrži gumbove za prijavu ("Log in") i registraciju ("Register") u  sustav. S obzirom da je zaglavlje isto na svim dijelovima aplikacije, korisnik ima pristup ovim opcijama bilo gdje u aplikaciji.
 			
 			Na glavnoj stranici korisnik može odabrati filtar prijava. Pomoću tog filtra korisnik može filtrirati aktivne prijave u sustavu koje će se prikazati na karti na početnoj stranici. Odabirom neke od prikazanih prijava na karti korisniku se otvara stranica odabrane prijave. Ako je ta prijava nadovezana na drugu prijavu oštećenja, korisnik može kliknuti na tu prijavu da mu se otvori stranica nadprijave.
 			
 			Kod pregleda statistike prijava korisnik mora ispuniti obrazac filtra. Nakon potvrde obrasca korisniku se prikazuje statistika prijava koje su odabrane pomoću filtra. 
 			
-			Prilikom prijave novog oštećenja korisnik ispunjava obrazac prijave. Kada je u obrazac upisan opis oštećenja, sustav korisniku predlaže kategoriju oštećenja. Sustav korisniku prikazuje jedinstveni kod prijave kada korisnik podnese prijavu. Kada se vraća na početnu stranicu kada potvrdi da je vidio kod prijave.
+			Prilikom prijave novog oštećenja korisnik ispunjava obrazac prijave. Kada je u obrazac upisan opis oštećenja, sustav korisniku predlaže kategoriju oštećenja. Kada korisnik podnese prijavu, sustav provjerava ako već postoji slična prijava. Ako postoji, sustav nudi korisniku nadovezivanje njegove prijave na postojeću. Korisnik to može prihvatiti, ali može i poslati nepovezanu prijavu. Nakon konačnog podnošenja prijave sustav korisniku prikazuje jedinstveni kod prijave. Korisnik se vraća na početnu stranicu kada potvrdi zaprimljeni kod prijave.
 			
 			Ako je korisnik prijavljen može pregledati podatke o svojem korisničkom računu. Prilikom pregleda korisničkog računa može dodatno pregledavati vlastite prijave. Kada želi pregledati neku od prijava, korisniku se prikazuje stranica te prijave, isto kao i kod pregleda svih prijava na početnoj stranici. Korisnik također može mijenjati podatke o svojem korisničkom računu. Kod potvrde se izmjene spremaju, ako je do njih došlo. Također, korisnik kod pregleda računa može izbrisati svoj račun čime on postaje neprijavljen i neregistriran.
 			
@@ -257,13 +259,11 @@
 			
 			\section{Dijagram aktivnosti}
 			
-			\textbf{\textit{dio 2. revizije}}\\
-			
 			Dijagram aktivnosti je ponašajni UML dijagram koji modelira ponašanje sustava nizom akcija koje zajedno čine aktivnost. Dijagram aktivnosti se primjenjuje za modeliranje upravljačkog i podatkovnog toka. Ovakav tip dijagrama nije preporučljiv za modeliranje sustava sa događajima poticanim ponašanjem. Kod dijagrama aktivnosti svaka akcija se izvršava nakon završavanja prethodne akcije. Općenito je u dijagramu aktivnosti naglasak na jednostavnosti prikaza.
 			
 			Na dijagramu \ref{fig:dijagramAktivnosti} prikazan je proces podnošenja prijave oštećenja i njezine obrade u gradskom uredu. 
 			
-			Korisnik odabire opciju "Prijava štete" te ispunjava podatke o oštećenju na dobivenom obrascu. Kada je unesen opis prijave, aplikacija pomoću ključnih riječi pokušava prepoznati kategoriju oštećenja koju predlaže korisniku. Korisnik može prihvatiti predloženu kategoriju ili ručno odabrati drugu.
+			Korisnik odabire opciju "Prijava štete" te ispunjava podatke o oštećenju na dobivenom obrascu. Kada je unesen opis prijave, aplikacija pomoću ključnih riječi pokušava prepoznati kategoriju oštećenja koju predlaže korisniku. Korisnik može prihvatiti predloženu kategoriju ili ručno odabrati drugu. Nakon što korisnik podnese prijavu, sustav provjerava ako već postoji slična prijava spremljena u bazi podataka. Ako postoji, sustav predlaže korisniku nadovezivanje njegove prijave na postojeću. Korisnik može, ali ne mora prihvatiti prijedlog i nakon toga potvrditi slanje prijave.
 			
 			Nakon što je prijava podnesena i spremljena u bazu podataka, djelatnik gradskog ureda može obraditi tu prijavu. Ako smatra da je prijava nevaljala, djelatnik ju odbacuje. Ako je prijava podnesena krivom uredu, korisnik prijavu može proslijediti drugom uredu. Ako je prijava valjana, djelatnik tu prijavu šalje gradskoj službi za sanaciju oštećenja. U svakom od navedenih slučaja promjena u prijavi se sprema u bazu podataka i obavještava se korisnika koji je podnio prijavu, ako je korisnik registriran u sustavu. Na kraju, kada gradska služba sanira oštećenje iz valjane prijave, ta se promjena također evidentira u bazi podataka i obavještava se korisnik kao i u ostalim slučajevima. 
 			
