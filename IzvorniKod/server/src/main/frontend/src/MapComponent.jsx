@@ -3,6 +3,8 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import markerIcon from './marker.svg';
 
+const server = "http://localhost:8080/";
+
 function MapComponent() {
   const mapRef = useRef(null); // referenca za spremanje instance karte
   const markers = []; // Niz za pohranu svih markera
@@ -68,6 +70,19 @@ function MapComponent() {
       for(var lokacija of lokacije){
         createMarker(lokacija.lat,lokacija.lng);
       }
+
+      /*const fetchDataAndCreateMarkers = async () => {
+        try {
+          const response = await fetch(`${server}reports/unhandled`);
+          const data = await response.json();
+    
+          for (const lokacija of data) {
+            createMarker(lokacija.lat, lokacija.lng);
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };*/
       
 
       /*function deleteMarker(markerToDelete) { //brisanje markera i izbacivanje iz liste
