@@ -4,10 +4,10 @@ import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 
-@Entity(name = "Report")
-@Table(name = "Report")
+@Entity
 public class Report {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long reportID;
     @Column
     private String reportHeadline;
@@ -20,13 +20,16 @@ public class Report {
     @Column
     private Timestamp reportTS;
 
-    @JoinColumn(name="userID")
+    @JoinColumn
     private Long userID;
+    @ManyToOne
+    @JoinColumn (
+            name = "group_reportID",
+            referencedColumnName = "reportID"
+    )
+    private Report group;
 
-    @JoinColumn(name="groupID")
-    private Long groupID;
-
-    @JoinColumn(name="categoryID")
+    @JoinColumn
     private Long categoryID;
 
     public void setReportHeadline(String reportHeadline) {
@@ -58,7 +61,7 @@ public class Report {
     }
 
     public Long getGroupID() {
-        return groupID;
+        return group.getReportID();
     }
 
     public Long getCategoryID() {
@@ -85,8 +88,8 @@ public class Report {
         this.userID = userID;
     }
 
-    public void setGroupID(Long groupID) {
-        this.groupID = groupID;
+    public void setGroup(Report group) {
+        this.group = group;
     }
 
     public void setCategoryID(Long categoryID) {
@@ -95,14 +98,14 @@ public class Report {
 
     public Report(){
     }
-    public Report(Long reportID,String reportHeadline, String location, String description, Timestamp reportTS, Long userID, Long groupID, Long categoryID) {
+    public Report(Long reportID,String reportHeadline, String location, String description, Timestamp reportTS, Long userID, Report group, Long categoryID) {
         this.reportID = reportID;
         this.reportHeadline=reportHeadline;
         this.location = location;
         this.description = description;
         this.reportTS = reportTS;
         this.userID = userID;
-        this.groupID = groupID;
+        this.group = group;
         this.categoryID = categoryID;
     }
 }

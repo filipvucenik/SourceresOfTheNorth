@@ -5,7 +5,6 @@ import com.progi.ostecenja.server.repo.Image;
 import com.progi.ostecenja.server.repo.Report;
 import com.progi.ostecenja.server.service.CategoryService;
 import com.progi.ostecenja.server.service.FeedbackService;
-import com.progi.ostecenja.server.service.ReportGroupService;
 import com.progi.ostecenja.server.service.ReportService;
 import com.progi.ostecenja.server.service.ImageService;
 import com.progi.ostecenja.server.service.impl.StorageService;
@@ -34,8 +33,6 @@ public class ReportController {
     @Autowired
     private FeedbackService feedbackService;
 
-    @Autowired
-    private ReportGroupService reportGroupService;
     @GetMapping("/all")
     public List<Report> listReports(HttpSession session){
         Long userId = (Long) session.getAttribute("USER");
@@ -54,7 +51,7 @@ public class ReportController {
     public List<Report> listUnhandledReports(){
         return reportService.listAllUnhandled();
     }
-
+    // TODO popraviti group ID
     @PostMapping
     public void createReport(@RequestBody Report report, HttpSession session){
         Timestamp timestamp = report.getReportTS();
@@ -68,15 +65,14 @@ public class ReportController {
         }catch (RuntimeException e){
             userId = null;
         }
-        Long groupID = reportGroupService.createReportGroup().getGroupID();
 
         report.setUserID(userId);
         report.setReportTS(timestamp);
-        report.setGroupID(groupID);
+        report.setGroup(null);
         reportService.createReport(report);
 
 
-        feedbackService.createFeedback(groupID, timestamp);
+        feedbackService.createFeedback(report.getReportID(), timestamp);
     }
 
     @PostMapping("/uploadImage")

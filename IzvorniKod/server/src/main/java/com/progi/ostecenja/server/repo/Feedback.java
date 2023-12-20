@@ -1,5 +1,6 @@
 package com.progi.ostecenja.server.repo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -16,7 +17,7 @@ public class Feedback {
 
     @Id
     private FeedbackID key;
-
+    @Column
     private Timestamp changeTS;
 
     public Feedback(Long groupID, String status, Timestamp changeTS) {
