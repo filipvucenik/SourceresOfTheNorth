@@ -27,12 +27,11 @@ try{
   keyWordData=Object.fromEntries(
     fetchData.map(item => [item.keyword.toLowerCase(), item.categoryID])
   );
-  console.log(keyWordData);
+
 }catch(error){
   console.log(error);
   alert("Greška prilikom učitavanja stranice.\n Automatski odabir kategorije neće raditi")
 }
-console.log(categoryData);
 const pinpointIconUrl = markerIcon; 
 const customIcon = new L.Icon({
   iconUrl: pinpointIconUrl,
@@ -143,7 +142,7 @@ const ReportCard = () => {
       body: JSON.stringify(jsonServerSendData),
     })
       .then((response) => {
-        if(response.status==200){
+        if(response.status===200){
             alert("Vaša prijava je podnešena")
         }else{
             alert("DOŠLO JE DO GREŠKE!!!");

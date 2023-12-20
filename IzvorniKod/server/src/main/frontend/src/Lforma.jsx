@@ -1,7 +1,7 @@
-import React, { useState, useEffect, Link } from "react";
+import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import "./Lforma.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import apiConfig from "./apiConfig";
 import FooterComponent from "./FooterComponent";
 import HeaderComponent from "./HeaderComponent";
@@ -63,24 +63,13 @@ const LoginComponent = () => {
       <header className="p-3 text-bg-dark">
         <div className="container">
           <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a
-              href="/"
-              className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
-            >
-              <svg
-                className="bi me-2"
-                width="40"
-                height="32"
-                role="img"
-                aria-label="Bootstrap"
-              >
-                <use href="#bootstrap"></use>
-              </svg>
-            </a>
-            <a href="/">
-              <img src="logo2.png" alt="logo2" classNameName="mx-4" />
-            </a>
+            
             <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li>
+            <Link to="/">
+                  <img src="./logo_road.webp" alt="logo2" className="mx-4 logo-image" />
+              </Link>
+            </li>
               <li>
                 <a href="#" className="nav-link px-2 text-secondary">
                   <a href="/prijava">
