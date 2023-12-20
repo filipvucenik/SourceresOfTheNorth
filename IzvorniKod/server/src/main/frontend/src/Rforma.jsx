@@ -12,7 +12,9 @@ let categoryData="";
 try{
   const fetchCategory=await fetch('https://ostecenja-progi-fer.onrender.com/category')
   const fetchData= await fetchCategory.json();
-  categoryData=fetchData.map(category => category.categoryName);
+  categoryData=Object.fromEntries(
+    fetchData.map(item => [item.categoryID, item.categoryName])
+  );
 }catch(error){
   console.error(error);
   alert("Greška prilikom dohvaćanja kategorija, molimo osvježite stranicu")
@@ -22,7 +24,10 @@ let keyWordData="";
 try{
   const fecthKeyData=await fetch('https://ostecenja-progi-fer.onrender.com/keywords')
   const fetchData=await fecthKeyData.json();
-  console.log(fetchData)
+  keyWordData=Object.fromEntries(
+    fetchData.map(item => [item.keyword.toLowerCase(), item.categoryID])
+  );
+  console.log(keyWordData);
 }catch(error){
   console.log(error);
   alert("Greška prilikom učitavanja stranice.\n Automatski odabir kategorije neće raditi")
@@ -73,11 +78,39 @@ const ReportCard = () => {
       console.error('Error fetching address:', error);
     }
   };
-    //dodati prepoznavanje keywordova
+  
   const checkForKeyword = (text) => {
-    
-  };
 
+    const words = text.trim().toLowerCase().split(/\s+/);
+    
+
+    const categoryCounts = {};
+  
+    words.forEach(word => {
+      if (keyWordData.hasOwnProperty(word)) {
+        const categoryId = keyWordData[word];
+        categoryCounts[categoryId] = (categoryCounts[categoryId] || 0) + 1;
+      }
+    });
+  
+
+    let maxCategory = null;
+    let maxCount = 0;
+    
+    for (const categoryId in categoryCounts) {
+      if (categoryCounts[categoryId] > maxCount) {
+        maxCategory = categoryId;
+        maxCount = categoryCounts[categoryId];
+      }
+    }
+
+    if (maxCategory !== null) {
+      setCategory(maxCategory.toString());
+    }
+  };
+  
+
+    
   const handlePictureChange = (file) => {
     setPicture(file);
   };
@@ -150,8 +183,8 @@ const ReportCard = () => {
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       >
-        {categoryData.map((categoryName, index) => (
-          <option key={index} value={categoryName}>
+        {Object.entries(categoryData).map(([categoryId, categoryName]) => (
+          <option key={categoryId} value={categoryId}>
             {categoryName}
           </option>
         ))}
