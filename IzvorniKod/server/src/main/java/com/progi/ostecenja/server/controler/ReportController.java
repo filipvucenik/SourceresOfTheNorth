@@ -51,6 +51,7 @@ public class ReportController {
     public List<Report> listUnhandledReports(){
         return reportService.listAllUnhandled();
     }
+
     // TODO popraviti group ID
     @PostMapping
     public void createReport(@RequestBody Report report, HttpSession session){
@@ -103,7 +104,7 @@ public class ReportController {
 
     @PostMapping("/updateStatus")
     public void changeStatus(@RequestParam Long reportID, String status){
-        Long groupId = reportService.getReport(reportID).getGroupID();
+        Long groupId = reportService.getReport(reportID).getGroup().getReportID();
         feedbackService.updateService(groupId, status);
     }
 }

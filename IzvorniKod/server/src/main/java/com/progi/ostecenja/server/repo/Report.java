@@ -1,5 +1,6 @@
 package com.progi.ostecenja.server.repo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -60,10 +61,6 @@ public class Report {
         return userID;
     }
 
-    public Long getGroupID() {
-        return group.getReportID();
-    }
-
     public Long getCategoryID() {
         return categoryID;
     }
@@ -94,6 +91,11 @@ public class Report {
 
     public void setCategoryID(Long categoryID) {
         this.categoryID = categoryID;
+    }
+
+    @JsonInclude(JsonInclude.Include.ALWAYS)
+    public Report getGroup() {
+        return group;
     }
 
     public Report(){
