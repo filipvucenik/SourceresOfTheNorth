@@ -1,11 +1,9 @@
 package com.progi.ostecenja.server.service.impl;
 
 import com.progi.ostecenja.server.dao.*;
-import com.progi.ostecenja.server.repo.Category;
-import com.progi.ostecenja.server.repo.CityOffice;
-import com.progi.ostecenja.server.repo.Image;
-import com.progi.ostecenja.server.repo.Report;
+import com.progi.ostecenja.server.repo.*;
 import com.progi.ostecenja.server.service.EntityMissingException;
+import com.progi.ostecenja.server.service.FeedbackService;
 import com.progi.ostecenja.server.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -24,6 +22,9 @@ public class ReportServiceJpa implements ReportService {
 
     @Autowired
     CategoryRepository categoryRepo;
+
+    @Autowired
+    FeedbackService feedbackService;
     @Override
     public List<Report> listAllforUsers(long userID) {
         return reportRepo.findAll().stream().filter(r-> r.getUserID().equals(userID)).toList();
@@ -41,6 +42,12 @@ public class ReportServiceJpa implements ReportService {
     @Override
     public  Report createReport(Report report){
        return reportRepo.save(report);
+    }
+
+    // TODO provjeriti tocno kak se stanje zove
+    @Override
+    public List<Report> listAllUnhandled() {
+        return reportRepo.findAll().stream().filter(r -> !feedbackService.existsFeedback(r.getGroupID(), "u obradi")).toList();
     }
 
     @Override

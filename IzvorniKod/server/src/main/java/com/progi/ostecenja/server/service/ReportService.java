@@ -14,6 +14,8 @@ public interface ReportService {
     List<Report> listAllforOffice(long cityOfficeID);
     Report createReport(Report report);
 
+    List<Report> listAllUnhandled();
+
     Report getReport(Long reportID);
 
 
