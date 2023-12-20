@@ -9,4 +9,8 @@ public interface FeedbackService {
     Feedback createFeedback(Long groupID, Timestamp changeTS);
 
     void updateService(Long groupID, String stanje);
+
+    Feedback getFeedback(Long groupID, String stanje);
+
+    boolean existsFeedback(Long groupID, String stanje);
 }

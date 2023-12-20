@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity(name = "Report")
+@Table(name = "Report")
 public class Report {
     @Id @GeneratedValue
     private Long reportID;

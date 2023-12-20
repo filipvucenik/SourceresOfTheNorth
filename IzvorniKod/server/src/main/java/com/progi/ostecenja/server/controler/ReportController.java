@@ -50,6 +50,11 @@ public class ReportController {
 
     }
 
+    @GetMapping("unhandled")
+    public List<Report> listUnhandledReports(){
+        return reportService.listAllUnhandled();
+    }
+
     @PostMapping
     public void createReport(@RequestBody Report report, HttpSession session){
         Timestamp timestamp = report.getReportTS();

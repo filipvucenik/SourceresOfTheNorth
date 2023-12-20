@@ -27,4 +27,17 @@ public class FeedbackServiceJPA implements FeedbackService {
         }
         feedbackRepository.save(new Feedback(groupID, stanje, Timestamp.valueOf(LocalDateTime.now())));
     }
+
+    @Override
+    public Feedback getFeedback(Long groupID, String stanje) {
+        if(existsFeedback(groupID, stanje))
+            return feedbackRepository.getReferenceById(new FeedbackID(groupID, stanje));
+        else
+            throw new IllegalArgumentException("Feedback: "+ groupID+" "+ stanje +" does not exists");
+    }
+
+    @Override
+    public boolean existsFeedback(Long groupID, String stanje) {
+        return feedbackRepository.existsById(new FeedbackID(groupID, stanje));
+    }
 }
