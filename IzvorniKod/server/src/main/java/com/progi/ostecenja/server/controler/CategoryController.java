@@ -3,10 +3,7 @@ package com.progi.ostecenja.server.controler;
 import com.progi.ostecenja.server.repo.Category;
 import com.progi.ostecenja.server.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -19,5 +16,8 @@ public class CategoryController {
     @GetMapping
     public List<Category> listCategories(){ return categoryService.listAll();}
 
-
+    @PostMapping
+    public Category createCategory(@RequestBody Category category){
+        return categoryService.createCategory(category);
+    }
 }

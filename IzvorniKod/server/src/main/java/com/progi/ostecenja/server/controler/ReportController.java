@@ -1,5 +1,6 @@
 package com.progi.ostecenja.server.controler;
 
+import com.progi.ostecenja.server.dto.ReportFilterDto;
 import com.progi.ostecenja.server.repo.Feedback;
 import com.progi.ostecenja.server.repo.Image;
 import com.progi.ostecenja.server.repo.Report;
@@ -106,5 +107,10 @@ public class ReportController {
     public void changeStatus(@RequestParam Long reportID, String status){
         Long groupId = reportService.getReport(reportID).getGroup().getReportID();
         feedbackService.updateService(groupId, status);
+    }
+
+    @GetMapping("/filtered")
+    public List<Report> getReportsByFilter(@RequestBody ReportFilterDto reportFilterDto){
+        return reportService.getReportsByFilter(reportFilterDto);
     }
 }
