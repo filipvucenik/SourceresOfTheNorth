@@ -1,11 +1,11 @@
 package com.progi.ostecenja.server.controler;
 
+import com.progi.ostecenja.server.dto.ReportFilterDto;
 import com.progi.ostecenja.server.repo.Feedback;
 import com.progi.ostecenja.server.repo.Image;
 import com.progi.ostecenja.server.repo.Report;
 import com.progi.ostecenja.server.service.CategoryService;
 import com.progi.ostecenja.server.service.FeedbackService;
-import com.progi.ostecenja.server.service.ReportGroupService;
 import com.progi.ostecenja.server.service.ReportService;
 import com.progi.ostecenja.server.service.ImageService;
 import com.progi.ostecenja.server.service.impl.StorageService;
@@ -34,8 +34,6 @@ public class ReportController {
     @Autowired
     private FeedbackService feedbackService;
 
-    @Autowired
-    private ReportGroupService reportGroupService;
     @GetMapping("/all")
     public List<Report> listReports(HttpSession session){
         Long userId = (Long) session.getAttribute("USER");
@@ -50,6 +48,12 @@ public class ReportController {
 
     }
 
+    @GetMapping("unhandled")
+    public List<Report> listUnhandledReports(){
+        return reportService.listAllUnhandled();
+    }
+
+    // TODO popraviti group ID
     @PostMapping
     public void createReport(@RequestBody Report report, HttpSession session){
         Timestamp timestamp = report.getReportTS();
@@ -63,15 +67,14 @@ public class ReportController {
         }catch (RuntimeException e){
             userId = null;
         }
-        Long groupID = reportGroupService.createReportGroup().getGroupID();
 
         report.setUserID(userId);
         report.setReportTS(timestamp);
-        report.setGroupID(groupID);
+        report.setGroup(null);
         reportService.createReport(report);
 
 
-        feedbackService.createFeedback(groupID, timestamp);
+        feedbackService.createFeedback(report.getReportID(), timestamp);
     }
 
     @PostMapping("/uploadImage")
@@ -102,7 +105,12 @@ public class ReportController {
 
     @PostMapping("/updateStatus")
     public void changeStatus(@RequestParam Long reportID, String status){
-        Long groupId = reportService.getReport(reportID).getGroupID();
+        Long groupId = reportService.getReport(reportID).getGroup().getReportID();
         feedbackService.updateService(groupId, status);
+    }
+
+    @GetMapping("/filtered")
+    public List<Report> getReportsByFilter(@RequestBody ReportFilterDto reportFilterDto){
+        return reportService.getReportsByFilter(reportFilterDto);
     }
 }

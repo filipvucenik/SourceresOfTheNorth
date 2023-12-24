@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import "./Lforma.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import apiConfig from "./apiConfig";
+import FooterComponent from "./FooterComponent";
+import HeaderComponent from "./HeaderComponent";
 
 const LoginComponent = () => {
   const [password, setPassword] = useState("");
@@ -58,9 +60,38 @@ const LoginComponent = () => {
 
   return (
     <>
-      <div className="welcome">
-        <h1>Dobrodošli!</h1>
-      </div>
+      <header className="p-3 text-bg-dark">
+        <div className="container">
+          <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            
+            <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li>
+            <Link to="/">
+                  <img src="./logo_road.webp" alt="logo2" className="mx-4 logo-image" />
+              </Link>
+            </li>
+              <li>
+                <a href="#" className="nav-link px-2 text-secondary">
+                  <a href="/prijava">
+                    <button type="button" className="btn btn-outline-light me-2">
+                      Prijava štete
+                    </button>
+                  </a>
+                </a>
+              </li>
+              <li>
+                <a href="#" className="nav-link px-2 text-white">
+                  <a href="/statistika">
+                    <button type="button" className="btn btn-outline-light me-2">
+                      Statistika
+                    </button>
+                  </a>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
       <div className="form-container">
         <form className="login-form">
           <h2>Prijava</h2>
@@ -83,6 +114,7 @@ const LoginComponent = () => {
           </button>
         </form>
       </div>
+      <FooterComponent />
     </>
   );
 };

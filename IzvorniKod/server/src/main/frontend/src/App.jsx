@@ -9,6 +9,8 @@ import Reports from "./Report.jsx";
 import Admin from "./Admin.jsx";
 import LoginComponent2 from "./Regforma.jsx"
 import "./App.css";
+import Filter from "./Filter.jsx";
+import Profile from "./Profile.jsx";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/statistika" element={<StatisticComponent />} />
         <Route path="/report/:id" element={<Reports />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/filter" element={<Filter />} />
+        <Route path="/profile" element={<Profile />} />
 
         {/*}<Route path="/registracija" element={<RegisterComponent />} />
           <Route path="/profile" element={<ProfilePage />} />{*/}

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
 import HeaderComponent from './HeaderComponent';
 import FooterComponent from './FooterComponent';
 
 const server = "http://localhost:8080/";
 
-function StatisticComponent() {
+function Filter() {
     const [filteredData, setFilteredData] = useState([]);
 
     const handleSubmit = async (e) => {
@@ -33,7 +34,7 @@ function StatisticComponent() {
     <>
     <HeaderComponent/>
     <div className="report-card">
-      <h1>Statistika prijava</h1>
+      <h1>Filter prijava</h1>
       <form onSubmit={handleSubmit}>
         <label>
           ID Kategorije:
@@ -59,7 +60,7 @@ function StatisticComponent() {
           Radius(km):
           <input type="text" name="radius" />
         </label>
-        <button className="submit-btn" type="submit">Filter</button>
+        <Link to="/"><button className="submit-btn" type="submit">Filter</button></Link>
       </form>
 
       <ul>
@@ -80,4 +81,4 @@ function StatisticComponent() {
   );
 }
 
-export default StatisticComponent;
+export default Filter

@@ -1,7 +1,7 @@
 .App {
-  display: flex;
-  flex-direction: column;
+  box-sizing: border-box;
   align-items: center;
+  justify-content: center;
   min-height: 100vh;
   min-width: 450px;
 }
@@ -107,4 +107,13 @@
 .login:hover {
   border: 2px solid black;
   background-color: black;
+.title{
+  margin: 1.5%;
+}
+.logo-image {
+  position: absolute;
+  left: 1%;
+  top: 0%;
+  width: 100px;
+  height: 90px;
 }

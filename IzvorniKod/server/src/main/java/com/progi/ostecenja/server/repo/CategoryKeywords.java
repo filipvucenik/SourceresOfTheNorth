@@ -1,15 +1,17 @@
 package com.progi.ostecenja.server.repo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
 
 @Entity(name="categoryKeywords")
 public class CategoryKeywords {
     @Id @GeneratedValue
+<<<<<<< HEAD
     private Long keywordID;
 
+=======
+    private long keywordID;
+    @Column
+>>>>>>> develop
     private String keyword;
 
     @JoinColumn

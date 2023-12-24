@@ -9,7 +9,7 @@ public class Category {
     @Column(unique = true, nullable = false)
     private String categoryName;
 
-    @JoinColumn(name = "cityOfficeID")
+    @JoinColumn
     private Long cityOfficeID;
 
     public Long getCategoryID() {

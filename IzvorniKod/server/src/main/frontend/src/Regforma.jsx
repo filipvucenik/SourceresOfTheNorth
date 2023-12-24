@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import "./Lforma.css";
 import { useNavigate } from "react-router-dom";
 import apiConfig from "./apiConfig";
+import FooterComponent from "./FooterComponent";
 
 const LoginComponent2 = () => {
   const navigate = useNavigate();
@@ -56,17 +57,18 @@ const LoginComponent2 = () => {
       <div className="form-container">
         <form className="register-form">
           <h2>Registracija</h2>
-          <input type="text" placeholder="Ime" id="imeReg" required="" />
-          <input type="text" placeholder="Prezime" id="prezReg" required="" />
-          <input type="email" placeholder="E-mail" id="mailReg" required="" />
-          <input type="password" placeholder="Šifra" id="passReg" required="" />
+          <input type="text" placeholder="Ime" id="imeReg" required />
+          <input type="text" placeholder="Prezime" id="prezReg" required />
+          <input type="email" placeholder="E-mail" id="mailReg" required />
+          <input type="password" placeholder="Šifra" id="passReg" required />
           <button type="button" onClick={handleBuildRegJson}>
             Registracija
           </button>
         </form>
-      </div>
-    </>
-  );
-};
-
+        </div>
+        <FooterComponent/>
+        </>
+    );
+}
+ 
 export default LoginComponent2;

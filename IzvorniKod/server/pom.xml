@@ -69,12 +69,15 @@
 
 		<dependency>
 			<groupId>org.springframework.session</groupId>
-			<artifactId>spring-session-jdbc</artifactId>
+			<artifactId>spring-session-core</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
 
 
-
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>

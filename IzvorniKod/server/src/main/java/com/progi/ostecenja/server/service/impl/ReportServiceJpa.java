@@ -1,11 +1,11 @@
 package com.progi.ostecenja.server.service.impl;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.progi.ostecenja.server.dao.*;
-import com.progi.ostecenja.server.repo.Category;
-import com.progi.ostecenja.server.repo.CityOffice;
-import com.progi.ostecenja.server.repo.Image;
-import com.progi.ostecenja.server.repo.Report;
+import com.progi.ostecenja.server.dto.ReportFilterDto;
+import com.progi.ostecenja.server.repo.*;
 import com.progi.ostecenja.server.service.EntityMissingException;
+import com.progi.ostecenja.server.service.FeedbackService;
 import com.progi.ostecenja.server.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -24,9 +24,13 @@ public class ReportServiceJpa implements ReportService {
 
     @Autowired
     CategoryRepository categoryRepo;
+
+    @Autowired
+    FeedbackService feedbackService;
+
     @Override
     public List<Report> listAllforUsers(long userID) {
-        return reportRepo.findAll().stream().filter(r-> r.getUserID().equals(userID)).toList();
+        return reportRepo.findAll().stream().filter(r -> r.getUserID().equals(userID)).toList();
     }
 
     @Override
@@ -35,20 +39,21 @@ public class ReportServiceJpa implements ReportService {
                 .filter(c -> c.getCityOfficeID().equals(cityOfficeID))
                 .mapToLong(Category::getCategoryID)
                 .boxed().toList();
-        return reportRepo.findAll().stream().filter(r-> categories.contains(r.getCategoryID())).toList();
+        return reportRepo.findAll().stream().filter(r -> categories.contains(r.getCategoryID())).toList();
     }
 
     @Override
-    public  Report createReport(Report report){
-       return reportRepo.save(report);
+    public Report createReport(Report report) {
+        return reportRepo.save(report);
     }
 
+    // TODO provjeriti tocno kak se stanje zove
     @Override
-    public List<Report> findByAttributes(@Param("categoryID") Long categoryID,
-                                  @Param("TSbegin") Timestamp TSbegin,
-                                  @Param("TSend") Timestamp TSend,
-                                  @Param("location") String location){
-       return reportRepo.findByAttributes(categoryID,TSbegin,TSend,location);
+    public List<Report> listAllUnhandled() {
+        return reportRepo.findAll().stream().filter(r -> {
+            Long id = r.getReportID();
+            return !feedbackService.existsFeedback(id, "u obradi");
+        }).toList();
     }
 
     @Override
@@ -61,6 +66,15 @@ public class ReportServiceJpa implements ReportService {
         return findByUserId(reportID).orElseThrow(
                 () -> new EntityMissingException(Report.class, reportID)
         );
+    }
+
+    @Override
+    public List<Report> getReportsByFilter(ReportFilterDto reportFilterDto) {
+        //System.out.println(reportFilterDto);
+        return reportRepo.findByReportAttributes(reportFilterDto.getCategoryId(), //provjeri vremensku zonu
+                reportFilterDto.getRadius(),reportFilterDto.getStatus(), reportFilterDto.getStartDate(),
+                reportFilterDto.getEndDate() );
+
     }
 
 }

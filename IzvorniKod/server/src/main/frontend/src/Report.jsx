@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import "./report.css";
 import { useParams } from "react-router-dom";
 import apiConfig from "./apiConfig";
+import FooterComponent from "./FooterComponent";
+import HeaderComponent from "./HeaderComponent";
 
 const server = apiConfig.getUrl;
 
@@ -32,6 +34,8 @@ const Report = ({ id }) => {
   }, []);
 
   return (
+    <>
+    <HeaderComponent/>
     <div className="Report">
       <div className="report-left">
         <div>
@@ -59,6 +63,8 @@ const Report = ({ id }) => {
         <button>Delete report</button>
       </div>
     </div>
+    <FooterComponent/>
+    </>
   );
 };
 
