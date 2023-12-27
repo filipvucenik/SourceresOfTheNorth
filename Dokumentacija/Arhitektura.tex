@@ -274,8 +274,34 @@
 			\end{figure}
 			
 			\eject
+			
 			\section{Dijagram komponenti}
 			
 			\textbf{\textit{dio 2. revizije}}\\
+	
+			Dijagram komponenti je strukturni statički UML dijagram koji je dio specifikacije arhitekture programske potpore. Njime se vizualizira organizacija i međuovisnost između implementacijskih komponentata i odnos same programske okoline prema okolini. Ovakav tip dijagrama je pogodan kod komponentno-usmjerenog modela razvoja programske potpore i uslužno-orijentirane arhitekture. Osnovni elementi dijagrama komponenti su komponente, sučelja i poveznice.
 			
-			\textit{Potrebno je priložiti dijagram komponenti s pripadajućim opisom. Dijagram komponenti treba prikazivati strukturu cijele aplikacije.}
+			Na dijagramu \ref{fig:dijagramKomponenti} je prikazana organizacija i međuovisnost komponenata i sučelja u sustavu za prijavu oštećenja na javnim površinama. Dijagram se sastoji od komponente \textit{Web preglednik}, \textit{PostgreSQL baza podataka} i \textit{Web aplikacija}. \textit{Web aplikacija} ima dvije podkomponente: \textit{React frontend} i \textit{Spring Boot backend}. 
+			
+			Pomoću \textit{Web preglednik} komponente se šalju zahtjevi \textit{Wev aplikacija} komponenti za pojedinim stranicama preko sučelja za dohvat vizualnog sadržaja. \textit{React router} komponenta unutar \textit{React frontend} komponente na temelju URL-a dobivenog od komponente \textit{Web preglednik} donosi odluku koja će se datoteka dohvatiti, to jest koja će se stranica prikazati pomoću komponente \textit{React view}. Komponenta \textit{index.js} je početna komponenta koja služi kao korijen za sve ostale elemente za prikaz. \textit{ReactJS} je biblioteka za sami React. \textit{React view} komponenta po potrebi korisniku osvježava prikaz i preko REST API-ja razmjenjuje podatke sa \textit{Spring Boot backend} komponentom aplikacije u JSON formatu.
+			
+			\textit{Controller} komponenta unutar \textit{Spring Boot backend} komponente preko REST API-ja prima zahtjeve, šalje ih dalje na obradu i nakon obrade šalje odgovore na njih. \textit{Service} komponenta prima zahtjeve od \textit{Controller} komponente, obrađuje ih i po potrebi komunicira sa \textit{Repository} komponentom. \textit{Repository} komponenta komunicira sa \textit{JpaRepository} komponentom preko JPA sučelja, a \textit{JpaRepository} komponenta preko PSQL sučelja komunicira sa \textit{PostgreSQL baza podataka} komponentom koja služi za trajnu pohranu podataka. \textit{Controller}, \textit{Service} i \textit{Repository} komponente koriste \textit{DTO} komponentu koja služi za enkapsulaciju, organizaciju i razmjenu podataka između komponenti.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/dijagramKomponenti.jpg} %veličina u odnosu na širinu linije
+				\caption{Dijagram komponenti}
+				\label{fig:dijagramKomponenti} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
