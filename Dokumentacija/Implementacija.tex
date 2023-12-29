@@ -39,6 +39,8 @@
 			
 			Za puštanje aplikacije i popratne baze podataka u pogon korištena je usluga oblaka \href{https://render.com/}{\textbf{Render}}\footnote{https://render.com/}. Render je sustav u oblaku koji služi za izgradnju i pokretanje raznih programskih sustava, pa tako i web aplikacija i baza podataka. Prednosti Rendera su njegovo lagano integriranje s GitHubom, automatsko deployanje prilikom promjena na grani u Git repozitoriju te postojanje besplatne usluge uz određena ograničenja koja za ovaj projekt nisu pretjerano bitna.
 			
+			Prilikom puštanja web aplikaacije u pogon korištena je tehnologija \href{https://www.docker.com/}{\textbf{Docker}}\footnote{https://www.docker.com/}. Docker omogućuje jednostavnu izradu kontejnera koji u sebi sadrže neku programsku podršku. Kontejner je oblik virtualizacije na razini operacijskog sustava. Ovim oblikom virtualizacije se stvara okruženje jednostavnije od onog dobivenog virtualnim strojem, ali još uvijek omogućuje da programska podrška u kontejneru bude nezavisna od okruženja na kojem je kontejner pokrenut. Docker kontejner se opisuje posebnom skriptom koja se zove Dockerfile.  
+			
 			Članovi tima su međusobno komunicirali preko društvenih mreža \href{https://discord.com/}{\textbf{Discord}}\footnote{https://discord.com/} i \href{https://www.messenger.com/}{\textbf{Messenger}}\footnote{https://www.messenger.com/}. Messenger je jednostavna društvena mreža koja kao glavni način komunikacije koristi izmjenu poruka između dva korisnika ili unutar grupe korisnika. Discord je društvena mreža u kojoj korisnici mogu komunicirati porukama, glasovnim pozivima i video pozivima. Korisnici mogu komunicirati unutar širih zajednica koje se nazivaju serveri. Unutar servera postoje tekstualni kanali kao i glasovni kanali za glasovne pozive sa više korisnika.
 			
 			Za ispitivanje sustava u cjelini korišten je radni okvir \href{https://www.selenium.dev/}{\textbf{Selenium}}\footnote{https://www.selenium.dev/}. Selenium je alat koji služi za testiranje web aplikacija pomoću web preglednika. Skripte za testiranje se mogu pisati u raznim programskim jezicima. 
@@ -78,18 +80,25 @@
 			
 			\textbf{\textit{dio 2. revizije}}
 			
-			 \textit{Potrebno je umetnuti \textbf{specifikacijski} dijagram razmještaja i opisati ga. Moguće je umjesto specifikacijskog dijagrama razmještaja umetnuti dijagram razmještaja instanci, pod uvjetom da taj dijagram bolje opisuje neki važniji dio sustava.}
+			Dijagram razmještaja je statički strukturni dijagram koji opisuje topologiju sutava i usredotočen je na odnos sklopovskih i programskih dijelova. Osnovni elementi dijagrama su čvorovi, artefakti i spojevi.
+			
+			Dijagram \ref{fig:dijagramRazmjestaja} prikazuje topologiju sustava za prijavljivanje oštećenja na javnim površinama. Sustav je napravljen na temelju arhitekture klijent-poslužitelj u kojoj klijent i poslužitelj komuniciraju HTTPS protokolom. Sustav je stavljen u pogon pomoću dva odvojena servisa na usluzi Render, jedan za aplikaciju i jedan za bazu podataka. Na Render servisu za bazu podataka postoji instanca PostgreSQL baze podataka te taj servis prima zahtjeve za bazu podataka na standardnom portu 5432. Na Render servisu za web aplikaciju je pokrenut Docker kontejner unutar kojeg su upogonjeni React frontend i Spring Boot backend dijelovi aplikacije. Spring Boot backend po potrebi komunicira sa bazom podataka slanjem SQL querryja na port 5432 Render servisa za bazu podataka. Render servis za web aplikaciju sluša HTTPS zahtjeve na portu 443. Zaprimljene HTTPS zahtjeve Render servis prosljeđuje na port 8080 Docker kontejnera kao HTTP zahtjeve. Klijentski uređaj na sebi ima pokrenuti web preglednik pomoću kojeg šalje HTTPS zahtjeve na port 443 Render servisa za web aplikaciju.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/dijagramRazmjestaja.jpg} %veličina u odnosu na širinu linije
+				\caption{Dijagram razmještaja}
+				\label{fig:dijagramRazmjestaja} %label mora biti drugaciji za svaku sliku
+			\end{figure}
 			
 			\eject 
 		
 		\section{Upute za puštanje u pogon}
 		
 			\textbf{\textit{dio 2. revizije}}\\
-		
+			
 			 \textit{U ovom poglavlju potrebno je dati upute za puštanje u pogon (engl. deployment) ostvarene aplikacije. Na primjer, za web aplikacije, opisati postupak kojim se od izvornog kôda dolazi do potpuno postavljene baze podataka i poslužitelja koji odgovara na upite korisnika. Za mobilnu aplikaciju, postupak kojim se aplikacija izgradi, te postavi na neku od trgovina. Za stolnu (engl. desktop) aplikaciju, postupak kojim se aplikacija instalira na računalo. Ukoliko mobilne i stolne aplikacije komuniciraju s poslužiteljem i/ili bazom podataka, opisati i postupak njihovog postavljanja. Pri izradi uputa preporučuje se \textbf{naglasiti korake instalacije uporabom natuknica} te koristiti što je više moguće \textbf{slike ekrana} (engl. screenshots) kako bi upute bile jasne i jednostavne za slijediti.}
 			
 			
 			 \textit{Dovršenu aplikaciju potrebno je pokrenuti na javno dostupnom poslužitelju. Studentima se preporuča korištenje neke od sljedećih besplatnih usluga: \href{https://aws.amazon.com/}{Amazon AWS}, \href{https://azure.microsoft.com/en-us/}{Microsoft Azure} ili \href{https://www.heroku.com/}{Heroku}. Mobilne aplikacije trebaju biti objavljene na F-Droid, Google Play ili Amazon App trgovini.}
-			
-			
+				
 			\eject 
