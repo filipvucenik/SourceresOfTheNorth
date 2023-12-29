@@ -91,7 +91,7 @@ const LoginComponent2 = () => {
               </svg>
             </a>
             <a href="/">
-              <img src="logo2.png" alt="logo2" classNameName="mx-4" />
+              <img src="./logo_road.webp" alt="logo2" className="mx-4 logo-image" />
             </a>
             <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
               <li>
