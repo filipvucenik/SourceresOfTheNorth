@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.23)  29 DEC 2023 13:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.23)  29 DEC 2023 18:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1121,7 +1121,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.29 ...{Indeks slika i dijagrama}{58}{chapter*.4}
+l.29 ...{Indeks slika i dijagrama}{59}{chapter*.4}
                                                   % [1
 
 ])
@@ -1150,243 +1150,253 @@ Poglavlje 1.
 > Step: execute table commands.
 > Step: calculate cell and line sizes.
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 23.10.2023. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 28.10.2023. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 29.10.2023. 
  []
 
 
-Underfull \hbox (badness 5091) in paragraph at lines 27--27
+Underfull \hbox (badness 5091) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Napravljeni obrasci upo-rabe i di-ja-grami
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 16.11.2023. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 17.11.2023. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 10.12.2023. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 16.12.2023. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 18.12.2023. 
  []
 
 
-Underfull \hbox (badness 1107) in paragraph at lines 27--27
+Underfull \hbox (badness 1107) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Dodan di-ja-gram kom-po-nenti s pri-pad-nim
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 27.12.2023. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 28.12.2023. 
  []
 
 
-Underfull \hbox (badness 2285) in paragraph at lines 27--27
+Underfull \hbox (badness 2285) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Dodan di-ja-gram raz-mje[]staja s pri-pad-nim
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
+[]\OT1/jkp/m/n/12 29.12.2023. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
+[]\OT1/jkp/m/n/12 Petar
+ []
+
+
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 29.12.2023. 
  []
 
 > Step: build the whole table.
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 23.10.2023. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 28.10.2023. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 29.10.2023. 
  []
 
 
-Underfull \hbox (badness 5091) in paragraph at lines 27--27
+Underfull \hbox (badness 5091) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Napravljeni obrasci upo-rabe i di-ja-grami
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 16.11.2023. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 17.11.2023. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 10.12.2023. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 16.12.2023. 
  []
 
@@ -1402,52 +1412,62 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 18.12.2023. 
  []
 
 
-Underfull \hbox (badness 1107) in paragraph at lines 27--27
+Underfull \hbox (badness 1107) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Dodan di-ja-gram kom-po-nenti s pri-pad-nim
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 27.12.2023. 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 28.12.2023. 
  []
 
 
-Underfull \hbox (badness 2285) in paragraph at lines 27--27
+Underfull \hbox (badness 2285) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Dodan di-ja-gram raz-mje[]staja s pri-pad-nim
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 Petar
  []
 
 
-Overfull \hbox (6.59267pt too wide) in paragraph at lines 27--27
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
+[]\OT1/jkp/m/n/12 29.12.2023. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
+[]\OT1/jkp/m/n/12 Petar
+ []
+
+
+Overfull \hbox (6.59267pt too wide) in paragraph at lines 28--28
 []\OT1/jkp/m/n/12 29.12.2023. 
  []
 
@@ -2314,11 +2334,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [52]
-<slike/dijagramRazmjestaja.jpg, id=666, 655.44875pt x 439.6425pt>
+<slike/dijagramRazmjestaja.jpg, id=666, 655.44875pt x 453.695pt>
 File: slike/dijagramRazmjestaja.jpg Graphic file (type jpg)
 <use slike/dijagramRazmjestaja.jpg>
 Package pdftex.def Info: slike/dijagramRazmjestaja.jpg  used on input line 88.
-(pdftex.def)             Requested size: 435.6108pt x 292.18416pt.
+(pdftex.def)             Requested size: 435.6108pt x 301.52339pt.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2367,6 +2387,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--4
  []
 
 
+Overfull \hbox (21.2137pt too wide) in paragraph at lines 5--6
+[]\OT1/jkp/m/n/12 Projektni za-da-tak na[]seg tima bio je ra-zvoj web apli-ka-c
+ije koja omogu[]cuje gra[]danima
+ []
+
+
+Overfull \hbox (13.59204pt too wide) in paragraph at lines 5--6
+\OT1/jkp/m/n/12 da pri-jav-ljuju razna o[]ste[]cenja grad-skim ure-dima. S drug
+e strane apli-ka-cija omogu[]cuje
+ []
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\headheight}{14.49998pt}.
@@ -2379,7 +2411,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 
 
-])
+]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[57])
 \openout2 = `Literatura.aux'.
 
  (./Literatura.tex
@@ -2415,7 +2456,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[57
+[58
 
 
 
@@ -2433,7 +2474,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[58
+[59
 
 
 
@@ -2449,7 +2490,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[59
+[60
 
 
 ]
@@ -2461,7 +2502,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[60]
+[61]
 > Step: init table outer spec.
 > Step: parse table options.
 > Step: split table.
@@ -2479,7 +2520,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[61]
+[62]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -2488,7 +2529,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[62]) 
+[63]) 
 enddocument/afterlastpage: lastpage setting LastPage.
 (./PROGI_ProjektnaDokumentacija.aux (./Dnevnik_promjena_dokumentacije.aux)
 (./Opis_projektnog_zadatka.aux) (./Specifikacija_programske_potpore.aux)
@@ -2503,11 +2544,11 @@ anged.
 (rerunfilecheck)             Checksum: 00658162A4D5E0C4DE267893DBD63BED;4968.
  ) 
 Here is how much of TeX's memory you used:
- 17914 strings out of 474503
- 314899 string characters out of 5756704
+ 17915 strings out of 474503
+ 314906 string characters out of 5756704
  2090043 words of memory out of 5000000
  39283 multiletter control sequences out of 15000+600000
- 622897 words of font info for 173 fonts, out of 8000000 for 9000
+ 622962 words of font info for 173 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  86i,13n,115p,1711b,1045s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
@@ -2609,10 +2650,10 @@ pe1/public/kpfonts/jkpmit8a.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/
 kpfonts/jkpmite.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/kpfonts/jkpm
 n8a.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/kpfonts/jkpmne.pfb><c:/t
 exlive/2023/texmf-dist/fonts/type1/public/kpfonts/jkpttmn8a.pfb>
-Output written on PROGI_ProjektnaDokumentacija.pdf (63 pages, 4244117 bytes).
+Output written on PROGI_ProjektnaDokumentacija.pdf (64 pages, 4248553 bytes).
 PDF statistics:
- 853 PDF objects out of 1000 (max. 8388607)
- 742 compressed objects within 8 object streams
- 257 named destinations out of 1000 (max. 500000)
+ 858 PDF objects out of 1000 (max. 8388607)
+ 746 compressed objects within 8 object streams
+ 258 named destinations out of 1000 (max. 500000)
  305 words of extra memory for PDF output out of 10000 (max. 10000000)
 
