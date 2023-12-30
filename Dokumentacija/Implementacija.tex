@@ -96,9 +96,92 @@
 		
 			\textbf{\textit{dio 2. revizije}}\\
 			
-			 \textit{U ovom poglavlju potrebno je dati upute za puštanje u pogon (engl. deployment) ostvarene aplikacije. Na primjer, za web aplikacije, opisati postupak kojim se od izvornog kôda dolazi do potpuno postavljene baze podataka i poslužitelja koji odgovara na upite korisnika. Za mobilnu aplikaciju, postupak kojim se aplikacija izgradi, te postavi na neku od trgovina. Za stolnu (engl. desktop) aplikaciju, postupak kojim se aplikacija instalira na računalo. Ukoliko mobilne i stolne aplikacije komuniciraju s poslužiteljem i/ili bazom podataka, opisati i postupak njihovog postavljanja. Pri izradi uputa preporučuje se \textbf{naglasiti korake instalacije uporabom natuknica} te koristiti što je više moguće \textbf{slike ekrana} (engl. screenshots) kako bi upute bile jasne i jednostavne za slijediti.}
+			Ovaj sustav je pušten u pogon pomoću online servisa Render pa se u uputama za puštanje u pogon pretpostavlja korištenje istog. Za tu svrhu potrebno je napraviti korisnički račun na Renderu. 
 			
+			\subsection{Konfiguracija poslužitelja baze podataka}
 			
-			 \textit{Dovršenu aplikaciju potrebno je pokrenuti na javno dostupnom poslužitelju. Studentima se preporuča korištenje neke od sljedećih besplatnih usluga: \href{https://aws.amazon.com/}{Amazon AWS}, \href{https://azure.microsoft.com/en-us/}{Microsoft Azure} ili \href{https://www.heroku.com/}{Heroku}. Mobilne aplikacije trebaju biti objavljene na F-Droid, Google Play ili Amazon App trgovini.}
-				
+			Potrebno je odabrati opciju stvaranja nove PostgreSQL baze podataka.
+			
+			\begin{figure}[H]
+				\includegraphics[scale=0.8]{slike/upute/odabirStvaranjaBaze.png} %veličina u odnosu na širinu linije
+				\centering
+				\caption{Odabir stvaranja nove baze podataka}
+				\label{fig:odabirStvaranjaBaze} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			Zatim je potrebno konfigurirati bazu.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/upute/konfiguriranjeBaze.png} %veličina u odnosu na širinu linije
+				\caption{Konfiguriranje baze podataka}
+				\label{fig:konfiguriranjeBaze} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			Za ime instance baze podataka, ime same baze i ime korisnika se mogu unesti proizvoljna imena. Za regiju je poželjno odabrati geografski najbližu regiju, s obzirom da će to rezultirati najmanjom latencijom. U našem slučaju najbliža regija bila je \textit{Frankfurt (EU Central)}. Ostale parametre nije potrebno mijenjati.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/upute/bazaPlacanje.png} %veličina u odnosu na širinu linije
+				\caption{Odabir vrste instance baze podataka}
+				\label{fig:bazaPlacanje} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			Sljedeće je potrebno odabrati vrstu instance baze podataka, odnosno cjenovni rang baze. Ovo je isključivo pitanje preference osobe koja pušta sustav u pogon, odnosno koliko je spremna platiti za puštanje baze podataka u pogon. Za naše potrebe bilo je dovoljna besplatna opcija te smo istu i odabrali.
+			
+			Nakon toga treba kliknuti na \textit{Create Database} i time će baza biti puštena u pogon.
+			
+			\subsection{Konfiguracija poslužitelja web aplikacije}
+			
+			Prije puštanja aplikacije u pogon potrebno je u Git repozitoriju ažurirati podatke za spajanje s bazom podataka. Za to je potrebno izmjeniti vrijednosti varijabli \textit{spring.datasource.url}, \textit{spring.datasource.username} i \textit{spring.datasource.password} u datoteci \textit{IzvorniKod/server/src/main/resources/application.properties} u \textit{main} grani repozitorija. 
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/upute/applicationProperties.png} %veličina u odnosu na širinu linije
+				\caption{Datoteke s podacima za spajanje s bazom podataka}
+				\label{fig:applicationProperties} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			Na web stranici Rendera potrebno je odabrati karticu \textit{Dashboard} i zatim odabrati ranije upogonjenu bazu podataka. Na novootvorenoj stranici potrebno je pronaći odjeljak \textit{Connections} gdje se nalaze potrebni parametri. vrijednosti \textit{Username} i \textit{Password} potrebno je kopirati u pripadajuće varijable u datoteci na Git repozitoriju. U varijabli \textit{spring.datasource.url} potrebno je zamijeniti tekst koji slijedi nakon \textit{jdbc:postgresql://}. Taj tekst potrebno je zamijeniti dijelom varijable \textit{External Database URL} na Renderu koji započinje sa "dpg-", a prethodi mu znak '@'. Dakle, vrijednost varijable \textit{spring.datasource.url} mora započeti sa "jdbc:postgresql://dpg-...".
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/upute/parametriBaze.png} %veličina u odnosu na širinu linije
+				\caption{Datoteke s podacima za spajanje s bazom podataka}
+				\label{fig:parametriBaze} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			Zatim je na Renderu potrebno odabrati opciju stvaranja novog web servisa.
+			
+			\begin{figure}[H]
+				\includegraphics[scale=0.8]{slike/upute/odabirStvaranjaWebServisa.png} %veličina u odnosu na širinu linije
+				\centering
+				\caption{Odabir stvaranja novog web servisa}
+				\label{fig:odabirStvaranjaWebServisa} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			Sljedeće je potrebno odabrati opciju izgradnje i upogonjavanja iz Git repozitorija.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/upute/odabirIzvoraIzgradnje.png} %veličina u odnosu na širinu linije
+				\caption{Odabir načina izgradnje}
+				\label{fig:odabirIzvoraIzgradnje} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			Nakon toga potrebno je odabrati pripadni repozitorij ili unijeti URL repozitorija. Zatim slijedi konfiguracija web servisa.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/upute/konfiguriranjeWebServisa.png} %veličina u odnosu na širinu linije
+				\caption{Konfiguriranje web servisa}
+				\label{fig:konfiguriranjeWebServisa} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			Za \textit{Name} je potrebno unesti proizvoljan naziv web servisa. Uneseno ime će biti dio URL-a samog web servisa preko kojeg će mu se moći pristupiti. Za regiju je ponovno poželjno odabrati geografski najbližu regiju što je u našem slučaju \textit{Frankfurt (EU Central)}. \textit{Branch} koji se koristi za stvaranje web servisa je potrebno ostaviti na \textit{main}. \textit{Root Directory} je potrebno ostaviti prazno. Za \textit{Runtime} je potrebno odabrati \textit{Docker}.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/upute/webServisPlacanje.png} %veličina u odnosu na širinu linije
+				\caption{Odabir vrste instance web servisa}
+				\label{fig:webServisPlacanje} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			Sljedeće je potrebno odabrati vrstu instance web servisa, odnosno njegov cjenovni rang. Ovo je isključivo pitanje preference osobe koja pušta sustav u pogon, odnosno koliko je spremna platiti za puštanje web serivsa u pogon. Za naše potrebe bilo je dovoljna besplatna opcija te smo istu i odabrali.
+			
+			Nakon treba kliknuti na \textit{Create Web Service} i time će web servis biti puštena u pogon. Prilikom prvog pokretanja web servisa baza podataka će se napuniti inicijalnim podacima.
+			
 			\eject 
