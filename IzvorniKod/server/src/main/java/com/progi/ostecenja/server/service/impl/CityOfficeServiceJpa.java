@@ -6,6 +6,7 @@ import com.progi.ostecenja.server.service.CityOfficeService;
 import com.progi.ostecenja.server.service.EntityMissingException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -18,6 +19,7 @@ public class CityOfficeServiceJpa implements CityOfficeService {
 
     @Autowired
     private CityOfficeRepository cityOfficeRepo;
+    private BCryptPasswordEncoder pswdEncoder = new BCryptPasswordEncoder();
 
     @Override
     public List<CityOffice> listAll() {
@@ -56,6 +58,7 @@ public class CityOfficeServiceJpa implements CityOfficeService {
             throw new IllegalArgumentException("City Office with name "+cityOffice.getCityOfficeName()+" already exists");
         }
 
+        cityOffice.setCityOfficePassword(pswdEncoder.encode(cityOffice.getCityOfficePassword()));
         return cityOfficeRepo.save(cityOffice);
     }
 

@@ -5,6 +5,7 @@ import com.progi.ostecenja.server.repo.Users;
 import com.progi.ostecenja.server.service.CityOfficeService;
 import com.progi.ostecenja.server.service.UsersService;
 import jakarta.servlet.http.HttpSession;
+import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,15 +20,16 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     @Autowired
     private UsersService usersService;
+    @Autowired
     private CityOfficeService officeService;
 
     private BCryptPasswordEncoder pswdEncoder = new BCryptPasswordEncoder();
 
     @PostMapping("/userLogin")
     @ResponseBody
-    public ResponseEntity<String> loginAuth(HttpSession session, @RequestBody UserCredentials userCredentials){
+    public ResponseEntity<String> loginAuth(HttpSession session, @RequestBody LoginCredentials loginCredentials){
 
-        String email= userCredentials.email;
+        String email= loginCredentials.email;
         if(session.getAttribute("USER")!=null)
             return new ResponseEntity<>(session.getAttribute("USER").toString(), HttpStatus.OK);
 
@@ -38,7 +40,7 @@ public class AuthController {
 
         if(user==null)
             return new ResponseEntity<>("User doesn't exist", HttpStatus.BAD_REQUEST);
-        if(pswdEncoder.matches(userCredentials.password, user.getPassword())){
+        if(pswdEncoder.matches(loginCredentials.password, user.getPassword())){
               session.setAttribute("USER",user.getUserId());
               return new ResponseEntity<>("Success", HttpStatus.OK);   
         }
@@ -49,15 +51,20 @@ public class AuthController {
 
 
     @PostMapping("/officeLogin")
-    public ResponseEntity<String> officeAuth(HttpSession session,@RequestBody String email, @RequestBody String password){
+    public ResponseEntity<String> officeAuth(HttpSession session, @RequestBody LoginCredentials loginCredentials){
+
+        String email= loginCredentials.email;
         if(session.getAttribute("OFFICE")!=null)
             return new ResponseEntity<>(session.getAttribute("OFFICE").toString(), HttpStatus.OK);
+
         CityOffice office = officeService.findByCityOfficeEmail(email).isPresent() ? officeService.findByCityOfficeEmail(email).get() : null;
+
+        //userCredentials.password= pswdEncoder.encode(userCredentials.password);
 
 
         if(office==null)
             return new ResponseEntity<>("User doesn't exist", HttpStatus.BAD_REQUEST);
-        if(office.getCityOfficePassword().equals(password)){
+        if(pswdEncoder.matches(loginCredentials.password, office.getCityOfficePassword())){
             session.setAttribute("OFFICE",office.getCityOfficeId());
             return new ResponseEntity<>("Success", HttpStatus.OK);
         }
@@ -83,14 +90,33 @@ public class AuthController {
         return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
     }
 
+    @PostMapping("/officeRegister")
+    public ResponseEntity<String> officeRegister(HttpSession session, @RequestBody CityOffice office) {
+        if (session.getAttribute("OFFICE") != null)
+            return new ResponseEntity<>(session.getAttribute("OFFICE").toString(), HttpStatus.OK);
+
+        CityOffice createdOffice = null;
+
+        try {
+            createdOffice = officeService.createCityOffice(office);
+        } catch (Exception e) {
+            throw e;
+        }
+        if (createdOffice!=null){
+            session.setAttribute("OFFICE",office.getCityOfficeId());
+            return new ResponseEntity<>("Success", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Bad request", HttpStatus.BAD_REQUEST);
+    }
+
 }
 
 
-class UserCredentials {
+class LoginCredentials {
     public String email;
     public String password;
 
-    public UserCredentials(String email, String password) {
+    public LoginCredentials(String email, String password) {
         this.email = email;
         this.password = password;
     }
