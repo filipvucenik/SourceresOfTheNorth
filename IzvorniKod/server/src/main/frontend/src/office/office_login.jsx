@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import "./Lforma.css";
+import "../Lforma.css";
 import { useNavigate, Link } from "react-router-dom";
-import apiConfig from "./apiConfig";
-import FooterComponent from "./FooterComponent";
-import HeaderComponent from "./HeaderComponent";
+import apiConfig from "../apiConfig";
+import FooterComponent from "../FooterComponent";
 
-const LoginComponent = () => {
+const Office_LoginComponent = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -28,7 +27,7 @@ const LoginComponent = () => {
       password: password,
     };
 
-    let url = apiConfig.getLoginUrl;
+    let url = apiConfig.getOfficeLoginUrl;
     console.log(jsonData);
 
     fetch(url, {
@@ -128,4 +127,4 @@ const LoginComponent = () => {
   );
 };
 
-export default LoginComponent;
+export default Office_LoginComponent;

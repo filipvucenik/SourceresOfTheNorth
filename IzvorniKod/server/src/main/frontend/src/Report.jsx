@@ -35,35 +35,35 @@ const Report = ({ id }) => {
 
   return (
     <>
-    <HeaderComponent/>
-    <div className="Report">
-      <div className="report-left">
-        <div>
-          <img src="https://picsum.photos/400/300" />
+      <HeaderComponent />
+      <div className="Report">
+        <div className="report-left">
+          <div>
+            <img src="https://picsum.photos/400/300" />
+          </div>
+          <div>Naslov: {data.reportHeadline}</div>
+          <div>
+            <p>Opis: {data.description}</p>
+          </div>
+          <div>Datum: {data.reportTS}</div>
         </div>
-        <div>Naslov: {data.reportHeadline}</div>
-        <div>
-          <p>Opis: {data.description}</p>
+        <div className="report-right">
+          <div>
+            <img src="https://picsum.photos/300/300" />
+            {data.location}
+          </div>
+          <div>
+            <select value={value} onChange={handleChange}>
+              <option value="aktivno">Aktivno</option>
+              <option value="neobrađeno">Neobrađeno</option>
+              <option value="obrađeno">Odrađeno</option>
+            </select>
+          </div>
+          <button>Update status</button>
+          <button>Delete report</button>
         </div>
-        <div>Datum: {data.reportTS}</div>
       </div>
-      <div className="report-right">
-        <div>
-          <img src="https://picsum.photos/300/300" />
-          {data.location}
-        </div>
-        <div>
-          <select value={value} onChange={handleChange}>
-            <option value="aktivno">Aktivno</option>
-            <option value="neobrađeno">Neobrađeno</option>
-            <option value="obrađeno">Odrađeno</option>
-          </select>
-        </div>
-        <button>Update status</button>
-        <button>Delete report</button>
-      </div>
-    </div>
-    <FooterComponent/>
+      <FooterComponent />
     </>
   );
 };
