@@ -13,6 +13,7 @@ import markerIcon from "./marker.svg";
 import apiConfig from "./apiConfig";
 import FooterComponent from "./FooterComponent";
 import HeaderComponent from "./HeaderComponent";
+import EXIF from "exif-js";
 
 let categoryData = "";
 try {
@@ -60,6 +61,7 @@ const ReportCard = () => {
     lng: 15.978798866271974,
   }); // Default na Zg
   const [picture, setPicture] = useState(null);
+  const [previwPicture, setPreviewPicture] = useState(null); // [url, setUrl]
   const [manualAddress, setManualAddress] = useState("");
 
   const manualAddressChange = (e) => {
@@ -118,7 +120,52 @@ const ReportCard = () => {
   };
 
   const handlePictureChange = (file) => {
+    console.log("Picture changed file:", file);
+    console.log("Picture changed file.target.files:", file.target.files[0]);
     setPicture(file);
+    const img = file.target.files[0];
+
+    if (img) {
+      setPreviewPicture(URL.createObjectURL(img));
+      EXIF.getData(img, async function () {
+        const lat = EXIF.getTag(this, "GPSLatitude");
+        const lng = EXIF.getTag(this, "GPSLongitude");
+
+        if (lat && lng) {
+          const latRef = EXIF.getTag(this, "GPSLatitudeRef");
+          const lngRef = EXIF.getTag(this, "GPSLongitudeRef");
+
+          const latDec = lat[0] + lat[1] / 60 + lat[2] / 3600;
+          const lngDec = lng[0] + lng[1] / 60 + lng[2] / 3600;
+
+          const latFinal = latRef === "N" ? latDec : -latDec;
+          const lngFinal = lngRef === "E" ? lngDec : -lngDec;
+
+          setLocation({
+            lat: latFinal,
+            lng: lngFinal,
+          });
+
+          // GEOCODING API
+          const apiKey = "7fbe9533c0c9424aa41c500419e5ef83";
+          const url = `https://api.opencagedata.com/geocode/v1/json?q=${latFinal}+${lngFinal}&key=${apiKey}`;
+
+          try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (data.results.length > 0) {
+              const formattedAddress = data.results[0].formatted;
+              setManualAddress(formattedAddress);
+            }
+          } catch (error) {
+            console.error("Error fetching address:", error);
+          }
+
+          console.log("EXIF location:", latFinal, lngFinal);
+        }
+      });
+    }
   };
 
   const handleSubmit = () => {
@@ -213,6 +260,9 @@ const ReportCard = () => {
           accept="image/*"
           onChange={handlePictureChange}
         />
+        {previwPicture && (
+          <img src={previwPicture} alt="preview" style={{ width: "100%" }} />
+        )}
         <MapContainer
           center={[location.lat, location.lng]}
           zoom={13}
