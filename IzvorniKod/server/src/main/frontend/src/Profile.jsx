@@ -36,7 +36,37 @@ const Profile = () => {
       }
     };
     fetchDataFromDatabase();
-  }, []);*/
+  }, []);
+  
+  const updateDataInDatabase = async () => {
+    try {
+      const updatedData = {
+        firstName: document.getElementById("firstName").value,
+        lastName: document.getElementById("lastName").value,
+        password: document.getElementById("password").value,
+        email: document.getElementById("email").value
+      };
+  
+      // Poziv API-ja za ažuriranje podataka u bazi
+      const response = await fetch(`${server}${id}`), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedData),
+      });
+  
+      if (response.ok) {
+        console.log("Podaci uspješno ažurirani.");
+        // Ažuriraj lokalno stanje s novim podacima
+        setUserData(updatedData);
+      } else {
+        console.error("Greška prilikom ažuriranja podataka.");
+      }
+    } catch (error) {
+      console.error("Greška pri ažuriranju podataka:", error);
+    }
+  };*/
   return (
     <>
     <HeaderComponent/>
@@ -82,7 +112,8 @@ const Profile = () => {
             </div>
           </div>
           <hr className="my-4"/>
-          <button type="button" className="btn btn-outline-dark me-2">Spremi</button>
+          <button type="button" className="btn btn-outline-dark me-2" >Spremi</button>
+          {/*onClick={updateDataInDatabase} deti gore kod Spremi buttona*/}
           <button type="button" className="btn btn-outline-dark me-2">Obriši račun</button>
         </form>
       </div>
