@@ -16,7 +16,7 @@ const LoginComponent2 = () => {
   }, [navigate]);
 
   const handleBuildRegJson = () => {
-    let url = "http://localhost:8080/auth/userRegister";
+    let url = "https://ostecenja-progi-fer.onrender.com/auth/userRegister";
     let pass = document.getElementById("passReg").value;
     let name = document.getElementById("imeReg").value;
     let surr = document.getElementById("prezReg").value;
