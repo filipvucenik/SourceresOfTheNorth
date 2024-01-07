@@ -64,14 +64,8 @@ function MapComponent() {
       };
       //ovdje ce se dodavati markeri na koordinate prijavljenih steta
       var jason = '[{"lat":45.800, "lng" :15.967},{"lat":45.800, "lng":15.969}, {"lat":45.801, "lng":15.971}]';
-      
-      var lokacije = JSON.parse(jason);
-      console.log(lokacije);
-      for(var lokacija of lokacije){
-        createMarker(lokacija.lat,lokacija.lng);
-      }
-
-      /*const fetchDataAndCreateMarkers = async () => {
+      /*
+      const fetchDataAndCreateMarkers = async () => {
         try {
           const response = await fetch(`${server}reports/unhandled`);
           const data = await response.json();
@@ -83,8 +77,15 @@ function MapComponent() {
         } catch (error) {
           console.error('Error fetching data:', error);
         }
-      };*/
-      
+      };
+
+      fetchDataAndCreateMarkers();*/
+
+      var lokacije = JSON.parse(jason);
+      console.log(lokacije);
+      for(var lokacija of lokacije){
+        createMarker(lokacija.lat,lokacija.lng);
+      }
 
       /*function deleteMarker(markerToDelete) { //brisanje markera i izbacivanje iz liste
         mapRef.current.removeLayer(markerToDelete);
