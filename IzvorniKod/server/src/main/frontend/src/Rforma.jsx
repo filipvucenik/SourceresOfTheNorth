@@ -61,12 +61,34 @@ const ReportCard = () => {
     lng: 15.978798866271974,
   }); // Default na Zg
   const [picture, setPicture] = useState(null);
-  const [previwPicture, setPreviewPicture] = useState(null); // [url, setUrl]
+  const [previwPicture, setPreviewPicture] = useState(null); 
   const [manualAddress, setManualAddress] = useState("");
 
-  const manualAddressChange = (e) => {
-    setManualAddress(e.target.value);
+
+
+  const manualAddressChange = async (e) => {
+    const address = e.target.value;
+    setManualAddress(address)
+    const apiKey = "7fbe9533c0c9424aa41c500419e5ef83";
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(address)}&key=${apiKey}`;
+    try{
+      const response= await fetch(url)
+      const data = await response.json();
+      if(data.results.length > 0){
+        const {lat , lng} = data.results[0].geometry;
+        console.log(lat + " "+lng);
+        setLocation({
+          lat : lat,
+          lng : lng
+        })
+
+      }
+    } catch(error){
+      console.log("Error fetching the address")
+    }
+
   };
+
 
   const handleMapClick = async (e) => {
     const clickedLatLng = e.latlng;
@@ -86,9 +108,11 @@ const ReportCard = () => {
       if (data.results.length > 0) {
         const formattedAddress = data.results[0].formatted;
         setManualAddress(formattedAddress);
+
       }
     } catch (error) {
       console.error("Error fetching address:", error);
+       
     }
   };
 
@@ -212,7 +236,7 @@ const ReportCard = () => {
 
   useEffect(() => {
     setManualAddress("");
-  }, [location]);
+  }, []);
 
   return (
     <>
