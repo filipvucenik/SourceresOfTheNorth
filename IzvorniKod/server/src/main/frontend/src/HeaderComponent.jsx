@@ -29,7 +29,7 @@ const HeaderComponent = () => {
             <li>
               <Link to="/">
                 <img
-                  src="./logo2.png"
+                  src="./conLogo.png"
                   alt="logo2"
                   className="mx-4 logo-image"
                 />

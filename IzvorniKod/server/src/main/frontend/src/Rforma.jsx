@@ -65,7 +65,7 @@ const ReportCard = () => {
   const [manualAddress, setManualAddress] = useState("");
 
 
-
+//rucna promjena adrese
   const manualAddressChange = async (e) => {
     const address = e.target.value;
     setManualAddress(address)

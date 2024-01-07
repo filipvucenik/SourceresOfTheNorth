@@ -14,7 +14,9 @@
 .logo-image {
   position: absolute;
   left: 1%;
-  top: 0%;
+  top: 0.4%;
   width: 100px;
   height: 90px;
+  background-color: grey;
+  border-radius: 50px;
 }
