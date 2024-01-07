@@ -83,7 +83,7 @@ const OfficeRegister = () => {
             </a>
             <a href="/">
               <img
-                src="./logo_road.webp"
+                src="./conLogo.png"
                 alt="logo2"
                 className="mx-4 logo-image"
               />

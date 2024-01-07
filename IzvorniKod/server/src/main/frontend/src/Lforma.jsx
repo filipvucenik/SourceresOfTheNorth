@@ -67,8 +67,8 @@ const LoginComponent = () => {
               <li>
                 <Link to="/">
                   <img
-                    src="./logo_road.webp"
-                    alt="logo2"
+                    src="./conLogo.png"
+                    alt="logo"
                     className="mx-4 logo-image"
                   />
                 </Link>
