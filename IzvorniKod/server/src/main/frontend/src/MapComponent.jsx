@@ -63,7 +63,7 @@ function MapComponent() {
         });
       };
       //ovdje ce se dodavati markeri na koordinate prijavljenih steta
-      var jason = '[{"lat":45.800, "lng" :15.967},{"lat":45.800, "lng":15.969}, {"lat":45.801, "lng":15.971}]';
+      var jason = '[{"lat":45.800, "lng" :15.967}]';
       /*
       const fetchDataAndCreateMarkers = async () => {
         try {
