@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import "./Lforma.css";
 import { useNavigate } from "react-router-dom";
 import FooterComponent from "./FooterComponent";
+import apiConfig from "./apiConfig";
 
 const LoginComponent2 = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const LoginComponent2 = () => {
   }, [navigate]);
 
   const handleBuildRegJson = () => {
-    let url = "https://ostecenja-progi-fer.onrender.com/auth/userRegister";
+    let url = apiConfig.getRegisterUrl;
     let pass = document.getElementById("passReg").value;
     let name = document.getElementById("imeReg").value;
     let surr = document.getElementById("prezReg").value;

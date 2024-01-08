@@ -1,11 +1,67 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import markerIcon from './marker.svg';
 
 const server = "http://localhost:8080/";
 
 function StatisticComponent() {
   const [filteredData, setFilteredData] = useState([]);
+  const [selectedMarker, setSelectedMarker] = useState(null);
+  const mapRef = useRef(null); // referenca za spremanje instance karte
+
+  const uniqueMapId = `map-${Math.floor(Math.random() * 10000)}`;
+
+  useEffect(() => {
+    if (!mapRef.current) {
+      const map = L.map(uniqueMapId).setView([45.810, 15.985], 14);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 28,
+      }).addTo(map);
+
+      var customIcon = L.divIcon({
+        html: `<div class="marker-container">
+                 <img class="marker-icon" src="${markerIcon}" />
+               </div>`,
+        iconSize: [26, 26],
+        iconAnchor: [13, 26],
+      });
+
+      const createMarker = (lat, lng) => {
+        if (selectedMarker) {
+          map.removeLayer(selectedMarker);
+        }
+
+        const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+        setSelectedMarker(marker);
+
+        let popupIsOpen = false;
+
+        marker.on('click', () => {
+          if (popupIsOpen) {
+            marker.closePopup();
+            popupIsOpen = false;
+          } else {
+            marker.bindPopup(`${lat},${lng}`).openPopup();
+            popupIsOpen = true;
+          }
+        });
+      };
+
+      map.on('click', function (e) {
+        const lat = e.latlng.lat;
+        const lng = e.latlng.lng;
+        createMarker(lat, lng);
+      });
+
+      mapRef.current = map;
+    } else {
+      mapRef.current.invalidateSize();
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,10 +108,8 @@ function StatisticComponent() {
             Datum prijave DO:
             <input type="text" name="toDateTime" />
           </label>
-          <label>
-            Lokacija:
-            <input type="text" name="location" />
-          </label>
+          <p>Lokacija:</p>
+          <div id={uniqueMapId} style={{ width: '90%', height: '40vh' , marginLeft: '5%'}}></div>
           <label>
             Radius(km):
             <input type="text" name="radius" />
