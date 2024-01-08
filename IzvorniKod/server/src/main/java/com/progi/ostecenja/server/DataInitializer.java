@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-/*
+
 @Component
 public class DataInitializer {
     @Autowired
@@ -39,14 +39,14 @@ public class DataInitializer {
         Category cat = categoryService.createCategory(rupe);
         Long cathegoryId = cat.getCategoryID() ;
         Report[] reports = new Report[2];
-        reports[0] = new Report(null, "Rupa na cest", "Tu blizu", "Velika rupa na cesti", null, null, null, cathegoryId);
-        reports[1] = new Report(null, "Druga rupa na cesti", "Tam malo dalje", "Neka rupa je negdi", null, null,null, cathegoryId);
+        reports[0] = new Report(null, "Rupa na cest", 12.2, 12.3, "Velika rupa na cesti", null, null, null, cathegoryId);
+        reports[1] = new Report(null, "Druga rupa na cesti", 12.2, 12.5, "Neka rupa je negdi", null, null,null, cathegoryId);
         for(Report report: reports){
             reportController.createReport(report, new StandardSession(null));
         }
     }
 }
-*/
+
 /*
 SELECT * FROM report;
 SELECT * FROM city_office;

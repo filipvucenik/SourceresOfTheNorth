@@ -13,8 +13,9 @@ public class Report {
     @Column
     private String reportHeadline;
     @Column
-    private String location;
-
+    private double lat;
+    @Column
+    private double lng;
     @Column
     private String description;
 
@@ -45,8 +46,20 @@ public class Report {
         return reportID;
     }
 
-    public String getLocation() {
-        return location;
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 
     public String getDescription() {
@@ -69,9 +82,6 @@ public class Report {
         this.reportID = reportID;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public void setDescription(String description) {
         this.description = description;
@@ -100,10 +110,11 @@ public class Report {
 
     public Report(){
     }
-    public Report(Long reportID,String reportHeadline, String location, String description, Timestamp reportTS, Long userID, Report group, Long categoryID) {
+    public Report(Long reportID,String reportHeadline, double lat, double lng, String description, Timestamp reportTS, Long userID, Report group, Long categoryID) {
         this.reportID = reportID;
         this.reportHeadline=reportHeadline;
-        this.location = location;
+        this.lat = lat;
+        this.lng = lng;
         this.description = description;
         this.reportTS = reportTS;
         this.userID = userID;

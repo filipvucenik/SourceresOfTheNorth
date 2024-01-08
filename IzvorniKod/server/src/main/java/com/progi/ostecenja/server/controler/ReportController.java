@@ -72,8 +72,6 @@ public class ReportController {
         report.setReportTS(timestamp);
         report.setGroup(null);
         reportService.createReport(report);
-
-
         feedbackService.createFeedback(report.getReportID(), timestamp);
     }
 
