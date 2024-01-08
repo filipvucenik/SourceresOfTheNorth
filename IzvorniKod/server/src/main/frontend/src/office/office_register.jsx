@@ -54,7 +54,7 @@ const OfficeRegister = () => {
       body: JSON.stringify(jsonData),
     }).then((response) => {
       if (response.status == 200) {
-        Cookies.set("mail", mail);
+        Cookies.set("name", mail);
         navigate("/");
       } else {
         alert("Registracije nije uspijela");
