@@ -11,8 +11,64 @@ function StatisticComponent() {
   const [filteredData, setFilteredData] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const mapRef = useRef(null); // referenca za spremanje instance karte
-
   const uniqueMapId = `map-${Math.floor(Math.random() * 10000)}`;
+
+  const customIcon = L.divIcon({
+    html: `<div class="marker-container">
+             <img class="marker-icon" src="${markerIcon}" />
+           </div>`,
+    iconSize: [26, 26],
+    iconAnchor: [13, 26],
+  });
+
+  const createMarker = (map, lat, lng) => {
+    if (selectedMarker) {
+      map.removeLayer(selectedMarker);
+    }
+
+    const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+    setSelectedMarker(marker);
+    handleSendCoordinates();
+    let popupIsOpen = false;
+
+    marker.on('click', () => {
+      if (popupIsOpen) {
+        marker.closePopup();
+        popupIsOpen = false;
+      } else {
+        marker.bindPopup(`${lat},${lng}`).openPopup();
+        popupIsOpen = true;
+      }
+    });
+  };
+
+  const handleSendCoordinates = () => {
+    if (selectedMarker) {
+      const { lat, lng } = selectedMarker.getLatLng();
+      console.log('Koordinate za slanje:', { lat, lng });
+  
+      /*const dataForSend = {
+        categoryID: document.getElementById("categoryID").value,
+        status: document.getElementById("status").value,
+        fromDateTime: document.getElementById("fromDateTime").value,
+        toDateTime: document.getElementById("toDateTime").value,
+        lat,
+        lng,
+      };
+  
+      fetch(`endpoint za statistiku`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataForSend),
+      })
+      .then(response => response.json())
+      .then(data => console.log('Odgovor od servera:', data))
+      .catch(error => console.error('Greška prilikom slanja koordinata:', error));*/
+    }
+  };
+  
 
   useEffect(() => {
     if (!mapRef.current) {
@@ -22,46 +78,27 @@ function StatisticComponent() {
         maxZoom: 28,
       }).addTo(map);
 
-      var customIcon = L.divIcon({
-        html: `<div class="marker-container">
-                 <img class="marker-icon" src="${markerIcon}" />
-               </div>`,
-        iconSize: [26, 26],
-        iconAnchor: [13, 26],
-      });
-
-      const createMarker = (lat, lng) => {
-        if (selectedMarker) {
-          map.removeLayer(selectedMarker);
-        }
-
-        const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
-        setSelectedMarker(marker);
-
-        let popupIsOpen = false;
-
-        marker.on('click', () => {
-          if (popupIsOpen) {
-            marker.closePopup();
-            popupIsOpen = false;
-          } else {
-            marker.bindPopup(`${lat},${lng}`).openPopup();
-            popupIsOpen = true;
-          }
-        });
-      };
-
       map.on('click', function (e) {
         const lat = e.latlng.lat;
         const lng = e.latlng.lng;
-        createMarker(lat, lng);
+        createMarker(map, lat, lng);
       });
 
       mapRef.current = map;
+      return () => {
+        mapRef.current.off('click');
+      };
     } else {
+      mapRef.current.off('click');
+      mapRef.current.on('click', function (e) {
+        const lat = e.latlng.lat;
+        const lng = e.latlng.lng;
+        createMarker(mapRef.current, lat, lng);
+      });
+
       mapRef.current.invalidateSize();
     }
-  }, []);
+  }, [selectedMarker]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
