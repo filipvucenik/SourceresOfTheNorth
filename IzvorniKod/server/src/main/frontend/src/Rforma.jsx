@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   MapContainer,
   TileLayer,
@@ -15,10 +16,12 @@ import FooterComponent from "./FooterComponent";
 import HeaderComponent from "./HeaderComponent";
 import EXIF from "exif-js";
 
+
 let categoryData = "";
 try {
+  let url= apiConfig.getCategory
   const fetchCategory = await fetch(
-    "https://ostecenja-progi-fer.onrender.com/category"
+    url
   );
   const fetchData = await fetchCategory.json();
   categoryData = Object.fromEntries(
@@ -31,8 +34,9 @@ try {
 
 let keyWordData = "";
 try {
+  let url=apiConfig.getKeyword
   const fecthKeyData = await fetch(
-    "https://ostecenja-progi-fer.onrender.com/keywords"
+    url
   );
   const fetchData = await fecthKeyData.json();
   keyWordData = Object.fromEntries(
@@ -89,7 +93,9 @@ const ReportCard = () => {
 
   };
 
-
+  const handleCategoyChange = (e) =>{
+    setCategory(e.target.value)
+  }
   const handleMapClick = async (e) => {
     const clickedLatLng = e.latlng;
     setLocation({
@@ -206,9 +212,8 @@ const ReportCard = () => {
       reportHeadline: title,
       location: location.lat + "," + location.lng,
       description: description,
-      categoryID: 1,
+      categoryID: category,
     };
-
     let url = apiConfig.getReportUrl;
     fetch(url, {
       method: "POST",
@@ -269,7 +274,7 @@ const ReportCard = () => {
         <select
           id="category"
           value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          onChange={handleCategoyChange}
         >
           {Object.entries(categoryData).map(([categoryId, categoryName]) => (
             <option key={categoryId} value={categoryId}>
