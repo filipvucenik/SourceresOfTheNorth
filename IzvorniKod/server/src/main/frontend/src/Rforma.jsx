@@ -91,7 +91,9 @@ const ReportCard = () => {
 
   };
 
-
+  const handleCategoyChange = (e) =>{
+    setCategory(e.target.value)
+  }
   const handleMapClick = async (e) => {
     const clickedLatLng = e.latlng;
     setLocation({
@@ -208,9 +210,8 @@ const ReportCard = () => {
       reportHeadline: title,
       location: location.lat + "," + location.lng,
       description: description,
-      categoryID: 1,
+      categoryID: category,
     };
-
     let url = apiConfig.getReportUrl;
     fetch(url, {
       method: "POST",
@@ -271,7 +272,7 @@ const ReportCard = () => {
         <select
           id="category"
           value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          onChange={handleCategoyChange}
         >
           {Object.entries(categoryData).map(([categoryId, categoryName]) => (
             <option key={categoryId} value={categoryId}>
