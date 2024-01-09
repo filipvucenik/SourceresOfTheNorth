@@ -71,9 +71,11 @@ public class ReportServiceJpa implements ReportService {
     @Override
     public List<Report> getReportsByFilter(ReportFilterDto reportFilterDto) {
         //System.out.println(reportFilterDto);
-        return reportRepo.findByReportAttributes(reportFilterDto.getCategoryId(), //provjeri vremensku zonu
-                reportFilterDto.getRadius(),reportFilterDto.getStatus(), reportFilterDto.getStartDate(),
-                reportFilterDto.getEndDate() );
+       // return  reportRepo.q(reportFilterDto.getStatus());
+        return
+                reportRepo.findByReportAttributes(reportFilterDto.getCategoryId(), reportFilterDto.getStatus(),
+                reportFilterDto.getRadius(),reportFilterDto.getLat(),reportFilterDto.getLng(), reportFilterDto.getStartDate(),
+                reportFilterDto.getEndDate());
 
     }
 

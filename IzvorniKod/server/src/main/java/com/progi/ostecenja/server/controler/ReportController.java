@@ -39,6 +39,7 @@ public class ReportController {
         Long userId = (Long) session.getAttribute("USER");
         Long officeID = (Long) session.getAttribute("OFFICE");
         if(userId != null){
+            System.out.println("userid: " + userId);
             return reportService.listAllforUsers(userId);
         }else if (officeID != null){
             return reportService.listAllforOffice(officeID);
@@ -109,6 +110,7 @@ public class ReportController {
 
     @GetMapping("/filtered")
     public List<Report> getReportsByFilter(@RequestBody ReportFilterDto reportFilterDto){
+        System.out.println(reportFilterDto);
         return reportService.getReportsByFilter(reportFilterDto);
     }
 }

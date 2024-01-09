@@ -14,7 +14,9 @@ import java.sql.Timestamp;
 public class ReportFilterDto {
     private Long categoryId;
     private String status;
-    private String radius;
+    private Double radius;
+    private Double lat;
+    private Double lng;
     private Timestamp startDate;
     private Timestamp endDate;
 }

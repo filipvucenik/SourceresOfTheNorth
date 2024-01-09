@@ -13,9 +13,9 @@ public class Report {
     @Column
     private String reportHeadline;
     @Column
-    private double lat;
+    private Double lat;
     @Column
-    private double lng;
+    private Double lng;
     @Column
     private String description;
 

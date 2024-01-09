@@ -12,20 +12,39 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ReportRepository extends JpaRepository<Report, Long> {
-    String query = "SELECT r FROM Report r WHERE " +
+    String query = "SELECT r,f FROM Report r JOIN Feedback f ON r.reportID=f.key.groupID  WHERE " +
             "(:categoryID IS NOT NULL AND r.categoryID = :categoryID) OR " +
-            "(:radius IS NOT NULL) OR " +
-            "(( CAST(:startDate AS TIMESTAMP)  IS NOT NULL AND CAST(:endDate AS TIMESTAMP) IS NULL) AND r.reportTS >= :startDate) OR " +
-            "(( CAST(:endDate AS TIMESTAMP) IS NOT NULL AND CAST(:startDate AS TIMESTAMP) IS NULL) AND r.reportTS <= :endDate) OR " +
-            "(( CAST(:endDate AS TIMESTAMP) IS NOT NULL AND CAST(:startDate AS TIMESTAMP) IS NOT NULL) AND r.reportTS BETWEEN CAST(:startDate AS TIMESTAMP)  AND CAST(:endDate AS TIMESTAMP)) OR " +
-            "(:status IS NOT NULL)";
+            "(:status IS NOT NULL AND f.key.status=:status) OR "+
+            "CASE " +
+            "WHEN (:radius IS NOT NULL AND (:lat BETWEEN -90 AND 90) AND (:lng BETWEEN -180 AND 180)) THEN false " +
+            "ELSE " +
+            "6371000 * acos(" +
+            "sin(radians(:lat)) * sin(radians(r.lat)) + " +
+            "cos(radians(:lat)) * cos(radians(r.lat)) * cos(radians(:lng) - radians(r.lng))" +
+            ") <=  + :radius END OR " +
+            "((CAST(:startDate AS TIMESTAMP) IS NOT NULL AND CAST(:endDate AS TIMESTAMP) IS NULL) AND r.reportTS >= :startDate) OR " +
+            "((CAST(:endDate AS TIMESTAMP) IS NOT NULL AND CAST(:startDate AS TIMESTAMP) IS NULL) AND r.reportTS <= :endDate) OR " +
+            "((CAST(:endDate AS TIMESTAMP) IS NOT NULL AND CAST(:startDate AS TIMESTAMP) IS NOT NULL) AND r.reportTS BETWEEN CAST(:startDate AS TIMESTAMP) AND CAST(:endDate AS TIMESTAMP))";
     @Query(query)
     List<Report> findByReportAttributes(
             @Param("categoryID") Long categoryID,
             @Param("status") String status,
-            @Param("radius") String radius,
+            @Param("radius") Double radius,
+            @Param("lat") Double lat,
+            @Param("lng") Double lng,
             @Param("startDate") Timestamp startDate,
             @Param("endDate") Timestamp endDate);
 
+/* "SELECT r,f FROM Report r JOIN Feedback f ON r.reportID=f.key.groupID  WHERE " +
+            "(:categoryID IS NOT NULL AND r.categoryID = :categoryID) OR " +
+            "(:status IS NOT NULL AND f.key.status=:status) OR "+
+            "(:radius IS NOT NULL AND :lat IS NOT NULL AND :lng IS NOT NULL AND " +
+            "6371000 * acos(" +
+            "sin(radians(:lat)) * sin(radians(r.lat)) + " +
+            "cos(radians(:lat)) * cos(radians(r.lat)) * cos(radians(:lng) - radians(r.lng))" +
+            ") <= :radius ) OR " +
+            "((CAST(:startDate AS TIMESTAMP) IS NOT NULL AND CAST(:endDate AS TIMESTAMP) IS NULL) AND r.reportTS >= :startDate) OR " +
+            "((CAST(:endDate AS TIMESTAMP) IS NOT NULL AND CAST(:startDate AS TIMESTAMP) IS NULL) AND r.reportTS <= :endDate) OR " +
+            "((CAST(:endDate AS TIMESTAMP) IS NOT NULL AND CAST(:startDate AS TIMESTAMP) IS NOT NULL) AND r.reportTS BETWEEN CAST(:startDate AS TIMESTAMP) AND CAST(:endDate AS TIMESTAMP))";*/
 
 }
