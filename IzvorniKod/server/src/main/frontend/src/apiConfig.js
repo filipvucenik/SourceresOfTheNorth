@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://ostecenja-progi-fer.onrender.com";
+const API_BASE_URL = "https://progi-projekt-test.onrender.com/";
 
 export default {
   getUrl: `${API_BASE_URL}`,
