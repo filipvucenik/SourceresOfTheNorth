@@ -7,11 +7,34 @@ import markerIcon from './marker.svg';
 
 const server = "http://localhost:8080/";
 
+
 function StatisticComponent() {
   const [filteredData, setFilteredData] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
+  const [categoryData,setCategoryData] =useState({});
+  const [selectedCategoryID, setSelectedCategoryID] = useState("");
+
   const mapRef = useRef(null); // referenca za spremanje instance karte
   const uniqueMapId = `map-${Math.floor(Math.random() * 10000)}`;
+
+ const getCategory = async() =>{
+    const fetchCategory = await fetch("https://ostecenja-progi-fer.onrender.com/category")
+    const fetchData = await fetchCategory.json()
+    const transformedData = Object.fromEntries(
+      fetchData.map((item) => [item.categoryID, item.categoryName])
+    );
+    setCategoryData(transformedData)
+
+ }
+ useEffect(() => {
+  getCategory();
+}, []);
+
+const handleCategoryChange = (event) => {
+  const selectedID = event.target.value;
+  setSelectedCategoryID(selectedID);
+};
+
 
   const customIcon = L.divIcon({
     html: `<div class="marker-container">
@@ -43,13 +66,14 @@ function StatisticComponent() {
     });
   };
 
+  
+
   const handleSendCoordinates = () => {
     if (selectedMarker) {
       const { lat, lng } = selectedMarker.getLatLng();
       console.log('Koordinate za slanje:', { lat, lng });
-  
       /*const dataForSend = {
-        categoryID: document.getElementById("categoryID").value,
+        categoryID: selectedCategoryID,
         status: document.getElementById("status").value,
         fromDateTime: document.getElementById("fromDateTime").value,
         toDateTime: document.getElementById("toDateTime").value,
@@ -132,7 +156,14 @@ function StatisticComponent() {
         <form onSubmit={handleSubmit}>
           <label>
             ID Kategorije:
-            <input type="text" name="categoryID" />
+            <select name="categoryID" onChange={handleCategoryChange}>
+              <option value="" disabled>Select Category</option>
+              {Object.keys(categoryData).map((key) => (
+                <option key={key} value={key}>
+                  {categoryData[key]}
+                </option>
+              ))}
+            </select>
           </label>
           <label>
             Status:
