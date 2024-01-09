@@ -17,8 +17,9 @@ import EXIF from "exif-js";
 
 let categoryData = "";
 try {
+  let url= apiConfig.getCategory
   const fetchCategory = await fetch(
-    "https://ostecenja-progi-fer.onrender.com/category"
+    url
   );
   const fetchData = await fetchCategory.json();
   categoryData = Object.fromEntries(
@@ -31,8 +32,9 @@ try {
 
 let keyWordData = "";
 try {
+  let url=apiConfig.getKeyword
   const fecthKeyData = await fetch(
-    "https://ostecenja-progi-fer.onrender.com/keywords"
+    url
   );
   const fetchData = await fecthKeyData.json();
   keyWordData = Object.fromEntries(

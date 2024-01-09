@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://progi-projekt-test.onrender.com";
+const API_BASE_URL = "https://ostecenja-progi-fer.onrender.com";
 
 export default {
   getUrl: `${API_BASE_URL}`,
@@ -8,4 +8,6 @@ export default {
   getUserInfoUrl: `${API_BASE_URL}/users`,
   getOfficeLoginUrl: `${API_BASE_URL}/auth/officeLogin`,
   getOfficeRegisterUrl: `${API_BASE_URL}/auth/officeRegister`,
+  getCategory : `${API_BASE_URL}/category`,
+  getKeyword : `${API_BASE_URL}/keywords`,
 };
