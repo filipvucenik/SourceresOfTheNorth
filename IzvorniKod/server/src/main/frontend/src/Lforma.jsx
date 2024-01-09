@@ -39,15 +39,19 @@ const LoginComponent = () => {
       },
       body: JSON.stringify(jsonData),
     }).then((response) => {
-      console.log(response);
+      //console.log(response);
 
       if (response.status === 200) {
-        Cookies.set("name", email);
-        navigate("/");
+        return response.text();
+        
       } else {
         alert("User does not exist!");
       }
-    });
+    }).then(textData => {
+        Cookies.set("name", email);
+        Cookies.set("id", JSON.parse(textData).userId);
+        navigate("/");
+    })
   };
 
   const handleLoginInputChange = (e) => {

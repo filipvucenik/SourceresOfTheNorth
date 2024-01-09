@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from "react";
-import HeaderComponent from './HeaderComponent'
-import './profile.css'
+import HeaderComponent from './HeaderComponent';
+import Cookies from "js-cookie";
+import apiConfig from "./apiConfig";
+import './profile.css';
 import FooterComponent from "./FooterComponent";
 
-const server = "http://localhost:8080/users/";
+const server = apiConfig.getUserInfoUrl;
 
 const Profile = () => {
-  /*const [userData, setUserData] = useState({
+  const [postojiKolacic, postaviPostojiKolacic] = useState(false);
+  const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
     password: "",
     email: "",
   });
-  const id = kolacici.id;
+  var id;
 
   useEffect(() => {
     const kolacici = Cookies.get();
     console.log(kolacici);
-
+    id=kolacici.id;
     if (Object.keys(kolacici).length > 0) {
       postaviPostojiKolacic(true);
     }
@@ -26,10 +29,10 @@ const Profile = () => {
   useEffect(() => {
     const fetchDataFromDatabase = async () => {
       try {
-        const response = await fetch(`${server}${id})`);
+        const response = await fetch(`${server}/${id}`);
         const data = await response.json();
         if (data) {
-          setUserData(data[0]);
+          setUserData(data);
         }
       } catch (error) {
         console.error("Greška pri dohvaćanju podataka:", error);
@@ -38,7 +41,7 @@ const Profile = () => {
     fetchDataFromDatabase();
   }, []);
   
-  const updateDataInDatabase = async () => {
+  /*const updateDataInDatabase = async () => {
     try {
       const updatedData = {
         firstName: document.getElementById("firstName").value,
@@ -75,8 +78,8 @@ const Profile = () => {
           <div className="row g-3">
             <div className="col-sm-6">
               <label for="firstName" className="form-label">Ime</label>
-              <input type="text" className="form-control" id="firstName" placeholder="" value="" required=""/>
-              {/*}{userData.ime || ""}{ pod value */}
+              <input type="text" className="form-control" id="firstName" placeholder="" value={userData.firstName || ""} required=""/>
+              {/*}{ pod value */}
               <div className="invalid-feedback">
                 Valid first name is required.
               </div>
@@ -84,8 +87,8 @@ const Profile = () => {
 
             <div className="col-sm-6">
               <label for="lastName" className="form-label">Prezime</label>
-              <input type="text" className="form-control" id="lastName" placeholder="" value="" required=""/>
-              {/*}{userData.prezime || ""}{ pod value */}
+              <input type="text" className="form-control" id="lastName" placeholder="" value={userData.lastName || ""} required=""/>
+              {/*}{ pod value */}
               <div className="invalid-feedback">
                 Valid last name is required.
               </div>
@@ -94,8 +97,8 @@ const Profile = () => {
             <div className="col-12">
               <label for="password" className="form-label">Lozinka</label>
               <div className="input-group has-validation">
-                <input type="text" className="form-control" id="password" placeholder="password" required=""/>
-                {/*}{userData.password || ""}{ pod value */}
+                <input type="text" className="form-control" id="password" value = {userData.password || ""} placeholder="password" required=""/>
+                {/*}{ pod value */}
               <div className="invalid-feedback">
                   Your password is required.
                 </div>
@@ -104,8 +107,8 @@ const Profile = () => {
 
             <div className="col-12">
               <label for="email" className="form-label">Email</label>
-              <input type="email" className="form-control" id="email" placeholder="you@example.com" value=""/>
-              {/*}{userData.email || ""}{ pod value */}
+              <input type="email" className="form-control" id="email" placeholder="you@example.com" value={userData.email || ""}/>
+              {/*}{ pod value */}
               <div className="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>

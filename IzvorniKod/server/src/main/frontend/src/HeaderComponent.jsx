@@ -17,6 +17,7 @@ const HeaderComponent = () => {
 
   const handleLogout = () => {
     Cookies.remove("name");
+    Cookies.remove("id");
     postaviPostojiKolacic(false);
     console.log("Korisnik odjavljen!");
   };
