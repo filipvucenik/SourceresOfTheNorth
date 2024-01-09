@@ -25,10 +25,11 @@ function StatisticComponent() {
     if (selectedMarker) {
       map.removeLayer(selectedMarker);
     }
-
+    
     const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
     setSelectedMarker(marker);
     handleSendCoordinates();
+    //promenit argument funkcije, saljem mu marker ili lat, lng
     let popupIsOpen = false;
 
     marker.on('click', () => {
@@ -77,7 +78,7 @@ function StatisticComponent() {
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 28,
       }).addTo(map);
-
+      
       map.on('click', function (e) {
         const lat = e.latlng.lat;
         const lng = e.latlng.lng;
