@@ -42,6 +42,11 @@ public class CityOfficeServiceJpa implements CityOfficeService {
     }
 
     @Override
+    public Optional<CityOffice> findByCityOfficeId(long id) {
+        return cityOfficeRepo.findByCityOfficeId(id);
+    }
+
+    @Override
     public CityOffice createCityOffice(CityOffice cityOffice){
         validate(cityOffice);
 
