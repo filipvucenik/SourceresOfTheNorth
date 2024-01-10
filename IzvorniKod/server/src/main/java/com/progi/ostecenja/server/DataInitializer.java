@@ -113,6 +113,7 @@ public class DataInitializer {
             }
         }
 
+        System.out.println(System.getProperty("user.dir"));
         // Path relative = Path.of(System.getProperty("user.dir"));
         // Path mockImagePath = relative.resolve("/src/main/resources/mock.png");
         Path mockImagePath = Path.of("src/main/resources/mock.png");
