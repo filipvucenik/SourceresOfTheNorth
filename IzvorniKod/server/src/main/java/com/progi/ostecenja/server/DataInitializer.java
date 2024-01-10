@@ -2,6 +2,7 @@ package com.progi.ostecenja.server;
 
 import com.progi.ostecenja.server.controler.ReportController;
 import com.progi.ostecenja.server.controler.UsersController;
+import com.progi.ostecenja.server.dao.CategoryKeywordsRepository;
 import com.progi.ostecenja.server.dao.CityOfficeRepository;
 import com.progi.ostecenja.server.repo.*;
 import com.progi.ostecenja.server.service.*;
@@ -10,9 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-/*
+
+import java.util.List;
+
 @Component
 public class DataInitializer {
+    @Autowired
+    CategoryKeywordsRepository categoryKeywordsRepo;
     @Autowired
     private UsersService usersService;
     @Autowired
@@ -44,13 +49,15 @@ public class DataInitializer {
         offices[3] = new CityOffice(null, "Korupcija", "korupcija@gmail.com", "password");
         CityOffice[] offices2 = new CityOffice[4];
         for(int i=0; i<offices.length; i++){
-            if(cityOfficeService.findByCityOfficeEmail(offices[i].getCityOfficeEmail()).isPresent()){
+            if(!cityOfficeService.findByCityOfficeEmail(offices[i].getCityOfficeEmail()).isPresent()){
                 offices2[i] = cityOfficeService.createCityOffice(offices[i]);
+            }else{
+                offices2[i] = cityOfficeService.findByCityOfficeEmail(offices[i].getCityOfficeEmail()).get();
             }
         }
 
         //initial categories
-        Category[] categories = new Category[8];
+        Category[] categories = new Category[6];
         categories[0] = new Category(null, "rupa na cesti", offices2[0].getCityOfficeId());
         categories[1] = new Category(null, "rupa na pjesackome", offices2[0].getCityOfficeId());
         categories[2] = new Category(null, "ulicna rasvjeta", offices2[1].getCityOfficeId());
@@ -58,21 +65,44 @@ public class DataInitializer {
         categories[4] = new Category(null, "smece u parku", offices2[2].getCityOfficeId());
         categories[5] = new Category(null, "institucionalna korupcija", offices2[3].getCityOfficeId());
 
+        List<Category> categoryList = categoryService.listAll();
+        Category[] categories2 = new Category[6];
+        for(int i=0;i<categories.length;i++){
+            boolean found=false;
+            for(Category cat : categoryList){
+                if(cat.getCategoryName().equals(categories[i].getCategoryName())){
+                    categories2[i] = cat;
+                    found=true;
+                    break;
+                }
+            }
+            if(!found)
+                categories2[i] = categoryService.createCategory(categories[i]);
+        }
+
+        CategoryKeywords k1 = new CategoryKeywords(null, "Rupa", categories2[0].getCategoryID());
+        CategoryKeywords k2 = new CategoryKeywords(null, "Smeće", categories2[3].getCategoryID());
+        CategoryKeywords k3 = new CategoryKeywords(null, "Lampa", categories2[2].getCategoryID());
+        CategoryKeywords k4 = new CategoryKeywords(null, "Korupcija", categories2[5].getCategoryID());
+        categoryKeywordsRepo.save(k1);
+        categoryKeywordsRepo.save(k2);
+        categoryKeywordsRepo.save(k3);
+        categoryKeywordsRepo.save(k4);
+
+        /*
         Category rupe = new Category(null, "rupe", cof.getCityOfficeId());
         Category cat = categoryService.createCategory(rupe);
         Long cathegoryId = cat.getCategoryID() ;
-
-
 
         Report[] reports = new Report[2];
         reports[0] = new Report(null, "Rupa na cest", 12.2, 12.3, "Velika rupa na cesti", null, null, null, cathegoryId);
         reports[1] = new Report(null, "Druga rupa na cesti", 12.2, 12.5, "Neka rupa je negdi", null, null,null, cathegoryId);
         for(Report report: reports){
             reportController.createReport(report, new StandardSession(null));
-        }
+        }*/
     }
 }
-*/
+
 /*
 SELECT * FROM report;
 SELECT * FROM city_office;

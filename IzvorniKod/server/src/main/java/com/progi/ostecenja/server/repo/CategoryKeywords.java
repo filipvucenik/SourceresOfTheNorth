@@ -10,12 +10,11 @@ public class CategoryKeywords {
     private String keyword;
 
     @JoinColumn
-    private long categoryID;
+    private Long categoryID;
 
     public CategoryKeywords(){}
 
-    public CategoryKeywords(long keywordID, String keyword, long categoryID) {
-        this.keywordID = keywordID;
+    public CategoryKeywords(Long keywordID, String keyword, long categoryID) {
         this.keyword = keyword;
         this.categoryID = categoryID;
     }
