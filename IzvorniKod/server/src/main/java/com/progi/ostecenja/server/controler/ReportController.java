@@ -108,9 +108,8 @@ public class ReportController {
         feedbackService.updateService(groupId, status);
     }
 
-    @GetMapping("/filtered")
+    @PostMapping("/filtered")
     public List<Report> getReportsByFilter(@RequestBody ReportFilterDto reportFilterDto){
-        System.out.println(reportFilterDto);
         return reportService.getReportsByFilter(reportFilterDto);
     }
 }

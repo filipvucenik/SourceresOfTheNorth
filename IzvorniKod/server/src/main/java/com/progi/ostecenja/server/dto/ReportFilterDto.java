@@ -1,6 +1,7 @@
 package com.progi.ostecenja.server.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.micrometer.observation.annotation.Observed;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,4 +20,10 @@ public class ReportFilterDto {
     private Double lng;
     private Timestamp startDate;
     private Timestamp endDate;
+
+
+    public String toPrint(){
+        return this.categoryId + " " + this.status + " "
+                + this.radius + " "+ this.lat + " " + this.lng + " " + this.startDate + " " + this.endDate;
+    }
 }

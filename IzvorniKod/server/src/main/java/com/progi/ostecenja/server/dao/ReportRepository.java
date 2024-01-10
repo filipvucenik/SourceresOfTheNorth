@@ -18,7 +18,7 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
             "CASE " +
             "WHEN (:radius IS NOT NULL AND (:lat BETWEEN -90 AND 90) AND (:lng BETWEEN -180 AND 180)) THEN false " +
             "ELSE " +
-            "6371000 * acos(" +
+            "6371 * acos(" +
             "sin(radians(:lat)) * sin(radians(r.lat)) + " +
             "cos(radians(:lat)) * cos(radians(r.lat)) * cos(radians(:lng) - radians(r.lng))" +
             ") <=  + :radius END OR " +
@@ -35,16 +35,6 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
             @Param("startDate") Timestamp startDate,
             @Param("endDate") Timestamp endDate);
 
-/* "SELECT r,f FROM Report r JOIN Feedback f ON r.reportID=f.key.groupID  WHERE " +
-            "(:categoryID IS NOT NULL AND r.categoryID = :categoryID) OR " +
-            "(:status IS NOT NULL AND f.key.status=:status) OR "+
-            "(:radius IS NOT NULL AND :lat IS NOT NULL AND :lng IS NOT NULL AND " +
-            "6371000 * acos(" +
-            "sin(radians(:lat)) * sin(radians(r.lat)) + " +
-            "cos(radians(:lat)) * cos(radians(r.lat)) * cos(radians(:lng) - radians(r.lng))" +
-            ") <= :radius ) OR " +
-            "((CAST(:startDate AS TIMESTAMP) IS NOT NULL AND CAST(:endDate AS TIMESTAMP) IS NULL) AND r.reportTS >= :startDate) OR " +
-            "((CAST(:endDate AS TIMESTAMP) IS NOT NULL AND CAST(:startDate AS TIMESTAMP) IS NULL) AND r.reportTS <= :endDate) OR " +
-            "((CAST(:endDate AS TIMESTAMP) IS NOT NULL AND CAST(:startDate AS TIMESTAMP) IS NOT NULL) AND r.reportTS BETWEEN CAST(:startDate AS TIMESTAMP) AND CAST(:endDate AS TIMESTAMP))";*/
+
 
 }
