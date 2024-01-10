@@ -93,6 +93,7 @@ const ReportCard = () => {
 
   const handleCategoyChange = (e) =>{
     setCategory(e.target.value)
+    console.log(category)
   }
   const handleMapClick = async (e) => {
     const clickedLatLng = e.latlng;
@@ -282,6 +283,7 @@ const ReportCard = () => {
           value={category}
           onChange={handleCategoyChange}
         >
+          <option key="default" value="default"> Izaberite kategoriju</option>
           {Object.entries(categoryData).map(([categoryId, categoryName]) => (
             <option key={categoryId} value={categoryId}>
               {categoryName}
