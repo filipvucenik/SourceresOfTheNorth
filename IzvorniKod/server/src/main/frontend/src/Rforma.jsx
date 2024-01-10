@@ -93,7 +93,6 @@ const ReportCard = () => {
 
   const handleCategoyChange = (e) =>{
     setCategory(e.target.value)
-    console.log(category)
   }
   const handleMapClick = async (e) => {
     const clickedLatLng = e.latlng;
@@ -214,7 +213,7 @@ const ReportCard = () => {
       categoryID: category,
     };
 
-    console.log(jsonServerSendData);
+    
 
     if(jsonServerSendData.reportHeadline == '' || jsonServerSendData.description == '' || jsonServerSendData.categoryID == ''){
       alert("Molimo popunite SVA polja!!");
