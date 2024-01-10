@@ -110,7 +110,6 @@ public class ReportController {
 
     @PostMapping("/filtered")
     public List<Report> getReportsByFilter(@RequestBody ReportFilterDto reportFilterDto){
-        System.out.println(reportFilterDto);
         return reportService.getReportsByFilter(reportFilterDto);
     }
 }

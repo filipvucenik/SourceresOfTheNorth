@@ -70,8 +70,12 @@ public class ReportServiceJpa implements ReportService {
 
     @Override
     public List<Report> getReportsByFilter(ReportFilterDto reportFilterDto) {
-        //System.out.println(reportFilterDto);
-       // return  reportRepo.q(reportFilterDto.getStatus());
+        if(reportFilterDto.getRadius()== null){
+            reportFilterDto.setRadius(0.);
+            reportFilterDto.setLng(200.);
+            reportFilterDto.setLat(100.);
+           // System.out.println(reportFilterDto.toPrint());
+        }
         return
                 reportRepo.findByReportAttributes(reportFilterDto.getCategoryId(), reportFilterDto.getStatus(),
                 reportFilterDto.getRadius(),reportFilterDto.getLat(),reportFilterDto.getLng(), reportFilterDto.getStartDate(),
