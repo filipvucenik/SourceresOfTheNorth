@@ -11,7 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.mock.web.MockMultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -28,6 +37,8 @@ public class DataInitializer {
     private ReportService reportService;
     @Autowired
     private ReportController reportController;
+    @Autowired
+    private ImageService imageService;
     @EventListener
     public void appReady(ApplicationReadyEvent event){
         //initial users
@@ -89,17 +100,49 @@ public class DataInitializer {
         categoryKeywordsRepo.save(k3);
         categoryKeywordsRepo.save(k4);
 
-        /*
-        Category rupe = new Category(null, "rupe", cof.getCityOfficeId());
-        Category cat = categoryService.createCategory(rupe);
-        Long cathegoryId = cat.getCategoryID() ;
 
-        Report[] reports = new Report[2];
-        reports[0] = new Report(null, "Rupa na cest", 12.2, 12.3, "Velika rupa na cesti", null, null, null, cathegoryId);
-        reports[1] = new Report(null, "Druga rupa na cesti", 12.2, 12.5, "Neka rupa je negdi", null, null,null, cathegoryId);
+        List<Category> cats = categoryService.listAll();
+
+        Report[] reports = {
+                new Report(null, "OGROMANJSKA RUPA NA CESTI",45.8000646, 15.978519, "Tu je neka ogromanjska rupa kod lisinskog", null, null, null,cats.get(0).getCategoryID())
+        };
+        List<Report> reportList = new ArrayList<>();
         for(Report report: reports){
-            reportController.createReport(report, new StandardSession(null));
-        }*/
+            if(!reportService.getHeadlines().contains(report.getReportHeadline())){
+                reportList.add(reportController.createReport(report, new StandardSession(null)));
+            }
+        }
+
+        Path relative = Path.of(System.getProperty("user.dir"));
+        Path mockImagePath = relative.resolve("./src/main/resources/mock.png");
+
+        MultipartFile imageMulti;
+
+        try(InputStream is = Files.newInputStream(mockImagePath)){
+            imageMulti = new MockMultipartFile(
+                    "data",
+                    mockImagePath.getFileName().toString(),
+                    "image/png",
+                    is.readAllBytes()
+            );
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        String pathOnServer = reportController.uploadImage(imageMulti);
+        boolean exists = false;
+        for (Image image : imageService.listAllId(reports[0].getReportID()))
+            if (image.getURL().equals(pathOnServer)) {
+                exists = true;
+                break;
+            }
+
+        if(!exists){
+            List<Image> images = new ArrayList<>();
+            images.add(new Image(null, reportList.get(0).getReportID(), pathOnServer));
+            reportController.uploadedImages(images);
+        }
+
     }
 }
 

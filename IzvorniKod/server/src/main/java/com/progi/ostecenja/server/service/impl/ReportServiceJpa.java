@@ -65,6 +65,11 @@ public class ReportServiceJpa implements ReportService {
     }
 
     @Override
+    public List<String> getHeadlines() {
+        return reportRepo.findAll().stream().map(Report::getReportHeadline).toList();
+    }
+
+    @Override
     public Report getReport(Long reportID) {
         return findByUserId(reportID).orElseThrow(
                 () -> new EntityMissingException(Report.class, reportID)

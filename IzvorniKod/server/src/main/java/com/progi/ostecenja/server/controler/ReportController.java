@@ -56,7 +56,7 @@ public class ReportController {
 
     // TODO popraviti group ID
     @PostMapping
-    public void createReport(@RequestBody Report report, HttpSession session){
+    public Report createReport(@RequestBody Report report, HttpSession session){
         Timestamp timestamp = report.getReportTS();
         if(timestamp == null){
             timestamp = Timestamp.valueOf(LocalDateTime.now());
@@ -72,8 +72,9 @@ public class ReportController {
         report.setUserID(userId);
         report.setReportTS(timestamp);
         report.setGroup(null);
-        reportService.createReport(report);
-        feedbackService.createFeedback(report.getReportID(), timestamp);
+        Report saved = reportService.createReport(report);
+        feedbackService.createFeedback(saved.getReportID(), timestamp);
+        return saved;
     }
 
     @PostMapping("/uploadImage")

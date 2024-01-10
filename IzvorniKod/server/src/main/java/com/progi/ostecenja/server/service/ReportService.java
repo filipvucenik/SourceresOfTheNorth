@@ -19,6 +19,8 @@ public interface ReportService {
 
     Report getReport(Long reportID);
 
+    List<String> getHeadlines();
+
 
      List<Report> getReportsByFilter(ReportFilterDto reportFilterDto);
 
