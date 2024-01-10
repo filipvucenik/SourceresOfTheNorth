@@ -19,13 +19,11 @@ function MapComponent() {
         maxZoom: 19,
       }).addTo(map);
 
-      var customIcon = L.divIcon({ //ikona za prikaz markera
-        html: `<div class="marker-container">
-                 <img class="marker-icon" src="${markerIcon}" />
-               </div>`,
-               //<span class="delete-marker" style="position: absolute; top: -13px; right: -6px; cursor: pointer; color: red; font-size: 20px;">x</span>
-        iconSize: [26, 26],
-        iconAnchor: [13, 26], // promijenjen "anchor point" kako bi se ikona centrirala na točku
+      const customIcon = new L.Icon({
+        iconUrl: markerIcon,
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32],
       });
 
       const createMarker = (lat, lng) => { //funkcija prikazivanja markera na temelju koordinata
@@ -63,8 +61,12 @@ function MapComponent() {
         });
       };
       //ovdje ce se dodavati markeri na koordinate prijavljenih steta
-      var jason = '[{"lat":45.800, "lng" :15.967}]';
-      /*
+      /*var jason = '[{"lat":45.800, "lng" :15.967}]';
+      var lokacije = JSON.parse(jason);
+      console.log(lokacije);
+      for(var lokacija of lokacije){
+        createMarker(lokacija.lat,lokacija.lng);
+      }*/
       const fetchDataAndCreateMarkers = async () => {
         try {
           const response = await fetch(`${server}reports/unhandled`);
@@ -79,13 +81,9 @@ function MapComponent() {
         }
       };
 
-      fetchDataAndCreateMarkers();*/
+      fetchDataAndCreateMarkers();
 
-      var lokacije = JSON.parse(jason);
-      console.log(lokacije);
-      for(var lokacija of lokacije){
-        createMarker(lokacija.lat,lokacija.lng);
-      }
+      
 
       /*function deleteMarker(markerToDelete) { //brisanje markera i izbacivanje iz liste
         mapRef.current.removeLayer(markerToDelete);
