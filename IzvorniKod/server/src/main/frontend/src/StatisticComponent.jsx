@@ -138,9 +138,7 @@ function StatisticComponent() {
           <label>
             ID Kategorije:
             <select name="categoryID" onChange={handleCategoryChange}>
-              <option value="" disabled>
-                Select Category
-              </option>
+            <option key="default" value="default"> Izaberite kategoriju</option>
               {Object.keys(categoryData).map((key) => (
                 <option key={key} value={key}>
                   {categoryData[key]}
