@@ -69,22 +69,12 @@ const Report = ({ id }) => {
 };
 
 function Reports() {
-  const testerData = {
-    naslov: "Problem s kanalizacijom",
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-   Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
-    date: "13.11.2023.",
-    location: "ulica ta i ta ili kak bi vec bilo",
-    status: "aktivna",
-  };
-
   const iddd = useParams();
 
   console.log(iddd);
 
   return (
     <div>
-      <h1>REPORT</h1>
       <div className="page">
         <Report id={iddd}></Report>
       </div>
