@@ -50,10 +50,13 @@ public class ReportServiceJpa implements ReportService {
     // TODO provjeriti tocno kak se stanje zove
     @Override
     public List<Report> listAllUnhandled() {
-        return reportRepo.findAll().stream().filter(r -> {
+
+        List<Report> ret = reportRepo.findAll().stream().filter(r -> {
             Long id = r.getReportID();
-            return !feedbackService.existsFeedback(id, "u obradi");
+            return !feedbackService.existsFeedback(id, "obraden");
         }).toList();
+
+        return ret;
     }
 
     @Override
