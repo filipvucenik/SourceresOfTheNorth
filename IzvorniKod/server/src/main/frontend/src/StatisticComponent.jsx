@@ -4,6 +4,7 @@ import FooterComponent from "./FooterComponent";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import markerIcon from "./marker.svg";
+import apiConfig from "./apiConfig";
 
 const server = "http://localhost:8080/";
 
@@ -17,8 +18,9 @@ function StatisticComponent() {
   const uniqueMapId = `map-${Math.floor(Math.random() * 10000)}`;
 
   const getCategory = async () => {
+    let url = apiConfig.getCategory
     const fetchCategory = await fetch(
-      "https://ostecenja-progi-fer.onrender.com/category"
+      url
     );
     const fetchData = await fetchCategory.json();
     const transformedData = Object.fromEntries(
