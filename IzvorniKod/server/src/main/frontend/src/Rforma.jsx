@@ -215,6 +215,10 @@ const ReportCard = () => {
 
     console.log(jsonServerSendData);
 
+    if(jsonServerSendData.reportHeadline == '' || jsonServerSendData.description == '' || jsonServerSendData.categoryID == ''){
+      alert("Molimo popunite SVA polja!!");
+      return;
+    }
 
     let url = apiConfig.getReportUrl;
     fetch(url, {
