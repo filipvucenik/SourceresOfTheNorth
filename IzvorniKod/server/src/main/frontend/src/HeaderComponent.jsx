@@ -1,10 +1,11 @@
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Router, useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import React, { useState, useEffect } from "react";
 
 const HeaderComponent = () => {
   const [postojiKolacic, postaviPostojiKolacic] = useState(false);
   const email = Cookies.get("name");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const kolacici = Cookies.get();
@@ -20,6 +21,7 @@ const HeaderComponent = () => {
     Cookies.remove("id");
     postaviPostojiKolacic(false);
     console.log("Korisnik odjavljen!");
+    navigate("/");
   };
 
   return (
