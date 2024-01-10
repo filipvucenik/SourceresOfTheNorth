@@ -170,7 +170,7 @@ function StatisticComponent() {
       
       <ul className="statistika">
         {filteredData.map((item) => (
-          <li key={item.reportID}>
+          <li key={item.reportID} className="statistika-child">
             <h2><b>{item.reportHeadline}</b></h2>
             <p>Report ID: {item.reportID}</p>
             <p>Category ID: {item.categoryID}</p>

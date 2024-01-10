@@ -22,5 +22,13 @@
 }
 
 .statistika{
-  margin: 2%;
+  margin: 3%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.statistika-child{
+  margin: 3%;
+  border: 1px black solid;
+  padding: 15px;
+  border-radius: 15px;
 }
