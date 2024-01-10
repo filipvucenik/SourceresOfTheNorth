@@ -69,7 +69,7 @@ function MapComponent() {
       }*/
       const fetchDataAndCreateMarkers = async () => {
         try {
-          const response = await fetch(`${server}reports/unhandled`);
+          const response = await fetch(`https://progi-projekt-test.onrender.com/reports/unhandled`);
           const data = await response.json();
           console.log(data);
     
