@@ -9,6 +9,8 @@ const server = apiConfig.getUserInfoUrl;
 
 const Profile = () => {
   const [postojiKolacic, postaviPostojiKolacic] = useState(false);
+  
+
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",

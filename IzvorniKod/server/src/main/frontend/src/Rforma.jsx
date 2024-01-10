@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   MapContainer,
   TileLayer,
@@ -15,7 +14,6 @@ import apiConfig from "./apiConfig";
 import FooterComponent from "./FooterComponent";
 import HeaderComponent from "./HeaderComponent";
 import EXIF from "exif-js";
-
 
 let categoryData = "";
 try {
@@ -214,6 +212,14 @@ const ReportCard = () => {
       description: description,
       categoryID: category,
     };
+
+    
+
+    if(jsonServerSendData.reportHeadline == '' || jsonServerSendData.description == '' || jsonServerSendData.categoryID == ''){
+      alert("Molimo popunite SVA polja!!");
+      return;
+    }
+
     let url = apiConfig.getReportUrl;
     fetch(url, {
       method: "POST",
@@ -276,6 +282,7 @@ const ReportCard = () => {
           value={category}
           onChange={handleCategoyChange}
         >
+          <option key="default" value="default"> Izaberite kategoriju</option>
           {Object.entries(categoryData).map(([categoryId, categoryName]) => (
             <option key={categoryId} value={categoryId}>
               {categoryName}
