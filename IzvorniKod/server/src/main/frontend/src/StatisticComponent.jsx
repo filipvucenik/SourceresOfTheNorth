@@ -12,6 +12,8 @@ function StatisticComponent() {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [categoryData, setCategoryData] = useState({});
   const [selectedCategoryID, setSelectedCategoryID] = useState("");
+  var lattitude;
+  var longitude;
 
   const mapRef = useRef(null); // referenca za spremanje instance karte
   const uniqueMapId = `map-${Math.floor(Math.random() * 10000)}`;
@@ -49,7 +51,8 @@ function StatisticComponent() {
 
     const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
     setSelectedMarker(marker);
-    handleSendCoordinates(lat, lng);
+    lattitude = lat;
+    longitude = lng;
     let popupIsOpen = false;
 
     marker.on("click", () => {
@@ -63,18 +66,19 @@ function StatisticComponent() {
     });
   };
 
-  const handleSendCoordinates = (lat, lng) => {
-    console.log("Koordinate za slanje:", { lat, lng });
-    /*const dataForSend = {
-        categoryID: selectedCategoryID,
-        status: document.getElementById("status").value,
-        fromDateTime: document.getElementById("fromDateTime").value,
-        toDateTime: document.getElementById("toDateTime").value,
-        lat,
-        lng,
-      };
-  
-      fetch(`endpoint za statistiku`, {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const dataForSend = {
+     categoryID: selectedCategoryID,
+     status: e.target.elements.status.value,
+     radius: e.target.elements.radius.value,
+     fromDateTime: e.target.elements.fromDateTime.value,
+     toDateTime: e.target.elements.toDateTime.value,
+      lattitude,
+      longitude,
+    };
+    //console.log("Koordinate za slanje:", { lattitude, longitude });
+      fetch(`${server}reports/filtered`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -82,8 +86,9 @@ function StatisticComponent() {
         body: JSON.stringify(dataForSend),
       })
       .then(response => response.json())
-      .then(data => console.log('Odgovor od servera:', data))
-      .catch(error => console.error('Greška prilikom slanja koordinata:', error));*/
+      .then(data => setFilteredData(data))
+      //console.log('Odgovor od servera:', data));
+      .catch(error => console.error('Greška prilikom slanja koordinata:', error));
   };
 
   useEffect(() => {
@@ -115,29 +120,6 @@ function StatisticComponent() {
       mapRef.current.invalidateSize();
     }
   }, [selectedMarker]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const categoryID = e.target.elements.categoryID.value;
-    const status = e.target.elements.status.value;
-    const fromDateTime = e.target.elements.fromDateTime.value;
-    const toDateTime = e.target.elements.toDateTime.value;
-    const location = e.target.elements.location.value;
-    const radius = e.target.elements.radius.value;
-
-    try {
-      const response =
-        await fetch(`${server}filtered?categoryID=${categoryID}&fromDateTime=${fromDateTime}&toDateTime=${toDateTime}
-          &status=${status}&location=${location}&radius=${radius}`);
-      const data = await response.json();
-
-      setFilteredData(data);
-      console.log("Rezultati filtriranja:", data);
-    } catch (error) {
-      console.error("Greška prilikom dohvaćanja podataka:", error);
-    }
-  };
 
   return (
     <>
@@ -183,11 +165,13 @@ function StatisticComponent() {
             Filter
           </button>
         </form>
+        <hr />        
       </div>
-      <ul>
+      
+      <ul className="statistika">
         {filteredData.map((item) => (
           <li key={item.reportID}>
-            <h3>{item.reportHeadline}</h3>
+            <h2><b>{item.reportHeadline}</b></h2>
             <p>Report ID: {item.reportID}</p>
             <p>Category ID: {item.categoryID}</p>
             <p>Report Timestamp: {item.reportTS}</p>
@@ -195,9 +179,12 @@ function StatisticComponent() {
             <p>
               Location: {item.lat}, {item.lng}
             </p>
+            <p>Link na stranicu prijave</p>
           </li>
         ))}
       </ul>
+      
+      
 
       <FooterComponent />
     </>
