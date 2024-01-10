@@ -13,11 +13,16 @@ function StatisticComponent() {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [categoryData, setCategoryData] = useState({});
   const [selectedCategoryID, setSelectedCategoryID] = useState("");
+  const [statusReport, setStatusReport] = useState("");
   var lattitude;
   var longitude;
 
   const mapRef = useRef(null); // referenca za spremanje instance karte
   const uniqueMapId = `map-${Math.floor(Math.random() * 10000)}`;
+
+  const statusChange = (e) =>{
+    setStatusReport(e.target.value)
+  }
 
   const getCategory = async () => {
     let url = apiConfig.getCategory
@@ -72,13 +77,14 @@ function StatisticComponent() {
     e.preventDefault();
     const dataForSend = {
      categoryID: selectedCategoryID,
-     status: e.target.elements.status.value,
+     status: statusReport,
      radius: e.target.elements.radius.value,
      fromDateTime: e.target.elements.fromDateTime.value,
      toDateTime: e.target.elements.toDateTime.value,
       lattitude,
       longitude,
     };
+    console.log(dataForSend)
     //console.log("Koordinate za slanje:", { lattitude, longitude });
       fetch(`https://progi-projekt-test.onrender.com/reports/filtered`, {
         method: 'POST',
@@ -144,15 +150,19 @@ function StatisticComponent() {
           </label>
           <label>
             Status:
-            <input type="text" name="status" />
+            <select name="status" onChange={statusChange}>
+              <option key="neobradeno" value="neobradeno">neobrađeno</option>
+              <option key="uProcesu" value="uProcesu">u procesu</option>
+              <option key="obradeno" value="obradeno">obradeno</option>
+            </select>
           </label>
           <label>
             Datum prijave OD:
-            <input type="text" name="fromDateTime" />
+            <input type="date" name="fromDateTime" />
           </label>
           <label>
             Datum prijave DO:
-            <input type="text" name="toDateTime" />
+            <input type="date" name="toDateTime" />
           </label>
           <p>Lokacija:</p>
           <div
