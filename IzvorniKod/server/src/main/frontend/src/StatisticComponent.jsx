@@ -80,7 +80,7 @@ function StatisticComponent() {
       longitude,
     };
     //console.log("Koordinate za slanje:", { lattitude, longitude });
-      fetch(`${server}reports/filtered`, {
+      fetch(`https://progi-projekt-test.onrender.com/reports/filtered`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
