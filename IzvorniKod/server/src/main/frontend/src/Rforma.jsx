@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   MapContainer,
   TileLayer,
@@ -15,7 +14,6 @@ import apiConfig from "./apiConfig";
 import FooterComponent from "./FooterComponent";
 import HeaderComponent from "./HeaderComponent";
 import EXIF from "exif-js";
-
 
 let categoryData = "";
 try {
@@ -214,6 +212,10 @@ const ReportCard = () => {
       description: description,
       categoryID: category,
     };
+
+    console.log(jsonServerSendData);
+
+
     let url = apiConfig.getReportUrl;
     fetch(url, {
       method: "POST",
