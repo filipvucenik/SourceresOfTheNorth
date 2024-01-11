@@ -1,6 +1,7 @@
 package com.progi.ostecenja.server.controler;
 
 import com.progi.ostecenja.server.dto.ReportFilterDto;
+import com.progi.ostecenja.server.repo.Category;
 import com.progi.ostecenja.server.repo.Feedback;
 import com.progi.ostecenja.server.repo.Image;
 import com.progi.ostecenja.server.repo.Report;
@@ -20,6 +21,8 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/reports")
@@ -35,6 +38,9 @@ public class ReportController {
 
     @Autowired
     private FeedbackService feedbackService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping("/all")
     public List<ReportImage> listReports(HttpSession session){
@@ -59,7 +65,7 @@ public class ReportController {
     }
 
     @PostMapping("/group")
-    public List<Report> groupReport(@RequestBody ReportDTO report, HttpSession session){
+    public List<ReportCategory> groupReport(@RequestBody ReportDTO report, HttpSession session){
         ReportFilterDto filterDto = new ReportFilterDto();
         filterDto.setCategoryId(report.categoryID);
         filterDto.setStatus(null);
@@ -86,7 +92,12 @@ public class ReportController {
                 list.add(rp.getReportID());
             }
         }
-        return returnList;
+        Map<Long, Category> categories =categoryService.listAll().stream().collect(Collectors.toMap(Category::getCategoryID, c -> c));
+        List<ReportCategory> ret = new ArrayList<>();
+        for (Report rep: reportList){
+            ret.add(new ReportCategory(rep, categories.get(rep.getCategoryID())));
+        }
+        return ret;
 
     }
     @GetMapping("unhandled")
@@ -227,10 +238,21 @@ class ReportDTO {
 }
 @Getter
 class ReportImage{
-    Report report;
-    List<Image> images;
+    private Report report;
+    private List<Image> images;
     public ReportImage(Report report, List<Image> images) {
         this.report = report;
         this.images = images;
     }
 }
+
+@Getter
+class ReportCategory {
+    private Report report;
+    private Category category;
+    public ReportCategory(Report report, Category category) {
+        this.report = report;
+        this.category = category;
+    }
+}
+
