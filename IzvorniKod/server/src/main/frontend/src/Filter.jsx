@@ -1,84 +1,89 @@
-import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
-import HeaderComponent from './HeaderComponent';
-import FooterComponent from './FooterComponent';
-
-const server = "http://localhost:8080/";
+import React, { useState, useEffect, useRef } from "react";
+import HeaderComponent from "./HeaderComponent";
+import FooterComponent from "./FooterComponent";
+import "leaflet/dist/leaflet.css";
+import apiConfig from "./apiConfig";
 
 function Filter() {
-    const [filteredData, setFilteredData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [categoryData, setCategoryData] = useState({});
+  const [selectedCategoryID, setSelectedCategoryID] = useState("");
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-    
-        const categoryID = e.target.elements.categoryID.value;
-        const status = e.target.elements.status.value;
-        const fromDateTime = e.target.elements.fromDateTime.value;
-        const toDateTime = e.target.elements.toDateTime.value;
-        const location = e.target.elements.location.value;
-        const radius = e.target.elements.radius.value;
-    
-        try {
-          const response = await fetch(`${server}filtered?categoryID=${categoryID}&fromDateTime=${fromDateTime}&toDateTime=${toDateTime}
-          &status=${status}&location=${location}&radius=${radius}`);
-          const data = await response.json();
-    
-          setFilteredData(data);
-          console.log('Rezultati filtriranja:', data);
-        } catch (error) {
-          console.error('Greška prilikom dohvaćanja podataka:', error);
-        }
-      };
+  const getCategory = async () => {
+    let url = apiConfig.getCategory
+    const fetchCategory = await fetch(
+      url
+    );
+    const fetchData = await fetchCategory.json();
+    const transformedData = Object.fromEntries(
+      fetchData.map((item) => [item.categoryID, item.categoryName])
+    );
+    setCategoryData(transformedData);
+  };
+  useEffect(() => {
+    getCategory();
+  }, []);
+
+  const handleCategoryChange = (event) => {
+    const selectedID = event.target.value;
+    setSelectedCategoryID(selectedID);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const dataForSend = {
+     categoryID: selectedCategoryID,
+     fromDateTime: e.target.elements.fromDateTime.value,
+     toDateTime: e.target.elements.toDateTime.value,
+    };
+    console.log(dataForSend)
+    //console.log("Koordinate za slanje:", { lattitude, longitude });
+      fetch(`https://progi-projekt-test.onrender.com/reports/filtered`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataForSend),
+      })
+      .then(response => response.json())
+      .then(data => setFilteredData(data))
+      .catch(error => console.error('Greška prilikom slanja koordinata:', error));
+  };
 
   return (
     <>
-    <HeaderComponent/>
-    <div className="report-card">
-      <h1>Filter prijava</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          ID Kategorije:
-          <input type="text" name="categoryID" />
-        </label>
-        <label>
-          Status:
-          <input type="text" name="status" />
-        </label>
-        <label>
-          Datum prijave OD:
-          <input type="text" name="fromDateTime" />
-        </label>
-        <label>
-          Datum prijave DO:
-          <input type="text" name="toDateTime" />
-        </label>
-        <label>
-          Lokacija:
-          <input type="text" name="location" />
-        </label>
-        <label>
-          Radius(km):
-          <input type="text" name="radius" />
-        </label>
-        <Link to="/"><button className="submit-btn" type="submit">Filter</button></Link>
-      </form>
-
-      <ul>
-        {filteredData.map((item) => (
-          <li key={item.categoryID}>
-            <p>ID kategorije: {item.categoryID}</p>
-            <p>Status: {item.status}</p>
-            <p>Datum prijave OD: {item.fromDateTime}</p>
-            <p>Datum prijave DO: {item.toDateTime}</p>
-            <p>Lokacija: {item.location}</p>
-            <p>Radius(km): {item.radius}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-    <FooterComponent/>
+      <HeaderComponent />
+      <div className="col-lg-6 col-md-10 col-sm-12 report-card">
+        <h1>Filter prijava</h1>
+        <form onSubmit={handleSubmit}>
+          <label>
+            ID Kategorije:
+            <select name="categoryID" onChange={handleCategoryChange}>
+            <option key="default" value="default"> Izaberite kategoriju</option>
+              {Object.keys(categoryData).map((key) => (
+                <option key={key} value={key}>
+                  {categoryData[key]}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Datum prijave OD:
+            <input type="date" name="fromDateTime" />
+          </label>
+          <label>
+            Datum prijave DO:
+            <input type="date" name="toDateTime" />
+          </label>
+          <button className="submit-btn" type="submit">
+            Filter
+          </button>
+        </form>
+        <hr />        
+      </div>
+      <FooterComponent />
     </>
   );
 }
 
-export default Filter
+export default Filter;
