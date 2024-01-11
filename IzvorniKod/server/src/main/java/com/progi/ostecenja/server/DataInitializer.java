@@ -128,19 +128,19 @@ public class DataInitializer {
                 reportList.add(reportController.createReport(report, new StandardSession(null)));
             }
         }
-        if(reportList.isEmpty()) return;
 
-        System.out.println(System.getProperty("user.dir"));
+        //System.out.println(System.getProperty("user.dir"));
         // Path relative = Path.of(System.getProperty("user.dir"));
         // Path mockImagePath = relative.resolve("/src/main/resources/mock.png");
-        Path mockImagePath = Path.of("src/main/resources/mock.png");
+        //Path mockImagePath = Path.of("src/main/resources/mock.png");
             
         MultipartFile imageMulti;
 
-        try(InputStream is = Files.newInputStream(mockImagePath)){
+        try(InputStream is = DataInitializer.class.getClassLoader().getResourceAsStream("mock.png")){
+            assert is != null;
             imageMulti = new MockMultipartFile(
                     "data",
-                    mockImagePath.getFileName().toString(),
+                    "mock.png",
                     "image/png",
                     is.readAllBytes()
             );
@@ -150,12 +150,15 @@ public class DataInitializer {
 
         String pathOnServer = reportController.uploadImage(imageMulti);
         boolean exists = false;
-        for (Image image : imageService.listAllId(reports[0].getReportID()))
-            if (image.getURL().equals(pathOnServer)) {
-                exists = true;
-                break;
-            }
-
+        if(reportList.isEmpty()) {
+            exists = true;
+        }else{
+            for (Image image : imageService.listAllId(reportList.get(0).getReportID()))
+                if (image.getURL().equals(pathOnServer)) {
+                    exists = true;
+                    break;
+                }
+        }
         if(!exists){
             List<Image> images = new ArrayList<>();
             images.add(new Image(null, reportList.get(0).getReportID(), pathOnServer));
