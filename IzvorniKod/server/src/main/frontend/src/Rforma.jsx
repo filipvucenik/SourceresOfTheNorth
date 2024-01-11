@@ -14,6 +14,7 @@ import apiConfig from "./apiConfig";
 import FooterComponent from "./FooterComponent";
 import HeaderComponent from "./HeaderComponent";
 import EXIF from "exif-js";
+import { useNavigate } from "react-router-dom";
 
 let categoryData = "";
 try {
@@ -55,6 +56,7 @@ const customIcon = new L.Icon({
 });
 
 const ReportCard = () => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -231,6 +233,7 @@ const ReportCard = () => {
     }).then((response) => {
       if (response.status === 200) {
         alert("Vaša prijava je podnešena");
+        navigate("/")
       } else {
         alert("DOŠLO JE DO GREŠKE!!!");
       }
