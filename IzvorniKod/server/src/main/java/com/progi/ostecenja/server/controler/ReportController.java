@@ -136,7 +136,7 @@ public class ReportController {
 
         return saved;
     }
-
+    /*
     @PostMapping("/uploadImage")
     public String uploadImage(@RequestParam("imageFile") MultipartFile imageFile){
         String returnValue = "";
@@ -152,6 +152,8 @@ public class ReportController {
     public List<Image> uploadedImages(@RequestParam("images") List<Image> images){
         return imageService.fillImages(images);
     }
+
+     */
 
     @GetMapping("/{id}")
     public ReportImage getReport(@PathVariable Long id)
@@ -172,7 +174,7 @@ public class ReportController {
 
     @DeleteMapping("/delete")
     public void deleteReport(@RequestParam Long repotId){
-
+        reportService.delete(repotId);
     }
 
     @PostMapping("/filtered")

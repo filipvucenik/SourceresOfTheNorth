@@ -107,4 +107,13 @@ public class ReportServiceJpa implements ReportService {
             reportRepo.save(member);
         }
     }
+
+    @Override
+    public void delete(long reportId) {
+        Report toBeDeleted = reportRepo.getReferenceById(reportId);
+        reportRepo.delete(toBeDeleted);
+        List<Report> members = reportRepo.findAll().stream().filter(r->r.getReportID().equals(reportId)).toList();
+        if(!members.isEmpty())
+            reportRepo.deleteAll(members);
+    }
 }

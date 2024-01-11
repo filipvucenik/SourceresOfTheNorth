@@ -27,5 +27,6 @@ public interface ReportService {
     List<Report> getReportsByUserId(Long userID);
     List<Report> listAll();
     void groupReports(Report groupLeader, List<Report> members);
+    void delete(long repot);
 }
 
