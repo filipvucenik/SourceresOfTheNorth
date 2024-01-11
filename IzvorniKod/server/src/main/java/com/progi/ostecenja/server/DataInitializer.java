@@ -90,15 +90,31 @@ public class DataInitializer {
             if(!found)
                 categories2[i] = categoryService.createCategory(categories[i]);
         }
-
-        CategoryKeywords k1 = new CategoryKeywords(null, "Rupa", categories2[0].getCategoryID());
-        CategoryKeywords k2 = new CategoryKeywords(null, "Smeće", categories2[3].getCategoryID());
-        CategoryKeywords k3 = new CategoryKeywords(null, "Lampa", categories2[2].getCategoryID());
-        CategoryKeywords k4 = new CategoryKeywords(null, "Korupcija", categories2[5].getCategoryID());
-        categoryKeywordsRepo.save(k1);
-        categoryKeywordsRepo.save(k2);
-        categoryKeywordsRepo.save(k3);
-        categoryKeywordsRepo.save(k4);
+        CategoryKeywords[] keywords = {
+                new CategoryKeywords(null, "Rupa", categories2[0].getCategoryID()),
+                new CategoryKeywords(null, "Cesta", categories2[0].getCategoryID()),
+                new CategoryKeywords(null, "Pjesacki", categories2[1].getCategoryID()),
+                new CategoryKeywords(null, "Pješački", categories2[1].getCategoryID()),
+                new CategoryKeywords(null, "Rasvjeta", categories2[2].getCategoryID()),
+                new CategoryKeywords(null, "Lampa", categories2[2].getCategoryID()),
+                new CategoryKeywords(null, "Smeće", categories2[3].getCategoryID()),
+                new CategoryKeywords(null, "Smrdi", categories2[3].getCategoryID()),
+                new CategoryKeywords(null, "Park", categories2[4].getCategoryID()),
+                new CategoryKeywords(null, "Otpad", categories2[4].getCategoryID()),
+                new CategoryKeywords(null, "Mito", categories2[5].getCategoryID()),
+                new CategoryKeywords(null, "Korupcija", categories2[5].getCategoryID()),
+        };
+        for(CategoryKeywords kw:keywords){
+            boolean found=false;
+            for(CategoryKeywords curKw : categoryKeywordsRepo.findAll()){
+                if(curKw.getKeyword().equals(kw.getKeyword()) && curKw.getCategoryID()==kw.getCategoryID()){
+                    found=true;
+                    break;
+                }
+            }
+            if(!found)
+                categoryKeywordsRepo.save(kw);
+        }
 
 
         List<Category> cats = categoryService.listAll();
@@ -112,6 +128,7 @@ public class DataInitializer {
                 reportList.add(reportController.createReport(report, new StandardSession(null)));
             }
         }
+        if(reportList.isEmpty()) return;
 
         System.out.println(System.getProperty("user.dir"));
         // Path relative = Path.of(System.getProperty("user.dir"));
