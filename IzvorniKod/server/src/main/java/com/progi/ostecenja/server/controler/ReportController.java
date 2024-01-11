@@ -119,6 +119,21 @@ public class ReportController {
         report.setGroup(null);
         Report saved = reportService.createReport(report);
         feedbackService.createFeedback(saved.getReportID(), timestamp);
+
+        List<Image> imagePaths = new ArrayList<>();
+
+        for(MultipartFile image: images){
+            String path;
+            try {
+                 path = storageService.saveImage(image);
+            } catch (IOException e){
+                throw new RuntimeException(e.getMessage());
+            }
+            imagePaths.add(new Image(null, saved.getReportID(), path));
+        }
+
+        imageService.fillImages(imagePaths);
+
         return saved;
     }
 

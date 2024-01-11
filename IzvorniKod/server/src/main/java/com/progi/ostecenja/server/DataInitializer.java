@@ -119,21 +119,6 @@ public class DataInitializer {
 
         List<Category> cats = categoryService.listAll();
 
-        Report[] reports = {
-                new Report(null, "OGROMANJSKA RUPA NA CESTI",45.8000646, 15.978519, "Tu je neka ogromanjska rupa kod lisinskog", null, null, null,cats.get(0).getCategoryID())
-        };
-        List<Report> reportList = new ArrayList<>();
-        for(Report report: reports){
-            if(!reportService.getHeadlines().contains(report.getReportHeadline())){
-                reportList.add(reportController.createReport(report, new StandardSession(null)));
-            }
-        }
-
-        //System.out.println(System.getProperty("user.dir"));
-        // Path relative = Path.of(System.getProperty("user.dir"));
-        // Path mockImagePath = relative.resolve("/src/main/resources/mock.png");
-        //Path mockImagePath = Path.of("src/main/resources/mock.png");
-            
         MultipartFile imageMulti;
 
         try(InputStream is = DataInitializer.class.getClassLoader().getResourceAsStream("mock.png")){
@@ -148,22 +133,19 @@ public class DataInitializer {
             throw new RuntimeException(e);
         }
 
-        String pathOnServer = reportController.uploadImage(imageMulti);
-        boolean exists = false;
-        if(reportList.isEmpty()) {
-            exists = true;
-        }else{
-            for (Image image : imageService.listAllId(reportList.get(0).getReportID()))
-                if (image.getURL().equals(pathOnServer)) {
-                    exists = true;
-                    break;
-                }
+        List<MultipartFile> images = new ArrayList<>();
+        images.add(imageMulti);
+
+        Report[] reports = {
+                new Report(null, "OGROMANJSKA RUPA NA CESTI",45.8000646, 15.978519, "Tu je neka ogromanjska rupa kod lisinskog", null, null, null,cats.get(0).getCategoryID())
+        };
+        for(Report report: reports){
+            if(!reportService.getHeadlines().contains(report.getReportHeadline())){
+                reportController.createReport(report, new StandardSession(null), images);
+            }
         }
-        if(!exists){
-            List<Image> images = new ArrayList<>();
-            images.add(new Image(null, reportList.get(0).getReportID(), pathOnServer));
-            reportController.uploadedImages(images);
-        }
+
+
 
     }
 }
