@@ -56,8 +56,55 @@ const customIcon = new L.Icon({
 });
 
 const ReportCard = () => {
+
+  const customAlert = (message) => {
+    const alertContainer = document.createElement('div');
+    alertContainer.style.cssText = `
+      position: fixed;
+      top: 20px; /* Adjust the top distance as needed */
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      border-radius: 5px;
+      text-align: center;
+      z-index: 9999; /* Set a high z-index to ensure it's on top */
+    `;
+  
+    const alertText = document.createElement('p');
+    alertText.style.cssText = `
+      font-weight: bold;
+      font-size: 16px;
+    `;
+    alertText.textContent = message;
+  
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'OK';
+    closeButton.style.cssText = `
+      margin-top: 10px;
+      padding: 5px 10px;
+      cursor: pointer;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 3px;
+    `;
+    closeButton.addEventListener('click', () => document.body.removeChild(alertContainer));
+  
+    alertContainer.appendChild(alertText);
+    alertContainer.appendChild(closeButton);
+  
+    document.body.appendChild(alertContainer);
+  };
+
+
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
+  const [selectedReport, setSelectedReport] = useState(null);
+  const [hoveredReport, setHoveredReport] = useState(null);
+  const [displayTable,setDisplayTable] = useState(false);
+  const [similarReport,setSimilarReport]=useState([]);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState({
@@ -91,6 +138,10 @@ const ReportCard = () => {
       console.log("Error fetching the address")
     }
 
+  };
+
+  const handleRowClick = (index) => {
+    setSelectedReport(selectedReport === index ? null : index);
   };
 
   const handleCategoyChange = (e) =>{
@@ -198,7 +249,7 @@ const ReportCard = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log("Report submitted:", {
       title,
       description,
@@ -214,61 +265,57 @@ const ReportCard = () => {
       lng: location.lng,
       description: description,
       categoryID: category,
+      group: null,
     };
 
-
-    if(jsonServerSendData.reportHeadline == '' || jsonServerSendData.description == '' || jsonServerSendData.categoryID == ''){
+    if (
+      jsonServerSendData.reportHeadline === "" ||
+      jsonServerSendData.description === "" ||
+      jsonServerSendData.categoryID === ""
+    ) {
       alert("Molimo popunite SVA polja!!");
       return;
     }
 
-
-    let testUrl=apiConfig.getTestReport;
+    let testUrl = apiConfig.getTestReport;
     let simReportJson = "";
-    console.log(jsonServerSendData)
-    fetch(testUrl,{
-      method: "POST",
-      headers:{
-        "Content-Type" : "application/json"
-      },
-      body:JSON.stringify(jsonServerSendData)
-    })
-    .then(response => response.json())
-    .then(data => {
-      simReportJson=data;
-      console.log(simReportJson);
-      if(simReportJson.length > 0){
-        let opisi=""
-        for(let i=0; i<simReportJson.length;i++){
-          opisi=opisi+"Prijava "+(i+1)+": "+simReportJson[i].description+"\n";
-        }
-        let isPush = window.confirm("Pronađene su prijave koje su slične lokacije i opisa vašoj:\n "+opisi+"Želite li svejedno predati prijavu?")
-        if(!isPush){
-          return;
-        }  
+    console.log(jsonServerSendData);
+    try {
+      const response = await fetch(testUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(jsonServerSendData),
+      });
+      simReportJson = await response.json();
+      setSimilarReport(simReportJson)
+      if (simReportJson.length > 0) {
+        // If simReportJson is not empty, set displayTable to true
+        customAlert("U blizini vaše lokacije detekriano je nekoliko sličnih prijava, molimo pogledajte odnosili se koja na istu stvar, ako se odnosi pritisnite na tu prijavu te nadoveži, ako ne pritisnite predaj novu");
+        setDisplayTable(true);
+        return;
       }
-        let url = apiConfig.getReportUrl;
-        fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(jsonServerSendData),
-        }).then((response) => {
-          if (response.status === 200) {
-            alert("Vaša prijava je podnešena");
-            navigate("/");
-          } else {
-            alert("DOŠLO JE DO GREŠKE!!!");
-          }
-        });
-      
-      
-    })
-    .catch(error => console.error("FATAL ERROR"))
-    return;
 
-    
+      let url = apiConfig.getReportUrl;
+      const submitResponse = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(jsonServerSendData),
+      });
+
+      if (submitResponse.status === 200) {
+        alert("Vaša prijava je podnešena");
+        navigate("/");
+      } else {
+        alert("DOŠLO JE DO GREŠKE!!!");
+      }
+    } catch (error) {
+      console.error("FATAL ERROR", error);
+      alert("DOŠLO JE DO GREŠKE!!!");
+    }
   };
 
   function MapClickHandler() {
@@ -360,6 +407,59 @@ const ReportCard = () => {
 
         <button onClick={handleSubmit}>Predaj prijavu</button>
       </div>
+      <div>
+      {displayTable && (
+        <div>
+          <h3 style={{ textAlign: 'center', margin: '20px 0' }}>Similar Reports:</h3>
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 5px' }}>
+              <thead style={{ backgroundColor: '#f2f2f2' }}>
+                <tr>
+                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left', borderRadius: '10px' }}>Index</th>
+                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Category ID</th>
+                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Description</th>
+                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Latitude</th>
+                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Longitude</th>
+                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Report Headline</th>
+                </tr>
+              </thead>
+              <tbody>
+                {similarReport.map((report, index) => (
+                  <React.Fragment key={index}>
+                    <tr
+                      style={{
+                        cursor: 'pointer',
+                        background: selectedReport === index ? '#4CAF50' : (hoveredReport === index ? '#DFF2BF' : 'white'),
+                        borderRadius: '8px',
+                      }}
+                      onClick={() => handleRowClick(index)}
+                      onMouseEnter={() => setHoveredReport(index)}
+                      onMouseLeave={() => setHoveredReport(null)}
+                    >
+                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{index + 1}</td>
+                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.categoryID}</td>
+                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.description}</td>
+                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.lat}</td>
+                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.lng}</td>
+                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.reportHeadline}</td>
+                    </tr>
+                  </React.Fragment>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {selectedReport !== null && (
+            <div style={{ textAlign: 'center' }}>
+              <button style={{ marginRight: '10px' }}>
+                Nadovezi
+              </button>
+              <button >Predaj novu</button>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+
       <FooterComponent />
     </>
   );
