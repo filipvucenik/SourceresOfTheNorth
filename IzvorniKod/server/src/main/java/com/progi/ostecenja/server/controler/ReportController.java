@@ -10,6 +10,7 @@ import com.progi.ostecenja.server.service.ReportService;
 import com.progi.ostecenja.server.service.ImageService;
 import com.progi.ostecenja.server.service.impl.StorageService;
 import jakarta.servlet.http.HttpSession;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,17 +37,25 @@ public class ReportController {
     private FeedbackService feedbackService;
 
     @GetMapping("/all")
-    public List<Report> listReports(HttpSession session){
+    public List<ReportImage> listReports(HttpSession session){
         Long userId = (Long) session.getAttribute("USER");
         Long officeID = (Long) session.getAttribute("OFFICE");
+        List<Report> reports;
+        List<ReportImage> ret = new ArrayList<>();
         if(userId != null){
             System.out.println("userid: " + userId);
-            return reportService.listAllforUsers(userId);
+            reports =  reportService.listAllforUsers(userId);
+
         }else if (officeID != null){
-            return reportService.listAllforOffice(officeID);
+            reports =  reportService.listAllforOffice(officeID);
         }else {
             throw new IllegalStateException("Session error: both USER and OFFICE are null");
         }
+        for(Report rep: reports){
+            List<Image> images = imageService.listAllId(rep.getReportID());
+            ret.add(new ReportImage(rep, images));
+        }
+        return ret;
     }
 
     @PostMapping("/group")
@@ -81,11 +90,16 @@ public class ReportController {
 
     }
     @GetMapping("unhandled")
-    public List<Report> listUnhandledReports(){
-        return reportService.listAllUnhandled();
+    public List<ReportImage> listUnhandledReports(){
+        List<Report> reports = reportService.listAllUnhandled();
+        List<ReportImage> ret = new ArrayList<>();
+        for(Report rep: reports){
+            List<Image> images = imageService.listAllId(rep.getReportID());
+            ret.add(new ReportImage(rep, images));
+        }
+        return ret;
     }
 
-    // TODO popraviti group ID
     @PostMapping
     public Report createReport(@RequestBody Report report, HttpSession session){
         Timestamp timestamp = report.getReportTS();
@@ -118,7 +132,7 @@ public class ReportController {
         }
         return returnValue;
     }
-
+    /*
     @PostMapping("/uploadImagesPath")
     public List<Image> uploadedImages(@RequestParam("images") List<Image> images){
         return imageService.fillImages(images);
@@ -126,18 +140,28 @@ public class ReportController {
 
     @GetMapping("/images/{id}")
     public List<Image> listImagesForRepordID(@PathVariable Long id){
-        return imageService.listAllId(id);
+        return
     }
+     */
     @GetMapping("/{id}")
     public Report getReport(@PathVariable Long id)
     {
         return reportService.getReport(id);
     }
 
-    @PostMapping("/updateStatus")
+    @PutMapping ("/updateStatus")
     public void changeStatus(@RequestParam Long reportID, String status){
-        Long groupId = reportService.getReport(reportID).getGroup().getReportID();
-        feedbackService.updateService(groupId, status);
+        feedbackService.updateService(reportID, status);
+    }
+
+    @PutMapping("/groupReports")
+    public void groupReports(@RequestParam Report groupLeader, List<Report> groupMembers){
+        reportService.groupReports(groupLeader, groupMembers);
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteReport(@RequestParam Long repotId){
+
     }
 
     @PostMapping("/filtered")
@@ -165,41 +189,35 @@ public class ReportController {
     }
 }
 
+@Getter
 class ReportDTO {
     String reportHeadline;
     double lat;
     double lng;
     long categoryID;
 
-    public String getReportHeadline() {
-        return reportHeadline;
-    }
-
     public void setReportHeadline(String reportHeadline) {
         this.reportHeadline = reportHeadline;
-    }
-
-    public double getLat() {
-        return lat;
     }
 
     public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public double getLng() {
-        return lng;
-    }
-
     public void setLng(double lng) {
         this.lng = lng;
     }
 
-    public long getCategoryID() {
-        return categoryID;
-    }
-
     public void setCategoryID(long categoryID) {
         this.categoryID = categoryID;
+    }
+}
+@Getter
+class ReportImage{
+    Report report;
+    List<Image> images;
+    public ReportImage(Report report, List<Image> images) {
+        this.report = report;
+        this.images = images;
     }
 }

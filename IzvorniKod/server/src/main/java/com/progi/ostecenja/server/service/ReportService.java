@@ -20,14 +20,12 @@ public interface ReportService {
     Report getReport(Long reportID);
 
     List<String> getHeadlines();
-
-
-     List<Report> getReportsByFilter(ReportFilterDto reportFilterDto);
+    List<Report> getReportsByFilter(ReportFilterDto reportFilterDto);
 
     Optional<Report> findByUserId(Long reportID);
 
     List<Report> getReportsByUserId(Long userID);
-
     List<Report> listAll();
+    void groupReports(Report groupLeader, List<Report> members);
 }
 

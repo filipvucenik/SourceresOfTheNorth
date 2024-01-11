@@ -100,4 +100,11 @@ public class ReportServiceJpa implements ReportService {
        return reportRepo.findByUserID(userID);
     }
 
+    @Override
+    public void groupReports(Report groupLeader, List<Report> members) {
+        for(Report member: members){
+            member.setGroup(groupLeader);
+            reportRepo.save(member);
+        }
+    }
 }
