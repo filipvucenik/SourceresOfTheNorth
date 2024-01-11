@@ -221,35 +221,54 @@ const ReportCard = () => {
       alert("Molimo popunite SVA polja!!");
       return;
     }
-    let testUrl=apiConfig.getTestReport;
 
-    //provjera za slične prijave
-    /*fetch(testUrl,{
+
+    let testUrl=apiConfig.getTestReport;
+    let simReportJson = "";
+    console.log(jsonServerSendData)
+    fetch(testUrl,{
       method: "POST",
       headers:{
         "Content-Type" : "application/json"
       },
       body:JSON.stringify(jsonServerSendData)
-    })*/
-
-
-
-    let url = apiConfig.getReportUrl;
-
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(jsonServerSendData),
-    }).then((response) => {
-      if (response.status === 200) {
-        alert("Vaša prijava je podnešena");
-        navigate("/");
-      } else {
-        alert("DOŠLO JE DO GREŠKE!!!");
+    })
+    .then(response => response.json())
+    .then(data => {
+      simReportJson=data;
+      console.log(simReportJson);
+      if(simReportJson.length > 0){
+        let opisi=""
+        for(let i=0; i<simReportJson.length;i++){
+          opisi=opisi+"Prijava "+(i+1)+": "+simReportJson[i].description+"\n";
+        }
+        let isPush = window.confirm("Pronađene su prijave koje su slične lokacije i opisa vašoj:\n "+opisi+"Želite li svejedno predati prijavu?")
+        if(!isPush){
+          return;
+        }  
       }
-    });
+        let url = apiConfig.getReportUrl;
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(jsonServerSendData),
+        }).then((response) => {
+          if (response.status === 200) {
+            alert("Vaša prijava je podnešena");
+            navigate("/");
+          } else {
+            alert("DOŠLO JE DO GREŠKE!!!");
+          }
+        });
+      
+      
+    })
+    .catch(error => console.error("FATAL ERROR"))
+    return;
+
+    
   };
 
   function MapClickHandler() {

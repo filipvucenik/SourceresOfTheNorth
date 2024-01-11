@@ -32,3 +32,19 @@
   padding: 15px;
   border-radius: 15px;
 }
+
+@media (max-width: 1578px) {
+  .logo-image {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 992px) {
+  .logo-image {
+    width: 40px; /* 5 times smaller than the original width */
+    height: 36px; /* 5 times smaller than the original height */
+    left: 80%;
+    transform: none; /* Reset transform for smaller screens */
+  }
+}
