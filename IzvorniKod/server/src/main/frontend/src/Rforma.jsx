@@ -410,7 +410,7 @@ const ReportCard = () => {
       <div>
       {displayTable && (
         <div>
-          <h3 style={{ textAlign: 'center', margin: '20px 0' }}>Similar Reports:</h3>
+          <h3 style={{ textAlign: 'center', margin: '20px 0' }}>Slične prijave:</h3>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 5px' }}>
               <thead style={{ backgroundColor: '#f2f2f2' }}>
