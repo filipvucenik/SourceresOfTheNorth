@@ -77,7 +77,6 @@ function StatisticComponent() {
     e.preventDefault();
     const dataForSend = {
      categoryID: selectedCategoryID,
-     status: statusReport,
      radius: e.target.elements.radius.value,
      fromDateTime: e.target.elements.fromDateTime.value,
      toDateTime: e.target.elements.toDateTime.value,
@@ -147,14 +146,6 @@ function StatisticComponent() {
             </select>
           </label>
           <label>
-            Status:
-            <select name="status" onChange={statusChange}>
-              <option key="neobradeno" value="neobradeno">neobrađeno</option>
-              <option key="uProcesu" value="uProcesu">u procesu</option>
-              <option key="obradeno" value="obradeno">obradeno</option>
-            </select>
-          </label>
-          <label>
             Datum prijave OD:
             <input type="date" name="fromDateTime" />
           </label>
@@ -177,7 +168,6 @@ function StatisticComponent() {
         </form>
         <hr />        
       </div>
-      
       <ul className="statistika">
         {filteredData.map((item) => (
           <li key={item.reportID} className="statistika-child">

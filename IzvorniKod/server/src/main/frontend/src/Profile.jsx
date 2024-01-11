@@ -90,7 +90,7 @@ const Profile = () => {
     }
   };
 
-  /*const latlngTolocation = async () => {
+  const latlngTolocation = async () => {
     const apiKey = "7fbe9533c0c9424aa41c500419e5ef83";
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${filteredData.lat}+${filteredData.lng}&key=${apiKey}`;
     try {
@@ -105,7 +105,7 @@ const Profile = () => {
     } catch (error) {
       console.error("Error fetching address:", error);
     }
-  };*/
+  };
 
   return (
     <>
