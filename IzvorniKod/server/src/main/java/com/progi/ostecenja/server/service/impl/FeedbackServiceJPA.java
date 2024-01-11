@@ -51,4 +51,8 @@ public class FeedbackServiceJPA implements FeedbackService {
     public boolean existsFeedback(Long groupID, String stanje) {
         return feedbackRepository.existsById(new FeedbackID(groupID, stanje));
     }
+    @Override
+    public List<Feedback> getAll(){
+        return feedbackRepository.findAll();
+    }
 }

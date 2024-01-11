@@ -1,6 +1,7 @@
 package com.progi.ostecenja.server.service;
 
 import com.progi.ostecenja.server.dto.ReportFilterDto;
+import com.progi.ostecenja.server.dto.StatisticDTO;
 import com.progi.ostecenja.server.repo.Report;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -28,5 +29,6 @@ public interface ReportService {
     List<Report> listAll();
     void groupReports(Report groupLeader, List<Report> members);
     void delete(long repot);
+    StatisticDTO getReportStatistic(ReportFilterDto reportFilterDto);
 }
 

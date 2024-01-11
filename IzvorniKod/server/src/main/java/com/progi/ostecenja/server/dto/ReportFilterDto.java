@@ -23,7 +23,7 @@ public class ReportFilterDto {
 
 
     public String toPrint(){
-        return this.categoryId + " " + this.status + " "
-                + this.radius + " "+ this.lat + " " + this.lng + " " + this.startDate + " " + this.endDate;
+        return "categoryId: " + this.categoryId + " , status: " + this.status + " radius: "
+                + this.radius + " lat:"+ this.lat + " lng:" + this.lng + " startDate:" + this.startDate + " endDate:" + this.endDate;
     }
 }
