@@ -27,5 +27,7 @@ public interface ReportService {
     Optional<Report> findByUserId(Long reportID);
 
     List<Report> getReportsByUserId(Long userID);
+
+    List<Report> listAll();
 }
 

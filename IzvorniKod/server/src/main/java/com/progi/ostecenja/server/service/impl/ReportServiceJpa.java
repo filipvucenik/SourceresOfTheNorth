@@ -29,6 +29,11 @@ public class ReportServiceJpa implements ReportService {
     FeedbackService feedbackService;
 
     @Override
+    public List<Report> listAll(){
+        return reportRepo.findAll();
+    }
+
+    @Override
     public List<Report> listAllforUsers(long userID) {
         return reportRepo.findAll().stream().filter(r -> r.getUserID().equals(userID)).toList();
     }

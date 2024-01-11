@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -46,9 +47,39 @@ public class ReportController {
         }else {
             throw new IllegalStateException("Session error: both USER and OFFICE are null");
         }
-
     }
 
+    @PostMapping("/group")
+    public List<Long> groupReport(@RequestBody ReportDTO report, HttpSession session){
+        ReportFilterDto filterDto = new ReportFilterDto();
+        filterDto.setCategoryId(report.categoryID);
+        filterDto.setStatus(null);
+        filterDto.setRadius(0.2);
+        filterDto.setLat(report.lat);
+        filterDto.setLng(report.lng);
+        filterDto.setStartDate(null);
+        filterDto.setEndDate(null);
+
+        List<Report> reportList = reportService.listAll();
+        List<Report> returnList = new ArrayList<Report>();
+        for(Report rp: reportList){
+            if(rp.getCategoryID()==null || rp.getLat()==null || rp.getLng()==null) continue;
+            if(rp.getCategoryID().equals(report.categoryID) && calculateDistance(rp.getLat(),rp.getLng(),report.lat,report.lng)<=0.2){
+                double dist = calculateDistance(rp.getLat(),rp.getLng(),report.lat,report.lng);
+                returnList.add(rp);
+            }
+        }
+        List<Long> list = new ArrayList<Long>();
+        if(reportList.isEmpty()){
+            list.add((long)-1);
+        }else{
+            for(Report rp : returnList){
+                list.add(rp.getReportID());
+            }
+        }
+        return list;
+
+    }
     @GetMapping("unhandled")
     public List<Report> listUnhandledReports(){
         return reportService.listAllUnhandled();
@@ -116,5 +147,59 @@ public class ReportController {
     @GetMapping("/user/{userID}")
     public  List<Report> getReportsByUserId(@PathVariable Long userID){
         return reportService.getReportsByUserId(userID);
+    }
+
+    public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+        final int R = 6371; // Radius of the Earth in kilometers
+
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return R * c; // Distance in kilometers
+    }
+}
+
+class ReportDTO {
+    String reportHeadline;
+    double lat;
+    double lng;
+    long categoryID;
+
+    public String getReportHeadline() {
+        return reportHeadline;
+    }
+
+    public void setReportHeadline(String reportHeadline) {
+        this.reportHeadline = reportHeadline;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public long getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(long categoryID) {
+        this.categoryID = categoryID;
     }
 }
