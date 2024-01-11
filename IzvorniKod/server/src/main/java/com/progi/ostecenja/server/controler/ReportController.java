@@ -50,7 +50,7 @@ public class ReportController {
     }
 
     @PostMapping("/group")
-    public List<Long> groupReport(@RequestBody ReportDTO report, HttpSession session){
+    public List<Report> groupReport(@RequestBody ReportDTO report, HttpSession session){
         ReportFilterDto filterDto = new ReportFilterDto();
         filterDto.setCategoryId(report.categoryID);
         filterDto.setStatus(null);
@@ -77,7 +77,7 @@ public class ReportController {
                 list.add(rp.getReportID());
             }
         }
-        return list;
+        return returnList;
 
     }
     @GetMapping("unhandled")
