@@ -16,7 +16,7 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
             "(:categoryID IS NOT NULL AND r.categoryID = :categoryID) OR " +
             "(:status IS NOT NULL AND f.key.status=:status) OR "+
             "CASE " +
-            "WHEN (:radius IS NOT NULL AND (:lat BETWEEN -90 AND 90) AND (:lng BETWEEN -180 AND 180)) THEN false " +
+            "WHEN (:radius IS NOT NULL AND (:lat BETWEEN -90.0 AND 90.0) AND (:lng BETWEEN -180.0 AND 180.0)) THEN false " +
             "ELSE " +
             "6371 * acos(" +
             "sin(radians(:lat)) * sin(radians(r.lat)) + " +
