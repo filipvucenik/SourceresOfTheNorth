@@ -448,14 +448,18 @@ const ReportCard = () => {
               </tbody>
             </table>
           </div>
-          {selectedReport !== null && (
+          
             <div style={{ textAlign: 'center' }}>
+            {selectedReport !== null && (
               <button style={{ marginRight: '10px' }}>
                 Nadovezi
               </button>
+              )}
               <button >Predaj novu</button>
+              
             </div>
-          )}
+          
+          
         </div>
       )}
     </div>
