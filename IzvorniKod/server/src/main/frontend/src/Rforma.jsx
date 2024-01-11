@@ -210,22 +210,34 @@ const ReportCard = () => {
 
     const jsonServerSendData = {
       reportHeadline: title,
-      location: location.lat + "," + location.lng,
+      lat: location.lat,
+      lng: location.lng,
       description: description,
       categoryID: category,
     };
 
-    
 
     if(jsonServerSendData.reportHeadline == '' || jsonServerSendData.description == '' || jsonServerSendData.categoryID == ''){
       alert("Molimo popunite SVA polja!!");
       return;
     }
+    let testUrl=apiConfig.getTestReport;
+
+    //provjera za slične prijave
+    /*fetch(testUrl,{
+      method: "POST",
+      headers:{
+        "Content-Type" : "application/json"
+      },
+      body:JSON.stringify(jsonServerSendData)
+    })*/
+
+
 
     let url = apiConfig.getReportUrl;
+
     fetch(url, {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -233,7 +245,7 @@ const ReportCard = () => {
     }).then((response) => {
       if (response.status === 200) {
         alert("Vaša prijava je podnešena");
-        navigate("/")
+        navigate("/");
       } else {
         alert("DOŠLO JE DO GREŠKE!!!");
       }
