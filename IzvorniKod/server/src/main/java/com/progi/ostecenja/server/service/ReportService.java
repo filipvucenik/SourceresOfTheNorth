@@ -25,5 +25,7 @@ public interface ReportService {
      List<Report> getReportsByFilter(ReportFilterDto reportFilterDto);
 
     Optional<Report> findByUserId(Long reportID);
+
+    List<Report> getReportsByUserId(Long userID);
 }
 

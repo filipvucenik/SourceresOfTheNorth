@@ -34,7 +34,7 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
             @Param("lng") Double lng,
             @Param("startDate") Timestamp startDate,
             @Param("endDate") Timestamp endDate);
-
+    List<Report> findByUserID(Long userID);
 
 
 }

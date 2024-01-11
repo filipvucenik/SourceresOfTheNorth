@@ -90,5 +90,9 @@ public class ReportServiceJpa implements ReportService {
                 reportFilterDto.getEndDate());
 
     }
+    @Override
+    public List<Report> getReportsByUserId(Long userID){
+       return reportRepo.findByUserID(userID);
+    }
 
 }

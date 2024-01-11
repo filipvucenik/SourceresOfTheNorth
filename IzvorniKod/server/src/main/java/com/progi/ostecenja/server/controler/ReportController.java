@@ -113,4 +113,8 @@ public class ReportController {
     public List<Report> getReportsByFilter(@RequestBody ReportFilterDto reportFilterDto){
         return reportService.getReportsByFilter(reportFilterDto);
     }
+    @GetMapping("/user/{userID}")
+    public  List<Report> getReportsByUserId(@PathVariable Long userID){
+        return reportService.getReportsByUserId(userID);
+    }
 }
