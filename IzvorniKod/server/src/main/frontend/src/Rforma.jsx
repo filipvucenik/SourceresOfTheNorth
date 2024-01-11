@@ -416,11 +416,11 @@ const ReportCard = () => {
               <thead style={{ backgroundColor: '#f2f2f2' }}>
                 <tr>
                   <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left', borderRadius: '10px' }}>Index</th>
-                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Category ID</th>
-                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Description</th>
+                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>ID kategorije</th>
+                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Naslov</th>
+                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Opis</th>
                   <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Latitude</th>
                   <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Longitude</th>
-                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Report Headline</th>
                 </tr>
               </thead>
               <tbody>
