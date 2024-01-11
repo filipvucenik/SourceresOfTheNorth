@@ -101,7 +101,7 @@ public class ReportController {
     }
 
     @PostMapping
-    public Report createReport(@RequestBody Report report, HttpSession session){
+    public Report createReport(@RequestBody Report report, HttpSession session, List<MultipartFile> images){
         Timestamp timestamp = report.getReportTS();
         if(timestamp == null){
             timestamp = Timestamp.valueOf(LocalDateTime.now());
@@ -132,21 +132,17 @@ public class ReportController {
         }
         return returnValue;
     }
-    /*
+
     @PostMapping("/uploadImagesPath")
     public List<Image> uploadedImages(@RequestParam("images") List<Image> images){
         return imageService.fillImages(images);
     }
 
-    @GetMapping("/images/{id}")
-    public List<Image> listImagesForRepordID(@PathVariable Long id){
-        return
-    }
-     */
     @GetMapping("/{id}")
-    public Report getReport(@PathVariable Long id)
+    public ReportImage getReport(@PathVariable Long id)
     {
-        return reportService.getReport(id);
+        Report report = reportService.getReport(id);
+        return new ReportImage(report, imageService.listAllId(report.getReportID()));
     }
 
     @PutMapping ("/updateStatus")
