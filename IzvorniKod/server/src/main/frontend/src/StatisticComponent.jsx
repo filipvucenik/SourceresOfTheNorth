@@ -77,8 +77,9 @@ function StatisticComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (lat !== null && lng !== null) {
+    console.log(lat);
+    console.log(lng);
+    if (lat != "" && lng != "") {
       // Ako su latitude i longitude označene, provjeri je li radius unesen
     const radius = e.target.elements.radius.value.trim();
     if (!radius) {
@@ -191,7 +192,7 @@ function StatisticComponent() {
         <hr />
       </div>
       <ul className="statistika">
-      {dataVariable.current ? (
+      {dataVariable.current && 
         dataVariable.current.map((item) => (
           <li className="statistika-child">
             <p>Ukupan broj podnesenih prijava: {item.reportCount}</p>
@@ -203,9 +204,7 @@ function StatisticComponent() {
             <p>Prosječan broj dana za vrijeme kojih je prijava u procesu rješavanja: {item.avgTimeInProgress.split(',')[0]}</p>
           </li>
         ))
-        ) : (
-          <p>No data available</p>
-        )}
+        }
       </ul>
       <FooterComponent />
     </>

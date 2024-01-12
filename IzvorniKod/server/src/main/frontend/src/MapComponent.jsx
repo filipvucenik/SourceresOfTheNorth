@@ -67,7 +67,6 @@ function MapComponent() {
           const response = await fetch(`${server}/unhandled`);
           const data = await response.json();
           console.log(data);
-    
           for (const lokacija of data) {
             createMarker(lokacija.report.lat, lokacija.report.lng);
           }
