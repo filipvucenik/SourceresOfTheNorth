@@ -27,6 +27,11 @@ function StatisticComponent() {
     setStatusReport(e.target.value);
   };
 
+  const formatirajVrijeme = (vrijemeString) => {
+    const [dani, sati, minute] = vrijemeString.split(',').map(Number);
+    return `${dani} dana, ${sati} sati, ${minute} minuta`;
+  };
+
   const getCategory = async () => {
     let url = apiConfig.getCategory;
     const fetchCategory = await fetch(url);
@@ -123,6 +128,8 @@ function StatisticComponent() {
     console.log("Updated renderData:", renderData);
   }, [renderData]);
 
+  
+
   useEffect(() => {
     console.log(trueFalse);
   }, [trueFalse]);
@@ -156,6 +163,9 @@ function StatisticComponent() {
       mapRef.current.invalidateSize();
     }
   }, [selectedMarker, lat, lng]);
+
+  
+  
 
   return (
     <>
@@ -199,22 +209,35 @@ function StatisticComponent() {
           </button>
         </form>
         <hr />
-      </div>
-  {trueFalse && (
-    <ul className="statistika">
+        {trueFalse && (
+  <ul className="statistika">
     {renderData ? (
       <li className="statistika-child">
         {Object.entries(renderData).map(([key, value]) => (
           <p key={key}>
-            {key}: {value}
+            {key === "avgReportsByDay" ? "Prosječni izvještaji po danu" : ""}
+            {key === "avgTimeInProgress" ? "Prosječno vrijeme u tijeku (u satima)" : ""}
+            {key === "avgTimeWaiting" ? "Prosječno vrijeme čekanja (u satima)" : ""}
+            {key === "reportCount" ? "Broj izvještaja" : ""}
+            {key === "reportInProgressCount" ? "Broj izvještaja u tijeku" : ""}
+            {key === "reportInProgressShare" ? "Postotak izvještaja u tijeku" : ""}
+            {key === "reportSolvedCount" ? "Broj riješenih izvještaja" : ""}
+            {key === "reportSolvedShare" ? "Postotak riješenih izvještaja" : ""}
+            {key === "reportWaitingCount" ? "Broj izvještaja na čekanju" : ""}
+            {key === "reportWaitingShare" ? "Postotak izvještaja na čekanju" : ""}
+            : {key.includes("Share") ? `${(value * 100).toFixed(2)}%` : value}
           </p>
         ))}
       </li>
     ) : (
-      <p>No data available</p>
+      <p>Nema dostupnih podataka</p>
     )}
   </ul>
 )}
+<hr />
+      </div>
+      
+
       <FooterComponent />
     </>
   );
