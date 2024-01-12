@@ -9,7 +9,7 @@ import apiConfig from "./apiConfig";
 const server = apiConfig.getReportUrl;
 
 function StatisticComponent() {
-  const [filteredData, setFilteredData] = useState({});
+  const [filteredData, setFilteredData] = useState([]);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [categoryData, setCategoryData] = useState({});
   const [selectedCategoryID, setSelectedCategoryID] = useState("");
@@ -19,6 +19,8 @@ function StatisticComponent() {
 
   const mapRef = useRef(null); // referenca za spremanje instance karte
   const uniqueMapId = `map-${Math.floor(Math.random() * 10000)}`;
+
+  const dataVariable = React.useRef(null); // Obična varijabla za spremanje podataka
 
   const statusChange = (e) => {
     setStatusReport(e.target.value);
@@ -102,8 +104,8 @@ function StatisticComponent() {
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log('Odgovor od servera:', data);
-      setFilteredData(data);
+        dataVariable.current = data;
+        console.log(dataVariable.current);
     })
       .catch((error) =>
         console.error("Greška prilikom slanja koordinata:", error)
@@ -184,9 +186,9 @@ function StatisticComponent() {
         <hr />
       </div>
       <ul className="statistika">
-      {filteredData.length > 0 ? (
-        filteredData.map((item) => (
-          <li key={item.reportID} className="statistika-child">
+      {dataVariable.current ? (
+        dataVariable.current.map((item) => (
+          <li className="statistika-child">
             <p>Ukupan broj podnesenih prijava: {item.reportCount}</p>
             <p>Broj prijava sa statusom <i>na čekanju</i>: {item.reportWaitingCount} &nbsp i njihov udio {item.reportWaitingShare}</p>
             <p>Broj prijava sa statusom <i>u procesu rješavanja</i>: {item.reportInProgressCount} &nbsp i njihov udio {item.reportInProgressShare}</p>
