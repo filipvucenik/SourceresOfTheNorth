@@ -1,5 +1,6 @@
 package com.progi.ostecenja.server.controler;
 
+import com.progi.ostecenja.server.dto.ReportByStatusDTO;
 import com.progi.ostecenja.server.dto.ReportFilterDto;
 import com.progi.ostecenja.server.dto.StatisticDTO;
 import com.progi.ostecenja.server.repo.Category;
@@ -13,6 +14,7 @@ import com.progi.ostecenja.server.service.ImageService;
 import com.progi.ostecenja.server.service.impl.StorageService;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -198,7 +200,7 @@ public class ReportController {
         return reportService.getReportsByFilter(reportFilterDto);
     }
     @GetMapping("/user/{userID}")
-    public  List<Report> getReportsByUserId(@PathVariable Long userID){
+    public  List<ReportByStatusDTO> getReportsByUserId(@PathVariable Long userID){
         return reportService.getReportsByUserId(userID);
     }
     @PostMapping("/statistic")

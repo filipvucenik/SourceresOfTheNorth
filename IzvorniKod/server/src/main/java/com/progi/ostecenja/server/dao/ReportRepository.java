@@ -1,5 +1,6 @@
 package com.progi.ostecenja.server.dao;
 
+import com.progi.ostecenja.server.dto.ReportFeedbackJoin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.progi.ostecenja.server.repo.Report;
 import org.springframework.data.jpa.repository.Query;
@@ -20,7 +21,7 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
             "(:categoryID IS NOT NULL AND r.categoryID = :categoryID) OR " +
             "(:status IS NOT NULL AND f.key.status=:status) OR "+
             "CASE " +
-            "WHEN (:radius IS NOT NULL AND (:lat BETWEEN -90.0 AND 90.0) AND (:lng BETWEEN -180.0 AND 180.0)) THEN TRUE " +
+            "WHEN (:radius IS NULL OR (:lat NOT BETWEEN -90.0 AND 90.0) OR (:lng NOT BETWEEN -180.0 AND 180.0)) THEN FALSE " +
             "ELSE " +
             "6371 * acos(" +
             "sin(radians(:lat)) * sin(radians(r.lat)) + " +
@@ -38,7 +39,16 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
             @Param("lng") Double lng,
             @Param("startDate") Timestamp startDate,
             @Param("endDate") Timestamp endDate);
-    List<Report> findByUserID(Long userID);
+
+    @Query(
+            "SELECT new com.progi.ostecenja.server.dto.ReportFeedbackJoin(r,f) FROM Report r JOIN Feedback f ON f.key.groupID = r.reportID " +
+                    "WHERE r.userID = :userID AND f.changeTS IN (" +
+                    "    SELECT MAX(fed.changeTS) " +
+                    "    FROM Feedback fed" +
+                    "    WHERE fed.key.groupID = f.key.groupID" +
+                    "   ) "
+    )
+    List<ReportFeedbackJoin> findByUserIDAndJoinWithFeedback(@Param("userID") Long userID);
 
     @Query(
             "SELECT DISTINCT r,f,co,cat FROM CityOffice co JOIN Category cat ON cat.cityOfficeID = co.cityOfficeId JOIN Report r ON r.categoryID=cat.categoryID " +

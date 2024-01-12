@@ -2,6 +2,8 @@ package com.progi.ostecenja.server.service.impl;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.progi.ostecenja.server.dao.*;
+import com.progi.ostecenja.server.dto.ReportByStatusDTO;
+import com.progi.ostecenja.server.dto.ReportFeedbackJoin;
 import com.progi.ostecenja.server.dto.ReportFilterDto;
 import com.progi.ostecenja.server.dto.StatisticDTO;
 import com.progi.ostecenja.server.repo.*;
@@ -102,8 +104,28 @@ public class ReportServiceJpa implements ReportService {
 
     }
     @Override
-    public List<Report> getReportsByUserId(Long userID){
-       return reportRepo.findByUserID(userID);
+    public List<ReportByStatusDTO> getReportsByUserId(Long userID){
+       List<ReportFeedbackJoin> reports =reportRepo.findByUserIDAndJoinWithFeedback(userID);
+       int waitingCount=0;
+       int inProgressCount=0;
+       int solvedCount=0;
+
+      for(ReportFeedbackJoin r: reports) {
+          if (r.getFeedback().getKey().getStatus().equals("neobrađen")) {
+              waitingCount++;
+          } else if (r.getFeedback().getKey().getStatus().equals("uProcesu")) {
+              inProgressCount++;
+          } else if (r.getFeedback().getKey().getStatus().equals("obrađen")) {
+              solvedCount++;
+          }
+      }
+      List<ReportByStatusDTO> result = new LinkedList<>();
+
+      for(ReportFeedbackJoin r: reports){
+          result.add( new ReportByStatusDTO(r.getReport(), waitingCount,inProgressCount,solvedCount));
+      }
+
+       return  result;
     }
 
     @Override

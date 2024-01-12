@@ -1,5 +1,6 @@
 package com.progi.ostecenja.server.service;
 
+import com.progi.ostecenja.server.dto.ReportByStatusDTO;
 import com.progi.ostecenja.server.dto.ReportFilterDto;
 import com.progi.ostecenja.server.dto.StatisticDTO;
 import com.progi.ostecenja.server.repo.Report;
@@ -25,7 +26,7 @@ public interface ReportService {
 
     Optional<Report> findByUserId(Long reportID);
 
-    List<Report> getReportsByUserId(Long userID);
+    List<ReportByStatusDTO> getReportsByUserId(Long userID);
     List<Report> listAll();
     void groupReports(Report groupLeader, List<Report> members);
     void delete(long repot);
