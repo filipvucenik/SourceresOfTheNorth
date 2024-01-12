@@ -21,22 +21,24 @@ public class FeedbackServiceJPA implements FeedbackService {
     private ReportRepository reportRepository;
     @Override
     public Feedback createFeedback(Long groupID, Timestamp changeTS) {
-        return feedbackRepository.save(new Feedback(groupID, "neobrađeno", changeTS));
+        return feedbackRepository.save(new Feedback(groupID, "neobraden", changeTS));
     }
 
     @Override
-    public void updateService(Long groupID, String stanje) {
-        FeedbackID current = new FeedbackID(groupID, stanje);
+    public void updateService(Long reportId, String stanje) {
+        FeedbackID current = new FeedbackID(reportId, stanje);
+        if(!reportRepository.existsById(reportId)){
+            throw new IllegalArgumentException("Report does not exist");
+        }
         if(feedbackRepository.existsById(current)){
             throw new IllegalArgumentException("State for this group is already updated");
         }
-
-        List<Report> groupMembers = reportRepository.findAll().stream().filter(r->r.getGroup().getReportID().equals(groupID)).toList();
+        List<Report> groupMembers = reportRepository.findAll().stream().filter(r->r.getGroup() != null).filter(r->r.getGroup().getReportID().equals(reportId)).toList();
 
         for(Report member : groupMembers){
             feedbackRepository.save( new Feedback(member.getReportID(), stanje, Timestamp.valueOf(LocalDateTime.now())));
         }
-        feedbackRepository.save(new Feedback(groupID, stanje, Timestamp.valueOf(LocalDateTime.now())));
+        feedbackRepository.save(new Feedback(reportId, stanje, Timestamp.valueOf(LocalDateTime.now())));
     }
 
     @Override
@@ -50,5 +52,17 @@ public class FeedbackServiceJPA implements FeedbackService {
     @Override
     public boolean existsFeedback(Long groupID, String stanje) {
         return feedbackRepository.existsById(new FeedbackID(groupID, stanje));
+    }
+
+    @Override
+    public Feedback getLatest(Long reportID) {
+        List<String> stanja = List.of(new String[]{"neobraden","uProcesu","obraden"});
+        Feedback ret = null;
+        for(String stanje: stanja){
+            FeedbackID id = new FeedbackID(reportID, stanje);
+            if(feedbackRepository.existsById(id))
+                ret = feedbackRepository.getReferenceById(id);
+        }
+        return ret;
     }
 }

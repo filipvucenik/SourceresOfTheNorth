@@ -13,4 +13,6 @@ public interface FeedbackService {
     Feedback getFeedback(Long groupID, String stanje);
 
     boolean existsFeedback(Long groupID, String stanje);
+
+    Feedback getLatest(Long reportID);
 }

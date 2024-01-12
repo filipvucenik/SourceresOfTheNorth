@@ -97,7 +97,7 @@ public class ReportController {
         for (Report rep: reportList){
             ret.add(new ReportCategory(rep, categories.get(rep.getCategoryID())));
         }
-        return ret;
+    return ret;
 
     }
     @GetMapping("unhandled")
@@ -181,6 +181,10 @@ public class ReportController {
     @PutMapping("/groupReports")
     public void groupReports(@RequestParam Report groupLeader, List<Report> groupMembers){
         reportService.groupReports(groupLeader, groupMembers);
+    }
+
+    public Feedback getStatus(@RequestParam long reportId){
+        return feedbackService.getLatest(reportId);
     }
 
     @DeleteMapping("/delete")
