@@ -162,7 +162,7 @@ public class ReportServiceJpa implements ReportService {
     }
 
     @Override
-    public void groupReports(Report groupLeader, List<Report> members) {
+    public void groupReports(Report groupLeader, List<Long> members) {
         if(groupLeader == null)
             throw new IllegalArgumentException("group leader is null");
 
@@ -176,7 +176,8 @@ public class ReportServiceJpa implements ReportService {
             throw new IllegalArgumentException("group leader does not exists");
         }
 
-        for(Report member: members){
+        for(Long memberid: members){
+            Report member = reportRepo.getReferenceById(memberid);
             member.setGroup(groupLeader);
             reportRepo.save(member);
         }

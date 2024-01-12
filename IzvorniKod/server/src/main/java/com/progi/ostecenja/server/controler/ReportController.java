@@ -182,7 +182,7 @@ public class ReportController {
     }
 
     @PutMapping("/groupReports")
-    public void groupReports(@RequestParam Report groupLeader, List<Report> groupMembers){
+    public void groupReports(@RequestParam Report groupLeader, List<Long> groupMembers){
         reportService.groupReports(groupLeader, groupMembers);
     }
 

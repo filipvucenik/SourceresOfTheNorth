@@ -25,7 +25,7 @@ public interface ReportService {
 
     ReportByStatusDTO getReportsByUserId(Long userID);
     List<Report> listAll();
-    void groupReports(Report groupLeader, List<Report> members);
+    void groupReports(Report groupLeader, List<Long> members);
     void delete(long repot);
     StatisticDTO getReportStatistic(ReportFilterDto reportFilterDto);
 

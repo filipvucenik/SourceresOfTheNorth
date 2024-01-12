@@ -88,18 +88,18 @@ class ReportControllerTest {
     @Test
     public void groupReportsTest(){
         assertNull(reportController.getReport(saved2.getReportID()).getReport().getGroup());
-        reportController.groupReports(saved1, List.of(new Report[]{saved2}));
+        reportController.groupReports(saved1, List.of(new Long[]{saved2.getReportID()}));
         assertEquals(reportController.getReport(saved2.getReportID()).getReport().getGroup().getReportID(),saved1.getReportID());
     }
 
     @Test
     public void groupReportsLeaderDoesNotExists(){
-        assertThrows(IllegalArgumentException.class, ()->{ reportController.groupReports(new Report(), List.of(new Report[]{saved2}));});
+        assertThrows(IllegalArgumentException.class, ()->{ reportController.groupReports(new Report(), List.of(new Long[]{saved2.getReportID()}));});
     }
 
     @Test
     public void groupReportsLeaderNullTest(){
-        assertThrows(IllegalArgumentException.class, ()->{ reportController.groupReports(null, List.of(new Report[]{saved2}));});
+        assertThrows(IllegalArgumentException.class, ()->{ reportController.groupReports(null, List.of(new Long[]{saved2.getReportID()}));});
     }
 
     @Test
@@ -109,14 +109,14 @@ class ReportControllerTest {
 
     @Test
     public void groupReportsGroupMembersArrayEmptyTest(){
-        assertThrows(IllegalArgumentException.class, ()->{ reportController.groupReports(saved1, List.of(new Report[]{}));});
+        assertThrows(IllegalArgumentException.class, ()->{ reportController.groupReports(saved1, List.of(new Long[]{}));});
     }
 
     @Test
     public void updateGroupStatusTest(){
         assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(),"neobraden");
         assertEquals(reportController.getStatus(saved2.getReportID()).getKey().getStatus(),"neobraden");
-        reportController.groupReports(saved1, List.of(new Report[]{saved2}));
+        reportController.groupReports(saved1, List.of(new Long[]{saved2.getReportID()}));
         reportController.changeStatus(saved1.getReportID(), "uProcesu");
         assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(),"uProcesu");
         assertEquals(reportController.getStatus(saved2.getReportID()).getKey().getStatus(),"uProcesu");
