@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReportByStatusDTO {
-    private List<Report> reports;
+    private List<ReportFeedbackJoin> reports;
     private Integer waitingCount;
     private Integer inProgressCount;
     private Integer solvedCount;

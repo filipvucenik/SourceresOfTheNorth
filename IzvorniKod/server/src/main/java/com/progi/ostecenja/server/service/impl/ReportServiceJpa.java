@@ -105,10 +105,10 @@ public class ReportServiceJpa implements ReportService {
        int waitingCount=0;
        int inProgressCount=0;
        int solvedCount=0;
-       List<Report> reportsToSend = new LinkedList<>();
+       List<ReportFeedbackJoin> reportsToSend = new LinkedList<>();
 
       for(ReportFeedbackJoin r: reports) {
-          reportsToSend.add(r.getReport());
+          reportsToSend.add(r);
           if (r.getFeedback().getKey().getStatus().equals("neobrađen")) {
               waitingCount++;
           } else if (r.getFeedback().getKey().getStatus().equals("uProcesu")) {
