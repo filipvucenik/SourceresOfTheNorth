@@ -11,11 +11,11 @@ import com.progi.ostecenja.server.service.FeedbackService;
 import com.progi.ostecenja.server.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -84,20 +84,58 @@ public class ReportServiceJpa implements ReportService {
 
     @Override
     public List<Report> getReportsByFilter(ReportFilterDto reportFilterDto) {
-        if(reportFilterDto.getRadius()== null){
-            reportFilterDto.setRadius(100.);
-            reportFilterDto.setLng(200.);
-            reportFilterDto.setLat(200.);
+        List<ReportFeedbackJoin>   reportFeedbackJoin = reportRepo.findByReportAttributes();
 
+        System.out.println(reportFilterDto.toPrint());
+        List<Predicate<ReportFeedbackJoin>> conditionsList = new LinkedList<>();
+
+
+        if(reportFilterDto.getRadius()!=null && reportFilterDto.getLat()!=null && reportFilterDto.getLng()!=null){
+            conditionsList.add( r-> {
+                double radius = reportFilterDto.getRadius();
+                double latCenter = reportFilterDto.getLat();
+                double lngCenter = reportFilterDto.getLng();
+
+
+                double latDiff = Math.toRadians(r.getReport().getLat() - latCenter);
+                double lngDiff = Math.toRadians(r.getReport().getLng() - lngCenter);
+
+                double a = Math.sin(latDiff / 2) * Math.sin(latDiff / 2) +
+                        Math.cos(Math.toRadians(latCenter)) * Math.cos(Math.toRadians(r.getReport().getLat())) *
+                                Math.sin(lngDiff / 2) * Math.sin(lngDiff / 2);
+
+                double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                double distance = 6371 * c;
+
+                return distance <= radius;
+            });
         }
-        if(reportFilterDto.getStatus().equals(""))
-            reportFilterDto.setStatus(null);
 
-        return
-                reportRepo.findByReportAttributes(reportFilterDto.getCategoryId(), reportFilterDto.getStatus(),
-                        reportFilterDto.getRadius(),reportFilterDto.getLat(),reportFilterDto.getLng(), reportFilterDto.getStartDate(),
-                        reportFilterDto.getEndDate()).stream().distinct().toList();
+        if(!reportFilterDto.getStatus().isEmpty()){
+            conditionsList.add(r -> r.getFeedback().getKey().getStatus().equals(reportFilterDto.getStatus()));
+        }
+        if(reportFilterDto.getCategoryId()!=null){
+            conditionsList.add(r-> Objects.equals(r.getReport().getCategoryID(), reportFilterDto.getCategoryId()));
+        }
 
+        if(reportFilterDto.getStartDate()!=null && reportFilterDto.getEndDate()!=null){
+            conditionsList.add(r-> r.getReport().getReportTS().after(reportFilterDto.getStartDate()) && r.getReport().getReportTS().before(reportFilterDto.getEndDate()));
+        } else if(reportFilterDto.getStartDate()!=null){
+            conditionsList.add(r->r.getReport().getReportTS().after(reportFilterDto.getStartDate()));
+        } else if(reportFilterDto.getEndDate()!=null){
+            conditionsList.add(r->r.getReport().getReportTS().before(reportFilterDto.getEndDate()));
+        }
+
+        System.out.println(conditionsList.size());
+
+        Predicate<ReportFeedbackJoin> combinedPredicate = conditionsList.stream()
+                .reduce(Predicate::and)
+                .orElse(x -> true);
+
+        return reportFeedbackJoin.stream()
+                .filter(combinedPredicate)
+                .map(ReportFeedbackJoin::getReport)
+                .collect(Collectors.toList());
     }
     @Override
     public ReportByStatusDTO getReportsByUserId(Long userID){
