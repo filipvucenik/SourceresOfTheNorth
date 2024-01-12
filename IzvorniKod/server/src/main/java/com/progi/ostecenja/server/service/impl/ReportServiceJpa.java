@@ -160,7 +160,7 @@ public class ReportServiceJpa implements ReportService {
 
        return new ReportByStatusDTO(reportsToSend, waitingCount, inProgressCount,solvedCount)  ;
     }
-
+    @Transactional
     @Override
     public void groupReports(Report groupLeader, List<Long> members) {
         if(groupLeader == null)
