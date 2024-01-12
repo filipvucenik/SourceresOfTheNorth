@@ -114,7 +114,7 @@ const ReportCard = () => {
   const [picture, setPicture] = useState(null);
   const [previwPicture, setPreviewPicture] = useState(null); 
   const [manualAddress, setManualAddress] = useState("");
-
+  const [originalReport,setOriginalReport]=useState();
 
 //rucna promjena adrese
   const manualAddressChange = async (e) => {
@@ -141,11 +141,14 @@ const ReportCard = () => {
   };
 
   const handleRowClick = (index) => {
-    setSelectedReport(selectedReport === index ? null : index);
+    setSelectedReport(index);
+    
   };
-
+  useEffect(() => {
+  }, [selectedReport]);
   const handleCategoyChange = (e) =>{
     setCategory(e.target.value)
+    
   }
   const handleMapClick = async (e) => {
     const clickedLatLng = e.latlng;
@@ -249,15 +252,40 @@ const ReportCard = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    console.log("Report submitted:", {
-      title,
-      description,
-      category,
-      location,
-      picture,
-      manualAddress,
+  const sendReport = async (isLink) =>{
+    const jsonServerSendData = {
+      reportHeadline: title,
+      lat: location.lat,
+      lng: location.lng,
+      description: description,
+      categoryID: category,
+      //adress:manualAddress,
+      group: null,
+    };
+    
+    if(isLink){
+      jsonServerSendData.group = originalReport[selectedReport].report;
+    }
+    let url = apiConfig.getReportUrl;
+    const submitResponse = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(jsonServerSendData),
     });
+
+    if (submitResponse.status === 200) {
+      customAlert("Vaša prijava je podnešena");
+      navigate("/");
+    } else {
+      customAlert("Server trenutno nije dostupan, molimo pričekajte ili pokušajte ponovo");
+    }
+  }
+
+
+
+  const handleSubmit = async () => {
 
     const jsonServerSendData = {
       reportHeadline: title,
@@ -265,6 +293,7 @@ const ReportCard = () => {
       lng: location.lng,
       description: description,
       categoryID: category,
+      //adress:manualAddress,
       group: null,
     };
 
@@ -273,13 +302,13 @@ const ReportCard = () => {
       jsonServerSendData.description === "" ||
       jsonServerSendData.categoryID === ""
     ) {
-      alert("Molimo popunite SVA polja!!");
+      customAlert("Molimo popunite SVA polja!!");
       return;
     }
 
     let testUrl = apiConfig.getTestReport;
     let simReportJson = "";
-    console.log(jsonServerSendData);
+    
     try {
       const response = await fetch(testUrl, {
         method: "POST",
@@ -291,7 +320,7 @@ const ReportCard = () => {
       simReportJson = await response.json();
       setSimilarReport(simReportJson)
       if (simReportJson.length > 0) {
-        // If simReportJson is not empty, set displayTable to true
+        setOriginalReport(simReportJson)
         customAlert("U blizini vaše lokacije detekriano je nekoliko sličnih prijava, molimo pogledajte odnosili se koja na istu stvar, ako se odnosi pritisnite na tu prijavu te nadoveži, ako ne pritisnite predaj novu");
         setDisplayTable(true);
         return;
@@ -305,16 +334,15 @@ const ReportCard = () => {
         },
         body: JSON.stringify(jsonServerSendData),
       });
-
+      console.log(submitResponse);
       if (submitResponse.status === 200) {
-        alert("Vaša prijava je podnešena");
+        customAlert("Vaša prijava je podnešena!");
         navigate("/");
       } else {
-        alert("DOŠLO JE DO GREŠKE!!!");
+        customAlert("Server trenutno nije dostupan, molimo pričekajte ili pokušajte ponovo");
       }
     } catch (error) {
-      console.error("FATAL ERROR", error);
-      alert("DOŠLO JE DO GREŠKE!!!");
+      customAlert("Server trenutno nije dostupan, molimo pričekajte ili pokušajte ponovo");
     }
   };
 
@@ -437,11 +465,11 @@ const ReportCard = () => {
                       onMouseLeave={() => setHoveredReport(null)}
                     >
                       <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{index + 1}</td>
-                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.categoryID}</td>
-                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.description}</td>
-                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.lat}</td>
-                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.lng}</td>
-                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.reportHeadline}</td>
+                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.category.categoryName}</td>
+                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.report.description}</td>
+                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.report.lat}</td>
+                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.report.lng}</td>
+                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.report.reportHeadline}</td>
                     </tr>
                   </React.Fragment>
                 ))}
@@ -451,11 +479,11 @@ const ReportCard = () => {
           
             <div style={{ textAlign: 'center' }}>
             {selectedReport !== null && (
-              <button style={{ marginRight: '10px' }}>
+              <button onClick={() => sendReport(true)} style={{ marginRight: '10px' }}>
                 Nadovezi
               </button>
               )}
-              <button >Predaj novu</button>
+              <button onClick={() => sendReport(false)}>Predaj novu</button>
               
             </div>
           
