@@ -17,7 +17,6 @@ const Report = ({ id }) => {
       const result = await response.json();
       setData(result);
       console.log(result);
-      setValue(result.trStatus);
     } catch (error) {
       console.log(error);
     }
