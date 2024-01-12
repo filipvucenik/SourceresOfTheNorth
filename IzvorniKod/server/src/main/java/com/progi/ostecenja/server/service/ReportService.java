@@ -4,10 +4,7 @@ import com.progi.ostecenja.server.dto.ReportByStatusDTO;
 import com.progi.ostecenja.server.dto.ReportFilterDto;
 import com.progi.ostecenja.server.dto.StatisticDTO;
 import com.progi.ostecenja.server.repo.Report;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +23,7 @@ public interface ReportService {
 
     Optional<Report> findByUserId(Long reportID);
 
-    List<ReportByStatusDTO> getReportsByUserId(Long userID);
+    ReportByStatusDTO getReportsByUserId(Long userID);
     List<Report> listAll();
     void groupReports(Report groupLeader, List<Report> members);
     void delete(long repot);

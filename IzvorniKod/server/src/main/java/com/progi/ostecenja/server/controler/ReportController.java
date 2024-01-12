@@ -200,7 +200,7 @@ public class ReportController {
         return reportService.getReportsByFilter(reportFilterDto);
     }
     @GetMapping("/user/{userID}")
-    public  List<ReportByStatusDTO> getReportsByUserId(@PathVariable Long userID){
+    public  ReportByStatusDTO getReportsByUserId(@PathVariable Long userID){
         return reportService.getReportsByUserId(userID);
     }
     @PostMapping("/statistic")

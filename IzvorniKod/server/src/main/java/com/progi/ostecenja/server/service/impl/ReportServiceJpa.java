@@ -1,6 +1,5 @@
 package com.progi.ostecenja.server.service.impl;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.progi.ostecenja.server.dao.*;
 import com.progi.ostecenja.server.dto.ReportByStatusDTO;
 import com.progi.ostecenja.server.dto.ReportFeedbackJoin;
@@ -11,11 +10,8 @@ import com.progi.ostecenja.server.service.EntityMissingException;
 import com.progi.ostecenja.server.service.FeedbackService;
 import com.progi.ostecenja.server.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -104,13 +100,15 @@ public class ReportServiceJpa implements ReportService {
 
     }
     @Override
-    public List<ReportByStatusDTO> getReportsByUserId(Long userID){
+    public ReportByStatusDTO getReportsByUserId(Long userID){
        List<ReportFeedbackJoin> reports =reportRepo.findByUserIDAndJoinWithFeedback(userID);
        int waitingCount=0;
        int inProgressCount=0;
        int solvedCount=0;
+       List<Report> reportsToSend = new LinkedList<>();
 
       for(ReportFeedbackJoin r: reports) {
+          reportsToSend.add(r.getReport());
           if (r.getFeedback().getKey().getStatus().equals("neobrađen")) {
               waitingCount++;
           } else if (r.getFeedback().getKey().getStatus().equals("uProcesu")) {
@@ -119,13 +117,8 @@ public class ReportServiceJpa implements ReportService {
               solvedCount++;
           }
       }
-      List<ReportByStatusDTO> result = new LinkedList<>();
 
-      for(ReportFeedbackJoin r: reports){
-          result.add( new ReportByStatusDTO(r.getReport(), waitingCount,inProgressCount,solvedCount));
-      }
-
-       return  result;
+       return new ReportByStatusDTO(reportsToSend, waitingCount, inProgressCount,solvedCount)  ;
     }
 
     @Override
