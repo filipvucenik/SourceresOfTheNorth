@@ -30,5 +30,7 @@ public interface ReportService {
     void groupReports(Report groupLeader, List<Report> members);
     void delete(long repot);
     StatisticDTO getReportStatistic(ReportFilterDto reportFilterDto);
+
+    List<Report> getReportsByStatus(String status, Long officeID);
 }
 

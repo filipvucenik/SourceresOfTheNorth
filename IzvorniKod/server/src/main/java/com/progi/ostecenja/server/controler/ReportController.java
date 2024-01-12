@@ -202,6 +202,12 @@ public class ReportController {
         return reportService.getReportStatistic(reportFilterDto);
     }
 
+    @GetMapping("/status/{status}")
+    public List<Report> getReportsByStatus(HttpSession session,@PathVariable String status){
+      return reportService.getReportsByStatus(status, (Long) session.getAttribute("OFFICE"));
+        //  return reportService.getReportsByStatus(status,52l);
+    }
+
     public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         final int R = 6371; // Radius of the Earth in kilometers
 

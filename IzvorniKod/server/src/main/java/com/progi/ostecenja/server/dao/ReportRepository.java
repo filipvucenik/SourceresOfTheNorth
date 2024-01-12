@@ -40,5 +40,14 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
             @Param("endDate") Timestamp endDate);
     List<Report> findByUserID(Long userID);
 
-
+    @Query(
+            "SELECT DISTINCT r,f,co,cat FROM CityOffice co JOIN Category cat ON cat.cityOfficeID = co.cityOfficeId JOIN Report r ON r.categoryID=cat.categoryID " +
+                    "JOIN Feedback f ON r.reportID=f.key.groupID " +
+                    "WHERE :status = f.key.status AND cat.cityOfficeID = :cityOfficeID AND f.changeTS IN (" +
+                    "    SELECT MAX(fed.changeTS) " +
+                    "    FROM Feedback fed" +
+                    "    WHERE fed.key.groupID = f.key.groupID" +
+                    "   ) "
+    )
+    List<Report> findByOfficeIdAndStatus(@Param("cityOfficeID") Long cityOfficeID, @Param("status") String status);
 }

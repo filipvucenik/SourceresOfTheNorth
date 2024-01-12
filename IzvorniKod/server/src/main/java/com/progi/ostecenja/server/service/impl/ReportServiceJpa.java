@@ -240,4 +240,8 @@ public class ReportServiceJpa implements ReportService {
         result.setReportWaitingCount(reportWaitingCount);
         return  result;
     }
+    public List<Report> getReportsByStatus(String status, Long officeID){
+        List<Report> reports = reportRepo.findByOfficeIdAndStatus(officeID, status);
+        return reports;
+    }
 }
