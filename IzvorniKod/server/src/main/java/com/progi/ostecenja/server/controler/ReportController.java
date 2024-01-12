@@ -1,6 +1,7 @@
 package com.progi.ostecenja.server.controler;
 
 import com.progi.ostecenja.server.dto.ReportFilterDto;
+import com.progi.ostecenja.server.dto.StatisticDTO;
 import com.progi.ostecenja.server.repo.Category;
 import com.progi.ostecenja.server.repo.Feedback;
 import com.progi.ostecenja.server.repo.Image;
@@ -199,6 +200,16 @@ public class ReportController {
     @GetMapping("/user/{userID}")
     public  List<Report> getReportsByUserId(@PathVariable Long userID){
         return reportService.getReportsByUserId(userID);
+    }
+    @PostMapping("/statistic")
+    public StatisticDTO getReportStatistic(@RequestBody ReportFilterDto reportFilterDto){
+        return reportService.getReportStatistic(reportFilterDto);
+    }
+
+    @GetMapping("/status/{status}")
+    public List<Report> getReportsByStatus(HttpSession session,@PathVariable String status){
+      return reportService.getReportsByStatus(status, (Long) session.getAttribute("OFFICE"));
+        //  return reportService.getReportsByStatus(status,52l);
     }
 
     public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {

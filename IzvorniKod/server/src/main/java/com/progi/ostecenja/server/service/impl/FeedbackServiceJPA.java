@@ -65,4 +65,8 @@ public class FeedbackServiceJPA implements FeedbackService {
         }
         return ret;
     }
+    @Override
+    public List<Feedback> getAll(){
+        return feedbackRepository.findAll();
+    }
 }

@@ -13,10 +13,14 @@ import java.util.Optional;
 
 public interface ReportRepository extends JpaRepository<Report, Long> {
     String query = "SELECT r,f FROM Report r JOIN Feedback f ON r.reportID=f.key.groupID  WHERE " +
+            "(:categoryID IS NULL AND :status IS NULL AND :radius IS NOT NULL AND " +
+            "(:lat NOT BETWEEN -90.0 AND 90.0) AND (:lng NOT BETWEEN -180.0 AND 180.0) AND " +
+            "CAST(:startDate AS TIMESTAMP) IS NULL AND CAST(:endDate AS TIMESTAMP) IS NULL) OR"+
+
             "(:categoryID IS NOT NULL AND r.categoryID = :categoryID) OR " +
             "(:status IS NOT NULL AND f.key.status=:status) OR "+
             "CASE " +
-            "WHEN (:radius IS NOT NULL AND (:lat BETWEEN -90.0 AND 90.0) AND (:lng BETWEEN -180.0 AND 180.0)) THEN false " +
+            "WHEN (:radius IS NOT NULL AND (:lat BETWEEN -90.0 AND 90.0) AND (:lng BETWEEN -180.0 AND 180.0)) THEN TRUE " +
             "ELSE " +
             "6371 * acos(" +
             "sin(radians(:lat)) * sin(radians(r.lat)) + " +
@@ -36,5 +40,14 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
             @Param("endDate") Timestamp endDate);
     List<Report> findByUserID(Long userID);
 
-
+    @Query(
+            "SELECT DISTINCT r,f,co,cat FROM CityOffice co JOIN Category cat ON cat.cityOfficeID = co.cityOfficeId JOIN Report r ON r.categoryID=cat.categoryID " +
+                    "JOIN Feedback f ON r.reportID=f.key.groupID " +
+                    "WHERE :status = f.key.status AND cat.cityOfficeID = :cityOfficeID AND f.changeTS IN (" +
+                    "    SELECT MAX(fed.changeTS) " +
+                    "    FROM Feedback fed" +
+                    "    WHERE fed.key.groupID = f.key.groupID" +
+                    "   ) "
+    )
+    List<Report> findByOfficeIdAndStatus(@Param("cityOfficeID") Long cityOfficeID, @Param("status") String status);
 }
