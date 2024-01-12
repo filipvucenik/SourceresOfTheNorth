@@ -276,7 +276,8 @@ const ReportCard = () => {
     });
 
     if (submitResponse.status === 200) {
-      customAlert("Vaša prijava je podnešena");
+      
+      isLink ? customAlert("Vaša prijava je nadovezana") : customAlert("Vaša prijava je podnešena"); 
       navigate("/");
     } else {
       customAlert("Server trenutno nije dostupan, molimo pričekajte ili pokušajte ponovo");
