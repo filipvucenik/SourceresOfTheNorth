@@ -8,6 +8,7 @@ import com.progi.ostecenja.server.dto.StatisticDTO;
 import com.progi.ostecenja.server.repo.*;
 import com.progi.ostecenja.server.service.EntityMissingException;
 import com.progi.ostecenja.server.service.FeedbackService;
+import com.progi.ostecenja.server.service.ImageService;
 import com.progi.ostecenja.server.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,14 @@ public class ReportServiceJpa implements ReportService {
 
     @Autowired
     FeedbackService feedbackService;
+    @Autowired
+    ImageService imageService;
+
+    @Autowired
+    ImageRepository imageRepository;
+
+    @Autowired
+    FeedbackRepository feedbackRepository;
 
     @Override
     public List<Report> listAll(){
@@ -189,10 +198,39 @@ public class ReportServiceJpa implements ReportService {
         if(!reportRepo.existsById(reportId))
             return;
         Report toBeDeleted = reportRepo.getReferenceById(reportId);
-        List<Report> members = reportRepo.findAll().stream().filter(r->r.getGroup() != null).filter(r->r.getReportID().equals(reportId)).toList();
-        if(!members.isEmpty())
+        List<Report> members = new ArrayList<>(reportRepo.findAll().stream().filter(r -> r.getGroup() != null).filter(r -> r.getReportID().equals(reportId)).toList());
+        if(!members.isEmpty()){
             reportRepo.deleteAll(members);
+            List<Long> delReportIds = members.stream().map(Report::getReportID).toList();
+            List<Image> delImages = new ArrayList<>();
+            for(Long id: delReportIds){
+                Optional<Image> del =imageRepository.findImageByReportID(id);
+                del.ifPresent(delImages::add);
+            }
+            imageRepository.deleteAll(delImages);
+        }
         reportRepo.delete(toBeDeleted);
+        Optional<Image> imageDel = imageRepository.findImageByReportID(toBeDeleted.getReportID());
+        imageDel.ifPresent(image -> imageRepository.delete(image));
+        /*
+        String[] statusi = new String[]{"neobraden","uProcesu","obrađen"};
+
+        List<Feedback> delFeedbacks;
+        List<FeedbackID> delFeedbackIds = new ArrayList<>();
+        for(Long id: delReportIds){
+            for(String status: statusi){
+                FeedbackID fid = new FeedbackID(id, status);
+                if(feedbackRepository.existsById(fid)){
+                    delFeedbackIds.add(fid);
+                }
+            }
+        }
+
+        delFeedbacks = feedbackRepository.findAllById(delFeedbackIds);
+        feedbackRepository.deleteAll(delFeedbacks);
+
+         */
+
 
     }
     public StatisticDTO getReportStatistic(ReportFilterDto reportFilterDto){
