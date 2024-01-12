@@ -42,7 +42,7 @@ const Office_LoginComponent = () => {
 
       if (response.status === 200) {
         Cookies.set("name", email);
-        navigate("/");
+        navigate("/admin");
       } else {
         alert("User does not exist!");
       }

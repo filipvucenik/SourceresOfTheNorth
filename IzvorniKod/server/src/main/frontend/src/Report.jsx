@@ -9,12 +9,6 @@ const server = apiConfig.getUrl;
 
 const Report = ({ id }) => {
   console.log(id.id);
-
-  const [value, setValue] = useState();
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
-
   const [data, setData] = useState({});
 
   const fetchData = async () => {
@@ -52,15 +46,6 @@ const Report = ({ id }) => {
             <img src="https://picsum.photos/300/300" />
             {data.location}
           </div>
-          <div>
-            <select value={value} onChange={handleChange}>
-              <option value="aktivno">Aktivno</option>
-              <option value="neobrađeno">Neobrađeno</option>
-              <option value="obrađeno">Odrađeno</option>
-            </select>
-          </div>
-          <button>Update status</button>
-          <button>Delete report</button>
         </div>
       </div>
       <FooterComponent />

@@ -5,51 +5,28 @@ import HeaderComponent from "./HeaderComponent";
 import apiConfig from "./apiConfig";
 
 function Admin() {
-  const fake_data = [
-    {
-      id: 1,
-      name: "problem s vodom",
-      status: "Neobrađeno",
-      lokacija: "vrbik",
-      kategorija: "voda",
-    },
-    {
-      id: 2,
-      name: "problem s vodom",
-      status: "Neobrađeno",
-      lokacija: "FER",
-      kategorija: "voda",
-    },
-    {
-      id: 3,
-      name: "problem s vodom",
-      status: "Neobrađeno",
-      lokacija: "knezija",
-      kategorija: "voda",
-    },
-  ];
-
-  const [data, setData] = useState(fake_data);
+  const [data, setData] = useState([]);
   const nav = useNavigate();
   const [displaied_data, set_display] = useState([]);
   const [transfer, set_transfer] = useState([]);
   const [categoryData, setCategoryData] = useState({});
   const [selectedCategoryID, setSelectedCategoryID] = useState("");
 
-  // useEffect(() => {
-  //   fetchReports();
-  // }, []);
+  useEffect(() => {
+    fetchReports();
+  }, []);
 
-  // const fetchReports = async () => {
-  //   try {
-  //     const response = await fetch("/api/reports");
-  //     const reports = await response.json();
-  //     setData(reports);
-  //     set_display(reports);
-  //   } catch (error) {
-  //     console.error("Error fetching reports:", error);
-  //   }
-  // };
+  const fetchReports = async () => {
+    try {
+      const response = await fetch(apiConfig.getReportUrl + "/unhandled");
+      const reports = await response.json();
+      console.log(reports);
+      setData(reports);
+      set_display(reports);
+    } catch (error) {
+      console.error("Error fetching reports:", error);
+    }
+  };
 
   const getCategory = async () => {
     let url = apiConfig.getCategory;
@@ -84,15 +61,17 @@ function Admin() {
   };
 
   const cancelTransfer = () => {
+    setData([...data, ...transfer]);
+    set_display([...displaied_data, ...transfer]);
     set_transfer([]);
   };
 
   const addToTransfer = (id) => {
-    const reportToAdd = data.find((repo) => repo.id === id);
+    const reportToAdd = data.find((repo) => repo.reportID === id);
     if (reportToAdd) {
       set_transfer([...transfer, reportToAdd]);
-      setData(data.filter((repo) => repo.id !== id));
-      set_display(displaied_data.filter((repo) => repo.id !== id));
+      setData(data.filter((repo) => repo.reportID !== id));
+      set_display(displaied_data.filter((repo) => repo.reportID !== id));
     }
   };
 
@@ -100,11 +79,24 @@ function Admin() {
     console.log(transfer);
     const dataForSend = {
       categoryID: selectedCategoryID,
-      reports: transfer.map((repo) => repo.id),
+      reports: transfer.map((repo) => repo.reportID),
     };
     console.log(dataForSend);
     console.log(JSON.stringify(dataForSend));
     set_transfer([]);
+  };
+
+  const remove = async (id) => {
+    try {
+      await fetch(`/delete`, {
+        method: "DELETE",
+        body: JSON.stringify({ id: id }),
+      });
+      setData(data.filter((repo) => repo.reportID !== id));
+      set_display(displaied_data.filter((repo) => repo.reportID !== id));
+    } catch (error) {
+      console.error("Error removing report:", error);
+    }
   };
 
   return (
@@ -115,22 +107,21 @@ function Admin() {
           <table className="table table-striped">
             <thead>
               <tr>
-                <th>id</th>
-                <th>name</th>
-                <th>status</th>
-                <th>lokacija</th>
-                <th>kategorija</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Status</th>
+
+                <th>Kategorija</th>
               </tr>
             </thead>
             <tbody>
               {transfer.map((repo) => {
                 return (
                   <tr>
-                    <td>{repo.id}</td>
-                    <td>{repo.name}</td>
+                    <td>{repo.reportID}</td>
+                    <td>{repo.reportHeadline}</td>
                     <td>{repo.status}</td>
-                    <td>{repo.lokacija}</td>
-                    <td>{repo.kategorija}</td>
+                    <td>{categoryData[repo.categoryID]}</td>
                   </tr>
                 );
               })}
@@ -166,7 +157,7 @@ function Admin() {
 
         <hr />
 
-        <div className="btn-group btn-group-toggle">
+        <div className="btn-group btn-group-toggle m-1 p-1">
           <button
             className="btn btn-lg btn-primary"
             onClick={() => updateDisplay("U Procesu")}
@@ -187,27 +178,32 @@ function Admin() {
           </button>
         </div>
         {displaied_data.length > 0 && (
-          <div className="card-group p-4 flex-column flex-lg-row">
+          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
             {displaied_data.map((repo) => {
               return (
-                <div className="card card-sm-12 m-1 border border-2 rounded">
+                <div className="card h-100 border border-2 rounded">
                   <div className="card-body">
-                    <h5 className="card-title">{repo.name}</h5>
+                    <h5 className="card-title">{repo.reportHeadline}</h5>
                     <hr />
-                    <p className="card-text">{repo.lokacija}</p>
-                    <p className="card-text">{repo.kategorija}</p>
+                    <p className="card-text">{repo.description}</p>
+                    <p className="card-text">{categoryData[repo.categoryID]}</p>
                     <p className="card-text">{repo.status}</p>
                     <div className="btn-group">
                       <button
                         className="btn btn-primary"
-                        onClick={() => redirect(repo.id)}
+                        onClick={() => redirect(repo.reportID)}
                       >
                         Uredi
                       </button>
-                      <button className="btn btn-danger">Obrisi</button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => remove(repo.reportID)}
+                      >
+                        Obrisi
+                      </button>
                       <button
                         className="btn btn-success"
-                        onClick={() => addToTransfer(repo.id)}
+                        onClick={() => addToTransfer(repo.reportID)}
                       >
                         Proslijedi
                       </button>
