@@ -14,8 +14,8 @@ function StatisticComponent() {
   const [categoryData, setCategoryData] = useState({});
   const [selectedCategoryID, setSelectedCategoryID] = useState("");
   const [statusReport, setStatusReport] = useState("");
-  const [lat, setLat] = useState(null);
-  const [lng, setLng] = useState(null);
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
 
   const mapRef = useRef(null); // referenca za spremanje instance karte
   const uniqueMapId = `map-${Math.floor(Math.random() * 10000)}`;
@@ -78,11 +78,16 @@ function StatisticComponent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (lat === null || lng === null) {
-      console.error("Latitude or longitude is null");
+    if (lat !== null && lng !== null) {
+      // Ako su latitude i longitude označene, provjeri je li radius unesen
+    const radius = e.target.elements.radius.value.trim();
+    if (!radius) {
+      console.error("Radius is required when location is selected");
+      // Dodajte alert za obavještavanje korisnika
+      alert("Molimo vas označite radius kad je označena lokacija");
       return;
     }
-
+    }
     const dataForSend = {
       categoryID: selectedCategoryID,
       radius: e.target.elements.radius.value,

@@ -24,7 +24,6 @@
 .statistika{
   margin: 3%;
   display: flex;
-  flex-wrap: wrap;
 }
 .statistika-child{
   margin: 3%;
