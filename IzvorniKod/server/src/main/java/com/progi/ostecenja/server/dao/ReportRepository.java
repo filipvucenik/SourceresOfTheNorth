@@ -14,7 +14,8 @@ import java.util.Optional;
 
 public interface ReportRepository extends JpaRepository<Report, Long> {
 
-    @Query("SELECT DISTINCT new com.progi.ostecenja.server.dto.ReportFeedbackJoin(r,f) FROM Report r JOIN Feedback f ON r.reportID=f.key.groupID  " +
+    @Query("SELECT DISTINCT new com.progi.ostecenja.server.dto.ReportFeedbackJoin(r,f,c) FROM Report r JOIN Feedback f ON r.reportID=f.key.groupID  " +
+            "JOIN Category c ON c.categoryID = r.categoryID " +
             "WHERE  f.changeTS IN (" +
             "                      SELECT MAX(fed.changeTS) " +
             "                      FROM Feedback fed"  +
