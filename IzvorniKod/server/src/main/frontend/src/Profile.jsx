@@ -7,6 +7,7 @@ import FooterComponent from "./FooterComponent";
 
 const server = apiConfig.getUserInfoUrl;
 const server2 = apiConfig.getReportUrl;
+var id;
 
 const Profile = () => {
   const [postojiKolacic, postaviPostojiKolacic] = useState(false);
@@ -19,7 +20,57 @@ const Profile = () => {
     password: "",
     email: "",
   });
-  var id;
+  const [showPasswordDiv, setShowPasswordDiv] = useState(false);
+
+  const handleClick = () => {
+    setShowPasswordDiv(!showPasswordDiv);
+  };
+
+  const customAlert = (message) => {
+    const alertContainer = document.createElement("div");
+    alertContainer.style.cssText = `
+      position: fixed;
+      top: 20px; /* Adjust the top distance as needed */
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      border-radius: 5px;
+      text-align: center;
+      z-index: 9999; /* Set a high z-index to ensure it's on top */
+    `;
+
+    const alertText = document.createElement("p");
+    alertText.style.cssText = `
+      font-weight: bold;
+      font-size: 16px;
+    `;
+    alertText.textContent = message;
+
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "OK";
+    closeButton.style.cssText = `
+      margin-top: 10px;
+      padding: 5px 10px;
+      cursor: pointer;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 3px;
+    `;
+    closeButton.addEventListener("click", () => {
+      // Osvježi stranicu nakon klika na OK
+      window.location.reload();
+      // Ukloni kontejner s alertom
+      document.body.removeChild(alertContainer);
+    });
+
+    alertContainer.appendChild(alertText);
+    alertContainer.appendChild(closeButton);
+
+    document.body.appendChild(alertContainer);
+  };
 
   useEffect(() => {
     const kolacici = Cookies.get();
@@ -52,9 +103,9 @@ const Profile = () => {
       try {
         const response = await fetch(`${server2}/user/${id}`);
         const data = await response.json();
-          setFilteredData(data);
-          setFilteredReportsData(data.reports);
-          console.log(data);
+        setFilteredData(data);
+        setFilteredReportsData(data.reports);
+        console.log(data.reports);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -72,41 +123,33 @@ const Profile = () => {
 
   const updateDataInDatabase = async (e) => {
     e.preventDefault();
-
+    // Stvori novi objekt bez praznih stringova
+    const dataForSend = Object.keys(userData).reduce((acc, key) => {
+      if (key === "password" && userData[key] !== "") {
+        acc[key] = userData[key];
+      } else if (key !== "password" && userData[key] !== "") {
+        acc[key] = userData[key];
+      }
+      return acc;
+    }, {});
+    console.log(dataForSend);
     try {
       const response = await fetch(`${server}/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(dataForSend),
       });
 
       if (response.ok) {
-        console.log("Podaci uspješno ažurirani.");
         setUserData(userData);
+        customAlert("Podaci uspješno ažurirani!");
       } else {
         console.error("Greška prilikom ažuriranja podataka.");
       }
     } catch (error) {
       console.error("Greška pri ažuriranju podataka:", error);
-    }
-  };
-
-  const latlngTolocation = async () => {
-    const apiKey = "7fbe9533c0c9424aa41c500419e5ef83";
-    const url = `https://api.opencagedata.com/geocode/v1/json?q=${filteredData.report.lat}+${filteredData.report.lng}&key=${apiKey}`;
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-
-      if (data.results.length > 0) {
-        const formattedAddress = data.results[0].formatted;
-        console.log(formattedAddress);
-        setManualAddress(formattedAddress);
-      }
-    } catch (error) {
-      console.error("Error fetching address:", error);
     }
   };
 
@@ -164,22 +207,35 @@ const Profile = () => {
               </div>
             </div>
 
-            <div className="col-12">
-              <label htmlFor="password" className="form-label">
-                Lozinka
-              </label>
-              <div className="input-group has-validation">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="password"
-                  name="password"
-                  onChange={handleChange}
-                />
-                <div className="invalid-feedback">
-                  Your password is required.
+            <div>
+              <button
+                onClick={handleClick}
+                type="button"
+                className="btn btn-outline-dark me-2"
+              >
+                Promijeni lozinku
+              </button>
+              <br />
+              <br />
+              {showPasswordDiv && (
+                <div className="col-12">
+                  <label htmlFor="password" className="form-label">
+                    Nova lozinka
+                  </label>
+                  <div className="input-group has-validation">
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="password"
+                      name="password"
+                      onChange={handleChange}
+                    />
+                    <div className="invalid-feedback">
+                      Your password is required.
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
           <hr className="my-4" />
@@ -198,32 +254,46 @@ const Profile = () => {
         <h1>Moje prijave</h1>
         <ul className="profilStatistika">
           <li>Broj prijava na čekanju: {filteredData.waitingCount}</li>
-          <li>Broj prijava u procesu rješavanja: {filteredData.inProgressCount} </li>
+          <li>
+            Broj prijava u procesu rješavanja: {filteredData.inProgressCount}{" "}
+          </li>
           <li>Broj riješenih prijava: {filteredData.solvedCount}</li>
         </ul>
-        <ul className="statistika">
-          {filteredDataReports.length > 0 ? (
-            filteredDataReports.map((item) => (
-              <li key={item.report.reportID} className="statistika-child">
-                <h2>
-                  <b>{item.report.reportHeadline}</b>
-                </h2>
-                <p>ID prijave: {item.report.reportID}</p>
-                <p>ID kategorije: {item.report.categoryID}</p>
-                <p>Vrijeme prijave: {item.report.reportTS}</p>
-                <p>Opis prijave: {item.report.description}</p>
-                <p>Status: {item.feedback.key.status}</p>
-                <p>
-                  Lokacija: {manualAddress}
-                </p>
-                <p>Link na stranicu prijave</p>
-              </li>
-            ))
-          ) : (
-            <p>No data available</p>
-          )}
-        </ul>
       </div>
+      <ul className="statistika">
+        {filteredDataReports.length > 0 ? (
+          filteredDataReports.map((item) => (
+            <li key={item.report.reportID} className="statistika-child">
+              <h2>
+                <b>{item.report.reportHeadline}</b>
+              </h2>
+              <p>ID prijave: {item.report.reportID}</p>
+              <p>Kategorija: {item.category.categoryName}</p>
+              <p>
+                Vrijeme prijave: <br />
+                {item.report.reportTS.split("T")[0]}{" "}
+                {item.report.reportTS.split("T")[1].split(".")[0]}
+              </p>
+              <p>
+                Opis prijave: <br /> {item.report.description}
+              </p>
+              <p>
+                Status: <nbsp></nbsp>
+                {item.feedback.key.status === "uProcesu" ? (
+                  <span>U procesu</span>
+                ) : (
+                  item.feedback.key.status
+                )}
+              </p>
+
+              <p>Lokacija:</p>
+              <p>Link na stranicu prijave</p>
+            </li>
+          ))
+        ) : (
+          <p>No data available</p>
+        )}
+      </ul>
       <FooterComponent />
     </>
   );
