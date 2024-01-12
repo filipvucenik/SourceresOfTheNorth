@@ -24,7 +24,8 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
     List<ReportFeedbackJoin> findByReportAttributes();
 
     @Query(
-            "SELECT new com.progi.ostecenja.server.dto.ReportFeedbackJoin(r,f) FROM Report r JOIN Feedback f ON f.key.groupID = r.reportID " +
+            "SELECT new com.progi.ostecenja.server.dto.ReportFeedbackJoin(r,f,c) FROM Report r JOIN Feedback f ON f.key.groupID = r.reportID " +
+                    "JOIN Category c ON c.categoryID = r.categoryID " +
                     "WHERE r.userID = :userID AND f.changeTS IN (" +
                     "    SELECT MAX(fed.changeTS) " +
                     "    FROM Feedback fed" +
