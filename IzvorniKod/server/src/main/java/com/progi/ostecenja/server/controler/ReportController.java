@@ -97,7 +97,7 @@ public class ReportController {
         }
         Map<Long, Category> categories =categoryService.listAll().stream().collect(Collectors.toMap(Category::getCategoryID, c -> c));
         List<ReportCategory> ret = new ArrayList<>();
-        for (Report rep: reportList){
+        for (Report rep: returnList){
             ret.add(new ReportCategory(rep, categories.get(rep.getCategoryID())));
         }
     return ret;
