@@ -105,7 +105,7 @@ const HeaderComponent = () => {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      Login
+                      Prijava
                     </button>
                     <ul
                       className="dropdown-menu"
@@ -113,12 +113,12 @@ const HeaderComponent = () => {
                     >
                       <li>
                         <Link to="/user-login" className="dropdown-item">
-                          User Login
+                          Prijava korisnika
                         </Link>
                       </li>
                       <li>
                         <Link to="/office-login" className="dropdown-item">
-                          Office Login
+                          Gradski ured prijava
                         </Link>
                       </li>
                     </ul>
@@ -131,7 +131,7 @@ const HeaderComponent = () => {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      Register
+                      Registracija
                     </button>
                     <ul
                       className="dropdown-menu"
@@ -139,12 +139,12 @@ const HeaderComponent = () => {
                     >
                       <li>
                         <Link to="/user-register" className="dropdown-item">
-                          User Register
+                          Registracija korisnika
                         </Link>
                       </li>
                       <li>
                         <Link to="/office-register" className="dropdown-item">
-                          Office Register
+                          Gradski ured registracija
                         </Link>
                       </li>
                     </ul>

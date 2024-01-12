@@ -6,29 +6,27 @@ import "leaflet/dist/leaflet.css";
 import markerIcon from "./marker.svg";
 import apiConfig from "./apiConfig";
 
-const server = "http://localhost:8080/";
+const server = apiConfig.getReportUrl;
 
 function StatisticComponent() {
-  const [filteredData, setFilteredData] = useState([]);
+  const [filteredData, setFilteredData] = useState({});
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [categoryData, setCategoryData] = useState({});
   const [selectedCategoryID, setSelectedCategoryID] = useState("");
   const [statusReport, setStatusReport] = useState("");
-  var lattitude;
-  var longitude;
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
 
   const mapRef = useRef(null); // referenca za spremanje instance karte
   const uniqueMapId = `map-${Math.floor(Math.random() * 10000)}`;
 
-  const statusChange = (e) =>{
-    setStatusReport(e.target.value)
-  }
+  const statusChange = (e) => {
+    setStatusReport(e.target.value);
+  };
 
   const getCategory = async () => {
-    let url = apiConfig.getCategory
-    const fetchCategory = await fetch(
-      url
-    );
+    let url = apiConfig.getCategory;
+    const fetchCategory = await fetch(url);
     const fetchData = await fetchCategory.json();
     const transformedData = Object.fromEntries(
       fetchData.map((item) => [item.categoryID, item.categoryName])
@@ -58,8 +56,7 @@ function StatisticComponent() {
 
     const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
     setSelectedMarker(marker);
-    lattitude = lat;
-    longitude = lng;
+
     let popupIsOpen = false;
 
     marker.on("click", () => {
@@ -71,31 +68,46 @@ function StatisticComponent() {
         popupIsOpen = true;
       }
     });
+
+    setLat(lat);
+    setLng(lng);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (lat === null || lng === null) {
+      console.error("Latitude or longitude is null");
+      return;
+    }
+
     const dataForSend = {
-     categoryID: selectedCategoryID,
-     radius: e.target.elements.radius.value,
-     fromDateTime: e.target.elements.fromDateTime.value,
-     toDateTime: e.target.elements.toDateTime.value,
-      lattitude,
-      longitude,
+      categoryID: selectedCategoryID,
+      radius: e.target.elements.radius.value,
+      fromDateTime: e.target.elements.fromDateTime.value,
+      toDateTime: e.target.elements.toDateTime.value,
+      lat: lat,
+      lng: lng,
+      status:"",
     };
-    console.log(dataForSend)
-    //console.log("Koordinate za slanje:", { lattitude, longitude });
-      fetch(`https://progi-projekt-test.onrender.com/reports/filtered`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataForSend),
-      })
-      .then(response => response.json())
-      .then(data => setFilteredData(data))
-      //console.log('Odgovor od servera:', data));
-      .catch(error => console.error('Greška prilikom slanja koordinata:', error));
+
+    console.log(dataForSend);
+
+    fetch(`${server}/statistic`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataForSend),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Odgovor od servera:', data);
+      setFilteredData(data);
+    })
+      .catch((error) =>
+        console.error("Greška prilikom slanja koordinata:", error)
+      );
   };
 
   useEffect(() => {
@@ -126,7 +138,7 @@ function StatisticComponent() {
 
       mapRef.current.invalidateSize();
     }
-  }, [selectedMarker]);
+  }, [selectedMarker, lat, lng]);
 
   return (
     <>
@@ -137,7 +149,10 @@ function StatisticComponent() {
           <label>
             ID Kategorije:
             <select name="categoryID" onChange={handleCategoryChange}>
-            <option key="default" value="default"> Izaberite kategoriju</option>
+              <option key="default" value="default">
+                {" "}
+                Izaberite kategoriju
+              </option>
               {Object.keys(categoryData).map((key) => (
                 <option key={key} value={key}>
                   {categoryData[key]}
@@ -166,26 +181,25 @@ function StatisticComponent() {
             Filter
           </button>
         </form>
-        <hr />        
+        <hr />
       </div>
       <ul className="statistika">
-        {filteredData.map((item) => (
+      {filteredData.length > 0 ? (
+        filteredData.map((item) => (
           <li key={item.reportID} className="statistika-child">
-            <h2><b>{item.reportHeadline}</b></h2>
-            <p>Report ID: {item.reportID}</p>
-            <p>Category ID: {item.categoryID}</p>
-            <p>Report Timestamp: {item.reportTS}</p>
-            <p>Description: {item.description}</p>
-            <p>
-              Location: {item.lat}, {item.lng}
-            </p>
-            <p>Link na stranicu prijave</p>
+            <p>Ukupan broj podnesenih prijava: {item.reportCount}</p>
+            <p>Broj prijava sa statusom <i>na čekanju</i>: {item.reportWaitingCount} &nbsp i njihov udio {item.reportWaitingShare}</p>
+            <p>Broj prijava sa statusom <i>u procesu rješavanja</i>: {item.reportInProgressCount} &nbsp i njihov udio {item.reportInProgressShare}</p>
+            <p>Broj prijava sa statusom <i>riješena</i>: {item.reportSolvedCount} &nbsp i njihov udio {item.reportSolvedShare}</p>
+            <p>Prosječan broj podnesenih prijava u danu: {item.avgReportsByDay}</p>
+            <p>Prosječan broj dana koji prijava provede na čekanju: {item.avgTimeWaiting.split(',')[1]}h </p>
+            <p>Prosječan broj dana za vrijeme kojih je prijava u procesu rješavanja: {item.avgTimeInProgress.split(',')[0]}</p>
           </li>
-        ))}
+        ))
+        ) : (
+          <p>No data available</p>
+        )}
       </ul>
-      
-      
-
       <FooterComponent />
     </>
   );

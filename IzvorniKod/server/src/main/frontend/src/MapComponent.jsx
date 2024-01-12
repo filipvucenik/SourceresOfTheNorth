@@ -2,8 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import markerIcon from './marker.svg';
+import apiConfig from "./apiConfig";
 
-const server = "http://localhost:8080/";
+const server = apiConfig.getReportUrl;
 
 function MapComponent() {
   const mapRef = useRef(null); // referenca za spremanje instance karte
@@ -69,12 +70,12 @@ function MapComponent() {
       }*/
       const fetchDataAndCreateMarkers = async () => {
         try {
-          const response = await fetch(`https://progi-projekt-test.onrender.com/reports/unhandled`);
+          const response = await fetch(`${server}/unhandled`);
           const data = await response.json();
           console.log(data);
     
           for (const lokacija of data) {
-            createMarker(lokacija.lat, lokacija.lng);
+            createMarker(lokacija.report.lat, lokacija.report.lng);
           }
         } catch (error) {
           console.error('Error fetching data:', error);

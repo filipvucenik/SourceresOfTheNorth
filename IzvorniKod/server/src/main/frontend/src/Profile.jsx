@@ -11,6 +11,7 @@ const server2 = apiConfig.getReportUrl;
 const Profile = () => {
   const [postojiKolacic, postaviPostojiKolacic] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
+  const [filteredDataReports, setFilteredReportsData] = useState([]);
   const [manualAddress, setManualAddress] = useState("");
   const [userData, setUserData] = useState({
     firstName: "",
@@ -18,14 +19,15 @@ const Profile = () => {
     password: "",
     email: "",
   });
-  const [id, setId] = useState("");
+  var id;
 
   useEffect(() => {
     const kolacici = Cookies.get();
     console.log(kolacici);
 
     if (kolacici && kolacici.id) {
-      setId(kolacici.id);
+      id = kolacici.id;
+      console.log(id);
       postaviPostojiKolacic(true);
     }
   }, []);
@@ -46,17 +48,18 @@ const Profile = () => {
   }, [id]);
 
   useEffect(() => {
-    const fetchDataFromDatabase = async () => {
+    const fetchDataFromDatabase2 = async () => {
       try {
         const response = await fetch(`${server2}/user/${id}`);
         const data = await response.json();
           setFilteredData(data);
+          setFilteredReportsData(data.reports);
+          console.log(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-    
-    fetchDataFromDatabase();
+    fetchDataFromDatabase2();
   }, [id]);
 
   const handleChange = (e) => {
@@ -92,7 +95,7 @@ const Profile = () => {
 
   const latlngTolocation = async () => {
     const apiKey = "7fbe9533c0c9424aa41c500419e5ef83";
-    const url = `https://api.opencagedata.com/geocode/v1/json?q=${filteredData.lat}+${filteredData.lng}&key=${apiKey}`;
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${filteredData.report.lat}+${filteredData.report.lng}&key=${apiKey}`;
     try {
       const response = await fetch(url);
       const data = await response.json();
@@ -192,20 +195,26 @@ const Profile = () => {
           </button>
         </form>
         <br />
-        <b><h2>Moje prijave</h2></b>
+        <h1>Moje prijave</h1>
+        <ul className="profilStatistika">
+          <li>Broj prijava na čekanju: {filteredData.waitingCount}</li>
+          <li>Broj prijava u procesu rješavanja: {filteredData.inProgressCount} </li>
+          <li>Broj riješenih prijava: {filteredData.solvedCount}</li>
+        </ul>
         <ul className="statistika">
-          {filteredData.length > 0 ? (
-            filteredData.map((item) => (
-              <li key={item.reportID} className="statistika-child">
+          {filteredDataReports.length > 0 ? (
+            filteredDataReports.map((item) => (
+              <li key={item.report.reportID} className="statistika-child">
                 <h2>
-                  <b>{item.reportHeadline}</b>
+                  <b>{item.report.reportHeadline}</b>
                 </h2>
-                <p>Report ID: {item.reportID}</p>
-                <p>Category ID: {item.categoryID}</p>
-                <p>Report Timestamp: {item.reportTS}</p>
-                <p>Description: {item.description}</p>
+                <p>ID prijave: {item.report.reportID}</p>
+                <p>ID kategorije: {item.report.categoryID}</p>
+                <p>Vrijeme prijave: {item.report.reportTS}</p>
+                <p>Opis prijave: {item.report.description}</p>
+                <p>Status: {item.feedback.key.status}</p>
                 <p>
-                  Location: {manualAddress}
+                  Lokacija: {manualAddress}
                 </p>
                 <p>Link na stranicu prijave</p>
               </li>

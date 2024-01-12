@@ -45,7 +45,7 @@ const LoginComponent = () => {
         return response.text();
         
       } else {
-        alert("User does not exist!");
+        alert("Greška kod prijave: neispravan mail ili lozinka!");
       }
     }).then(textData => {
         Cookies.set("name", email);
