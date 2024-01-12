@@ -30,7 +30,8 @@ public class Report {
     @Getter
     @JoinColumn
     private Long userID;
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn (
             name = "group_reportID",
             referencedColumnName = "reportID"

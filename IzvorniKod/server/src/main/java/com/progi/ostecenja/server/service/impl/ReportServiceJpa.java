@@ -11,6 +11,8 @@ import com.progi.ostecenja.server.service.FeedbackService;
 import com.progi.ostecenja.server.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -161,6 +163,19 @@ public class ReportServiceJpa implements ReportService {
 
     @Override
     public void groupReports(Report groupLeader, List<Report> members) {
+        if(groupLeader == null)
+            throw new IllegalArgumentException("group leader is null");
+
+        if(members == null || members.isEmpty())
+            throw new IllegalArgumentException("members are empty or null");
+        try{
+            if(!reportRepo.existsById(groupLeader.getReportID())){
+                throw new IllegalArgumentException("group leader does not exists");
+            }
+        }catch (org.springframework.dao.InvalidDataAccessApiUsageException e){
+            throw new IllegalArgumentException("group leader does not exists");
+        }
+
         for(Report member: members){
             member.setGroup(groupLeader);
             reportRepo.save(member);
@@ -168,12 +183,16 @@ public class ReportServiceJpa implements ReportService {
     }
 
     @Override
+    @Transactional
     public void delete(long reportId) {
+        if(!reportRepo.existsById(reportId))
+            return;
         Report toBeDeleted = reportRepo.getReferenceById(reportId);
-        reportRepo.delete(toBeDeleted);
-        List<Report> members = reportRepo.findAll().stream().filter(r->r.getReportID().equals(reportId)).toList();
+        List<Report> members = reportRepo.findAll().stream().filter(r->r.getGroup() != null).filter(r->r.getReportID().equals(reportId)).toList();
         if(!members.isEmpty())
             reportRepo.deleteAll(members);
+        reportRepo.delete(toBeDeleted);
+
     }
     public StatisticDTO getReportStatistic(ReportFilterDto reportFilterDto){
         StatisticDTO result = new StatisticDTO();

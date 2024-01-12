@@ -26,6 +26,9 @@ public class FeedbackServiceJPA implements FeedbackService {
 
     @Override
     public void updateService(Long reportId, String stanje) {
+        if(reportId == null){
+            throw new IllegalArgumentException("Null reportID");
+        }
         FeedbackID current = new FeedbackID(reportId, stanje);
         if(!reportRepository.existsById(reportId)){
             throw new IllegalArgumentException("Report does not exist");

@@ -66,8 +66,61 @@ class ReportControllerTest {
         assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(), "neobraden");
         reportController.changeStatus(saved1.getReportID(), "uProcesu");
         assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(), "uProcesu");
+    }
+
+    @Test
+    public void updateStatusSameUpdate(){
+        reportController.changeStatus(saved1.getReportID(), "uProcesu");
         assertThrows(IllegalArgumentException.class,()->{ reportController.changeStatus(saved1.getReportID(), "uProcesu");});
+    }
+
+    @Test
+    public void updateStatusNonExistingReport(){
         assertThrows(IllegalArgumentException.class,()->{reportController.changeStatus(-1L, "uProcesu");});
+
+    }
+    @Test
+    public void updateStatusNullReportID(){
+        assertThrows(IllegalArgumentException.class,()->{reportController.changeStatus(null, "uProcesu");});
+
+    }
+
+    @Test
+    public void groupReportsTest(){
+        assertNull(reportController.getReport(saved2.getReportID()).getReport().getGroup());
+        reportController.groupReports(saved1, List.of(new Report[]{saved2}));
+        assertEquals(reportController.getReport(saved2.getReportID()).getReport().getGroup().getReportID(),saved1.getReportID());
+    }
+
+    @Test
+    public void groupReportsLeaderDoesNotExists(){
+        assertThrows(IllegalArgumentException.class, ()->{ reportController.groupReports(new Report(), List.of(new Report[]{saved2}));});
+    }
+
+    @Test
+    public void groupReportsLeaderNullTest(){
+        assertThrows(IllegalArgumentException.class, ()->{ reportController.groupReports(null, List.of(new Report[]{saved2}));});
+    }
+
+    @Test
+    public void groupReportsGroupMembersNullTest(){
+        assertThrows(IllegalArgumentException.class, ()->{ reportController.groupReports(saved1, null);});
+    }
+
+    @Test
+    public void groupReportsGroupMembersArrayEmptyTest(){
+        assertThrows(IllegalArgumentException.class, ()->{ reportController.groupReports(saved1, List.of(new Report[]{}));});
+    }
+
+    @Test
+    public void updateGroupStatusTest(){
+        assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(),"neobraden");
+        assertEquals(reportController.getStatus(saved2.getReportID()).getKey().getStatus(),"neobraden");
+        reportController.groupReports(saved1, List.of(new Report[]{saved2}));
+        reportController.changeStatus(saved1.getReportID(), "uProcesu");
+        assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(),"uProcesu");
+        assertEquals(reportController.getStatus(saved2.getReportID()).getKey().getStatus(),"uProcesu");
+
     }
 
 }
