@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/reports")
+@CrossOrigin(origins = "http://localhost:3000/", allowCredentials = "true")
 public class ReportController {
     @Autowired
     private  StorageService storageService;
@@ -178,13 +179,13 @@ public class ReportController {
         return new ReportImage(report, imageService.listAllId(report.getReportID()));
     }
 
-    @PutMapping ("/updateStatus")
-    public void changeStatus(@RequestParam Long reportID, String status){
+    @PutMapping("/updateStatus")
+    public void changeStatus(@RequestParam("reportID") Long reportID, @RequestParam("status") String status) {
         feedbackService.updateService(reportID, status);
     }
 
     @PutMapping("/groupReports")
-    public void groupReports(@RequestBody Long groupLeaderId, List<Long> groupMembers){
+    public void groupReports(@RequestParam("mainReportID") Long groupLeaderId, @RequestParam("reports") List<Long> groupMembers){
         if(groupLeaderId == null)
             throw new IllegalArgumentException("group leader id is null");
         Report groupLeader;

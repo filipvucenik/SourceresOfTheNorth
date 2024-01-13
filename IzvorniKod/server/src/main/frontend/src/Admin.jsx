@@ -11,6 +11,7 @@ function Admin() {
   const [displaied_data, set_display] = useState([]);
   const [transfer, set_transfer] = useState([]);
   const [update, set_update] = useState([]);
+  const [group, set_group] = useState([]);
   const [categoryData, setCategoryData] = useState({});
   const [selectedCategoryID, setSelectedCategoryID] = useState("");
   const [newStatus, setNewStatus] = useState("");
@@ -91,13 +92,13 @@ function Admin() {
 
   const remove = async (id) => {
     try {
-      console.log("removing report" + id);
-      console.log(`${server}/delete?repotId=${id}`);
+      console.log("removing report " + id);
+
       await fetch(`${server}/delete?repotId=${id}`, {
         method: "DELETE",
         credentials: "include",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
       });
       setData(data.filter((repo) => repo.report.reportID !== id));
@@ -124,18 +125,62 @@ function Admin() {
 
   const confirmUpdate = async () => {
     console.log(update);
-    const dataForSend = {
-      status: newStatus,
-      reports: update.map((repo) => repo.report.reportID),
-    };
-    console.log(dataForSend);
-    console.log(JSON.stringify(dataForSend));
-    set_update([]);
+    var formData = new FormData();
+    formData.append("status", newStatus);
+    formData.append("reportID", update[0].report.reportID);
+    try {
+      const response = await fetch(`${server}/updateStatus`, {
+        method: "PUT",
+        credentials: "include",
+
+        body: formData,
+      });
+
+      set_update([]);
+    } catch (error) {
+      console.error("Error updating report:", error);
+    }
   };
 
   const handleStatusChange = (event) => {
     const selectedStatus = event.target.value;
     setNewStatus(selectedStatus);
+  };
+
+  const addToGroup = async (id) => {
+    const reportToAdd = data.find((repo) => repo.report.reportID === id);
+    if (reportToAdd) {
+      set_group([...group, reportToAdd]);
+      setData(data.filter((repo) => repo.report.reportID !== id));
+      set_display(displaied_data.filter((repo) => repo.report.reportID !== id));
+    }
+  };
+
+  const cancelGroup = () => {
+    setData([...data, ...group]);
+    set_display([...displaied_data, ...group]);
+    set_group([]);
+  };
+
+  const confirmGroup = async () => {
+    console.log(group);
+    var formData = new FormData();
+    formData.append("mainReportID", group[0].report.reportID);
+    formData.append(
+      "reports",
+      group.slice(1).map((repo) => repo.report.reportID)
+    );
+
+    try {
+      const response = await fetch(`${server}/groupReports`, {
+        method: "PUT",
+        credentials: "include",
+        body: formData,
+      });
+      set_group([]);
+    } catch (error) {
+      console.error("Error updating report:", error);
+    }
   };
 
   return (
@@ -245,6 +290,41 @@ function Admin() {
         </div>
       )}
 
+      {group.length > 0 && (
+        <div className="container">
+          <h1 className="text-center">PRIJAVE ZA GRUPIRATI</h1>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+
+                <th>Kategorija</th>
+              </tr>
+            </thead>
+            <tbody>
+              {group.map((repo) => {
+                return (
+                  <tr>
+                    <td>{repo.report.reportID}</td>
+                    <td>{repo.report.reportHeadline}</td>
+
+                    <td>{categoryData[repo.report.categoryID]}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+
+          <button className="btn btn-success" onClick={() => confirmGroup()}>
+            Grupiraj
+          </button>
+          <button className="btn btn-primary" onClick={() => cancelGroup()}>
+            Odustani
+          </button>
+        </div>
+      )}
+
       <hr />
       <div className="container">
         <h1>POPIS SVIH PRIJAVA</h1>
@@ -308,6 +388,12 @@ function Admin() {
                         onClick={() => addToUpdate(repo.report.reportID)}
                       >
                         Update
+                      </button>
+                      <button
+                        className="btn btn-warning btn-sm"
+                        onClick={() => addToGroup(repo.report.reportID)}
+                      >
+                        Grupiraj
                       </button>
                     </div>
                   </div>
