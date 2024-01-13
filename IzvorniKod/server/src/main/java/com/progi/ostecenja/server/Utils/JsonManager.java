@@ -11,20 +11,19 @@ import java.util.Map;
 
 public class JsonManager {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final File jsonFile;
+    //private final File jsonFile;
     @Getter
     private Map<Pair<Double, Double>, String> dataMap;
 
-    public JsonManager(String filePath) {
-        this.jsonFile = new File(filePath);
-        this.dataMap = readMapFromJsonFile();
+    public JsonManager() {
+        //this.jsonFile = new File(filePath);
+        this.dataMap = new HashMap<>();
     }
 
     public void addData(Pair<Double, Double> key, String value) {
         dataMap.put(key, value);
-        saveMapToJsonFile();
     }
-
+    /*
     private Map<Pair<Double, Double>, String> readMapFromJsonFile() {
         try {
             if (jsonFile.exists()) {
@@ -36,6 +35,8 @@ public class JsonManager {
         return new HashMap<>();
     }
 
+     */
+    /*
     private void saveMapToJsonFile() {
         try {
             objectMapper.writeValue(jsonFile, dataMap);
@@ -44,4 +45,5 @@ public class JsonManager {
         }
     }
 
+     */
 }

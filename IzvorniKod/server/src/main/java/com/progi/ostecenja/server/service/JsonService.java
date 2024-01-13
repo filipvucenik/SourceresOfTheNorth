@@ -12,7 +12,7 @@ import java.util.Map;
 @Service
 public class JsonService {
     private static final String FILE_PATH = "data.json";
-    JsonManager jsonManager = new JsonManager(FILE_PATH);
+    JsonManager jsonManager = new JsonManager();
 
     public Map<Pair<Double, Double>, String> readJsonFile() {
         return jsonManager.getDataMap();
