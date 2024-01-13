@@ -29,8 +29,8 @@ class ReportControllerTest {
     @BeforeEach
     void setup()
     {
-        saved1 = reportController.createReport(reportInit(), new StandardSession(null), mockImagesInit());
-        saved2 = reportController.createReport(reportInit(), new StandardSession(null), mockImagesInit());
+        saved1 = reportController.createReport(reportInit(), new StandardSession(null), mockImagesInit(), "Lisinski");
+        saved2 = reportController.createReport(reportInit(), new StandardSession(null), mockImagesInit(), "Lisinski");
     }
 
     @AfterEach

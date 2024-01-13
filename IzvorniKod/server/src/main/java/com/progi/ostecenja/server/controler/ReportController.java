@@ -1,5 +1,6 @@
 package com.progi.ostecenja.server.controler;
 
+import com.progi.ostecenja.server.Utils.Pair;
 import com.progi.ostecenja.server.dto.ReportByStatusDTO;
 import com.progi.ostecenja.server.dto.ReportFilterDto;
 import com.progi.ostecenja.server.dto.StatisticDTO;
@@ -44,6 +45,9 @@ public class ReportController {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private JsonService jsonService;
 
     @GetMapping("/all")
     public List<ReportImage> listReports(HttpSession session){
@@ -107,7 +111,7 @@ public class ReportController {
     }
 
     @PostMapping
-    public Report createReport(@RequestBody Report report, HttpSession session, List<MultipartFile> images){
+    public Report createReport(@RequestBody Report report, HttpSession session, List<MultipartFile> images, String address){
         Timestamp timestamp = report.getReportTS();
         if(timestamp == null){
             timestamp = Timestamp.valueOf(LocalDateTime.now());
@@ -150,6 +154,7 @@ public class ReportController {
             imageService.fillImages(imagePaths);
         }
 
+        jsonService.addToJsonFile(new Pair<>(saved.getLat(), saved.getLng()), address);
 
         return saved;
     }
@@ -202,6 +207,11 @@ public class ReportController {
             throw new IllegalArgumentException("group leader not found exception");
         }
         reportService.groupReports(groupLeader, groupMembers);
+    }
+
+    @GetMapping("/addresses")
+    public Map<Pair<Double, Double>, String> getAddresses(){
+        return jsonService.readJsonFile();
     }
 
     @PutMapping("/changeOffice")
