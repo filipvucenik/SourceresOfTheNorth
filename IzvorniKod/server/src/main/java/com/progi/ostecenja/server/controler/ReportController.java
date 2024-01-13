@@ -72,14 +72,14 @@ public class ReportController {
     }
 
     @PostMapping("/group")
-    public List<ReportCategory> groupReport(@RequestBody ReportDTO report, HttpSession session){
+    public List<ReportCategory> groupReport(@RequestParam Long categoryID, @RequestParam Double lat, @RequestParam Double lng, HttpSession session){
 
         List<Report> reportList = reportService.listAll();
         List<Report> returnList = new ArrayList<Report>();
         for(Report rp: reportList){
             if(rp.getCategoryID()==null || rp.getLat()==null || rp.getLng()==null) continue;
-            if(rp.getCategoryID().equals(report.categoryID) && calculateDistance(rp.getLat(),rp.getLng(),report.lat,report.lng)<=0.2){
-                double dist = calculateDistance(rp.getLat(),rp.getLng(),report.lat,report.lng);
+            if(rp.getCategoryID().equals(categoryID) && calculateDistance(rp.getLat(),rp.getLng(),lat,lng)<=0.2){
+                double dist = calculateDistance(rp.getLat(),rp.getLng(),lat,lng);
                 returnList.add(rp);
             }
         }
