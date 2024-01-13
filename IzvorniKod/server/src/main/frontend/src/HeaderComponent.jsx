@@ -9,7 +9,6 @@ const HeaderComponent = () => {
 
   useEffect(() => {
     const kolacici = Cookies.get();
-    console.log(kolacici);
 
     if (Object.keys(kolacici).length > 0) {
       postaviPostojiKolacic(true);
