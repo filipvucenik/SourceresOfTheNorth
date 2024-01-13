@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
+import MapComponent from "./MapComponent";
 import "leaflet/dist/leaflet.css";
 import apiConfig from "./apiConfig";
 
@@ -35,9 +36,12 @@ function Filter() {
      categoryID: selectedCategoryID,
      fromDateTime: e.target.elements.fromDateTime.value,
      toDateTime: e.target.elements.toDateTime.value,
+     lat: "",
+    lng: "",
+    status: "", 
+    radius: "",
     };
     console.log(dataForSend)
-    //console.log("Koordinate za slanje:", { lattitude, longitude });
       fetch(`https://progi-projekt-test.onrender.com/reports/filtered`, {
         method: 'POST',
         headers: {
@@ -46,7 +50,7 @@ function Filter() {
         body: JSON.stringify(dataForSend),
       })
       .then(response => response.json())
-      .then(data => setFilteredData(data))
+      .then(data =>{setFilteredData(data); console.log(filteredData);})
       .catch(error => console.error('Greška prilikom slanja koordinata:', error));
   };
 
@@ -81,6 +85,7 @@ function Filter() {
         </form>
         <hr />        
       </div>
+      <MapComponent sharedVariable = {filteredData}/>
       <FooterComponent />
     </>
   );

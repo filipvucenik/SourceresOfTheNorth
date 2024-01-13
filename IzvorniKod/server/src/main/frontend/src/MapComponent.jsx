@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import markerIcon from './marker.svg';
@@ -6,10 +6,10 @@ import apiConfig from "./apiConfig";
 
 const server = apiConfig.getReportUrl;
 
-function MapComponent() {
+const MapComponent = (props) => {
   const mapRef = useRef(null); // referenca za spremanje instance karte
   const markers = []; // Niz za pohranu svih markera
-
+  const [mainData, setMainData] = useState([]);
   const uniqueMapId = `map-${Math.floor(Math.random() * 10000)}`;
 
   useEffect(() => {
@@ -67,11 +67,22 @@ function MapComponent() {
           const response = await fetch(`${server}/unhandled`);
           const data = await response.json();
           console.log(data);
+          //setMainData(data);
+          //ispisMarkera();
           for (const lokacija of data) {
             createMarker(lokacija.report.lat, lokacija.report.lng);
           }
         } catch (error) {
           console.error('Error fetching data:', error);
+        }
+      };
+
+      const ispisMarkera = () => {
+        console.log(props.sharedVariable);
+        const dataToIterate = (props.sharedVariable !== "undefined") ? props.sharedVariable : mainData;
+        console.log(dataToIterate);
+        for (const lokacija of dataToIterate) {
+          createMarker(lokacija.report.lat, lokacija.report.lng);
         }
       };
 
