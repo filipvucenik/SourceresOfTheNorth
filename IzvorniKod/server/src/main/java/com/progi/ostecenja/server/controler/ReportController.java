@@ -3,18 +3,12 @@ package com.progi.ostecenja.server.controler;
 import com.progi.ostecenja.server.dto.ReportByStatusDTO;
 import com.progi.ostecenja.server.dto.ReportFilterDto;
 import com.progi.ostecenja.server.dto.StatisticDTO;
-import com.progi.ostecenja.server.repo.Category;
-import com.progi.ostecenja.server.repo.Feedback;
-import com.progi.ostecenja.server.repo.Image;
-import com.progi.ostecenja.server.repo.Report;
-import com.progi.ostecenja.server.service.CategoryService;
-import com.progi.ostecenja.server.service.FeedbackService;
-import com.progi.ostecenja.server.service.ReportService;
-import com.progi.ostecenja.server.service.ImageService;
+import com.progi.ostecenja.server.repo.*;
+import com.progi.ostecenja.server.service.*;
 import com.progi.ostecenja.server.service.impl.StorageService;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +23,10 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/reports")
+@CrossOrigin(origins = "http://localhost:3000/", allowCredentials = "true")
 public class ReportController {
+    @Autowired
+    private UsersService usersService;
     @Autowired
     private  StorageService storageService;
 
@@ -44,6 +41,9 @@ public class ReportController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping("/all")
     public List<ReportImage> listReports(HttpSession session){
@@ -69,14 +69,6 @@ public class ReportController {
 
     @PostMapping("/group")
     public List<ReportCategory> groupReport(@RequestBody ReportDTO report, HttpSession session){
-        ReportFilterDto filterDto = new ReportFilterDto();
-        filterDto.setCategoryId(report.categoryID);
-        filterDto.setStatus(null);
-        filterDto.setRadius(0.2);
-        filterDto.setLat(report.lat);
-        filterDto.setLng(report.lng);
-        filterDto.setStartDate(null);
-        filterDto.setEndDate(null);
 
         List<Report> reportList = reportService.listAll();
         List<Report> returnList = new ArrayList<Report>();
@@ -134,6 +126,15 @@ public class ReportController {
         Report saved = reportService.createReport(report);
         feedbackService.createFeedback(saved.getReportID(), timestamp);
 
+        if(userId!=null){
+            Users user = usersService.fetch(userId);
+            try {
+                emailService.sendRequestSubmittedEmail(user.getEmail(), saved.getReportID());
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         List<Image> imagePaths = new ArrayList<>();
         if(images != null){
             for(MultipartFile image: images){
@@ -178,13 +179,20 @@ public class ReportController {
         return new ReportImage(report, imageService.listAllId(report.getReportID()));
     }
 
-    @PutMapping ("/updateStatus")
-    public void changeStatus(@RequestParam Long reportID, String status){
+    @PutMapping("/updateStatus")
+    public void changeStatus(@RequestParam("reportID") Long reportID, @RequestParam("status") String status) {
         feedbackService.updateService(reportID, status);
+        if(reportService.getReport(reportID).getUserID()==null) return;
+        Users user = usersService.fetch(reportService.getReport(reportID).getUserID());
+        try {
+            emailService.sendRequestStatusChange(user.getEmail(),reportID, status);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PutMapping("/groupReports")
-    public void groupReports(@RequestBody Long groupLeaderId, List<Long> groupMembers){
+    public void groupReports(@RequestParam("mainReportID") Long groupLeaderId, @RequestParam("reports") List<Long> groupMembers){
         if(groupLeaderId == null)
             throw new IllegalArgumentException("group leader id is null");
         Report groupLeader;
