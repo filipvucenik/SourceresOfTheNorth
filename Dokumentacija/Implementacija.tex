@@ -54,13 +54,125 @@
 			
 			\textbf{\textit{dio 2. revizije}}\\
 			
-			 \textit{U ovom poglavlju je potrebno opisati provedbu ispitivanja implementiranih funkcionalnosti na razini komponenti i na razini cijelog sustava s prikazom odabranih ispitnih slučajeva. Studenti trebaju ispitati temeljnu funkcionalnost i rubne uvjete.}
-	
-			
 			\subsection{Ispitivanje komponenti}
-			\textit{Potrebno je provesti ispitivanje jedinica (engl. unit testing) nad razredima koji implementiraju temeljne funkcionalnosti. Razraditi \textbf{minimalno 6 ispitnih slučajeva} u kojima će se ispitati redovni slučajevi, rubni uvjeti te izazivanje pogreške (engl. exception throwing). Poželjno je stvoriti i ispitni slučaj koji koristi funkcionalnosti koje nisu implementirane. Potrebno je priložiti izvorni kôd svih ispitnih slučajeva te prikaz rezultata izvođenja ispita u razvojnom okruženju (prolaz/pad ispita). }
 			
+			Ispitivanje komponenti vrši se radi provjeravanja ispravnosti pojedinih klasa i metoda sustava. Testovi se izvode tako što se ispitivaoj metodi šalje neki ulaz i provjerava se ponašanje metode na dobivenu ulaz sa očekivanim.
 			
+			Za ispitivanje komponenti sustava koristili smo JUnit testove. Svi testovi su bili uspješni, kao što je prikazano na slici \ref{fig:JUnitTestovi}.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/JUnitTestoviRez.png} %veličina u odnosu na širinu linije
+				\caption{Rezultati testova komponenti}
+				\label{fig:JUnitTestovi} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			Prije svakog testa se u sustavu stvaraju dvije prijave u svrhu testiranja. Nakon svakog testa se iste prijave uklanjaju iz sustava.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/JUnitTestoviPomocneMetode.png} %veličina u odnosu na širinu linije
+				\caption{Pomocne metode u testovima komponenti}
+				\label{fig:JUnitTestoviPomocne} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			\textbf{Test 1:}
+			
+			U ovom testu se prvo provjerava ako se prilikom stvaranja nove prijave njezin status automatski postavlja na "neobraden". Zatim se provjerava ako se status prijave ispravno mijenja u "uProcesu".
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/JUnitTest1.png} %veličina u odnosu na širinu linije
+				\caption{Test komponenti 1}
+				\label{fig:JUnitTest1} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			\textbf{Test 2:}
+			
+			U ovom testu se provjerava ako komponenta ispravno reagira kada se više puta pokušava promijeniti status prijave na isti status. U tom slučaju pripadajuća metoda treba baciti odgovarajuću iznimku.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/JUnitTest2.png} %veličina u odnosu na širinu linije
+				\caption{Test komponenti 2}
+				\label{fig:JUnitTest2} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			\textbf{Test 3:}
+			
+			U ovom testu se ispitiva reagiranje komponente na pokušaj promjene statusa nepostojećoj prijavi, to jest prijavi sa nepostojećim ID-om. Od pripadne metode se u tom slučaju očekuje bacanje iznimke.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/JUnitTest3.png} %veličina u odnosu na širinu linije
+				\caption{Test komponenti 3}
+				\label{fig:JUnitTest3} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+				
+			\textbf{Test 4:}
+			
+			U ovom testu se ispitiva reagiranje komponente na pokušaj promjene statusa prijavi bez davanja ID-a prijave. Metodi se dakle kao ID prijave predaje null referenca. Metoda u tom slučaju treba baciti iznimku.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/JUnitTest4.png} %veličina u odnosu na širinu linije
+				\caption{Test komponenti 4}
+				\label{fig:JUnitTest4} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			\textbf{Test 5:}
+			
+			U ovom testu se prvo provjerava ako inicijalno prijava nije nadovezana niti na jednu prijavu. Zatim se druga prijava nadovezuje na prvu prijavu predajom ID-eva prijava u metodu za nadovezivanje. na kraju se provjerava ispravnost provedenog nadovezivanja.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/JUnitTest5.png} %veličina u odnosu na širinu linije
+				\caption{Test komponenti 5}
+				\label{fig:JUnitTest5} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			\textbf{Test 6:}
+			
+			U ovom testu se provjerava ispravno ponašanje prilikom pokušaja nadovezivanja prijave uz davanje nevažećeg ID-a prijave na koju se nadovezuje. U tom slučaju pripadna metoda treba baciti iznimku.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/JUnitTest6.png} %veličina u odnosu na širinu linije
+				\caption{Test komponenti 6}
+				\label{fig:JUnitTest6} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			\textbf{Test 7:}
+			
+			U ovom testu se provjerava ispravno ponašanje prilikom pokušaja nadovezivanja prijave bez davanja prijave na koju se nadovezuje. U tom slučaju pripadna metoda treba baciti iznimku.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/JUnitTest7.png} %veličina u odnosu na širinu linije
+				\caption{Test komponenti 7}
+				\label{fig:JUnitTest7} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			\textbf{Test 8:}
+			
+			U ovom testu se provjerava ispravno ponašanje prilikom pokušaja nadovezivanja prijava bez davanja prijava koje se nadovezuju. Konkretnije, umjesto prijava koje se trebaju nadovezati predaje se null referenca. U tom slučaju pripadna metoda treba baciti iznimku.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/JUnitTest8.png} %veličina u odnosu na širinu linije
+				\caption{Test komponenti 8}
+				\label{fig:JUnitTest8} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			\textbf{Test 9:}
+			
+			U ovom testu se provjerava ispravno ponašanje prilikom pokušaja nadovezivanja prijava uz davanje praznog polja prijava koje se nadovezuju. U tom slučaju pripadna metoda treba baciti iznimku.
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/JUnitTest9.png} %veličina u odnosu na širinu linije
+				\caption{Test komponenti 9}
+				\label{fig:JUnitTest9} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			\textbf{Test 10:}
+			
+			U ovom testu se provjerava ispravnost promjene statusa povezanih prijava. Prvo se provjerava ako prijave imaju status "neobraden". Zatim se druga prijava nadovezuje na prvu te se prvoj prijavi mijenja status u "uProcesu". Očekuje se da promjena nad glavnom prijavom rezultira istom promjenom i u svim nadovezanim prijavama. Stoga se na kraju provjerava ako obje prijave imaju promjenjen status u "uProcesu".
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/JUnitTest10.png} %veličina u odnosu na širinu linije
+				\caption{Test komponenti 10}
+				\label{fig:JUnitTest10} %label mora biti drugaciji za svaku sliku
+			\end{figure}
 			
 			\subsection{Ispitivanje sustava}
 			
@@ -183,5 +295,48 @@
 			Sljedeće je potrebno odabrati vrstu instance web servisa, odnosno njegov cjenovni rang. Ovo je isključivo pitanje preference osobe koja pušta sustav u pogon, odnosno koliko je spremna platiti za puštanje web serivsa u pogon. Za naše potrebe bilo je dovoljna besplatna opcija te smo istu i odabrali.
 			
 			Nakon treba kliknuti na \textit{Create Web Service} i time će web servis biti puštena u pogon. Prilikom prvog pokretanja web servisa baza podataka će se napuniti inicijalnim podacima.
+			
+			U bazi će biti sljedeći podaci:
+			\begin{packed_item}
+				\item Korisnici:
+				\begin{packed_item}
+					\item e-mail: abc@gmail.com, ime: xx, prezime: yy, lozinka: pass1234
+					\item e-mail: abc2@gmail.com, ime: xx, prezime: yy, lozinka: pass1234
+					\item e-mail: abc3@gmail.com, ime: xx, prezime: yy, lozinka: pass1234
+					\item e-mail: abc4@gmail.com, ime: xx, prezime: yy, lozinka: pass1234
+				\end{packed_item}
+				\item Gradski uredi:
+				\begin{packed_item}
+					\item ime: Rupasti, e-mail: rupasti@gmail.com, lozinka: password
+					\item ime: Rasvjeta, e-mail: rasvjeta@gmail.com, lozinka: password
+					\item ime: Smece, e-mail: smece@gmail.com, lozinka: password
+					\item ime: Korupcija, e-mail: korupcija@gmail.com, lozinka: password
+				\end{packed_item}
+				\item Kategorije:
+				\begin{packed_item}
+					\item kategorija: rupa na cesti, ured: Rupasti
+					\item kategorija: rupa na pjesackome, ured: Rupasti
+					\item kategorija: ulicna rasvjeta, ured: Rasvjeta
+					\item kategorija: smece na ulici, ured: Smece
+					\item kategorija: smece u parku, ured: Smece
+					\item kategorija: institucionalna korupcija, ured: Korupcija
+				\end{packed_item}
+				\item Ključne riječi za kategorije:
+				\begin{packed_item}
+					\item riječ: Rupa, kategorija: rupa na cesti
+					\item riječ: Cesta, kategorija: rupa na cesti
+					\item riječ: Pjesacki, kategorija: rupa na pjesackome
+					\item riječ: Pješački, kategorija: rupa na pjesackome
+					\item riječ: Rasvjeta, kategorija: ulicna rasvjeta
+					\item riječ: Lampa, kategorija: ulicna rasvjeta
+					\item riječ: Smeće, kategorija: smece na ulici
+					\item riječ: Smrdi, kategorija: smece na ulici
+					\item riječ: Park, kategorija: smece u parku
+					\item riječ: Otpad, kategorija: smece u parku
+					\item riječ: Mito, kategorija: institucionalna korupcija
+					\item riječ: Korupcija, kategorija: institucionalna korupcija
+				\end{packed_item}
+				\item jedna prijava ruoe na cesti na lokaciju kod koncertne dvorane Vatroslava Lisinskog sa priloženom slikom
+			\end{packed_item}
 			
 			\eject 

@@ -49,20 +49,20 @@
 				
 				\item  \underbar{Neregistrirani korisnik (inicijator) može:}
 				\begin{packed_enum}
-					\item napraviti svoj profil za koji mu je potrebno ime, prezime, datum rođenja, email adresa i lozinka
+					\item napraviti svoj profil za koji mu je potrebno ime, prezime, email adresa i lozinka
 					\item podnositi anonimnu prijavu koja sadrži naslov, opis, lokaciju i kategoriju oštećenja, a opcionalno i fotografiju i prijavu na koju se nadovezuje
-					\item pregledavati postojeće prijave preko karte te ih filtrirati po vremenu, statusu, kategoriji oštećenja i nadležnom gradskom uredu
-					\item pregledavati statistiku postojećih prijava za odabran period, kategoriju oštećenja i nadležan gradski ured			
+					\item pregledavati postojeće prijave preko karte te ih filtrirati po vremenu i kategoriji oštećenja
+					\item pregledavati statistiku postojećih prijava za odabran period, kategoriju oštećenja i prostor			
 				\end{packed_enum}
 								
 				\item  \underbar{Registrirani korisnik (inicijator) može:}				
 				\begin{packed_enum}					
 					\item pregledavati i mijenjati osobne podatke
 					\item obrisati svoj profil
-					\item pregledavati svoje prošle prijave
+					\item pregledavati svoje prijave
 					\item podnositi prijavu koja sadrži naslov, opis, lokaciju i kategoriju oštećenja, a opcionalno i fotografiju i prijavu na koju se nadovezuje
-					\item  pregledavati postojeće prijave preko karte te ih filtrirati po vremenu, statusu, kategoriji oštećenja i nadležnom gradskom uredu
-					\item pregledavati statistiku postojećih prijava za odabran period, kategoriju oštećenja i nadležan gradski ured
+					\item  pregledavati postojeće prijave preko karte te ih filtrirati po vremenu i kategoriji oštećenja
+					\item pregledavati statistiku postojećih prijava za odabran period, kategoriju oštećenja i prostor
 				\end{packed_enum}
 				
 				\item  \underbar{Djelatnik gradskog ureda (inicijator) može:}
@@ -72,6 +72,8 @@
 					\item prijavama sa statusom \textit{na čekanju} mijenjati status u \textit{u procesu rješavanja}
 					\item prijavama sa statusom \textit{u procesu rješavanja} mijenjati status u \textit{riješena}
 					\item objediniti prijave ako se referiraju na isti problem
+					\item proslijediti prijave drugom uredu promjenom kategorije prijave
+					\item označiti prijavu kao nevažeću
 					\item pregledavati statistiku prijava pristiglih u njihov ured
 					\item dodatno filtrirati za koje prijave želi pregledati statistiku
 				\end{packed_enum}
@@ -79,6 +81,7 @@
 				\item  \underbar{Baza podataka (sudionik) može:}
 				\begin{packed_enum}
 					\item spremati sve podatke o korisnicima
+					\item spremati sve podatke o gradskim uredima
 					\item spremati sve podatke o prijavama
 				\end{packed_enum}
 				
@@ -126,8 +129,8 @@
 						
 						\item  \textbf{Opis osnovnog tijeka:}
 						\item[] \begin{packed_enum}
-							\item Korisnik odabire opciju za pregledavanje prijava
-							\item Aplikacija prikazuje prijave
+							\item Korisnik odabire glavnu stranicu
+							\item Aplikacija prikazuje prijave na karti
 							\item Korisnik odabire prijavu
 							\item Prikazuju se podaci o prijavi
 						\end{packed_enum}
@@ -140,22 +143,14 @@
 					\item \textbf{Glavni sudionik:} Korisnik
 					\item  \textbf{Cilj:} Filtriranje prijava prilikom pregleda
 					\item  \textbf{Sudionici:} Baza podataka
-					\item  \textbf{Preduvjet:} Korisnik je odabrao opciju pregleda svih prijava
+					\item  \textbf{Preduvjet:} Korisnik pregledava prijave na glavnoj stranici
 					
 					\item  \textbf{Opis osnovnog tijeka:}
 					\item[] \begin{packed_enum}
+						\item Korisnik odabire opciju filtriranja
 						\item Korisnik odabire opcije kod filtriranja
 						\item Aplikacija prikazuje filtrirane prijave
 					\end{packed_enum}
-					
-					\item  \textbf{Opis mogućih odstupanja:}
-					\item[] \begin{packed_item}
-						\item[1.a] Korisnik ne želi filtrirati prijave
-						\item[] \begin{packed_enum}
-							\item Aplikacija prikazuje nefiltrirane prijave
-						\end{packed_enum}
-						
-					\end{packed_item}
 				\end{packed_item}
 				
 				
@@ -253,8 +248,8 @@
 					
 					\item  \textbf{Opis osnovnog tijeka:}
 					\item[] \begin{packed_enum}
-						\item Registrirani korisnik odabire ikonu svojeg profila
-						\item Aplikacija prikazuje podatke o korisničkom računu i dodatne opcije
+						\item Registrirani korisnik odabire prikaz stranice svojeg profila
+						\item Aplikacija prikazuje podatke o korisničkom računu
 						\item Registrirani korisnik pregledava podatke o svojem korisničkom računu
 					\end{packed_enum}
 				\end{packed_item}
@@ -270,7 +265,6 @@
 					
 					\item  \textbf{Opis osnovnog tijeka:}
 					\item[] \begin{packed_enum}
-						\item Registrirani korisnik odabire opciju uređivanja korisničkog računa
 						\item Registrirani korisnik mijenja željene podatke o računu
 						\item Registrirani korisnik potvrđuje izmjene i vraća se u pregled korisničkog računa
 						\item Izmijenjeni podaci se spremaju u bazu podataka
