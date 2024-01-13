@@ -374,6 +374,7 @@ const ReportCard = () => {
             setTitle(e.target.value);
             checkForKeyword(e.target.value);
           }}
+          required
         />
 
         <label htmlFor="description">Opis:</label>
@@ -384,6 +385,7 @@ const ReportCard = () => {
             setDescription(e.target.value);
             checkForKeyword(e.target.value);
           }}
+          required
         />
 
         <label htmlFor="category">Kategorija:</label>
@@ -391,6 +393,7 @@ const ReportCard = () => {
           id="category"
           value={category}
           onChange={handleCategoyChange}
+          required
         >
           <option key="default" value="default"> Izaberite kategoriju</option>
           {Object.entries(categoryData).map(([categoryId, categoryName]) => (
@@ -431,6 +434,7 @@ const ReportCard = () => {
             id="address"
             value={manualAddress}
             onChange={manualAddressChange}
+            required
           />
         </div>
 
