@@ -67,11 +67,11 @@ const MapComponent = (props) => {
           const response = await fetch(`${server}/unhandled`);
           const data = await response.json();
           console.log(data);
-          //setMainData(data);
-          //ispisMarkera();
-          for (const lokacija of data) {
+          setMainData(data);
+          ispisMarkera();
+          /*for (const lokacija of data) {
             createMarker(lokacija.report.lat, lokacija.report.lng);
-          }
+          }*/
         } catch (error) {
           console.error('Error fetching data:', error);
         }
