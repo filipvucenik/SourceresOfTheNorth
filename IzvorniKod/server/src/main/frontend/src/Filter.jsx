@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import {useNavigate } from "react-router-dom";
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 import MapComponent from "./MapComponent";
@@ -9,6 +10,8 @@ function Filter() {
   const [filteredData, setFilteredData] = useState([]);
   const [categoryData, setCategoryData] = useState({});
   const [selectedCategoryID, setSelectedCategoryID] = useState("");
+  const [showMap, setShowMap] = useState(false);
+  const navigate = useNavigate();
 
   const getCategory = async () => {
     let url = apiConfig.getCategory
@@ -30,34 +33,44 @@ function Filter() {
     setSelectedCategoryID(selectedID);
   };
 
+  useEffect(() => {
+    // This useEffect will run whenever filteredData changes
+    console.log(filteredData);
+  }, [filteredData]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const dataForSend = {
-     categoryID: selectedCategoryID,
-     fromDateTime: e.target.elements.fromDateTime.value,
-     toDateTime: e.target.elements.toDateTime.value,
-     lat: "",
-    lng: "",
-    status: "", 
-    radius: "",
+      categoryId: selectedCategoryID,
+      startDate: e.target.elements.fromDateTime.value,
+      endDate: e.target.elements.toDateTime.value,
+      lat: "",
+      lng: "",
+      status: "",
+      radius: "",
     };
-    console.log(dataForSend)
-      fetch(`https://progi-projekt-test.onrender.com/reports/filtered`, {
+    console.log(dataForSend);
+    try {
+      const response = await fetch(`https://progi-projekt-test.onrender.com/reports/filtered`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(dataForSend),
-      })
-      .then(response => response.json())
-      .then(data =>{setFilteredData(data); console.log(filteredData);})
-      .catch(error => console.error('Greška prilikom slanja koordinata:', error));
+      });
+  
+      const data = await response.json();
+      setFilteredData(data);  // Move setFilteredData outside the then block
+      navigate("/");
+    } catch (error) {
+      console.error('Greška prilikom slanja koordinata:', error);
+    }
   };
+  
 
   return (
     <>
-      <HeaderComponent />
-      <div className="col-lg-6 col-md-10 col-sm-12 report-card">
+      <div className="col-lg-6 col-md-10 col-sm-12 report-card2">
         <h1>Filter prijava</h1>
         <form onSubmit={handleSubmit}>
           <label>
@@ -85,8 +98,8 @@ function Filter() {
         </form>
         <hr />        
       </div>
-      <MapComponent sharedVariable = {filteredData}/>
-      <FooterComponent />
+      
+      
     </>
   );
 }
