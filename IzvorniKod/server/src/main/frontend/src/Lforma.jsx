@@ -7,6 +7,47 @@ import FooterComponent from "./FooterComponent";
 import HeaderComponent from "./HeaderComponent";
 
 const LoginComponent = () => {
+  const customAlert = (message) => {
+    const alertContainer = document.createElement('div');
+    alertContainer.style.cssText = `
+      position: fixed;
+      top: 20px; /* Adjust the top distance as needed */
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      border-radius: 5px;
+      text-align: center;
+      z-index: 9999; /* Set a high z-index to ensure it's on top */
+    `;
+  
+    const alertText = document.createElement('p');
+    alertText.style.cssText = `
+      font-weight: bold;
+      font-size: 16px;
+    `;
+    alertText.textContent = message;
+  
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'OK';
+    closeButton.style.cssText = `
+      margin-top: 10px;
+      padding: 5px 10px;
+      cursor: pointer;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 3px;
+    `;
+    closeButton.addEventListener('click', () => document.body.removeChild(alertContainer));
+  
+    alertContainer.appendChild(alertText);
+    alertContainer.appendChild(closeButton);
+  
+    document.body.appendChild(alertContainer);
+  };
+
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -31,7 +72,7 @@ const LoginComponent = () => {
     let url = apiConfig.getLoginUrl;
     console.log(jsonData);
     if(email == "" ||password == ""){
-      alert("Greška kod prijave: neispravan mail ili lozinka!");
+      customAlert("Greška kod prijave: neispravan mail ili lozinka!");
         return;
     }
     fetch(url, {
@@ -48,7 +89,7 @@ const LoginComponent = () => {
         return response.text();
         
       } else {
-        alert("Greška kod prijave: neispravan mail ili lozinka!");
+        customAlert("Greška kod prijave: neispravan mail ili lozinka!");
         return;
       }
     }).then(textData => {
