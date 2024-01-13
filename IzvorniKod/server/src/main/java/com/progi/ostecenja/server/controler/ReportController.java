@@ -68,14 +68,6 @@ public class ReportController {
 
     @PostMapping("/group")
     public List<ReportCategory> groupReport(@RequestBody ReportDTO report, HttpSession session){
-        ReportFilterDto filterDto = new ReportFilterDto();
-        filterDto.setCategoryId(report.categoryID);
-        filterDto.setStatus(null);
-        filterDto.setRadius(0.2);
-        filterDto.setLat(report.lat);
-        filterDto.setLng(report.lng);
-        filterDto.setStartDate(null);
-        filterDto.setEndDate(null);
 
         List<Report> reportList = reportService.listAll();
         List<Report> returnList = new ArrayList<Report>();
@@ -133,11 +125,13 @@ public class ReportController {
         Report saved = reportService.createReport(report);
         feedbackService.createFeedback(saved.getReportID(), timestamp);
 
-        Users user = usersService.fetch(userId);
-        try {
-            emailService.sendRequestSubmittedEmail(user.getEmail(), saved.getReportID());
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
+        if(userId!=null){
+            Users user = usersService.fetch(userId);
+            try {
+                emailService.sendRequestSubmittedEmail(user.getEmail(), saved.getReportID());
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         List<Image> imagePaths = new ArrayList<>();
