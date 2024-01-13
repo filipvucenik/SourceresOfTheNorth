@@ -30,7 +30,10 @@ const LoginComponent = () => {
 
     let url = apiConfig.getLoginUrl;
     console.log(jsonData);
-
+    if(email == "" ||password == ""){
+      alert("Greška kod prijave: neispravan mail ili lozinka!");
+        return;
+    }
     fetch(url, {
       method: "POST",
       credentials: "include",
