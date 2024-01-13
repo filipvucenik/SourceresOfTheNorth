@@ -81,13 +81,22 @@ function Admin() {
 
   const confirmTransfer = () => {
     console.log(transfer);
-    const dataForSend = {
-      categoryID: selectedCategoryID,
-      reports: transfer.map((repo) => repo.report.reportID),
-    };
-    console.log(dataForSend);
-    console.log(JSON.stringify(dataForSend));
-    set_transfer([]);
+    var formData = new FormData();
+    formData.append("CatID", selectedCategoryID);
+    formData.append(
+      "reports",
+      transfer.map((repo) => repo.report.reportID)
+    );
+    try {
+      const response = fetch(`${server}/changeOffice`, {
+        method: "PUT",
+        credentials: "include",
+        body: formData,
+      });
+      set_transfer([]);
+    } catch (error) {
+      console.error("Error updating report:", error);
+    }
   };
 
   const remove = async (id) => {
@@ -366,35 +375,60 @@ function Admin() {
                     <p className="card-text">{repo.report.status}</p>
                     <div className="btn-group">
                       <button
-                        className="btn btn-primary btn-sm"
+                        className="btn btn-primary"
                         onClick={() => redirect(repo.report.reportID)}
                       >
                         Pregled
                       </button>
                       <button
-                        className="btn btn-danger btn-sm"
+                        className="btn btn-danger"
                         onClick={() => remove(repo.report.reportID)}
                       >
                         Obrisi
                       </button>
-                      <button
-                        className="btn btn-success btn-sm"
-                        onClick={() => addToTransfer(repo.report.reportID)}
-                      >
-                        Proslijedi
-                      </button>
-                      <button
-                        className="btn btn-warning btn-sm"
-                        onClick={() => addToUpdate(repo.report.reportID)}
-                      >
-                        Update
-                      </button>
-                      <button
-                        className="btn btn-warning btn-sm"
-                        onClick={() => addToGroup(repo.report.reportID)}
-                      >
-                        Grupiraj
-                      </button>
+
+                      <div className="dropdown">
+                        <button
+                          className="btn btn-warning dropdown-toggle"
+                          type="button"
+                          id="actionsDropdown"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          Actions
+                        </button>
+                        <ul
+                          className="dropdown-menu"
+                          aria-labelledby="actionsDropdown"
+                        >
+                          <li>
+                            <button
+                              className="dropdown-item"
+                              onClick={() =>
+                                addToTransfer(repo.report.reportID)
+                              }
+                            >
+                              Proslijedi
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              className="dropdown-item"
+                              onClick={() => addToUpdate(repo.report.reportID)}
+                            >
+                              Ažuriraj
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              className="dropdown-item"
+                              onClick={() => addToGroup(repo.report.reportID)}
+                            >
+                              Grupiraj
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>

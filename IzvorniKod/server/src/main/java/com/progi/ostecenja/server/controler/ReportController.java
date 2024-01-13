@@ -205,8 +205,8 @@ public class ReportController {
     }
 
     @PutMapping("/changeOffice")
-    public void changeOffice(@RequestBody Long categoryId, List<Long> reportIds){
-
+    public void changeOffice(@RequestParam("CatID") Long categoryId, @RequestParam("reports") List<Long> reportIds){
+        
     }
 
     public Feedback getStatus(@RequestParam long reportId){
