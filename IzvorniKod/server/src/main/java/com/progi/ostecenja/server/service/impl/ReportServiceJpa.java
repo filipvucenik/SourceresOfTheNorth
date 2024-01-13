@@ -61,6 +61,10 @@ public class ReportServiceJpa implements ReportService {
 
     @Override
     public Report createReport(Report report) {
+        if(report.getGroup() != null && report.getReportID().equals(report.getGroup().getReportID())){
+            throw new IllegalArgumentException("can't group report on itself");
+        }
+
         return reportRepo.save(report);
     }
 
@@ -183,6 +187,10 @@ public class ReportServiceJpa implements ReportService {
             }
         }catch (org.springframework.dao.InvalidDataAccessApiUsageException e){
             throw new IllegalArgumentException("group leader does not exists");
+        }
+
+        if(members.contains(groupLeader.getReportID())){
+            throw new IllegalArgumentException("can't group report on itself");
         }
 
         for(Long memberid: members){
