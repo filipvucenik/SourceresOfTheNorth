@@ -5,12 +5,15 @@ import HeaderComponent from "./HeaderComponent";
 import apiConfig from "./apiConfig";
 
 function Admin() {
+  const server = apiConfig.getReportUrl;
   const [data, setData] = useState([]);
   const nav = useNavigate();
   const [displaied_data, set_display] = useState([]);
   const [transfer, set_transfer] = useState([]);
+  const [update, set_update] = useState([]);
   const [categoryData, setCategoryData] = useState({});
   const [selectedCategoryID, setSelectedCategoryID] = useState("");
+  const [newStatus, setNewStatus] = useState("");
 
   useEffect(() => {
     fetchReports();
@@ -49,7 +52,7 @@ function Admin() {
   const updateDisplay = (status) => {
     set_display(
       data.filter((repo) => {
-        if (repo.status === status) {
+        if (repo.report.status === status) {
           return true;
         } else return false;
       })
@@ -67,11 +70,11 @@ function Admin() {
   };
 
   const addToTransfer = (id) => {
-    const reportToAdd = data.find((repo) => repo.reportID === id);
+    const reportToAdd = data.find((repo) => repo.report.reportID === id);
     if (reportToAdd) {
       set_transfer([...transfer, reportToAdd]);
-      setData(data.filter((repo) => repo.reportID !== id));
-      set_display(displaied_data.filter((repo) => repo.reportID !== id));
+      setData(data.filter((repo) => repo.report.reportID !== id));
+      set_display(displaied_data.filter((repo) => repo.report.reportID !== id));
     }
   };
 
@@ -79,7 +82,7 @@ function Admin() {
     console.log(transfer);
     const dataForSend = {
       categoryID: selectedCategoryID,
-      reports: transfer.map((repo) => repo.reportID),
+      reports: transfer.map((repo) => repo.report.reportID),
     };
     console.log(dataForSend);
     console.log(JSON.stringify(dataForSend));
@@ -88,28 +91,118 @@ function Admin() {
 
   const remove = async (id) => {
     try {
-      await fetch(`/delete`, {
+      console.log("removing report" + id);
+      console.log(`${server}/delete?repotId=${id}`);
+      await fetch(`${server}/delete?repotId=${id}`, {
         method: "DELETE",
-        body: JSON.stringify({ id: id }),
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-      setData(data.filter((repo) => repo.reportID !== id));
-      set_display(displaied_data.filter((repo) => repo.reportID !== id));
+      setData(data.filter((repo) => repo.report.reportID !== id));
+      set_display(displaied_data.filter((repo) => repo.report.reportID !== id));
     } catch (error) {
       console.error("Error removing report:", error);
     }
   };
 
+  const addToUpdate = (id) => {
+    const reportToAdd = data.find((repo) => repo.report.reportID === id);
+    if (reportToAdd) {
+      set_update([...update, reportToAdd]);
+      setData(data.filter((repo) => repo.report.reportID !== id));
+      set_display(displaied_data.filter((repo) => repo.report.reportID !== id));
+    }
+  };
+
+  const cancelUpdate = () => {
+    setData([...data, ...update]);
+    set_display([...displaied_data, ...update]);
+    set_update([]);
+  };
+
+  const confirmUpdate = async () => {
+    console.log(update);
+    const dataForSend = {
+      status: newStatus,
+      reports: update.map((repo) => repo.report.reportID),
+    };
+    console.log(dataForSend);
+    console.log(JSON.stringify(dataForSend));
+    set_update([]);
+  };
+
+  const handleStatusChange = (event) => {
+    const selectedStatus = event.target.value;
+    setNewStatus(selectedStatus);
+  };
+
   return (
     <>
       <HeaderComponent />
-      {transfer.length > 0 && (
+
+      {update.length > 0 && (
         <div className="container">
+          <h1 className="text-center">PRIJAVE ZA IZMJENU STATUSA</h1>
           <table className="table table-striped">
             <thead>
               <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Status</th>
+
+                <th>Kategorija</th>
+              </tr>
+            </thead>
+            <tbody>
+              {update.map((repo) => {
+                return (
+                  <tr>
+                    <td>{repo.report.reportID}</td>
+                    <td>{repo.report.reportHeadline}</td>
+
+                    <td>{categoryData[repo.report.categoryID]}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+
+          <label>
+            Novi status:
+            <select name="status" onChange={handleStatusChange}>
+              <option key="default" value="default">
+                izaberite status
+              </option>
+              <option key="U Procesu" value="U Procesu">
+                U Procesu
+              </option>
+              <option key="Neobrađeno" value="Neobrađeno">
+                Neobrađeno
+              </option>
+              <option key="Obrađeno" value="Obrađeno">
+                Obrađeno
+              </option>
+            </select>
+          </label>
+
+          <button className="btn btn-success" onClick={() => confirmUpdate()}>
+            Izmjeni status
+          </button>
+          <button className="btn btn-primary" onClick={() => cancelUpdate()}>
+            Odustani
+          </button>
+        </div>
+      )}
+
+      {transfer.length > 0 && (
+        <div className="container">
+          <h1 className="text-center">PRIJAVE ZA PROSLIJEDITI</h1>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
 
                 <th>Kategorija</th>
               </tr>
@@ -118,10 +211,10 @@ function Admin() {
               {transfer.map((repo) => {
                 return (
                   <tr>
-                    <td>{repo.reportID}</td>
-                    <td>{repo.reportHeadline}</td>
-                    <td>{repo.status}</td>
-                    <td>{categoryData[repo.categoryID]}</td>
+                    <td>{repo.report.reportID}</td>
+                    <td>{repo.report.reportHeadline}</td>
+
+                    <td>{categoryData[repo.report.categoryID]}</td>
                   </tr>
                 );
               })}
@@ -151,6 +244,7 @@ function Admin() {
           </button>
         </div>
       )}
+
       <hr />
       <div className="container">
         <h1>POPIS SVIH PRIJAVA</h1>
@@ -162,19 +256,19 @@ function Admin() {
             className="btn btn-lg btn-primary"
             onClick={() => updateDisplay("U Procesu")}
           >
-            Aktivne
+            U procesu
           </button>
           <button
             className="btn btn-lg btn-primary"
             onClick={() => updateDisplay("Neobrađeno")}
           >
-            Na čekanju
+            Neobrađene
           </button>
           <button
             className="btn btn-lg btn-primary"
             onClick={() => updateDisplay("Obrađeno")}
           >
-            Riješene
+            Obrađeno
           </button>
         </div>
         {displaied_data.length > 0 && (
@@ -183,29 +277,37 @@ function Admin() {
               return (
                 <div className="card h-100 border border-2 rounded">
                   <div className="card-body">
-                    <h5 className="card-title">{repo.reportHeadline}</h5>
+                    <h5 className="card-title">{repo.report.reportHeadline}</h5>
                     <hr />
-                    <p className="card-text">{repo.description}</p>
-                    <p className="card-text">{categoryData[repo.categoryID]}</p>
-                    <p className="card-text">{repo.status}</p>
+                    <p className="card-text">{repo.report.description}</p>
+                    <p className="card-text">
+                      {categoryData[repo.report.categoryID]}
+                    </p>
+                    <p className="card-text">{repo.report.status}</p>
                     <div className="btn-group">
                       <button
-                        className="btn btn-primary"
-                        onClick={() => redirect(repo.reportID)}
+                        className="btn btn-primary btn-sm"
+                        onClick={() => redirect(repo.report.reportID)}
                       >
-                        Uredi
+                        Pregled
                       </button>
                       <button
-                        className="btn btn-danger"
-                        onClick={() => remove(repo.reportID)}
+                        className="btn btn-danger btn-sm"
+                        onClick={() => remove(repo.report.reportID)}
                       >
                         Obrisi
                       </button>
                       <button
-                        className="btn btn-success"
-                        onClick={() => addToTransfer(repo.reportID)}
+                        className="btn btn-success btn-sm"
+                        onClick={() => addToTransfer(repo.report.reportID)}
                       >
                         Proslijedi
+                      </button>
+                      <button
+                        className="btn btn-warning btn-sm"
+                        onClick={() => addToUpdate(repo.report.reportID)}
+                      >
+                        Update
                       </button>
                     </div>
                   </div>

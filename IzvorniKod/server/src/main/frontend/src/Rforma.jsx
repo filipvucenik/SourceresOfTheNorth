@@ -276,7 +276,8 @@ const ReportCard = () => {
     });
 
     if (submitResponse.status === 200) {
-      customAlert("Vaša prijava je podnešena");
+      
+      isLink ? customAlert("Vaša prijava je nadovezana") : customAlert("Vaša prijava je podnešena"); 
       navigate("/");
     } else {
       customAlert("Server trenutno nije dostupan, molimo pričekajte ili pokušajte ponovo");
@@ -373,6 +374,7 @@ const ReportCard = () => {
             setTitle(e.target.value);
             checkForKeyword(e.target.value);
           }}
+          required
         />
 
         <label htmlFor="description">Opis:</label>
@@ -383,6 +385,7 @@ const ReportCard = () => {
             setDescription(e.target.value);
             checkForKeyword(e.target.value);
           }}
+          required
         />
 
         <label htmlFor="category">Kategorija:</label>
@@ -390,6 +393,7 @@ const ReportCard = () => {
           id="category"
           value={category}
           onChange={handleCategoyChange}
+          required
         >
           <option key="default" value="default"> Izaberite kategoriju</option>
           {Object.entries(categoryData).map(([categoryId, categoryName]) => (
@@ -430,6 +434,7 @@ const ReportCard = () => {
             id="address"
             value={manualAddress}
             onChange={manualAddressChange}
+            required
           />
         </div>
 

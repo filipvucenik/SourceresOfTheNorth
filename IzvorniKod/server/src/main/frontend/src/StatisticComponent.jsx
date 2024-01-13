@@ -10,13 +10,14 @@ const server = apiConfig.getReportUrl;
 
 function StatisticComponent() {
   const [filteredData, setFilteredData] = useState([]);
+  const [trueFalse,setTrueFalse]=useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [categoryData, setCategoryData] = useState({});
   const [selectedCategoryID, setSelectedCategoryID] = useState("");
   const [statusReport, setStatusReport] = useState("");
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
-
+  const [renderData, setRenderData] = useState([]); // Initialize as an empty array
   const mapRef = useRef(null); // referenca za spremanje instance karte
   const uniqueMapId = `map-${Math.floor(Math.random() * 10000)}`;
 
@@ -24,6 +25,11 @@ function StatisticComponent() {
 
   const statusChange = (e) => {
     setStatusReport(e.target.value);
+  };
+
+  const formatirajVrijeme = (vrijemeString) => {
+    const [dani, sati, minute] = vrijemeString.split(',').map(Number);
+    return `${dani} dana, ${sati} sati, ${minute} minuta`;
   };
 
   const getCategory = async () => {
@@ -77,17 +83,17 @@ function StatisticComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(lat);
-    console.log(lng);
-    if (lat != "" && lng != "") {
+
+  
+    if (lat !== "" && lng !== "") {
       // Ako su latitude i longitude označene, provjeri je li radius unesen
-    const radius = e.target.elements.radius.value.trim();
-    if (!radius) {
-      console.error("Radius is required when location is selected");
-      // Dodajte alert za obavještavanje korisnika
-      alert("Molimo vas označite radius kad je označena lokacija");
-      return;
-    }
+      const radius = e.target.elements.radius.value.trim();
+      if (!radius) {
+        console.error("Radius is required when location is selected");
+        // Dodajte alert za obavještavanje korisnika
+        alert("Molimo vas označite radius kad je označena lokacija");
+        return;
+      }
     }
     const dataForSend = {
       categoryID: selectedCategoryID,
@@ -96,10 +102,10 @@ function StatisticComponent() {
       toDateTime: e.target.elements.toDateTime.value,
       lat: lat,
       lng: lng,
-      status:"",
+      status: "", 
     };
 
-    console.log(dataForSend);
+
 
     fetch(`${server}/statistic`, {
       method: "POST",
@@ -108,15 +114,25 @@ function StatisticComponent() {
       },
       body: JSON.stringify(dataForSend),
     })
-    .then((response) => response.json())
-    .then((data) => {
-        dataVariable.current = data;
-        console.log(dataVariable.current);
-    })
+      .then((response) => response.json())
+      .then((data) => {
+        setRenderData(data); // Update renderData only when data is received
+        setTrueFalse(true);
+        console.log(renderData);
+      })
       .catch((error) =>
         console.error("Greška prilikom slanja koordinata:", error)
       );
   };
+  useEffect(() => {
+    console.log("Updated renderData:", renderData);
+  }, [renderData]);
+
+  
+
+  useEffect(() => {
+    console.log(trueFalse);
+  }, [trueFalse]);
 
   useEffect(() => {
     if (!mapRef.current) {
@@ -147,6 +163,9 @@ function StatisticComponent() {
       mapRef.current.invalidateSize();
     }
   }, [selectedMarker, lat, lng]);
+
+  
+  
 
   return (
     <>
@@ -190,22 +209,35 @@ function StatisticComponent() {
           </button>
         </form>
         <hr />
+        {trueFalse && (
+  <ul className="statistika">
+    {renderData ? (
+      <li className="statistika-child">
+        {Object.entries(renderData).map(([key, value]) => (
+          <p key={key}>
+            {key === "avgReportsByDay" ? "Prosječni izvještaji po danu" : ""}
+            {key === "avgTimeInProgress" ? "Prosječno vrijeme u tijeku (u satima)" : ""}
+            {key === "avgTimeWaiting" ? "Prosječno vrijeme čekanja (u satima)" : ""}
+            {key === "reportCount" ? "Broj izvještaja" : ""}
+            {key === "reportInProgressCount" ? "Broj izvještaja u tijeku" : ""}
+            {key === "reportInProgressShare" ? "Postotak izvještaja u tijeku" : ""}
+            {key === "reportSolvedCount" ? "Broj riješenih izvještaja" : ""}
+            {key === "reportSolvedShare" ? "Postotak riješenih izvještaja" : ""}
+            {key === "reportWaitingCount" ? "Broj izvještaja na čekanju" : ""}
+            {key === "reportWaitingShare" ? "Postotak izvještaja na čekanju" : ""}
+            : {key.includes("Share") ? `${(value * 100).toFixed(2)}%` : value}
+          </p>
+        ))}
+      </li>
+    ) : (
+      <p>Nema dostupnih podataka</p>
+    )}
+  </ul>
+)}
+<hr />
       </div>
-      <ul className="statistika">
-      {dataVariable.current && 
-        dataVariable.current.map((item) => (
-          <li className="statistika-child">
-            <p>Ukupan broj podnesenih prijava: {item.reportCount}</p>
-            <p>Broj prijava sa statusom <i>na čekanju</i>: {item.reportWaitingCount} &nbsp i njihov udio {item.reportWaitingShare}</p>
-            <p>Broj prijava sa statusom <i>u procesu rješavanja</i>: {item.reportInProgressCount} &nbsp i njihov udio {item.reportInProgressShare}</p>
-            <p>Broj prijava sa statusom <i>riješena</i>: {item.reportSolvedCount} &nbsp i njihov udio {item.reportSolvedShare}</p>
-            <p>Prosječan broj podnesenih prijava u danu: {item.avgReportsByDay}</p>
-            <p>Prosječan broj dana koji prijava provede na čekanju: {item.avgTimeWaiting.split(',')[1]}h </p>
-            <p>Prosječan broj dana za vrijeme kojih je prijava u procesu rješavanja: {item.avgTimeInProgress.split(',')[0]}</p>
-          </li>
-        ))
-        }
-      </ul>
+      
+
       <FooterComponent />
     </>
   );
