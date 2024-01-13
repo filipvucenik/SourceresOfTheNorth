@@ -113,6 +113,11 @@ class ReportControllerTest {
     }
 
     @Test
+    public void groupReportGroupSameReportTest(){
+        assertThrows(IllegalArgumentException.class, ()->{reportController.groupReports(saved1.getReportID(), List.of(new Long[]{saved1.getReportID()}));});
+    }
+
+    @Test
     public void updateGroupStatusTest(){
         assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(),"neobraden");
         assertEquals(reportController.getStatus(saved2.getReportID()).getKey().getStatus(),"neobraden");
