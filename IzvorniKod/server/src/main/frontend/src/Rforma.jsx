@@ -311,18 +311,18 @@ const ReportCard = () => {
   };
 
   const sendReport = async (isLink) =>{
-    const jsonServerSendData = {
-      reportHeadline: title,
-      lat: location.lat,
-      lng: location.lng,
-      description: description,
-      categoryID: category,
-      //adress:manualAddress,
-      group: null,
-    };
+    const jsonServerSendData=new FormData();
+    
+    jsonServerSendData.append("reportHeadline",title);
+    jsonServerSendData.append("lat",location.lat);
+    jsonServerSendData.append("lng",location.lng);
+    jsonServerSendData.append("description",description);
+    jsonServerSendData.append("categoryID",category);
+    jsonServerSendData.append("adress",manualAddress);
+    jsonServerSendData.append("picture",picture)
     
     if(isLink){
-      jsonServerSendData.group = originalReport[selectedReport].report;
+      jsonServerSendData.append("group",originalReport[selectedReport].report) ;
     }
     let url = apiConfig.getReportUrl;
     const submitResponse = await fetch(url, {
@@ -330,7 +330,7 @@ const ReportCard = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(jsonServerSendData),
+      body: jsonServerSendData,
     });
     const returnReport = await submitResponse.json()
     if (submitResponse.status === 200) {
@@ -345,15 +345,25 @@ const ReportCard = () => {
 
   const handleSubmit = async () => {
 
-    const jsonServerSendData = {
+    /*const jsonServerSendData = {
       reportHeadline: title,
       lat: location.lat,
       lng: location.lng,
       description: description,
       categoryID: category,
-      //adress:manualAddress,
+      adress:manualAddress,
       group: null,
-    };
+    };*/
+    const jsonServerSendData=new FormData();
+    
+    jsonServerSendData.append("reportHeadline",title);
+    jsonServerSendData.append("lat",location.lat);
+    jsonServerSendData.append("lng",location.lng);
+    jsonServerSendData.append("description",description);
+    jsonServerSendData.append("categoryID",category);
+    jsonServerSendData.append("adress",manualAddress);
+    jsonServerSendData.append("picture",picture.target.files[0])
+    jsonServerSendData.append("group",null);
 
     if (
       jsonServerSendData.reportHeadline === "" ||
@@ -361,9 +371,11 @@ const ReportCard = () => {
       jsonServerSendData.categoryID === ""
     ) {
       customAlert("Molimo popunite SVA polja!!");
-      return;
     }
-
+    for (const [key, value] of jsonServerSendData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+    
     let testUrl = apiConfig.getTestReport;
     let simReportJson = "";
     
@@ -373,9 +385,10 @@ const ReportCard = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(jsonServerSendData),
+        body: jsonServerSendData,
       });
       simReportJson = await response.json();
+      console.log(simReportJson)
       setSimilarReport(simReportJson)
       if (simReportJson.length > 0) {
         setOriginalReport(simReportJson)
@@ -383,16 +396,17 @@ const ReportCard = () => {
         setDisplayTable(true);
         return;
       }
-
+      
       let url = apiConfig.getReportUrl;
       const submitResponse = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(jsonServerSendData),
+        body: jsonServerSendData,
       });
       const returnReport = await submitResponse.json()
+
       if (submitResponse.status === 200) {
         customAlertReturn("Vaša prijava je podnešena!\n Kod vaše prijave: "+returnReport.reportID);
       } else {
