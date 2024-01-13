@@ -21,6 +21,10 @@ const MapComponent = () => {
     setShowFilterDiv(!showFilterDiv);
   };
 
+  const handleSearch = () => {
+    console.log("nutra smo");
+  }
+
   const getCategory = async () => {
     let url = apiConfig.getCategory;
     const fetchCategory = await fetch(url);
@@ -140,6 +144,8 @@ const MapComponent = () => {
     <>
       <div className='title'>
         <button className="btn btn-outline-dark m-2" onClick={handleClick}>Filter prijava</button>
+        <input type="text" name="kodtrazilica" id="kodtrazilica" className='customPosition2' placeholder='Traži prijavu po kodu'/>
+        <button className="btn btn-outline-dark m-2 customPosition" onClick={handleSearch}>Traži</button>
       </div>
       <div id={uniqueMapId} style={{ width: '90%', height: '70vh', marginLeft: '5%', zIndex: 0 }}></div>
       {showFilterDiv && (
