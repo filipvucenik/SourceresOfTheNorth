@@ -191,7 +191,6 @@ public class ReportServiceJpa implements ReportService {
             reportRepo.save(member);
         }
     }
-
     @Override
     @Transactional
     public void delete(long reportId) {

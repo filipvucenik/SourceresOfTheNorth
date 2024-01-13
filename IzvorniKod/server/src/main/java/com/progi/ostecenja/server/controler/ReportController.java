@@ -184,7 +184,15 @@ public class ReportController {
     }
 
     @PutMapping("/groupReports")
-    public void groupReports(@RequestParam Report groupLeader, List<Long> groupMembers){
+    public void groupReports(@RequestBody Long groupLeaderId, List<Long> groupMembers){
+        if(groupLeaderId == null)
+            throw new IllegalArgumentException("group leader id is null");
+        Report groupLeader;
+        try {
+             groupLeader = reportService.getReport(groupLeaderId);
+        }catch (com.progi.ostecenja.server.service.EntityMissingException e){
+            throw new IllegalArgumentException("group leader not found exception");
+        }
         reportService.groupReports(groupLeader, groupMembers);
     }
 
