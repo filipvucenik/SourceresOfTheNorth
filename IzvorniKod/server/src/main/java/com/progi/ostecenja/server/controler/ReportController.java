@@ -196,6 +196,11 @@ public class ReportController {
         reportService.groupReports(groupLeader, groupMembers);
     }
 
+    @PutMapping("/changeOffice")
+    public void changeOffice(@RequestBody Long categoryId, List<Long> reportIds){
+
+    }
+
     public Feedback getStatus(@RequestParam long reportId){
         return feedbackService.getLatest(reportId);
     }

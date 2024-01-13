@@ -191,6 +191,22 @@ public class ReportServiceJpa implements ReportService {
             reportRepo.save(member);
         }
     }
+
+    @Override
+    @Transactional
+    public void changeOffice(Long categoryId, List<Long> reportIds) {
+        if(categoryId == null || reportIds == null){
+            throw new IllegalArgumentException("wrond categoryId or reportIds");
+        }
+        List<Report> reports = reportRepo.findAllById(reportIds);
+
+        for(Report report: reports){
+            report.setCategoryID(categoryId);
+        }
+
+        reportRepo.saveAll(reports);
+    }
+
     @Override
     @Transactional
     public void delete(long reportId) {
