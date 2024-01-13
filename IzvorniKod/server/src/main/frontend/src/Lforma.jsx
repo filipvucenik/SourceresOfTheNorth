@@ -46,6 +46,7 @@ const LoginComponent = () => {
         
       } else {
         alert("Greška kod prijave: neispravan mail ili lozinka!");
+        return;
       }
     }).then(textData => {
         Cookies.set("name", email);
