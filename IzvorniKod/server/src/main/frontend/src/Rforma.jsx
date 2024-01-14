@@ -399,6 +399,7 @@ const ReportCard = () => {
         return;
       }
       
+      
       let url = apiConfig.getReportUrl;
       const submitResponse = await fetch(url, {
         method: "POST",
