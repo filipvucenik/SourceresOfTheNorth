@@ -32,8 +32,8 @@ class ReportControllerTest {
     @BeforeEach
     void setup()
     {
-        saved1 = reportController.createReport(reportInit(), new StandardSession(null), mockImagesInit(), "Lisinski");
-        saved2 = reportController.createReport(reportInit(), new StandardSession(null), mockImagesInit(), "Lisinski");
+        saved1 = reportController.createReport(null, "problem",45.8000646, 15.978519,"nastao je problem", null,null,null, 1L, new StandardSession(null), mockImagesInit(), "Lisinski");
+        saved2 = reportController.createReport(null, "problem",45.8000646, 15.978519,"nastao je problem", null,null,null, 1L, new StandardSession(null), mockImagesInit(), "Lisinski");
     }
 
     @AfterEach
