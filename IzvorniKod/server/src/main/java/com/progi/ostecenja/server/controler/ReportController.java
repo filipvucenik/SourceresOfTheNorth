@@ -111,7 +111,13 @@ public class ReportController {
     }
 
     @PostMapping
-    public Report createReport(@RequestBody Report report, HttpSession session, List<MultipartFile> images, String address){
+    public Report createReport(@RequestParam("reportHeadline") String reportHeadline ,@RequestParam("lat") Double lat, @RequestParam("lng") Double lng, @RequestParam("description") String description,
+                               @RequestParam("categoryID") Long categoryID, @RequestParam("groupId") Long groupId,@RequestParam("adresses") String address, @RequestPart(value="picture", required = false) MultipartFile picture, HttpSession session ){
+        Report groupLeader = null;
+        if (groupId != null)
+             groupLeader = reportService.getReport(groupId);
+        Report report = new Report(null, reportHeadline, lat, lng, description, null, null,groupLeader,  categoryID);
+
         Timestamp timestamp = report.getReportTS();
         if(timestamp == null){
             timestamp = Timestamp.valueOf(LocalDateTime.now());
@@ -140,6 +146,7 @@ public class ReportController {
         }
 
         List<Image> imagePaths = new ArrayList<>();
+        /*
         if(images != null){
             for(MultipartFile image: images){
                 String path;
@@ -151,6 +158,19 @@ public class ReportController {
                 imagePaths.add(new Image(null, saved.getReportID(), path));
             }
 
+
+            imageService.fillImages(imagePaths);
+        }
+         */
+
+        if(picture != null){
+            String path;
+            try {
+                path = storageService.saveImage(picture);
+            } catch (IOException e){
+                throw new RuntimeException(e.getMessage());
+            }
+            imagePaths.add(new Image(null, saved.getReportID(), path));
             imageService.fillImages(imagePaths);
         }
 
