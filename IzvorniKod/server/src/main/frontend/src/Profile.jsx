@@ -121,6 +121,27 @@ const Profile = () => {
     }));
   };
 
+  const deleteProfile = async () => {
+    try {
+      const response = await fetch(`${server2}/user/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (response.ok) {
+        // Optionally, perform additional actions after successful deletion
+        customAlert("Profile successfully deleted");
+      } else {
+        console.error("Error deleting profile");
+      }
+    } catch (error) {
+      console.error("Error deleting profile:", error);
+    }
+  };
+  
+
   const updateDataInDatabase = async (e) => {
     e.preventDefault();
     // Stvori novi objekt bez praznih stringova
@@ -246,7 +267,7 @@ const Profile = () => {
           >
             Spremi
           </button>
-          <button type="button" className="btn btn-outline-dark me-2">
+          <button type="button" className="btn btn-outline-dark me-2" onClick={deleteProfile}>
             Obriši račun
           </button>
         </form>
