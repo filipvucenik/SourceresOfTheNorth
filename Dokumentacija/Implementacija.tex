@@ -66,7 +66,7 @@
 				\label{fig:JUnitTestovi} %label mora biti drugaciji za svaku sliku
 			\end{figure}
 			
-			Prije svakog testa se u sustavu stvaraju dvije prijave u svrhu testiranja. Nakon svakog testa se iste prijave uklanjaju iz sustava.
+			Prije svakog testa se u sustavu stvaraju dvije prijave u svrhu testiranja. Nakon svakog testa se iste prijave uklanjaju iz baze podataka.
 			
 			\begin{figure}[H]
 				\includegraphics[width=\textwidth]{slike/JUnitTestoviPomocneMetode.png} %veličina u odnosu na širinu linije
@@ -166,7 +166,7 @@
 			
 			\textbf{Test 10:}
 			
-			U ovom testu se provjerava ispravnost promjene statusa povezanih prijava. Prvo se provjerava ako prijave imaju status "neobraden". Zatim se druga prijava nadovezuje na prvu te se prvoj prijavi mijenja status u "uProcesu". Očekuje se da promjena nad glavnom prijavom rezultira istom promjenom i u svim nadovezanim prijavama. Stoga se na kraju provjerava ako obje prijave imaju promjenjen status u "uProcesu".
+			U ovom testu se pokušava napraviti nadovezivanje prijave na samu sebe. Takva radnja očekuje izazivanje iznimke.
 			
 			\begin{figure}[H]
 				\includegraphics[width=\textwidth]{slike/JUnitTest10.png} %veličina u odnosu na širinu linije
@@ -174,16 +174,94 @@
 				\label{fig:JUnitTest10} %label mora biti drugaciji za svaku sliku
 			\end{figure}
 			
-			\subsection{Ispitivanje sustava}
+			\textbf{Test 11:}
 			
-			 \textit{Potrebno je provesti i opisati ispitivanje sustava koristeći radni okvir Selenium\footnote{\url{https://www.seleniumhq.org/}}. Razraditi \textbf{minimalno 4 ispitna slučaja} u kojima će se ispitati redovni slučajevi, rubni uvjeti te poziv funkcionalnosti koja nije implementirana/izaziva pogrešku kako bi se vidjelo na koji način sustav reagira kada nešto nije u potpunosti ostvareno. Ispitni slučaj se treba sastojati od ulaza (npr. korisničko ime i lozinka), očekivanog izlaza ili rezultata, koraka ispitivanja i dobivenog izlaza ili rezultata.\\ }
-			 
-			 \textit{Izradu ispitnih slučajeva pomoću radnog okvira Selenium moguće je provesti pomoću jednog od sljedeća dva alata:}
-			 \begin{itemize}
-			 	\item \textit{dodatak za preglednik \textbf{Selenium IDE} - snimanje korisnikovih akcija radi automatskog ponavljanja ispita	}
-			 	\item \textit{\textbf{Selenium WebDriver} - podrška za pisanje ispita u jezicima Java, C\#, PHP koristeći posebno programsko sučelje.}
-			 \end{itemize}
-		 	\textit{Detalji o korištenju alata Selenium bit će prikazani na posebnom predavanju tijekom semestra.}
+			U ovom testu se provjerava ispravnost promjene statusa povezanih prijava. Prvo se provjerava ako prijave imaju status "neobraden". Zatim se druga prijava nadovezuje na prvu te se prvoj prijavi mijenja status u "uProcesu". Očekuje se da promjena nad glavnom prijavom rezultira istom promjenom i u svim nadovezanim prijavama. Stoga se na kraju provjerava ako obje prijave imaju promjenjen status u "uProcesu".
+			
+			\begin{figure}[H]
+				\includegraphics[width=\textwidth]{slike/JUnitTest11.png} %veličina u odnosu na širinu linije
+				\caption{Test komponenti 11}
+				\label{fig:JUnitTest11} %label mora biti drugaciji za svaku sliku
+			\end{figure}
+			
+			
+			\subsection{Ispitivanje sustava}
+		 	
+		 	Ispitivanje sustava kao cjeline odrađeno je pomoću Selenium WebDrivera za Chrome koji se koristio unutar JUnit testova. Svi testovi su uspješno prošli.
+		 	
+		 	\begin{figure}[H]
+		 		\includegraphics[width=\textwidth]{slike/SeleniumTestoviRez.png} %veličina u odnosu na širinu linije
+		 		\caption{Rezultati ispitivanja sustava}
+		 		\label{fig:SeleniumTestovi} %label mora biti drugaciji za svaku sliku
+		 	\end{figure}
+		 	
+		 	Prije svakog testa se inicijalizira ChromeDriver u posebnoj metodi te se na kraju svakog testa inicijalizirani ChromeDriver gasi u posebnoj metodi.
+		 	
+		 	\begin{figure}[H]
+		 		\includegraphics[width=\textwidth]{slike/SeleniumTestoviPomocneMetode.png} %veličina u odnosu na širinu linije
+		 		\caption{Pomočne metode za ispitivanje sustava}
+		 		\label{fig:SeleniumTestoviPomocneMetode} %label mora biti drugaciji za svaku sliku
+		 	\end{figure}
+		 	
+		 	\textbf{Test 1:}
+		 	
+		 	U ovom testu se ispituje rad sustava tijekom pokušaja prijave korisnika koji postoji u bazi podataka. Simulira se odabir opcije prijave korisnika na korisničkom sučelju. U obrazac za prijavu se upisuju podaci "abc@gmail.com" za e-mail i "pass1234" za lozinku te se klikne na gumb za prijavu. Očekuje se da prijava bude uspješna. To treba rezultirati preusmjeravanjem na glavnu stranicu te prikazom gumba sa korisnikovom e-mail adresom u zaglavlju stranice.
+		 	
+		 	\begin{figure}[H]
+		 		\includegraphics[width=\textwidth]{slike/SeleniumTest1.png} %veličina u odnosu na širinu linije
+		 		\caption{Ispitivanje sustava: Test 1}
+		 		\label{fig:SeleniumTest1} %label mora biti drugaciji za svaku sliku
+		 	\end{figure}
+		 	
+		 	\textbf{Test 2:}
+		 	
+		 	Ovaj test je ispitivanje pokušaja prijave korisnika s neispravnom lozinkom. Radnje ovog testa su iste kao i u prethodnom testu. Razlika je što se na kraju ne očekuje preusmjeravanje na glavnu stranicu već prikaz prozora sa porukom "Greška kod prijave: neispravan mail ili lozinka!".
+		 	
+		 	\begin{figure}[H]
+		 		\includegraphics[width=\textwidth]{slike/SeleniumTest2.png} %veličina u odnosu na širinu linije
+		 		\caption{Ispitivanje sustava: Test 2}
+		 		\label{fig:SeleniumTest2} %label mora biti drugaciji za svaku sliku
+		 	\end{figure}
+		 	
+		 	\textbf{Test 3:}
+		 	
+		 	U ovom se testu ispituje pokušaj registracije novog korisnika. Simulira se odabir opcije registracije novog korisnika. Na novoj se stranici u obrazac upisuju podaci "Ime" za ime, "Prezime" za prezime, "novi.user.1@gmail.com" za e-mail i "lozinka123" za lozinku. Na kraju se registracija dovršava pritiskom gumba za registraciju. Očekuje se uspješna registracija što rezultira preusmjeravanjem na početnu stranicu te prikazom gumba sa korisnikovom e-mail adresom u zaglavlju stranice.
+		 	
+		 	\begin{figure}[H]
+		 		\includegraphics[width=\textwidth]{slike/SeleniumTest3.png} %veličina u odnosu na širinu linije
+		 		\caption{Ispitivanje sustava: Test 3}
+		 		\label{fig:SeleniumTest3} %label mora biti drugaciji za svaku sliku
+		 	\end{figure}
+		 	
+		 	\textbf{Test 4:}
+		 	
+		 	U ovom testu se ispituje sustav prilikom pokušaja registracije korisnika koji već postoji u sustavu, to jest sa već iskorištenom e-mail adresom. Ponavljaju se radnje iz prošlog testa, ali se u obrazac za registraciju unose drugi podaci. Za ovaj test se unose podaci "xx" za ime, "yy" za prezime, "abc@gmail.com" za e-mail i "pass1234" za lozinku. S obzirom da korisnik s danom e-mail adresom već postoji u sustavu. Aplikacija treba prikazati pripadnu poruku te nakon klika na gumb uz poruku treba ostati na stranici za registraciju.
+		 	
+		 	\begin{figure}[H]
+		 		\includegraphics[width=\textwidth]{slike/SeleniumTest4.png} %veličina u odnosu na širinu linije
+		 		\caption{Ispitivanje sustava: Test 4}
+		 		\label{fig:SeleniumTest4} %label mora biti drugaciji za svaku sliku
+		 	\end{figure}
+		 	
+		 	\textbf{Test 5:}
+		 	
+		 	U ovom testu se pokušava izbrisati korisnika iz sustava. Simulira se prijava korisnika u sustav sa podacima "novi.user.1@gmail.com" za e-mail i "lozinka123" (korisnik koji se registrirao u ranijem testu) kao što je opisano u testu 1. Zatim se klikom na gumb sa korisnikovim e-mailom i odabirom profilne stranice odlazi na stranicu korisnikovog profila. Tamo se simulira klik na gumb za brisanje računa nakon čega se prikazuje prozor sa porukom "Profile successfully deleted" i pripadnim gumbom. Pritiskom na gumb se korisnika treba preusmjeriti na glavnu stranicu.
+		 	
+		 	\begin{figure}[H]
+		 		\includegraphics[width=\textwidth]{slike/SeleniumTest5.png} %veličina u odnosu na širinu linije
+		 		\caption{Ispitivanje sustava: Test 5}
+		 		\label{fig:SeleniumTest5} %label mora biti drugaciji za svaku sliku
+		 	\end{figure}
+		 	
+		 	\textbf{Test 6:}
+		 	
+		 	U ovom testu se simulira pregledavanje statistike prijava. Klikom na gumb "Statistika" u zaglavlju stranice korisnika se preusmjerava na stranicu za statistiku.  Na prikazanoj stranici se djelomično popunjava obrazac za prikaz statistike. Za kategoriju se odabire prva kategorija koja počinje na "r", za datum početka se odabire 1.1.2024., a za datum završetka intervala se odabire 2.2.2024. Tako popunjen obrazac se šalje na poslužitelja. Nakon toga se ispod filtra očekuje prikaz statističkih podataka o prijavama odabranima poslanim filtrom.
+		 	
+		 	\begin{figure}[H]
+		 		\includegraphics[width=\textwidth]{slike/SeleniumTest6.png} %veličina u odnosu na širinu linije
+		 		\caption{Ispitivanje sustava: Test 6}
+		 		\label{fig:SeleniumTest6} %label mora biti drugaciji za svaku sliku
+		 	\end{figure}
 			
 			\eject 
 		
