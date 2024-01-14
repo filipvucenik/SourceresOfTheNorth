@@ -2,19 +2,19 @@ import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import markerIcon from './marker.svg';
-import apiConfig from "./apiConfig";
+import apiConfig from './apiConfig';
 
 const server = apiConfig.getReportUrl;
 
 const MapComponent = () => {
   const mapRef = useRef(null);
-  const markers = [];
+  const markersRef = useRef([]);
   const uniqueMapId = `map-${Math.floor(Math.random() * 10000)}`;
 
   const [filteredData, setFilteredData] = useState([]);
   const [filteredDataFromEndpoint, setFilteredDataFromEndpoint] = useState([]);
   const [categoryData, setCategoryData] = useState({});
-  const [selectedCategoryID, setSelectedCategoryID] = useState("");
+  const [selectedCategoryID, setSelectedCategoryID] = useState('');
   const [showFilterDiv, setShowFilterDiv] = useState(false);
 
   const handleClick = () => {
@@ -22,7 +22,7 @@ const MapComponent = () => {
   };
 
   const handleSearch = () => {
-    console.log("nutra smo");
+    console.log('nutra smo');
   };
 
   const getCategory = async () => {
@@ -44,16 +44,26 @@ const MapComponent = () => {
     setSelectedCategoryID(selectedID);
   };
 
+  useEffect(() => {
+    console.log(filteredDataFromEndpoint);
+    renderMarkers(filteredDataFromEndpoint);
+  }, [filteredDataFromEndpoint]);
+
+  useEffect(() => {
+    console.log(filteredData);
+    renderMarkers(filteredData);
+  }, [filteredData]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const dataForSend = {
-      categoryID: selectedCategoryID,
+      categoryId: selectedCategoryID,
       startDate: e.target.elements.fromDateTime.value,
       endDate: e.target.elements.toDateTime.value,
-      lat: "",
-      lng: "",
-      status: "",
-      radius: "",
+      lat: '',
+      lng: '',
+      status: '',
+      radius: '',
     };
     try {
       const response = await fetch(`${server}/filtered`, {
@@ -66,24 +76,25 @@ const MapComponent = () => {
 
       const data = await response.json();
       setFilteredDataFromEndpoint(data);
-      console.log(filteredDataFromEndpoint);
       handleClick();
     } catch (error) {
       console.error('Greška prilikom slanja koordinata:', error);
     }
   };
 
-  useEffect(() => {
-    const createMarker = (lat, lng) => {
-      const customIcon = new L.Icon({
-        iconUrl: markerIcon,
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32],
-      });
+  const createMarker = (lat, lng) => {
+    const customIcon = new L.Icon({
+      iconUrl: markerIcon,
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -32],
+    });
 
-      const marker = L.marker([lat, lng], { icon: customIcon }).addTo(mapRef.current);
-      markers.push(marker);
+    const marker = L.marker([lat, lng], { icon: customIcon });
+    markersRef.current.push(marker);
+
+    if (mapRef.current) {
+      marker.addTo(mapRef.current);
 
       let popupIsOpen = false;
 
@@ -92,68 +103,66 @@ const MapComponent = () => {
           marker.closePopup();
           popupIsOpen = false;
         } else {
-          marker.bindPopup(`Naslov prijave, kratki opis bude tu + <br/><a href=''>Otvori stranicu prijave</a>`).openPopup();
+          marker.bindPopup(
+            `Naslov prijave, kratki opis bude tu + <br/><a href=''>Otvori stranicu prijave</a>`
+          ).openPopup();
           popupIsOpen = true;
         }
       });
-    };
 
-    const fetchDataAndCreateMarkers = async () => {
-      try {
-        const response = await fetch(`${server}/unhandled`);
-        const data = await response.json();
-        setFilteredData(data);
-        console.log(data);
-        console.log(filteredData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+    }
+  };
 
-    const renderMarkers = () => {
-      let dataToUse;
-      let end = false;
-      let filt = false;
-      if (Array.isArray(filteredDataFromEndpoint) && filteredDataFromEndpoint instanceof Array && filteredDataFromEndpoint.length > 0) {
-        dataToUse = filteredDataFromEndpoint;
-        end = true;
-      }else if (Array.isArray(filteredData) && filteredData.length > 0) {
-        dataToUse = filteredData;
-        filt = true;
-      } else {
-        console.log('No data to render markers.');
-        return;
-      }
-      console.log(dataToUse);
-      if (dataToUse && dataToUse.length > 0) {
-        if(end === true){
-          console.log("end");
-          for (const lokacija of dataToUse) {
-            
-            createMarker(lokacija.lat, lokacija.lng);
-          }
-        }else if(filt === true){
-          console.log("filt");
-          for (const lokacija of dataToUse) {
-            createMarker(lokacija.report.lat, lokacija.report.lng);
-          }
+  const fetchDataAndCreateMarkers = async () => {
+    try {
+      const response = await fetch(`${server}/unhandled`);
+      const data = await response.json();
+      setFilteredData(data);
+      renderMarkers(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const clearMarkers = () => {
+    markersRef.current.forEach(marker => marker.remove());
+    markersRef.current.length = 0;
+  };
+
+  const renderMarkers = (dataToUse) => {
+    clearMarkers();
+    console.log(dataToUse);
+    if (dataToUse && dataToUse.length > 0) {
+      for (const lokacija of dataToUse) {
+        if (lokacija.lat && lokacija.lng) {
+          createMarker(lokacija.lat, lokacija.lng);
+        } else if (lokacija.report && lokacija.report.lat && lokacija.report.lng) {
+          createMarker(lokacija.report.lat, lokacija.report.lng);
         }
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     if (!mapRef.current) {
       const map = L.map(uniqueMapId).setView([45.800, 15.967], 13);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
       }).addTo(map);
-      fetchDataAndCreateMarkers();
-      renderMarkers();
       mapRef.current = map;
     } else {
       mapRef.current.invalidateSize();
-      renderMarkers();
     }
-  }, [filteredData, filteredDataFromEndpoint]);
+
+    // Call renderMarkers after the conditions are checked
+    if (showFilterDiv) {
+      // If filter is applied, render markers based on filtered data
+      renderMarkers(filteredDataFromEndpoint);
+    } else {
+      // If filter is not applied, render all markers
+      fetchDataAndCreateMarkers();
+    }
+  }, []);
 
   return (
     <>
