@@ -72,32 +72,25 @@ public class ReportController {
     }
 
     @PostMapping("/group")
-    public List<ReportCategory> groupReport(@RequestParam Long categoryID, @RequestParam Double lat, @RequestParam Double lng, HttpSession session){
+    public List<ReportCategoryImage> groupReport(@RequestParam Long categoryID, @RequestParam Double lat, @RequestParam Double lng, HttpSession session){
 
         List<Report> reportList = reportService.listAll();
         List<Report> returnList = new ArrayList<Report>();
         for(Report rp: reportList){
             if(rp.getCategoryID()==null || rp.getLat()==null || rp.getLng()==null) continue;
-            if(rp.getCategoryID().equals(categoryID) && calculateDistance(rp.getLat(),rp.getLng(),lat,lng)<=0.2){
+            if(rp.getCategoryID().equals(categoryID) && calculateDistance(rp.getLat(),rp.getLng(),lat,lng)<=0.2 && rp.getGroup()==null){
                 double dist = calculateDistance(rp.getLat(),rp.getLng(),lat,lng);
                 returnList.add(rp);
             }
         }
-        List<Long> list = new ArrayList<Long>();
-        if(reportList.isEmpty()){
-            list.add((long)-1);
-        }else{
-            for(Report rp : returnList){
-                list.add(rp.getReportID());
-            }
-        }
         Map<Long, Category> categories =categoryService.listAll().stream().collect(Collectors.toMap(Category::getCategoryID, c -> c));
-        List<ReportCategory> ret = new ArrayList<>();
-        for (Report rep: returnList){
-            ret.add(new ReportCategory(rep, categories.get(rep.getCategoryID())));
-        }
-    return ret;
 
+        List<ReportCategoryImage> ret = new ArrayList<>();
+        for (Report rep: returnList){
+            List<Image> images = imageService.listAllId(rep.getReportID());
+            ret.add(new ReportCategoryImage(rep, categories.get(rep.getCategoryID()), images.isEmpty()?null:images.get(0)));
+        }
+        return ret;
     }
     @GetMapping("unhandled")
     public List<ReportImage> listUnhandledReports(){
@@ -111,8 +104,13 @@ public class ReportController {
     }
 
     @PostMapping
-    public Report createReport(@RequestBody Report report, HttpSession session, List<MultipartFile> images, String address){
-        Timestamp timestamp = report.getReportTS();
+    public Report createReport(@RequestParam(required = false) Long reportID, @RequestParam(required = false) String reportHeadline,
+                               @RequestParam(required = false) Double lat, @RequestParam(required = false) Double lng,
+                               @RequestParam(required = false) String description, @RequestParam(required = false) Timestamp reportTS,
+                               @RequestParam(required = false) Long userID, @RequestParam(required = false) Long groupID,
+                               @RequestParam(required = false) Long categoryID, HttpSession session, List<MultipartFile> images, String address){
+        Report report = new Report(null, reportHeadline, lat, lng, description, reportTS, userID, null, categoryID);
+        Timestamp timestamp = reportTS;
         if(timestamp == null){
             timestamp = Timestamp.valueOf(LocalDateTime.now());
         }
@@ -126,7 +124,11 @@ public class ReportController {
 
         report.setUserID(userId);
         report.setReportTS(timestamp);
-        report.setGroup(null);
+        if(groupID==null || reportService.getReport(groupID)==null){
+            report.setGroup(null);
+        }else{
+            report.setGroup(reportService.getReport(groupID));
+        }
         Report saved = reportService.createReport(report);
         feedbackService.createFeedback(saved.getReportID(), timestamp);
 
@@ -305,4 +307,14 @@ class ReportCategory {
         this.category = category;
     }
 }
-
+@Getter
+class ReportCategoryImage{
+    private Report report;
+    private Category category;
+    private Image image;
+    public ReportCategoryImage(Report report, Category category, Image image){
+        this.report=report;
+        this.category=category;
+        this.image=image;
+    }
+}
