@@ -56,31 +56,44 @@ const MapComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const dataForSend = {
-      categoryId: selectedCategoryID,
-      startDate: e.target.elements.fromDateTime.value,
-      endDate: e.target.elements.toDateTime.value,
-      lat: '',
-      lng: '',
-      status: '',
-      radius: '',
-    };
-    try {
-      const response = await fetch(`${server}/filtered`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataForSend),
-      });
-
-      const data = await response.json();
-      setFilteredDataFromEndpoint(data);
-      handleClick();
-    } catch (error) {
-      console.error('Greška prilikom slanja koordinata:', error);
+  
+    // Check if "Obriši filter" button is clicked
+    const isDeleteFilterClicked = e.nativeEvent.submitter.textContent === 'Obriši filter';
+  
+    // If "Obriši filter" button is clicked, show all locations
+    if (isDeleteFilterClicked) {
+      renderMarkers(filteredData);
+      setShowFilterDiv(false); // Close the filter div
+    } else {
+      // If it's a regular filter submission
+      const dataForSend = {
+        categoryId: selectedCategoryID,
+        startDate: e.target.elements.fromDateTime.value,
+        endDate: e.target.elements.toDateTime.value,
+        lat: '',
+        lng: '',
+        status: '',
+        radius: '',
+      };
+  
+      try {
+        const response = await fetch(`${server}/filtered`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dataForSend),
+        });
+  
+        const data = await response.json();
+        setFilteredDataFromEndpoint(data);
+        handleClick();
+      } catch (error) {
+        console.error('Greška prilikom slanja koordinata:', error);
+      }
     }
   };
+  
 
   const createMarker = (lat, lng) => {
     const customIcon = new L.Icon({
@@ -197,6 +210,10 @@ const MapComponent = () => {
             </label>
             <button className="submit-btn" type="submit">
               Filter
+            </button>
+            |
+            <button className="submit-btn" type="submit">
+              Obriši filter
             </button>
           </form>
           <hr />
