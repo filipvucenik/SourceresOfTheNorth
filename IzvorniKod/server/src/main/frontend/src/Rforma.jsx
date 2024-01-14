@@ -322,7 +322,7 @@ const ReportCard = () => {
     jsonServerSendData.append("categoryID",category);
     jsonServerSendData.append("adress",manualAddress);
     if(picture){
-    jsonServerSendData.append("picture",picture.target.files[0])
+    jsonServerSendData.append("images",picture.target.files[0])
     }
     if(isLink){
       jsonServerSendData.append("group",originalReport[selectedReport].report) ;
@@ -353,7 +353,7 @@ const ReportCard = () => {
     jsonServerSendData.append("categoryID",category);
     jsonServerSendData.append("adress",manualAddress);
     if(picture){
-    jsonServerSendData.append("picture",picture.target.files[0])
+    jsonServerSendData.append("images",picture.target.files[0])
     }
     //jsonServerSendData.append("group",null);
 
