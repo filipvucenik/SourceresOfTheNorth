@@ -379,6 +379,7 @@ const ReportCard = () => {
       });
       
       simReportJson = await response.json();
+      console.log(simReportJson);
       let ModifiedResponse= simReportJson;
       if (simReportJson.length > 0) {
         for(let i=0;i<simReportJson.length;i++){
@@ -523,6 +524,7 @@ const ReportCard = () => {
                   <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Naslov</th>
                   <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Opis</th>
                   <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Adresa</th>
+                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Slika</th>
                 </tr>
               </thead>
               <tbody>
@@ -543,6 +545,7 @@ const ReportCard = () => {
                       <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.report.reportHeadline}</td>
                       <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.report.description}</td>
                       <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.report.address}</td>
+                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.image && <img src={apiConfig.getUrl + report.image.url.substring(1)} alt="Report Image" style={{ width: "50%", height: "50%" }}/>}</td>
                     </tr>
                   </React.Fragment>
                 ))}
