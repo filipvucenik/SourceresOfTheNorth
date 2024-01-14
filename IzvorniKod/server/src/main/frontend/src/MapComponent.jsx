@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import markerIcon from './marker.svg';
@@ -10,6 +11,7 @@ const MapComponent = () => {
   const mapRef = useRef(null);
   const markersRef = useRef([]);
   const uniqueMapId = `map-${Math.floor(Math.random() * 10000)}`;
+  const navigate = useNavigate();
 
   const [filteredData, setFilteredData] = useState([]);
   const [filteredDataFromEndpoint, setFilteredDataFromEndpoint] = useState([]);
@@ -17,12 +19,89 @@ const MapComponent = () => {
   const [selectedCategoryID, setSelectedCategoryID] = useState('');
   const [showFilterDiv, setShowFilterDiv] = useState(false);
 
+  const customAlertReturn = (message, onOk) => {
+
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 9998; 
+    `;
+    document.body.appendChild(overlay);
+  
+
+    const alertContainer = document.createElement('div');
+    alertContainer.style.cssText = `
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      border-radius: 5px;
+      text-align: center;
+      z-index: 9999; 
+    `;
+  
+    const alertText = document.createElement('p');
+    alertText.style.cssText = `
+      font-weight: bold;
+      font-size: 16px;
+    `;
+    alertText.textContent = message;
+  
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'OK';
+    closeButton.style.cssText = `
+      margin-top: 10px;
+      padding: 5px 10px;
+      cursor: pointer;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 3px;
+    `;
+  
+    closeButton.addEventListener('click', () => {
+      document.body.removeChild(overlay);
+      document.body.removeChild(alertContainer);
+      navigate("/");
+    });
+  
+    alertContainer.appendChild(alertText);
+    alertContainer.appendChild(closeButton);
+    document.body.appendChild(alertContainer);
+  };
+
   const handleClick = () => {
     setShowFilterDiv(!showFilterDiv);
   };
 
-  const handleSearch = () => {
-    console.log('nutra smo');
+  const handleSearch = async () => {
+    // Assuming you have a reportId state variable for the input value
+    const ReportId = document.getElementById('kodtrazilica').value;
+    if (ReportId.trim() !== '') {
+    try {
+      const response = await fetch(`${server}/${ReportId}`);
+      const data = await response.json();
+      var trazilicaData = data;
+      // Clear existing markers
+      clearMarkers();
+      createMarker(trazilicaData.report.lat, trazilicaData.report.lng);
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  } else {
+    // Handle the case when ReportId is an empty string
+    customAlertReturn("ReportId is empty. Please enter a valid value.");
+    // You might want to clear existing markers or handle it as per your requirements
+  }
   };
 
   const getCategory = async () => {
