@@ -72,7 +72,7 @@ public class ReportController {
     }
 
     @PostMapping("/group")
-    public List<ReportCategory> groupReport(@RequestParam Long categoryID, @RequestParam Double lat, @RequestParam Double lng, HttpSession session){
+    public List<ReportCategoryImage> groupReport(@RequestParam Long categoryID, @RequestParam Double lat, @RequestParam Double lng, HttpSession session){
 
         List<Report> reportList = reportService.listAll();
         List<Report> returnList = new ArrayList<Report>();
@@ -83,21 +83,14 @@ public class ReportController {
                 returnList.add(rp);
             }
         }
-        List<Long> list = new ArrayList<Long>();
-        if(reportList.isEmpty()){
-            list.add((long)-1);
-        }else{
-            for(Report rp : returnList){
-                list.add(rp.getReportID());
-            }
-        }
         Map<Long, Category> categories =categoryService.listAll().stream().collect(Collectors.toMap(Category::getCategoryID, c -> c));
-        List<ReportCategory> ret = new ArrayList<>();
-        for (Report rep: returnList){
-            ret.add(new ReportCategory(rep, categories.get(rep.getCategoryID())));
-        }
-    return ret;
 
+        List<ReportCategoryImage> ret = new ArrayList<>();
+        for (Report rep: returnList){
+            List<Image> images = imageService.listAllId(rep.getReportID());
+            ret.add(new ReportCategoryImage(rep, categories.get(rep.getCategoryID()), images.isEmpty()?null:images.get(0)));
+        }
+        return ret;
     }
     @GetMapping("unhandled")
     public List<ReportImage> listUnhandledReports(){
@@ -310,4 +303,14 @@ class ReportCategory {
         this.category = category;
     }
 }
-
+@Getter
+class ReportCategoryImage{
+    private Report report;
+    private Category category;
+    private Image image;
+    public ReportCategoryImage(Report report, Category category, Image image){
+        this.report=report;
+        this.category=category;
+        this.image=image;
+    }
+}
