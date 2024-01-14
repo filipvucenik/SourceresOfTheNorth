@@ -23,7 +23,7 @@ const MapComponent = () => {
 
   const handleSearch = () => {
     console.log("nutra smo");
-  }
+  };
 
   const getCategory = async () => {
     let url = apiConfig.getCategory;
@@ -47,7 +47,7 @@ const MapComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const dataForSend = {
-      categoryId: selectedCategoryID,
+      categoryID: selectedCategoryID,
       startDate: e.target.elements.fromDateTime.value,
       endDate: e.target.elements.toDateTime.value,
       lat: "",
@@ -56,7 +56,7 @@ const MapComponent = () => {
       radius: "",
     };
     try {
-      const response = await fetch(`https://progi-projekt-test.onrender.com/reports/filtered`, {
+      const response = await fetch(`${server}/filtered`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,6 +66,7 @@ const MapComponent = () => {
 
       const data = await response.json();
       setFilteredDataFromEndpoint(data);
+      console.log(filteredDataFromEndpoint);
       handleClick();
     } catch (error) {
       console.error('Greška prilikom slanja koordinata:', error);
@@ -111,18 +112,32 @@ const MapComponent = () => {
 
     const renderMarkers = () => {
       let dataToUse;
-
-      if (Array.isArray(filteredDataFromEndpoint) && filteredDataFromEndpoint.length > 0) {
+      let end = false;
+      let filt = false;
+      if (Array.isArray(filteredDataFromEndpoint) && filteredDataFromEndpoint instanceof Array && filteredDataFromEndpoint.length > 0) {
         dataToUse = filteredDataFromEndpoint;
-      } else if (Array.isArray(filteredData) && filteredData.length > 0) {
+        end = true;
+      }else if (Array.isArray(filteredData) && filteredData.length > 0) {
         dataToUse = filteredData;
+        filt = true;
       } else {
         console.log('No data to render markers.');
         return;
       }
-
-      for (const lokacija of dataToUse) {
-        createMarker(lokacija.lat, lokacija.lng);
+      console.log(dataToUse);
+      if (dataToUse && dataToUse.length > 0) {
+        if(end === true){
+          console.log("end");
+          for (const lokacija of dataToUse) {
+            
+            createMarker(lokacija.lat, lokacija.lng);
+          }
+        }else if(filt === true){
+          console.log("filt");
+          for (const lokacija of dataToUse) {
+            createMarker(lokacija.report.lat, lokacija.report.lng);
+          }
+        }
       }
     };
 
@@ -179,7 +194,7 @@ const MapComponent = () => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
 export default MapComponent;
