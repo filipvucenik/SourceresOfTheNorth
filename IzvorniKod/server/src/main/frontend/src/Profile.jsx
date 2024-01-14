@@ -31,6 +31,7 @@ const Profile = () => {
   const handleLogout = () => {
     Cookies.remove("name");
     Cookies.remove("id");
+    Cookies.remove("JSESSIONID");
     postaviPostojiKolacic(false);
     console.log("Korisnik odjavljen!");
     navigate("/");
