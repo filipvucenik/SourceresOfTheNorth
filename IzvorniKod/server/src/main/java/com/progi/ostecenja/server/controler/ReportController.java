@@ -72,7 +72,7 @@ public class ReportController {
     }
 
     @PostMapping("/group")
-    public List<ReportCategory> groupReport(@RequestParam Long categoryID, @RequestParam Double lat, @RequestParam Double lng, HttpSession session){
+    public List<ReportCategoryImage> groupReport(@RequestParam Long categoryID, @RequestParam Double lat, @RequestParam Double lng, HttpSession session){
 
         List<Report> reportList = reportService.listAll();
         List<Report> returnList = new ArrayList<Report>();
@@ -83,21 +83,14 @@ public class ReportController {
                 returnList.add(rp);
             }
         }
-        List<Long> list = new ArrayList<Long>();
-        if(reportList.isEmpty()){
-            list.add((long)-1);
-        }else{
-            for(Report rp : returnList){
-                list.add(rp.getReportID());
-            }
-        }
         Map<Long, Category> categories =categoryService.listAll().stream().collect(Collectors.toMap(Category::getCategoryID, c -> c));
-        List<ReportCategory> ret = new ArrayList<>();
-        for (Report rep: returnList){
-            ret.add(new ReportCategory(rep, categories.get(rep.getCategoryID())));
-        }
-    return ret;
 
+        List<ReportCategoryImage> ret = new ArrayList<>();
+        for (Report rep: returnList){
+            List<Image> images = imageService.listAllId(rep.getReportID());
+            ret.add(new ReportCategoryImage(rep, categories.get(rep.getCategoryID()), images.isEmpty()?null:images.get(0)));
+        }
+        return ret;
     }
     @GetMapping("unhandled")
     public List<ReportImage> listUnhandledReports(){
@@ -111,14 +104,13 @@ public class ReportController {
     }
 
     @PostMapping
-    public Report createReport(@RequestParam("reportHeadline") String reportHeadline ,@RequestParam("lat") Double lat, @RequestParam("lng") Double lng, @RequestParam("description") String description,
-                               @RequestParam("categoryID") Long categoryID, @RequestParam("groupId") Long groupId,@RequestParam("adresses") String address, @RequestPart(value="picture", required = false) MultipartFile picture, HttpSession session ){
-        Report groupLeader = null;
-        if (groupId != null)
-             groupLeader = reportService.getReport(groupId);
-        Report report = new Report(null, reportHeadline, lat, lng, description, null, null,groupLeader,  categoryID);
-
-        Timestamp timestamp = report.getReportTS();
+    public Report createReport(@RequestParam(required = false) Long reportID, @RequestParam(required = false) String reportHeadline,
+                               @RequestParam(required = false) Double lat, @RequestParam(required = false) Double lng,
+                               @RequestParam(required = false) String description, @RequestParam(required = false) Timestamp reportTS,
+                               @RequestParam(required = false) Long userID, @RequestParam(required = false) Report group,
+                               @RequestParam(required = false) Long categoryID, HttpSession session, List<MultipartFile> images, String address){
+        Report report = new Report(null, reportHeadline, lat, lng, description, reportTS, userID, group, categoryID);
+        Timestamp timestamp = reportTS;
         if(timestamp == null){
             timestamp = Timestamp.valueOf(LocalDateTime.now());
         }
@@ -146,7 +138,6 @@ public class ReportController {
         }
 
         List<Image> imagePaths = new ArrayList<>();
-        /*
         if(images != null){
             for(MultipartFile image: images){
                 String path;
@@ -158,19 +149,6 @@ public class ReportController {
                 imagePaths.add(new Image(null, saved.getReportID(), path));
             }
 
-
-            imageService.fillImages(imagePaths);
-        }
-         */
-
-        if(picture != null){
-            String path;
-            try {
-                path = storageService.saveImage(picture);
-            } catch (IOException e){
-                throw new RuntimeException(e.getMessage());
-            }
-            imagePaths.add(new Image(null, saved.getReportID(), path));
             imageService.fillImages(imagePaths);
         }
 
@@ -325,4 +303,14 @@ class ReportCategory {
         this.category = category;
     }
 }
-
+@Getter
+class ReportCategoryImage{
+    private Report report;
+    private Category category;
+    private Image image;
+    public ReportCategoryImage(Report report, Category category, Image image){
+        this.report=report;
+        this.category=category;
+        this.image=image;
+    }
+}

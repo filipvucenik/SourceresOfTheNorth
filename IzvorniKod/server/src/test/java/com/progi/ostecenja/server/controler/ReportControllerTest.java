@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-//@TestPropertySource(locations = "classpath:test.properties")
 class ReportControllerTest {
     private static Report saved1;
     private static Report saved2;
@@ -34,12 +32,8 @@ class ReportControllerTest {
     @BeforeEach
     void setup()
     {
-        Report r1 = reportInit();
-        saved1 = reportController.createReport(r1.getReportHeadline(), r1.getLat(), r1.getLng(),
-                r1.getDescription(),r1.getCategoryID(), null, "Lisinski", mockImagesInit().get(0), new StandardSession(null));
-
-        saved2 = reportController.createReport(r1.getReportHeadline(), r1.getLat(), r1.getLng(),
-                r1.getDescription(),r1.getCategoryID(), null, "Lisinski", mockImagesInit().get(0), new StandardSession(null));
+        saved1 = reportController.createReport(null, "problem",45.8000646, 15.978519,"nastao je problem", null,null,null, 1L, new StandardSession(null), mockImagesInit(), "Lisinski");
+        saved2 = reportController.createReport(null, "problem",45.8000646, 15.978519,"nastao je problem", null,null,null, 1L, new StandardSession(null), mockImagesInit(), "Lisinski");
     }
 
     @AfterEach
