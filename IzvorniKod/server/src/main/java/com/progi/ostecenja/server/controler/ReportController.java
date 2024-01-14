@@ -78,7 +78,7 @@ public class ReportController {
         List<Report> returnList = new ArrayList<Report>();
         for(Report rp: reportList){
             if(rp.getCategoryID()==null || rp.getLat()==null || rp.getLng()==null) continue;
-            if(rp.getCategoryID().equals(categoryID) && calculateDistance(rp.getLat(),rp.getLng(),lat,lng)<=0.2){
+            if(rp.getCategoryID().equals(categoryID) && calculateDistance(rp.getLat(),rp.getLng(),lat,lng)<=0.2 && rp.getGroup()==null){
                 double dist = calculateDistance(rp.getLat(),rp.getLng(),lat,lng);
                 returnList.add(rp);
             }
@@ -107,9 +107,9 @@ public class ReportController {
     public Report createReport(@RequestParam(required = false) Long reportID, @RequestParam(required = false) String reportHeadline,
                                @RequestParam(required = false) Double lat, @RequestParam(required = false) Double lng,
                                @RequestParam(required = false) String description, @RequestParam(required = false) Timestamp reportTS,
-                               @RequestParam(required = false) Long userID, @RequestParam(required = false) Report group,
+                               @RequestParam(required = false) Long userID, @RequestParam(required = false) Long groupID,
                                @RequestParam(required = false) Long categoryID, HttpSession session, List<MultipartFile> images, String address){
-        Report report = new Report(null, reportHeadline, lat, lng, description, reportTS, userID, group, categoryID);
+        Report report = new Report(null, reportHeadline, lat, lng, description, reportTS, userID, null, categoryID);
         Timestamp timestamp = reportTS;
         if(timestamp == null){
             timestamp = Timestamp.valueOf(LocalDateTime.now());
@@ -124,7 +124,11 @@ public class ReportController {
 
         report.setUserID(userId);
         report.setReportTS(timestamp);
-        report.setGroup(null);
+        if(groupID==null || reportService.getReport(groupID)==null){
+            report.setGroup(null);
+        }else{
+            report.setGroup(reportService.getReport(groupID));
+        }
         Report saved = reportService.createReport(report);
         feedbackService.createFeedback(saved.getReportID(), timestamp);
 

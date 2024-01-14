@@ -314,7 +314,8 @@ const ReportCard = () => {
 
   const sendReport = async (isLink) =>{
     const jsonServerSendData=new FormData();
-    
+
+
     jsonServerSendData.append("reportHeadline",title);
     jsonServerSendData.append("lat",location.lat);
     jsonServerSendData.append("lng",location.lng);
@@ -325,8 +326,9 @@ const ReportCard = () => {
     jsonServerSendData.append("images",picture.target.files[0])
     }
     if(isLink){
-      jsonServerSendData.append("group",originalReport[selectedReport].report) ;
+      jsonServerSendData.append("groupID",originalReport[selectedReport].report.groupID) ;
     }
+
     let url = apiConfig.getReportUrl;
     const submitResponse = await fetch(url, {
       method: "POST",
@@ -344,6 +346,9 @@ const ReportCard = () => {
 
 
   const handleSubmit = async () => {
+
+
+
     const jsonServerSendData=new FormData();
     
     jsonServerSendData.append("reportHeadline",title);
@@ -355,7 +360,6 @@ const ReportCard = () => {
     if(picture){
     jsonServerSendData.append("images",picture.target.files[0])
     }
-    //jsonServerSendData.append("group",null);
 
     if (
       jsonServerSendData.reportHeadline === "" ||

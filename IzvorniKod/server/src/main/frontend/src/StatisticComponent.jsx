@@ -215,16 +215,16 @@ function StatisticComponent() {
       <li className="statistika-child">
         {Object.entries(renderData).map(([key, value]) => (
           <p key={key}>
-            {key === "avgReportsByDay" ? "Prosječni izvještaji po danu" : ""}
-            {key === "avgTimeInProgress" ? "Prosječno vrijeme u tijeku (u satima)" : ""}
-            {key === "avgTimeWaiting" ? "Prosječno vrijeme čekanja (u satima)" : ""}
-            {key === "reportCount" ? "Broj izvještaja" : ""}
-            {key === "reportInProgressCount" ? "Broj izvještaja u tijeku" : ""}
-            {key === "reportInProgressShare" ? "Postotak izvještaja u tijeku" : ""}
-            {key === "reportSolvedCount" ? "Broj riješenih izvještaja" : ""}
-            {key === "reportSolvedShare" ? "Postotak riješenih izvještaja" : ""}
-            {key === "reportWaitingCount" ? "Broj izvještaja na čekanju" : ""}
-            {key === "reportWaitingShare" ? "Postotak izvještaja na čekanju" : ""}
+            {key === "avgReportsByDay" ? "Prosječni broj podnesenih prijava po danu" : ""} 
+            {key === "avgTimeInProgress" ? `Prosječno vrijeme prijave provedeno u statusu 'u procesu' (u satima): ${value !== null ? value : "-"}` : ""}
+            {key === "avgTimeWaiting" ? `Prosječno vrijeme prijave provedeno u statusu 'na čekanju' (u satima): ${value !== null ? value : "-"}` : ""}
+            {key === "reportCount" ? "Ukupan broj prijava" : ""} 
+            {key === "reportInProgressCount" ? "Broj prijava sa statusom 'u procesu'" : ""}
+            {key === "reportInProgressShare" ? "Postotak prijava sa statusom 'u tijeku'" : ""}
+            {key === "reportSolvedCount" ? "Broj prijava sa statusom 'riješeno'" : ""}
+            {key === "reportSolvedShare" ? "Postotak prijava sa statusom 'riješeno'" : ""}
+            {key === "reportWaitingCount" ? "Broj prijava sa statusom 'na čekanju'" : ""} 
+            {key === "reportWaitingShare" ? "Postotak prijava sa statusom 'na čekanju'" : ""}
             : {key.includes("Share") ? `${(value * 100).toFixed(2)}%` : value}
           </p>
         ))}
