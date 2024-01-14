@@ -1,6 +1,7 @@
 package com.progi.ostecenja.server.controler;
 
 import com.progi.ostecenja.server.DataInitializer;
+import com.progi.ostecenja.server.Utils.Pair;
 import com.progi.ostecenja.server.repo.Report;
 import org.apache.catalina.session.StandardSession;
 import org.junit.jupiter.api.*;
@@ -14,7 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -126,6 +129,13 @@ class ReportControllerTest {
         assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(),"uProcesu");
         assertEquals(reportController.getStatus(saved2.getReportID()).getKey().getStatus(),"uProcesu");
 
+    }
+
+    @Test
+    public void getAdressesTest(){
+        Map<Pair<Double, Double>, String> mapa = new HashMap<>();
+        mapa.put(new Pair<>(45.8000646, 15.978519), "Lisinski");
+        assertEquals( reportController.getAddresses(), mapa);
     }
 
 }
