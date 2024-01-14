@@ -62,6 +62,7 @@ const OfficeRegister = () => {
     }else{
       alert("Registracija nije uspjela!");
     }
+    
   };
 
   return (

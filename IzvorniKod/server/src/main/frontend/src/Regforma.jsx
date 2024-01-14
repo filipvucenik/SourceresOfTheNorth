@@ -68,6 +68,7 @@ const LoginComponent2 = () => {
     }else{
       alert("Registracija nije uspjela!");
     }
+    
   };
 
   return (
