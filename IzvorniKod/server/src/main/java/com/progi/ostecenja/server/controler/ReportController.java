@@ -78,7 +78,7 @@ public class ReportController {
         List<Report> returnList = new ArrayList<Report>();
         for(Report rp: reportList){
             if(rp.getCategoryID()==null || rp.getLat()==null || rp.getLng()==null) continue;
-            if(rp.getCategoryID().equals(categoryID) && calculateDistance(rp.getLat(),rp.getLng(),lat,lng)<=0.2){
+            if(rp.getCategoryID().equals(categoryID) && calculateDistance(rp.getLat(),rp.getLng(),lat,lng)<=0.2 && rp.getGroup()==null){
                 double dist = calculateDistance(rp.getLat(),rp.getLng(),lat,lng);
                 returnList.add(rp);
             }
