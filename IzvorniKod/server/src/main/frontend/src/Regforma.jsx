@@ -16,7 +16,7 @@ const LoginComponent2 = () => {
     }
   }, [navigate]);
 
-  const handleBuildRegJson = () => {
+  const handleBuildRegJson = async() => {
     let url = apiConfig.getRegisterUrl;
     let pass = document.getElementById("passReg").value;
     let name = document.getElementById("imeReg").value;
@@ -51,21 +51,23 @@ const LoginComponent2 = () => {
       return;
     }
 
-    fetch(url, {
+   const  backFetch= await fetch(url, {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(jsonData),
-    }).then((response) => {
-      if (response.status == 200) {
-        Cookies.set("name", mail);
-        navigate("/");
-      } else {
-        alert("Registracije nije uspijela");
-      }
-    });
+    })
+    const dataFetched= await backFetch.json()
+    console.log(dataFetched);
+    if(backFetch.status==200){
+      Cookies.set("name",mail);
+      Cookies.set("id",dataFetched.userId)
+      navigate("/");
+    }else{
+      alert("Registracija nije uspjela!");
+    }
   };
 
   return (
