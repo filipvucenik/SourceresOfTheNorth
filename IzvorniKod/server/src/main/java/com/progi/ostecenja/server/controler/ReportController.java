@@ -107,9 +107,9 @@ public class ReportController {
     public Report createReport(@RequestParam(required = false) Long reportID, @RequestParam(required = false) String reportHeadline,
                                @RequestParam(required = false) Double lat, @RequestParam(required = false) Double lng,
                                @RequestParam(required = false) String description, @RequestParam(required = false) Timestamp reportTS,
-                               @RequestParam(required = false) Long userID, @RequestParam(required = false) Report group,
+                               @RequestParam(required = false) Long userID, @RequestParam(required = false) Long groupID,
                                @RequestParam(required = false) Long categoryID, HttpSession session, List<MultipartFile> images, String address){
-        Report report = new Report(null, reportHeadline, lat, lng, description, reportTS, userID, group, categoryID);
+        Report report = new Report(null, reportHeadline, lat, lng, description, reportTS, userID, null, categoryID);
         Timestamp timestamp = reportTS;
         if(timestamp == null){
             timestamp = Timestamp.valueOf(LocalDateTime.now());
@@ -124,7 +124,11 @@ public class ReportController {
 
         report.setUserID(userId);
         report.setReportTS(timestamp);
-        report.setGroup(null);
+        if(groupID==null || reportService.getReport(groupID)==null){
+            report.setGroup(null);
+        }else{
+            report.setGroup(reportService.getReport(groupID));
+        }
         Report saved = reportService.createReport(report);
         feedbackService.createFeedback(saved.getReportID(), timestamp);
 
