@@ -111,8 +111,13 @@ public class ReportController {
     }
 
     @PostMapping
-    public Report createReport(@RequestBody Report report, HttpSession session, List<MultipartFile> images, String address){
-        Timestamp timestamp = report.getReportTS();
+    public Report createReport(@RequestParam(required = false) Long reportID, @RequestParam(required = false) String reportHeadline,
+                               @RequestParam(required = false) Double lat, @RequestParam(required = false) Double lng,
+                               @RequestParam(required = false) String description, @RequestParam(required = false) Timestamp reportTS,
+                               @RequestParam(required = false) Long userID, @RequestParam(required = false) Report group,
+                               @RequestParam(required = false) Long categoryID, HttpSession session, List<MultipartFile> images, String address){
+        Report report = new Report(null, reportHeadline, lat, lng, description, reportTS, userID, group, categoryID);
+        Timestamp timestamp = reportTS;
         if(timestamp == null){
             timestamp = Timestamp.valueOf(LocalDateTime.now());
         }
