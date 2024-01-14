@@ -75,6 +75,7 @@ const LoginComponent = () => {
       customAlert("Greška kod prijave: neispravan mail ili lozinka!");
         return;
     }
+    let isValid=false;
     fetch(url, {
       method: "POST",
       credentials: "include",
@@ -86,6 +87,7 @@ const LoginComponent = () => {
       //console.log(response);
 
       if (response.status === 200) {
+        isValid=true;
         return response.text();
         
       } else {
@@ -93,9 +95,11 @@ const LoginComponent = () => {
         return;
       }
     }).then(textData => {
+      if(isValid){
         Cookies.set("name", email);
         Cookies.set("id", JSON.parse(textData).userId);
         navigate("/");
+      }
     })
   };
 
