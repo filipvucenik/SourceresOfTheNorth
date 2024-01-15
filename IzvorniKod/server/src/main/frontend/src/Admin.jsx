@@ -275,13 +275,13 @@ function Admin() {
               <option key="default" value="default">
                 izaberite status
               </option>
-              <option key="U Procesu" value="U Procesu">
+              <option key="U Procesu" value="uProcesu">
                 U Procesu
               </option>
-              <option key="Neobrađeno" value="Neobrađeno">
+              <option key="Neobrađeno" value="neobraden">
                 Neobrađeno
               </option>
-              <option key="Obrađeno" value="Obrađeno">
+              <option key="Obrađeno" value="obraden">
                 Obrađeno
               </option>
             </select>
