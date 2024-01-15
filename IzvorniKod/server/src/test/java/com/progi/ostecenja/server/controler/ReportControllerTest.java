@@ -30,13 +30,15 @@ class ReportControllerTest {
     ReportController reportController;
 
     @BeforeEach
-    void setup() {
+    void setup()
+    {
         saved1 = reportController.createReport(reportInit(), new StandardSession(null), mockImagesInit(), "Lisinski");
         saved2 = reportController.createReport(reportInit(), new StandardSession(null), mockImagesInit(), "Lisinski");
     }
 
     @AfterEach
-    void clear() {
+    void clear()
+    {
         reportController.deleteReport(saved1.getReportID());
         reportController.deleteReport(saved2.getReportID());
     }
@@ -78,11 +80,12 @@ class ReportControllerTest {
     @Test
     public void updateStatusNonExistingReport(){
         assertThrows(IllegalArgumentException.class,()->{reportController.changeStatus(-1L, "uProcesu");});
-    }
 
+    }
     @Test
     public void updateStatusNullReportID(){
         assertThrows(IllegalArgumentException.class,()->{reportController.changeStatus(null, "uProcesu");});
+
     }
 
     @Test
@@ -125,6 +128,14 @@ class ReportControllerTest {
         reportController.changeStatus(saved1.getReportID(), "uProcesu");
         assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(),"uProcesu");
         assertEquals(reportController.getStatus(saved2.getReportID()).getKey().getStatus(),"uProcesu");
+
+    }
+
+    @Test
+    public void getAdressesTest(){
+        Map<Pair<Double, Double>, String> mapa = new HashMap<>();
+        mapa.put(new Pair<>(45.8000646, 15.978519), "Lisinski");
+        assertEquals( reportController.getAddresses(), mapa);
     }
 
 }
