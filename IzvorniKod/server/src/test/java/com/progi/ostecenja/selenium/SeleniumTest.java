@@ -85,7 +85,10 @@ public class SeleniumTest {
     // Test 3
     @Test
     public void registerUser() {
-        String name = "Ime", surname = "Prezime", eMail = "novi.user.1@gmail.com", password = "lozinka123";
+        String name = "Ime";
+        String surname = "Prezime";
+        String eMail = "novi.user.1@gmail.com";
+        String password = "lozinka123";
 
         // register button
         driver.findElement(By.cssSelector("#registerDropdown")).click();
@@ -108,6 +111,7 @@ public class SeleniumTest {
 
         String redirectURL = driver.getCurrentUrl();
         assertEquals("https://progi-projekt-test.onrender.com/", redirectURL);
+
         // e-mail u buttonu
         assertEquals(eMail, driver.findElement(By.cssSelector("#root > div > header > div > div > div > div > a > button")) .getText());
     }
@@ -115,7 +119,10 @@ public class SeleniumTest {
     // Test 4
     @Test
     public void registerExistingUser() {
-        String name = "xx", surname = "yy", eMail = "abc@gmail.com", password = "pass1234";
+        String name = "xx";
+        String surname = "yy";
+        String eMail = "abc@gmail.com";
+        String password = "pass1234";
 
         // register button
         driver.findElement(By.cssSelector("#registerDropdown")).click();
@@ -144,11 +151,14 @@ public class SeleniumTest {
     // Test 5
     @Test
     public void deleteUser() {
-        String eMail = "novi.user.1@gmail.com", password = "lozinka123";
+        String eMail = "novi.user.1@gmail.com";
+        String password = "lozinka123";
+
         // log-in button
         driver.findElement(By.id("loginDropdown")).click();
         // login user
         driver.findElement(By.cssSelector("#root > div > header > div > div > div > div > div:nth-child(1) > ul > li:nth-child(1) > a")).click();
+
         // e-mail input
         driver.findElement(By.id("UserLogin")).sendKeys(eMail);
         // password input
@@ -158,6 +168,7 @@ public class SeleniumTest {
 
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(d -> driver.findElement(By.cssSelector("#root > div > header > div > div > div > div > a > button")).isDisplayed());
+
         // go to profile page
         driver.findElement(By.cssSelector("#root > div > header > div > div > div > div > a > button")).click();
         driver.findElement(By.cssSelector("#root > div > header > div > div > div > div > ul > li:nth-child(1) > a")).click();
@@ -165,9 +176,13 @@ public class SeleniumTest {
         driver.findElement(By.cssSelector("#root > div > form > button:nth-child(4)")).click();
 
         wait.until(d -> driver.findElement(By.cssSelector("body > div:nth-child(3) > p")).isDisplayed());
+
         assertEquals("Profile successfully deleted", driver.findElement(By.cssSelector("body > div:nth-child(3) > p")).getText());
+
         driver.findElement(By.cssSelector("body > div:nth-child(3) > button")).click();
+
         wait.until(d -> driver.findElement(By.cssSelector("#root > div > div:nth-child(2) > h1")).isDisplayed());
+
         String redirectURL = driver.getCurrentUrl();
         assertEquals("https://progi-projekt-test.onrender.com/", redirectURL);
     }

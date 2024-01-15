@@ -10,5 +10,5 @@ export default {
   getOfficeRegisterUrl: `${API_BASE_URL}/auth/officeRegister`,
   getCategory : `${API_BASE_URL}/category`,
   getKeyword : `${API_BASE_URL}/keywords`,
-  getTestReport: `${API_BASE_URL}/reports/group`, 
+  getTestReport: `${API_BASE_URL}/reports/group`,
 };

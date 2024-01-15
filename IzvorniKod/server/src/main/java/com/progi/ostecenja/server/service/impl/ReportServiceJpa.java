@@ -61,8 +61,7 @@ public class ReportServiceJpa implements ReportService {
 
     @Override
     public Report createReport(Report report) {
-
-        if(report.getReportID()!=null && report.getGroup() != null && report.getReportID().equals(report.getGroup().getReportID())){
+        if(report.getGroup() != null && report.getReportID().equals(report.getGroup().getReportID())){
             throw new IllegalArgumentException("can't group report on itself");
         }
 

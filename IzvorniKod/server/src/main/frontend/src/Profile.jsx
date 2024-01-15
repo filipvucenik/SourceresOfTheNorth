@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import {useNavigate} from "react-router-dom";
 import HeaderComponent from "./HeaderComponent";
 import Cookies from "js-cookie";
 import apiConfig from "./apiConfig";
@@ -15,7 +14,6 @@ const Profile = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [filteredDataReports, setFilteredReportsData] = useState([]);
   const [manualAddress, setManualAddress] = useState("");
-  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -26,15 +24,6 @@ const Profile = () => {
 
   const handleClick = () => {
     setShowPasswordDiv(!showPasswordDiv);
-  };
-
-  const handleLogout = () => {
-    Cookies.remove("name");
-    Cookies.remove("id");
-    Cookies.remove("JSESSIONID");
-    postaviPostojiKolacic(false);
-    console.log("Korisnik odjavljen!");
-    navigate("/");
   };
 
   const customAlert = (message) => {
@@ -71,8 +60,9 @@ const Profile = () => {
       border-radius: 3px;
     `;
     closeButton.addEventListener("click", () => {
-      handleLogout();
-
+      // Osvježi stranicu nakon klika na OK
+      window.location.reload();
+      // Ukloni kontejner s alertom
       document.body.removeChild(alertContainer);
     });
 
@@ -130,25 +120,6 @@ const Profile = () => {
       [name]: value,
     }));
   };
-
-  const deleteProfile = async () => {
-    try {
-      const response = await fetch(`${server}/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.ok) {
-        customAlert("Profile successfully deleted");
-      } else {
-        console.error("Error deleting profile");
-      }
-    } catch (error) {
-      console.error("Error deleting profile:", error);
-    }
-  };
-  
 
   const updateDataInDatabase = async (e) => {
     e.preventDefault();
@@ -275,7 +246,7 @@ const Profile = () => {
           >
             Spremi
           </button>
-          <button type="button" className="btn btn-outline-dark me-2" onClick={deleteProfile}>
+          <button type="button" className="btn btn-outline-dark me-2">
             Obriši račun
           </button>
         </form>

@@ -27,11 +27,11 @@
 }
 
 .statistika{
+  margin: 3%;
   display: flex;
 }
 .statistika-child{
   margin: 3%;
-  width: 100%;
   border: 1px black solid;
   padding: 15px;
   border-radius: 15px;

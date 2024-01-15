@@ -166,7 +166,6 @@ const ReportCard = () => {
   const [similarReport,setSimilarReport]=useState([]);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [fetchedAdress,setFetchedAdress] = useState([]);
   const [location, setLocation] = useState({
     lat: 45.804270084085914,
     lng: 15.978798866271974,
@@ -266,9 +265,8 @@ const ReportCard = () => {
     console.log("Picture changed file:", file);
     console.log("Picture changed file.target.files:", file.target.files[0]);
     setPicture(file);
-
     const img = file.target.files[0];
-    
+
     if (img) {
       setPreviewPicture(URL.createObjectURL(img));
       EXIF.getData(img, async function () {
@@ -314,24 +312,24 @@ const ReportCard = () => {
 
   const sendReport = async (isLink) =>{
     const jsonServerSendData=new FormData();
-
-
+    
     jsonServerSendData.append("reportHeadline",title);
     jsonServerSendData.append("lat",location.lat);
     jsonServerSendData.append("lng",location.lng);
     jsonServerSendData.append("description",description);
     jsonServerSendData.append("categoryID",category);
     jsonServerSendData.append("adress",manualAddress);
-    if(picture){
-    jsonServerSendData.append("images",picture.target.files[0])
-    }
+    jsonServerSendData.append("picture",picture)
+    
     if(isLink){
-      jsonServerSendData.append("groupID",originalReport[selectedReport].report.groupID) ;
+      jsonServerSendData.append("group",originalReport[selectedReport].report) ;
     }
-
     let url = apiConfig.getReportUrl;
     const submitResponse = await fetch(url, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: jsonServerSendData,
     });
     const returnReport = await submitResponse.json()
@@ -347,8 +345,15 @@ const ReportCard = () => {
 
   const handleSubmit = async () => {
 
-
-
+    /*const jsonServerSendData = {
+      reportHeadline: title,
+      lat: location.lat,
+      lng: location.lng,
+      description: description,
+      categoryID: category,
+      adress:manualAddress,
+      group: null,
+    };*/
     const jsonServerSendData=new FormData();
     
     jsonServerSendData.append("reportHeadline",title);
@@ -357,9 +362,8 @@ const ReportCard = () => {
     jsonServerSendData.append("description",description);
     jsonServerSendData.append("categoryID",category);
     jsonServerSendData.append("adress",manualAddress);
-    if(picture){
-    jsonServerSendData.append("images",picture.target.files[0])
-    }
+    jsonServerSendData.append("picture",picture.target.files[0])
+    jsonServerSendData.append("group",null);
 
     if (
       jsonServerSendData.reportHeadline === "" ||
@@ -368,46 +372,37 @@ const ReportCard = () => {
     ) {
       customAlert("Molimo popunite SVA polja!!");
     }
+    for (const [key, value] of jsonServerSendData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
     
     let testUrl = apiConfig.getTestReport;
     let simReportJson = "";
-
-    for (const [key, value] of jsonServerSendData.entries()) {
-      console.log(key, value);
-    }
     
     try {
       const response = await fetch(testUrl, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: jsonServerSendData,
       });
-      
       simReportJson = await response.json();
-      console.log(simReportJson);
-      let ModifiedResponse= simReportJson;
+      console.log(simReportJson)
+      setSimilarReport(simReportJson)
       if (simReportJson.length > 0) {
-        for(let i=0;i<simReportJson.length;i++){
-          const apiKey = "7fbe9533c0c9424aa41c500419e5ef83";
-          const apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${simReportJson[i].report.lat}+${simReportJson[i].report.lng}&key=${apiKey}`;
-          const apiResponse = await fetch(apiUrl);
-          const apiData = await apiResponse.json();
-          if (apiData.results.length > 0) {
-
-            const formattedAddress = apiData.results[0].formatted;
-            ModifiedResponse[i].report={address:formattedAddress,...ModifiedResponse[i].report};
-          }
-        }
-        setSimilarReport(simReportJson)
         setOriginalReport(simReportJson)
         customAlert("U blizini vaše lokacije detekriano je nekoliko sličnih prijava, molimo pogledajte odnosili se koja na istu stvar, ako se odnosi pritisnite na tu prijavu te nadoveži, ako ne pritisnite predaj novu");
         setDisplayTable(true);
         return;
       }
       
-      
       let url = apiConfig.getReportUrl;
       const submitResponse = await fetch(url, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: jsonServerSendData,
       });
       const returnReport = await submitResponse.json()
@@ -527,8 +522,8 @@ const ReportCard = () => {
                   <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>ID kategorije</th>
                   <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Naslov</th>
                   <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Opis</th>
-                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Adresa</th>
-                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Slika</th>
+                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Latitude</th>
+                  <th style={{ padding: '10px', border: '1px solid #dddddd', textAlign: 'left' }}>Longitude</th>
                 </tr>
               </thead>
               <tbody>
@@ -546,10 +541,10 @@ const ReportCard = () => {
                     >
                       <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{index + 1}</td>
                       <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.category.categoryName}</td>
-                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.report.reportHeadline}</td>
                       <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.report.description}</td>
-                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.report.address}</td>
-                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.image && <img src={apiConfig.getUrl + report.image.url.substring(1)} alt="Report Image" style={{ width: "50%", height: "50%" }}/>}</td>
+                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.report.lat}</td>
+                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.report.lng}</td>
+                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.report.reportHeadline}</td>
                     </tr>
                   </React.Fragment>
                 ))}

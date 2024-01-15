@@ -141,8 +141,7 @@ public class DataInitializer {
         };
         for(Report report: reports){
             if(!reportService.getHeadlines().contains(report.getReportHeadline())){
-                reportController.createReport(report.getReportID(), report.getReportHeadline(), report.getLat(), report.getLng(), report.getDescription(), report.getReportTS(), report.getUserID(),
-                        report.getGroup().getReportID(),report.getCategoryID(), new StandardSession(null), images, "Lisinski");
+                reportController.createReport(report, new StandardSession(null), images, "Lisinski");
             }
         }
 
