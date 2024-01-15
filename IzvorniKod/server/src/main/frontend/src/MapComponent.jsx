@@ -1,29 +1,108 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import markerIcon from './marker.svg';
-import apiConfig from "./apiConfig";
+import apiConfig from './apiConfig';
 
 const server = apiConfig.getReportUrl;
 
 const MapComponent = () => {
   const mapRef = useRef(null);
-  const markers = [];
+  const markersRef = useRef([]);
   const uniqueMapId = `map-${Math.floor(Math.random() * 10000)}`;
+  const navigate = useNavigate();
 
   const [filteredData, setFilteredData] = useState([]);
   const [filteredDataFromEndpoint, setFilteredDataFromEndpoint] = useState([]);
   const [categoryData, setCategoryData] = useState({});
-  const [selectedCategoryID, setSelectedCategoryID] = useState("");
+  const [selectedCategoryID, setSelectedCategoryID] = useState('');
   const [showFilterDiv, setShowFilterDiv] = useState(false);
+
+  const customAlertReturn = (message, onOk) => {
+
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 9998; 
+    `;
+    document.body.appendChild(overlay);
+  
+
+    const alertContainer = document.createElement('div');
+    alertContainer.style.cssText = `
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      border-radius: 5px;
+      text-align: center;
+      z-index: 9999; 
+    `;
+  
+    const alertText = document.createElement('p');
+    alertText.style.cssText = `
+      font-weight: bold;
+      font-size: 16px;
+    `;
+    alertText.textContent = message;
+  
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'OK';
+    closeButton.style.cssText = `
+      margin-top: 10px;
+      padding: 5px 10px;
+      cursor: pointer;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 3px;
+    `;
+  
+    closeButton.addEventListener('click', () => {
+      document.body.removeChild(overlay);
+      document.body.removeChild(alertContainer);
+      navigate("/");
+    });
+  
+    alertContainer.appendChild(alertText);
+    alertContainer.appendChild(closeButton);
+    document.body.appendChild(alertContainer);
+  };
 
   const handleClick = () => {
     setShowFilterDiv(!showFilterDiv);
   };
 
-  const handleSearch = () => {
-    console.log("nutra smo");
+  const handleSearch = async () => {
+    // Assuming you have a reportId state variable for the input value
+    const ReportId = document.getElementById('kodtrazilica').value;
+    if (ReportId.trim() !== '') {
+    try {
+      const response = await fetch(`${server}/${ReportId}`);
+      const data = await response.json();
+      var trazilicaData = data;
+      // Clear existing markers
+      clearMarkers();
+      createMarker(trazilicaData.report.lat, trazilicaData.report.lng);
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  } else {
+    // Handle the case when ReportId is an empty string
+    customAlertReturn("ReportId is empty. Please enter a valid value.");
+    // You might want to clear existing markers or handle it as per your requirements
   }
+  };
 
   const getCategory = async () => {
     let url = apiConfig.getCategory;
@@ -44,45 +123,70 @@ const MapComponent = () => {
     setSelectedCategoryID(selectedID);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const dataForSend = {
-      categoryId: selectedCategoryID,
-      startDate: e.target.elements.fromDateTime.value,
-      endDate: e.target.elements.toDateTime.value,
-      lat: "",
-      lng: "",
-      status: "",
-      radius: "",
-    };
-    try {
-      const response = await fetch(`https://progi-projekt-test.onrender.com/reports/filtered`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataForSend),
-      });
-
-      const data = await response.json();
-      setFilteredDataFromEndpoint(data);
-      handleClick();
-    } catch (error) {
-      console.error('Greška prilikom slanja koordinata:', error);
-    }
-  };
+  useEffect(() => {
+    console.log(filteredDataFromEndpoint);
+    renderMarkers(filteredDataFromEndpoint);
+  }, [filteredDataFromEndpoint]);
 
   useEffect(() => {
-    const createMarker = (lat, lng) => {
-      const customIcon = new L.Icon({
-        iconUrl: markerIcon,
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32],
-      });
+    console.log(filteredData);
+    renderMarkers(filteredData);
+  }, [filteredData]);
 
-      const marker = L.marker([lat, lng], { icon: customIcon }).addTo(mapRef.current);
-      markers.push(marker);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    // Check if "Obriši filter" button is clicked
+    const isDeleteFilterClicked = e.nativeEvent.submitter.textContent === 'Obriši filter';
+  
+    // If "Obriši filter" button is clicked, show all locations
+    if (isDeleteFilterClicked) {
+      renderMarkers(filteredData);
+      setShowFilterDiv(false); // Close the filter div
+    } else {
+      // If it's a regular filter submission
+      const dataForSend = {
+        categoryId: selectedCategoryID,
+        startDate: e.target.elements.fromDateTime.value,
+        endDate: e.target.elements.toDateTime.value,
+        lat: '',
+        lng: '',
+        status: '',
+        radius: '',
+      };
+  
+      try {
+        const response = await fetch(`${server}/filtered`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dataForSend),
+        });
+  
+        const data = await response.json();
+        setFilteredDataFromEndpoint(data);
+        handleClick();
+      } catch (error) {
+        console.error('Greška prilikom slanja koordinata:', error);
+      }
+    }
+  };
+  
+
+  const createMarker = (lat, lng) => {
+    const customIcon = new L.Icon({
+      iconUrl: markerIcon,
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -32],
+    });
+
+    const marker = L.marker([lat, lng], { icon: customIcon });
+    markersRef.current.push(marker);
+
+    if (mapRef.current) {
+      marker.addTo(mapRef.current);
 
       let popupIsOpen = false;
 
@@ -91,54 +195,66 @@ const MapComponent = () => {
           marker.closePopup();
           popupIsOpen = false;
         } else {
-          marker.bindPopup(`Naslov prijave, kratki opis bude tu + <br/><a href=''>Otvori stranicu prijave</a>`).openPopup();
+          marker.bindPopup(
+            `Naslov prijave, kratki opis bude tu + <br/><a href=''>Otvori stranicu prijave</a>`
+          ).openPopup();
           popupIsOpen = true;
         }
       });
-    };
 
-    const fetchDataAndCreateMarkers = async () => {
-      try {
-        const response = await fetch(`${server}/unhandled`);
-        const data = await response.json();
-        setFilteredData(data);
-        console.log(data);
-        console.log(filteredData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+    }
+  };
 
-    const renderMarkers = () => {
-      let dataToUse;
+  const fetchDataAndCreateMarkers = async () => {
+    try {
+      const response = await fetch(`${server}/unhandled`);
+      const data = await response.json();
+      setFilteredData(data);
+      renderMarkers(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
-      if (Array.isArray(filteredDataFromEndpoint) && filteredDataFromEndpoint.length > 0) {
-        dataToUse = filteredDataFromEndpoint;
-      } else if (Array.isArray(filteredData) && filteredData.length > 0) {
-        dataToUse = filteredData;
-      } else {
-        console.log('No data to render markers.');
-        return;
-      }
+  const clearMarkers = () => {
+    markersRef.current.forEach(marker => marker.remove());
+    markersRef.current.length = 0;
+  };
 
+  const renderMarkers = (dataToUse) => {
+    clearMarkers();
+    console.log(dataToUse);
+    if (dataToUse && dataToUse.length > 0) {
       for (const lokacija of dataToUse) {
-        createMarker(lokacija.lat, lokacija.lng);
+        if (lokacija.lat && lokacija.lng) {
+          createMarker(lokacija.lat, lokacija.lng);
+        } else if (lokacija.report && lokacija.report.lat && lokacija.report.lng) {
+          createMarker(lokacija.report.lat, lokacija.report.lng);
+        }
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     if (!mapRef.current) {
       const map = L.map(uniqueMapId).setView([45.800, 15.967], 13);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
       }).addTo(map);
-      fetchDataAndCreateMarkers();
-      renderMarkers();
       mapRef.current = map;
     } else {
       mapRef.current.invalidateSize();
-      renderMarkers();
     }
-  }, [filteredData, filteredDataFromEndpoint]);
+
+    // Call renderMarkers after the conditions are checked
+    if (showFilterDiv) {
+      // If filter is applied, render markers based on filtered data
+      renderMarkers(filteredDataFromEndpoint);
+    } else {
+      // If filter is not applied, render all markers
+      fetchDataAndCreateMarkers();
+    }
+  }, []);
 
   return (
     <>
@@ -174,12 +290,16 @@ const MapComponent = () => {
             <button className="submit-btn" type="submit">
               Filter
             </button>
+            |
+            <button className="submit-btn" type="submit">
+              Obriši filter
+            </button>
           </form>
           <hr />
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
 export default MapComponent;
