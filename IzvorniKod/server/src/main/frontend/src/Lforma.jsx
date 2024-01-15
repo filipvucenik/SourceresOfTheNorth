@@ -8,7 +8,7 @@ import HeaderComponent from "./HeaderComponent";
 
 const LoginComponent = () => {
   const customAlert = (message) => {
-    const alertContainer = document.createElement('div');
+    const alertContainer = document.createElement("div");
     alertContainer.style.cssText = `
       position: fixed;
       top: 20px; /* Adjust the top distance as needed */
@@ -21,16 +21,16 @@ const LoginComponent = () => {
       text-align: center;
       z-index: 9999; /* Set a high z-index to ensure it's on top */
     `;
-  
-    const alertText = document.createElement('p');
+
+    const alertText = document.createElement("p");
     alertText.style.cssText = `
       font-weight: bold;
       font-size: 16px;
     `;
     alertText.textContent = message;
-  
-    const closeButton = document.createElement('button');
-    closeButton.textContent = 'OK';
+
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "OK";
     closeButton.style.cssText = `
       margin-top: 10px;
       padding: 5px 10px;
@@ -40,11 +40,13 @@ const LoginComponent = () => {
       border: none;
       border-radius: 3px;
     `;
-    closeButton.addEventListener('click', () => document.body.removeChild(alertContainer));
-  
+    closeButton.addEventListener("click", () =>
+      document.body.removeChild(alertContainer)
+    );
+
     alertContainer.appendChild(alertText);
     alertContainer.appendChild(closeButton);
-  
+
     document.body.appendChild(alertContainer);
   };
 
@@ -71,11 +73,11 @@ const LoginComponent = () => {
 
     let url = apiConfig.getLoginUrl;
     console.log(jsonData);
-    if(email == "" ||password == ""){
+    if (email == "" || password == "") {
       customAlert("Greška kod prijave: neispravan mail ili lozinka!");
-        return;
+      return;
     }
-    let isValid=false;
+    let isValid = false;
     fetch(url, {
       method: "POST",
       credentials: "include",
@@ -83,24 +85,25 @@ const LoginComponent = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(jsonData),
-    }).then((response) => {
-      //console.log(response);
-
-      if (response.status === 200) {
-        isValid=true;
-        return response.text();
-        
-      } else {
-        customAlert("Greška kod prijave: neispravan mail ili lozinka!");
-        return;
-      }
-    }).then(textData => {
-      if(isValid){
-        Cookies.set("name", email);
-        Cookies.set("id", JSON.parse(textData).userId);
-        navigate("/");
-      }
     })
+      .then((response) => {
+        //console.log(response);
+
+        if (response.status === 200) {
+          isValid = true;
+          return response.text();
+        } else {
+          customAlert("Greška kod prijave: neispravan mail ili lozinka!");
+          return;
+        }
+      })
+      .then((textData) => {
+        if (isValid) {
+          Cookies.set("name", email);
+          Cookies.set("id", JSON.parse(textData).userId);
+          navigate("/");
+        }
+      });
   };
 
   const handleLoginInputChange = (e) => {

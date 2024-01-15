@@ -6,7 +6,7 @@ import apiConfig from "./apiConfig";
 
 function Admin() {
   const server = apiConfig.getReportUrl;
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(new Set());
   const nav = useNavigate();
   const [displaied_data, set_display] = useState([]);
   const [transfer, set_transfer] = useState([]);
@@ -20,16 +20,54 @@ function Admin() {
     fetchReports();
   }, []);
 
+  useEffect(() => {
+    getCategory();
+  }, []);
+
   const fetchReports = async () => {
     try {
       const response = await fetch(apiConfig.getReportUrl + "/unhandled");
       const reports = await response.json();
       console.log(reports);
       setData(reports);
-      set_display(reports);
     } catch (error) {
       console.error("Error fetching reports:", error);
     }
+
+    try {
+      const response = await fetch(apiConfig.getReportUrl + "/U Procesu");
+      const reports = await response.json();
+      for (const r of reports) {
+        r.status = "U Procesu";
+      }
+      setData([...data, ...reports]);
+    } catch (error) {
+      console.error("Error fetching reports:", error);
+    }
+
+    try {
+      const response = await fetch(apiConfig.getReportUrl + "/Neobrađeno");
+      const reports = await response.json();
+      for (const r of reports) {
+        r.status = "Neobrađeno";
+      }
+      setData([...data, ...reports]);
+    } catch (error) {
+      console.error("Error fetching reports:", error);
+    }
+
+    try {
+      const response = await fetch(apiConfig.getReportUrl + "/Obrađeno");
+      const reports = await response.json();
+      for (const r of reports) {
+        r.status = "Obrađeno";
+      }
+      setData([...data, ...reports]);
+    } catch (error) {
+      console.error("Error fetching reports:", error);
+    }
+
+    set_display(data);
   };
 
   const getCategory = async () => {
@@ -41,9 +79,6 @@ function Admin() {
     );
     setCategoryData(transformedData);
   };
-  useEffect(() => {
-    getCategory();
-  }, []);
 
   const handleCategoryChange = (event) => {
     const selectedID = event.target.value;
@@ -53,7 +88,7 @@ function Admin() {
   const updateDisplay = (status) => {
     set_display(
       data.filter((repo) => {
-        if (repo.report.status === status) {
+        if (repo.status === status) {
           return true;
         } else return false;
       })
@@ -80,13 +115,13 @@ function Admin() {
   };
 
   const confirmTransfer = () => {
-    console.log(transfer);
     var formData = new FormData();
     formData.append("CatID", selectedCategoryID);
     formData.append(
       "reports",
       transfer.map((repo) => repo.report.reportID)
     );
+    console.log(formData);
     try {
       const response = fetch(`${server}/changeOffice`, {
         method: "PUT",
@@ -94,6 +129,7 @@ function Admin() {
         body: formData,
       });
       set_transfer([]);
+      fetchReports();
     } catch (error) {
       console.error("Error updating report:", error);
     }
@@ -133,19 +169,22 @@ function Admin() {
   };
 
   const confirmUpdate = async () => {
-    console.log(update);
-    var formData = new FormData();
-    formData.append("status", newStatus);
-    formData.append("reportID", update[0].report.reportID);
     try {
-      const response = await fetch(`${server}/updateStatus`, {
-        method: "PUT",
-        credentials: "include",
+      for (const r of update) {
+        var formData = new FormData();
+        formData.append("status", newStatus);
+        formData.append("reports", r.report.reportID);
 
-        body: formData,
-      });
+        const response = await fetch(`${server}/updateStatus`, {
+          method: "PUT",
+          credentials: "include",
+
+          body: formData,
+        });
+      }
 
       set_update([]);
+      fetchReports();
     } catch (error) {
       console.error("Error updating report:", error);
     }
@@ -180,6 +219,8 @@ function Admin() {
       group.slice(1).map((repo) => repo.report.reportID)
     );
 
+    console.log(formData);
+
     try {
       const response = await fetch(`${server}/groupReports`, {
         method: "PUT",
@@ -187,6 +228,7 @@ function Admin() {
         body: formData,
       });
       set_group([]);
+      fetchReports();
     } catch (error) {
       console.error("Error updating report:", error);
     }
@@ -357,7 +399,7 @@ function Admin() {
             className="btn btn-lg btn-primary"
             onClick={() => updateDisplay("Obrađeno")}
           >
-            Obrađeno
+            Obrađene
           </button>
         </div>
         {displaied_data.length > 0 && (
@@ -373,6 +415,21 @@ function Admin() {
                       {categoryData[repo.report.categoryID]}
                     </p>
                     <p className="card-text">{repo.report.status}</p>
+                    <ul className="list-group list-group-flush">
+                      {data.map((miniR) => {
+                        if (miniR.report.group === repo.report.reportID) {
+                          return (
+                            <li className="list-group-item">
+                              <Link to={`/report/${miniR.report.reportID}`}>
+                                {miniR.report.reportHeadline}
+                              </Link>
+                            </li>
+                          );
+                        }
+                        return null;
+                      })}
+                    </ul>
+
                     <div className="btn-group">
                       <button
                         className="btn btn-primary"
