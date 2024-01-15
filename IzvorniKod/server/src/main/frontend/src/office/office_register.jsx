@@ -7,7 +7,7 @@ import apiConfig from "../apiConfig";
 
 const OfficeRegister = () => {
   const customAlert = (message) => {
-    const alertContainer = document.createElement('div');
+    const alertContainer = document.createElement("div");
     alertContainer.style.cssText = `
       position: fixed;
       top: 20px; /* Adjust the top distance as needed */
@@ -20,16 +20,16 @@ const OfficeRegister = () => {
       text-align: center;
       z-index: 9999; /* Set a high z-index to ensure it's on top */
     `;
-  
-    const alertText = document.createElement('p');
+
+    const alertText = document.createElement("p");
     alertText.style.cssText = `
       font-weight: bold;
       font-size: 16px;
     `;
     alertText.textContent = message;
-  
-    const closeButton = document.createElement('button');
-    closeButton.textContent = 'OK';
+
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "OK";
     closeButton.style.cssText = `
       margin-top: 10px;
       padding: 5px 10px;
@@ -39,11 +39,13 @@ const OfficeRegister = () => {
       border: none;
       border-radius: 3px;
     `;
-    closeButton.addEventListener('click', () => document.body.removeChild(alertContainer));
-  
+    closeButton.addEventListener("click", () =>
+      document.body.removeChild(alertContainer)
+    );
+
     alertContainer.appendChild(alertText);
     alertContainer.appendChild(closeButton);
-  
+
     document.body.appendChild(alertContainer);
   };
   const navigate = useNavigate();
@@ -56,16 +58,16 @@ const OfficeRegister = () => {
     }
   }, [navigate]);
 
-  const handleBuildRegJson = async() => {
+  const handleBuildRegJson = async () => {
     let url = apiConfig.getOfficeRegisterUrl;
     let pass = document.getElementById("passReg").value;
     let name = document.getElementById("imeReg").value;
     let mail = document.getElementById("mailReg").value;
 
     const jsonData = {
-      email: mail,
-      firstName: name,
-      password: pass,
+      cityOfficeEmail: mail,
+      cityOfficeName: name,
+      cityOfficePassword: pass,
     };
     let errorMsg = "";
     if (mail === "") {
@@ -85,24 +87,23 @@ const OfficeRegister = () => {
       return;
     }
 
-    const  backFetch= await fetch(url, {
+    const backFetch = await fetch(url, {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(jsonData),
-    })
-    const dataFetched= await backFetch.json()
+    });
+    const dataFetched = await backFetch.json();
     console.log(dataFetched);
-    if(backFetch.status==200){
-      Cookies.set("name",mail);
-      Cookies.set("id",dataFetched.userId)
+    if (backFetch.status == 200) {
+      Cookies.set("name", mail);
+      Cookies.set("id", dataFetched.userId);
       navigate("/");
-    }else{
+    } else {
       customAlert("Registracija nije uspjela!");
     }
-
   };
 
   return (
