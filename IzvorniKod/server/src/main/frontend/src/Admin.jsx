@@ -251,7 +251,7 @@ function Admin() {
               <tr>
                 <th>Id</th>
                 <th>Name</th>
-
+                <th>Status</th>
                 <th>Kategorija</th>
               </tr>
             </thead>
@@ -261,7 +261,7 @@ function Admin() {
                   <tr>
                     <td>{repo.report.reportID}</td>
                     <td>{repo.report.reportHeadline}</td>
-
+                    <td>{repo.report.status}</td>
                     <td>{categoryData[repo.report.categoryID]}</td>
                   </tr>
                 );
