@@ -91,7 +91,7 @@ function StatisticComponent() {
       if (!radius) {
         console.error("Radius is required when location is selected");
         // Dodajte alert za obavještavanje korisnika
-        alert("Molimo vas označite radius kad je označena lokacija");
+        alert("Molimo vas označite radius kad je označena lokacija!");
         return;
       }
     }

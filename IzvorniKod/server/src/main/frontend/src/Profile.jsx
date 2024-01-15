@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
 import HeaderComponent from "./HeaderComponent";
 import Cookies from "js-cookie";
 import apiConfig from "./apiConfig";
@@ -140,7 +140,7 @@ const Profile = () => {
         },
       });
       if (response.ok) {
-        customAlert("Profile successfully deleted");
+        customAlert("Korisnički račun uspješno izbrisan!");
       } else {
         console.error("Error deleting profile");
       }
@@ -296,31 +296,33 @@ const Profile = () => {
               <h2>
                 <b>{item.report.reportHeadline}</b>
               </h2>
-              <p>ID prijave: {item.report.reportID}</p>
-              <p>Kategorija: {item.category.categoryName}</p>
+              <p><b>ID prijave:</b> {item.report.reportID}</p>
+              <p><b>Kategorija:</b> {item.category.categoryName}</p>
               <p>
-                Vrijeme prijave: <br />
+                <b>Vrijeme prijave:</b> <br />
                 {item.report.reportTS.split("T")[0]}{" "}
                 {item.report.reportTS.split("T")[1].split(".")[0]}
               </p>
               <p>
-                Opis prijave: <br /> {item.report.description}
+                <b>Opis prijave:</b> <br /> {item.report.description}
               </p>
               <p>
-                Status: <nbsp></nbsp>
+                <b>Status:</b> <nbsp></nbsp>
                 {item.feedback.key.status === "uProcesu" ? (
                   <span>U procesu</span>
                 ) : (
-                  item.feedback.key.status
+                  item.feedback.key.status === "neobraden" ? (<span>Neobrađen</span>) : (<span>Obrađen</span>)
                 )}
               </p>
 
-              <p>Lokacija:</p>
-              <p>Link na stranicu prijave</p>
+              {/* <p>Lokacija:</p> */}
+              <Link to={`/report/${item.report.reportID}`}>
+                stranica prijave
+              </Link>
             </li>
           ))
         ) : (
-          <p>No data available</p>
+          <p>Nema podataka</p>
         )}
       </ul>
       <FooterComponent />

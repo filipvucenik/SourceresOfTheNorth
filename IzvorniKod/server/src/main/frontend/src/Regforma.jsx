@@ -84,7 +84,7 @@ const LoginComponent2 = () => {
       errorMsg = errorMsg + "Prezime ne može biti prazno!\n";
     }
     if (pass.length < 8 || pass.lenght > 100) {
-      errorMsg = errorMsg + "Šifra je mora bit između 8 i 100 znakova";
+      errorMsg = errorMsg + "Šifra je mora bit između 8 i 100 znakova!";
     }
     if (errorMsg != "") {
       customAlert(errorMsg);

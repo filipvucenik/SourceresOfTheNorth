@@ -99,7 +99,7 @@ const MapComponent = () => {
     }
   } else {
     // Handle the case when ReportId is an empty string
-    customAlertReturn("ReportId is empty. Please enter a valid value.");
+    customAlertReturn("Niste unijeli kod prijave. Molimo unesite validan kod prijave.");
     // You might want to clear existing markers or handle it as per your requirements
   }
   };
