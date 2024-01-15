@@ -10,9 +10,22 @@ const server = apiConfig.getUrl;
 function Reports() {
   const iddd = useParams();
 
-  console.log(iddd);
-
   const [data, setData] = useState({});
+  const [categoryData, setCategoryData] = useState({});
+
+  useEffect(() => {
+    getCategory();
+  }, []);
+
+  const getCategory = async () => {
+    let url = apiConfig.getCategory;
+    const fetchCategory = await fetch(url);
+    const fetchData = await fetchCategory.json();
+    const transformedData = Object.fromEntries(
+      fetchData.map((item) => [item.categoryID, item.categoryName])
+    );
+    setCategoryData(transformedData);
+  };
 
   const fetchData = async () => {
     try {
@@ -31,37 +44,37 @@ function Reports() {
 
   return (
     <div>
-      <div className="page">
-        {data.report && (
-          <>
-            <HeaderComponent />
-            <div className="Report">
-              <div className="report-left">
-                <div>
-                  <img src="https://picsum.photos/400/300" />
-                </div>
-                <div>Naslov: {data.report.reportHeadline}</div>
-                <div>
-                  <p>Opis: {data.report.description}</p>
-                </div>
-                <div>
+      <HeaderComponent />
+
+      {data.report && (
+        <>
+          <div className="container">
+            <div className="card h-100 border border-2 rounded">
+              <img
+                src={data.images[0].url}
+                class="card-img-top"
+                alt="glavna slika"
+              ></img>
+              <div className="card-body">
+                <h5 className="card-title">{data.report.reportHeadline}</h5>
+                <hr />
+                <p className="card-text">Opis: {data.report.description}</p>
+                <p className="card-text">
                   Datum:{" "}
                   {new Date(data.report.reportTS).toLocaleString("de-DE", {
                     timeZone: "UTC",
                   })}
-                </div>
-              </div>
-              <div className="report-right">
-                <div>
-                  <img src="https://picsum.photos/300/300" />
-                  {data.location}
-                </div>
+                </p>
+                <p className="card-text">
+                  Kategorija: {categoryData[data.report.categoryID]}
+                </p>
               </div>
             </div>
-            <FooterComponent />
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
+
+      <FooterComponent />
     </div>
   );
 }

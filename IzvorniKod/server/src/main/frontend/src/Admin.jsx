@@ -6,7 +6,7 @@ import apiConfig from "./apiConfig";
 
 function Admin() {
   const server = apiConfig.getReportUrl;
-  const [data, setData] = useState(new Set());
+  const [data, setData] = useState([]);
   const nav = useNavigate();
   const [displaied_data, set_display] = useState([]);
   const [transfer, set_transfer] = useState([]);
@@ -15,6 +15,7 @@ function Admin() {
   const [categoryData, setCategoryData] = useState({});
   const [selectedCategoryID, setSelectedCategoryID] = useState("");
   const [newStatus, setNewStatus] = useState("");
+  const [initialData, setInitialData] = useState("");
 
   useEffect(() => {
     fetchReports();
@@ -24,50 +25,54 @@ function Admin() {
     getCategory();
   }, []);
 
+  useEffect(() => {
+    if (initialData === "YES") {
+      set_display(data);
+    }
+  }, [initialData]);
+
   const fetchReports = async () => {
     try {
       const response = await fetch(apiConfig.getReportUrl + "/unhandled");
       const reports = await response.json();
       console.log(reports);
       setData(reports);
+
+      console.log(data);
     } catch (error) {
       console.error("Error fetching reports:", error);
     }
 
     try {
-      const response = await fetch(apiConfig.getReportUrl + "/U Procesu");
+      const response = await fetch(apiConfig.getReportUrl + "/uProcesu");
       const reports = await response.json();
-      for (const r of reports) {
-        r.status = "U Procesu";
+      if (reports.length > 0) {
+        for (const r of reports) {
+          r.status = "U Procesu";
+        }
+        setData([...data, ...reports]);
       }
-      setData([...data, ...reports]);
+      const response1 = await fetch(apiConfig.getReportUrl + "/neobraden");
+      const reports1 = await response1.json();
+      if (reports1.length > 0) {
+        for (const r of reports1) {
+          r.status = "Neobrađeno";
+        }
+        setData([...data, ...reports1]);
+      }
+      const response2 = await fetch(apiConfig.getReportUrl + "/obraden");
+      const reports2 = await response2.json();
+      if (reports2.length > 0) {
+        for (const r of reports2) {
+          r.status = "Obrađeno";
+        }
+        setData([...data, ...reports2]);
+      }
     } catch (error) {
       console.error("Error fetching reports:", error);
+    } finally {
+      setInitialData("YES");
     }
-
-    try {
-      const response = await fetch(apiConfig.getReportUrl + "/Neobrađeno");
-      const reports = await response.json();
-      for (const r of reports) {
-        r.status = "Neobrađeno";
-      }
-      setData([...data, ...reports]);
-    } catch (error) {
-      console.error("Error fetching reports:", error);
-    }
-
-    try {
-      const response = await fetch(apiConfig.getReportUrl + "/Obrađeno");
-      const reports = await response.json();
-      for (const r of reports) {
-        r.status = "Obrađeno";
-      }
-      setData([...data, ...reports]);
-    } catch (error) {
-      console.error("Error fetching reports:", error);
-    }
-
-    set_display(data);
   };
 
   const getCategory = async () => {
