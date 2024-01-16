@@ -2,7 +2,7 @@
 		
 		Arhitektura ovog sustava je bazirana na arhitekturi klijent-poslužitelj. Sustav se sastoji od 3 sloja: sloj korisničkog sučelja, sloj aplikacijske logike, sloj podataka.
 		
-		\textbf{Web preglednik} je program preko kojeg korisnik koristi aplikaciju. Preglednik omogućuje klijentu komunikaciju s web poslužiteljem aplikacije. Preglednik nam omogućava prikaz sloja korisničkog sučelja sustava. Korisnik preko web preglednika komunicira s web poslužiteljem slanjem i primanjem HTTP zahtjeva. Primljene podatke i datoteke web preglednik zna interpretirati i prikazati korisniku tako da sama interakcija s aplikacijom bude jednostavna. Neki od popularnih web preglednika su Crome, Safari i Edge.
+		\textbf{Web preglednik} je program preko kojeg korisnik koristi aplikaciju. Preglednik omogućuje klijentu komunikaciju s web poslužiteljem aplikacije. Preglednik nam omogućava prikaz sloja korisničkog sučelja sustava. Korisnik preko web preglednika komunicira s web poslužiteljem slanjem i primanjem HTTP zahtjeva. Primljene podatke i datoteke web preglednik zna interpretirati i prikazati korisniku tako da sama interakcija s aplikacijom bude jednostavna. Neki od popularnih web preglednika su Chrome, Safari i Edge.
 		
 		\textbf{Web poslužitelj} je računalo na kojem se aplikacija pokreće. Na njemu se dakle nalazi sloj aplikacijske logike. Web poslužitelj aplikaciji prosljeđuje zahtjeve na obradu i njezine odgovore prosljeđuje natrag klijentima. Web aplikacija na poslužitelju obrađuje zaprimljene zahtjeve. Ako obrada zahtjeva to zahtjeva, web aplikacija dodatno komunicira sa slojem podataka.
 		
@@ -53,8 +53,6 @@
 			\item CityOffice
 		\end{packed_item}
 		
-		S obzirom na to da je još u fazi razvoja, aplikacija trenutno koristi H2 bazu podataka u radnoj memoriji. Ovu bazu podataka Spring Boot automatski inicijalizira i spaja s aplikacijom. Ova baza je pogodna za testiranje i razvoj te smo je zbog toga odlučili koristiti tijekom razvoja. Kasnije kada aplikacija bude gotova ćemo H2 bazu zamijeniti odvojenom PostgreSQL bazom podataka.
-		
 			\subsection{Opis tablica}
 			
 			\textbf{Users} tablica čuva podatke o korisničkim računima koje korisnici izrađuju tijekom registracije. Tablica je povezana vezom \textit{One-to-Many} s tablicom \textit{Report} preko atributa \textit{userID}.
@@ -87,10 +85,11 @@
 				} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
 				\hline \SetCell[c=3]{c}{\textbf{Report}}	 \\ \hline[3pt]
 				\SetCell{LightGreen} reportID & INT & jedinstveni identifikator prijave \\ \hline
-				location & VARCHAR & lokacija oštećenja \\ \hline
 				description & VARCHAR & opis oštećenja \\ \hline 
 				reportTS & TIMESTAMP & vrijeme prijave \\ \hline 
 				reportHeadline & VARCHAR & naslov prijave \\ \hline 
+				lng & REAL & geografska dužina lokacije oštećenja \\ \hline
+				lat & REAL & geografska širina lokacije oštećenja \\ \hline
 				\SetCell{LightBlue} userID & INT & jedinstveni identifikator korisnika koji je podnio prijavu \\ \hline 
 				\SetCell{LightBlue} categoryID & INT & jedinstveni identifikator kategorije oštećenja \\ \hline
 				\SetCell{LightBlue} isConnectedToID & INT & jedinstveni identifikator prijave na koju je ova prijava nadovezana \\ \hline
@@ -160,7 +159,7 @@
 				changeTS & TIMESTAMP & vrijeme kada se postavio status prijava iz referirane grupe \\ \hline
 			\end{longtblr}
 			
-			\textbf{CityOffice} tablica čuva podatke o računima gradskih ureda. Tablica je povezana \textit{One-to-Many} vezom s tablicom \textit{Feedback} preko atributa \textit{cityOfficeID} i \textit{One-to Many} vezom s tablicom \textit{Category} preko atributa \textit{cityOfficeID}.
+			\textbf{CityOffice} tablica čuva podatke o računima gradskih ureda. Tablica je povezana \textit{One-to Many} vezom s tablicom \textit{Category} preko atributa \textit{cityOfficeID}.
 			
 			\begin{longtblr}[
 				label=CityOffice,
@@ -241,7 +240,7 @@
 			
 			Korisniku je na početku prikazana glavna stranica na kojoj je karta sa prikazanim aktivnim prijavama u sustavu. Zaglavlje stranice sadrži gumbove za podnošenje nove prijave oštećenja ("Prijava štete"), prikaz statistike prijava ("Statistika"). Također, zaglavlje sadrži gumb sa e-mailom korisnika koji služi za upravljanje korisničkim računom ako je korisnik prijavljen u sustav. Ako korisnik nije prijavljen, zaglavlje sadrži gumbove za prijavu ("Log in") i registraciju ("Register") u  sustav. S obzirom da je zaglavlje isto na svim dijelovima aplikacije, korisnik ima pristup ovim opcijama bilo gdje u aplikaciji.
 			
-			Na glavnoj stranici korisnik može odabrati filtar prijava. Pomoću tog filtra korisnik može filtrirati aktivne prijave u sustavu koje će se prikazati na karti na početnoj stranici. Odabirom neke od prikazanih prijava na karti korisniku se otvara stranica odabrane prijave. Ako je ta prijava nadovezana na drugu prijavu oštećenja, korisnik može kliknuti na tu prijavu da mu se otvori stranica nadprijave.
+			Na glavnoj stranici korisnik može odabrati filtar prijava. Pomoću tog filtra korisnik može filtrirati aktivne prijave u sustavu koje će se prikazati na karti na početnoj stranici. Odabirom neke od prikazanih prijava na karti korisniku se otvara stranica odabrane prijave.
 			
 			Kod pregleda statistike prijava korisnik mora ispuniti obrazac filtra. Nakon potvrde obrasca korisniku se prikazuje statistika prijava koje su odabrane pomoću filtra. 
 			
@@ -276,12 +275,10 @@
 			\eject
 			
 			\section{Dijagram komponenti}
-			
-			\textbf{\textit{dio 2. revizije}}\\
 	
-			Dijagram komponenti je strukturni statički UML dijagram koji je dio specifikacije arhitekture programske potpore. Njime se vizualizira organizacija i međuovisnost između implementacijskih komponentata i odnos same programske okoline prema okolini. Ovakav tip dijagrama je pogodan kod komponentno-usmjerenog modela razvoja programske potpore i uslužno-orijentirane arhitekture. Osnovni elementi dijagrama komponenti su komponente, sučelja i poveznice.
+			Dijagram komponenti je strukturni statički UML dijagram koji je dio specifikacije arhitekture programske potpore. Njime se vizualizira organizacija i međuovisnost između implementacijskih komponenata i odnos same programske okoline prema okolini. Ovakav tip dijagrama je pogodan kod komponentno-usmjerenog modela razvoja programske potpore i uslužno-orijentirane arhitekture. Osnovni elementi dijagrama komponenti su komponente, sučelja i poveznice.
 			
-			Na dijagramu \ref{fig:dijagramKomponenti} je prikazana organizacija i međuovisnost komponenata i sučelja u sustavu za prijavu oštećenja na javnim površinama. Dijagram se sastoji od komponente \textit{Web preglednik}, \textit{PostgreSQL baza podataka} i \textit{Web aplikacija}. \textit{Web aplikacija} ima dvije podkomponente: \textit{React frontend} i \textit{Spring Boot backend}. 
+			Na dijagramu \ref{fig:dijagramKomponenti} je prikazana organizacija i međuovisnost komponenata i sučelja u sustavu za prijavu oštećenja na javnim površinama. Dijagram se sastoji od komponente \textit{Web preglednik}, \textit{PostgreSQL baza podataka} i \textit{Web aplikacija}. \textit{Web aplikacija} ima dvije pod-komponente: \textit{React frontend} i \textit{Spring Boot backend}. 
 			
 			Pomoću \textit{Web preglednik} komponente se šalju zahtjevi \textit{Wev aplikacija} komponenti za pojedinim stranicama preko sučelja za dohvat vizualnog sadržaja. \textit{React router} komponenta unutar \textit{React frontend} komponente na temelju URL-a dobivenog od komponente \textit{Web preglednik} donosi odluku koja će se datoteka dohvatiti, to jest koja će se stranica prikazati pomoću komponente \textit{React view}. Komponenta \textit{index.js} je početna komponenta koja služi kao korijen za sve ostale elemente za prikaz. \textit{ReactJS} je biblioteka za sami React. \textit{React view} komponenta po potrebi korisniku osvježava prikaz i preko REST API-ja razmjenjuje podatke sa \textit{Spring Boot backend} komponentom aplikacije u JSON formatu.
 			

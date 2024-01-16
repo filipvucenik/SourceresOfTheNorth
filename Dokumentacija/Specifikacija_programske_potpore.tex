@@ -2,7 +2,7 @@
 		
 	\section{Funkcionalni zahtjevi}
 			
-			\textbf{Pobrojani funkcionalni zahtjevi:}
+			\textbf{Nabrojeni funkcionalni zahtjevi:}
 			\begin{packed_item}
 				\item F01: registracija novog korisnika
 				\item F02: prijava korisnika
@@ -21,8 +21,8 @@
 				\item F15: djelatnik gradskog ureda može mijenjati status prijave
 				\item F16: djelatnik gradskog ureda može objediniti prijave istog oštećenja
 				\item F17: povratna informacija korisniku (ako je registriran) za svaku promjenu nad prijavom
-				\item F18: pregled prijava ureda kroz 3 liste (jedna za svaki status) za djelatnike gradskog ureda
-				\item F19: dodatno filtriranje liste prijava za djelatnike gradskog ureda
+				\item F18: pregled prijava ureda za djelatnike gradskog ureda
+				\item F19: dodatno filtriranje prijava za djelatnike gradskog ureda
 				\item F20: odjava iz sustava
 				\item F21: brisanje korisničkog računa
 			\end{packed_item}
@@ -67,14 +67,14 @@
 				
 				\item  \underbar{Djelatnik gradskog ureda (inicijator) može:}
 				\begin{packed_enum}
-					\item pregledavati prijave pristigle u njihov ured prema njihovom statusu
-					\item dodatno filtrirati prijave prilikom pregleda
-					\item prijavama sa statusom \textit{na čekanju} mijenjati status u \textit{u procesu rješavanja}
-					\item prijavama sa statusom \textit{u procesu rješavanja} mijenjati status u \textit{riješena}
+					\item pregledavati prijave pristigle u njihov ured
+					\item dodatno filtrirati prijave prilikom pregleda prema njihovom statusu
+					\item prijavama sa statusom na čekanju mijenjati status u u procesu rješavanja
+					\item prijavama sa statusom u procesu rješavanja mijenjati status u riješena
 					\item objediniti prijave ako se referiraju na isti problem
 					\item proslijediti prijave drugom uredu promjenom kategorije prijave
 					\item označiti prijavu kao nevažeću
-					\item pregledavati statistiku prijava pristiglih u njihov ured
+					\item pregledavati statistiku prijava
 					\item dodatno filtrirati za koje prijave želi pregledati statistiku
 				\end{packed_enum}
 				
@@ -208,6 +208,11 @@
 							\item Aplikacija prikazuje prikladnu obavijest i vraća korisnika na stranicu za registraciju
 							\item Korisnik unosi drugu email adresu ili odustaje od registracije
 						\end{packed_enum}
+						\item[2.b] Unesena lozinka je preduga ili prekratka
+						\item[] \begin{packed_enum}
+							\item Aplikacija prikazuje prikladnu obavijest i vraća korisnika na stranicu za registraciju
+							\item Korisnik unosi drugu lozinku ili odustaje od registracije
+						\end{packed_enum}
 					\end{packed_item}
 				\end{packed_item}
 				
@@ -222,7 +227,7 @@
 					
 					\item  \textbf{Opis osnovnog tijeka:}
 					\item[] \begin{packed_enum}
-						\item Registrirani korisnik prilikom pregleda korisničkog računa odabire opciju pregleda vlastitih prijava
+						\item Registrirani korisnik prilikom pregleda korisničkog računa odlazi na sekciju pregleda vlastitih prijava
 						\item Aplikacija prikazuje listu dosadašnjih prijava Registriranog korisnika
 						\item Registrirani korisnik odabire prijavu
 						\item Prikazuju se podaci o prijavi
@@ -291,7 +296,7 @@
 					
 					\item  \textbf{Opis osnovnog tijeka:}
 					\item[] \begin{packed_enum}
-						\item Registrirani korisnik odabire ikonu svojeg profila
+						\item Registrirani korisnik odlazi na stranicu svojeg profila
 						\item Registrirani korisnik prilikom pregledavanja svojeg korisničkog računa odabire opciju brisanja korisničkog računa
 						\item Korisnički račun se briše, korisnik postaje Neregistrirani korisnik i aplikacija ga vraća na početnu stranicu
 					\end{packed_enum}
@@ -386,7 +391,7 @@
 					\item[] \begin{packed_enum}
 						\item Djelatnik procjenjuje da je neki drugi ured nadležan za ovu prijavu
 						\item Djelatnik odabire opciju prebacivanja prijave na drugi ured
-						\item Djelatnik odabire gradski ured kojemu želi proslijediti prijavu i potvrđuje unos
+						\item Djelatnik odabire novu kategoriju te prijave (čime indirektno mijenja ured) i potvrđuje unos
 					\end{packed_enum}
 				\end{packed_item}
 				
@@ -441,7 +446,7 @@
 					
 					\item  \textbf{Opis osnovnog tijeka:}
 					\item[] \begin{packed_enum}
-						\item Djelatnik gradskog ureda je na glavnoj stranici za Djelatnike gradskog ureda
+						\item Djelatnik gradskog ureda odlazi na glavnu stranicu za Djelatnike gradskog ureda
 						\item Aplikacija prikazuje prijave iz liste novopristiglih prijava
 					\end{packed_enum}
 				\end{packed_item}
@@ -459,17 +464,7 @@
 					\item[] \begin{packed_enum}
 						\item Djelatnik gradskog ureda odabire listu prijava prema statusu prijava
 						\item Aplikacija prikazuje odabranu listu prijava
-						\item Djelatnik unosi dodatne parametre za filtriranje
-						\item Aplikacija prikazuje filtriranu listu prijava
 					\end{packed_enum}
-					
-					\item  \textbf{Opis mogućih odstupanja:}
-					\item[] \begin{packed_item}
-						\item[3.a] Djelatnik ne želi dodatno filtrirati prijave
-						\item[] \begin{packed_enum}
-							\item Preskače se dodatno filtriranje
-						\end{packed_enum}
-					\end{packed_item}
 				\end{packed_item}
 				
 				
@@ -485,7 +480,7 @@
 					\item[] \begin{packed_enum}
 						\item Aplikacija dohvaća popis ključnih riječi i njihovih kategorija
 						\item Korisnik unosi opis oštećenja
-						\item Aplikacija na temelju prepoznatih ključnih riječi predlaže kategoriju
+						\item Aplikacija na temelju prepoznanih ključnih riječi predlaže kategoriju
 						\item Korisnik ostavlja predloženu kategoriju ili ručno odabire ispravnu kategoriju
 					\end{packed_enum}
 				\end{packed_item}
@@ -504,7 +499,7 @@
 						\item Korisnik potvrđuje i podnosi prijavu
 						\item Aplikacija provjerava ako u bazi podataka već postoji slična prijava
 						\item Ako takva postoji, aplikacija nudi korisniku da se nadoveže na već postojeću prijavu
-						\item Korisnik može nadovezati prijavu ili ju podnesti kao samostalnu
+						\item Korisnik može nadovezati prijavu ili ju podnijeti kao samostalnu
 					\end{packed_enum}
 				\end{packed_item}
 				
@@ -541,7 +536,7 @@
 				
 				\textbf{Obrasci uporabe - UC1 - Prijava oštećenja}
 				
-				Korisnik odabire opciju podnošenja nove prijave oštećenja. U prijavi korisnik upisuje kratak naslov, opis oštećenja, lokaciju i kategoriju. Korisnik također može priložiti fotografiju oštećenja. Lokaciju korisnik može priložiti preko interaktivne karte, upisom adrese ili se lokacija može izvući iz metapodataka fotografija, ako je fotografija priložena. Aplikacija će sama pokušati prepoznati kategoriju oštećenja i na temelju toga i ponuditi nadležan ured. Za to su joj potrebne ključne riječi za svaku kategoriju koje je aplikacija dohvatila prilikom odabira podnošenja nove prijave. Aplikacija nakon unosa podataka dohvaća postojeće prijave koje imaju slična vremena, lokaciju i kategoriju. Ako takve prijave postoje, aplikacija će korisniku ponuditi da svoju prijavu nadoveže na jednu od ponuđenih prijava. Korisnik može, ali i ne mora nadovezati svoju prijavu kada mu je ta opcija ponuđena. Nakon podnošenja prijave korisnik dobiva kod prijave preko koje može pratiti njezino stanje.
+				Korisnik odabire opciju podnošenja nove prijave oštećenja. U prijavi korisnik upisuje kratak naslov, opis oštećenja, lokaciju i kategoriju. Korisnik također može priložiti fotografiju oštećenja. Lokaciju korisnik može priložiti preko interaktivne karte, upisom adrese ili se lokacija može izvući iz meta podataka fotografija, ako je fotografija priložena. Aplikacija će sama pokušati prepoznati kategoriju oštećenja i na temelju toga i ponuditi nadležan ured. Za to su joj potrebne ključne riječi za svaku kategoriju koje je aplikacija dohvatila prilikom odabira podnošenja nove prijave. Aplikacija nakon unosa podataka dohvaća postojeće prijave koje imaju sličnu lokaciju, istu kategoriju i koje još nisu obrađene. Ako takve prijave postoje, aplikacija će korisniku ponuditi da svoju prijavu nadoveže na jednu od ponuđenih prijava. Korisnik može, ali i ne mora nadovezati svoju prijavu kada mu je ta opcija ponuđena. Nakon podnošenja prijave korisnik dobiva kod prijave preko koje može pratiti njezino stanje.
 				
 				\begin{figure}[H]
 					\includegraphics[width=\textwidth]{slike/Podnosenje_prijaveSD.jpg} %veličina u odnosu na širinu linije
@@ -552,7 +547,7 @@
 				
 				\textbf{Obrasci uporabe - UC13, UC14, UC15, UC16, UC17, UC18, UC19 - Obrada prijava, Odbacivanje pristigle prijave, Prebacivanje prijave na drugi ured, Objedinjenje nepovezanih prijava, Slanje povratnih informacija, Pregled prijava gradskog ureda, filtriranje prijava gradskog ureda}
 				
-				Djelatnik gradskog ureda odabire jednu od 3 lista prijava, jedna za svaki status. Djelatnik može dodatno filtrirati prijave u listi po vremenu i kategoriji. Odabirom jedne od prijava djelatniku se prikazuju podaci o toj prijavi. Djelatnik dalje može promijeniti status prijave. Ako vidi da je oštećenje u toj prijavu već prijavljeno, djelatnik može odabrati sve takve prijave i objediniti ih. Ako utvrdi da njegov ured nije nadležan za ovu prijavu, djelatnik odabire nadležan ured i prosljeđuje mu prijavu. Ako je prijava u potpunosti nevaljana djelatnik ju može odbaciti. Bilo koja od ovih radnji nad prijavom rezultirat će slanjem povratne informacije korisniku koji je podnio prijavu, ako je taj korisnik registriran.
+				Djelatnik gradskog ureda odabire jednu od 3 lista prijava, jedna za svaki status. Za izlistane prijave djelatniku se prikazuju podaci o svakoj prijavi. Djelatnik dalje može promijeniti status prijave. Ako vidi da je oštećenje u toj prijavu već prijavljeno, djelatnik može odabrati sve takve prijave i objediniti ih. Ako utvrdi da njegov ured nije nadležan za ovu prijavu, djelatnik odabire novu kategoriju i time prosljeđuje prijavu drugom uredu. Ako je prijava u potpunosti nevaljana djelatnik ju može odbaciti. Bilo koja od ovih radnji nad prijavom rezultirat će slanjem povratne informacije korisniku koji je podnio prijavu, ako je taj korisnik registriran.
 				
 				\begin{figure}[H]
 					\includegraphics[width=\textwidth]{slike/Obrada_prijavaSD.jpg} %veličina u odnosu na širinu linije
@@ -567,12 +562,11 @@
 			
 			\begin{packed_item}
 				\item Sustav treba podržati rad više korisnika u stvarnom vremenu
-				\item Aplikacija podržava korisničko sučelje na hrvatskom i engleskom jeziku
 				\item Sustav treba biti implementiran kao web aplikacija s responzivnim dizajnom
 				\item Aplikacija mora koristiti HTTPS protokol
 				\item Aplikacija mora biti jednostavna za korištenje
 				\item Neispravno korištenje korisničkog sučelja ne smije narušiti cjelokupan rad sustava
-				\item Izvršavanje bilo koje akcije na aplikaciji ne smije trajati dulje od 5 sekundi
+				\item Izvršavanje bilo koje akcije na aplikaciji ne smije trajati dulje od 10 sekundi
 				\item Osjetljivi podaci, kao što su lozinke korisnika, se u bazu podataka moraju spremati u kriptiranom obliku koristeći \textit{bcrypt} algoritam
 			\end{packed_item}
 			

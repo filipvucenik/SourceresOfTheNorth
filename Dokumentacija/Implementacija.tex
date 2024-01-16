@@ -2,8 +2,6 @@
 		
 		
 		\section{Korištene tehnologije i alati}
-		
-			\textbf{\textit{dio 2. revizije}}
 			
 			Backend dio aplikacije pisan je u objektno orijentiranom programskom jeziku  \href{https://www.java.com/en/}{\textbf{Java}}\footnote{https://www.java.com/en/}. Jedna od glavnih značajki ovog jezika je takozvano načelo WORA (eng. \textit{write once, run anywhere}) koje omogućava da se jednom prevedeni kod pomoću Javinog virtualnog stroja može izvršavati na bilo kojem računalu. Jedini preduvjet je da to računalo na sebi ima instaliranu Javinu platformu.
 			
@@ -11,7 +9,7 @@
 			
 			Backend dio aplikacije je razvijan u razvojnom okruženju \href{https://www.jetbrains.com/idea/}{\textbf{IntelliJ IDEA}}\footnote{https://www.jetbrains.com/idea/} tvrtke JetBrains. Samo razvojno okruženje je namjenjenu razvoju u programskim jezicima Java, Kotlin, Groovy, Scala te je jedno od vodećih okruženja za te programske jezike. IntelliJ IDEA programeru nudi razne funkcionalnosti koje ubrzavaju i olakšavaju programiranje kao što su samozavršavanjne koda analizom konteksta, navigacija u kodu, refaktoriranje koda, debuggiranje, rad sa distribuiranim sustavima za upravljanje verzijama podataka, kao što je Git, rad s bazom podataka itd. Također, IntelliJ IDEA programer može dodatno nadograditi instaliranjem proširenja za dodatne funkcionalnosti koja su dostupna na web repozitoriju JetBrainsa.
 			
-			Frontend dio aplikacije je pisan u programskom jeziku \href{https://www.javascript.com/}{\textbf{JavaScript}}\footnote{https://www.javascript.com/} koji efektivno postao nezabiolazan jezik za razvoj klijentske strane web aplikacija. JavaScript je dinamičan skriptni jezik sa mekim tipovima podataka (eng. \textit{soft-typed}) kojeg podržava svaki moderan web preglednik. Za sam jezik JavaScript postoji napisano puno javno dostupnih biblioteka koje olakšavaju ostvarivanje raznih funkcionalnosti u kodu i potiču ponovnu uporabu postojećeg koda. Iako je Javascript de facto standard za razvoj frontend dijela aplikacije, također se može koristiti i za razvoj backend dijela aplikacije.
+			Frontend dio aplikacije je pisan u programskom jeziku \href{https://www.javascript.com/}{\textbf{JavaScript}}\footnote{https://www.javascript.com/} koji efektivno postao nezaobilazan jezik za razvoj klijentske strane web aplikacija. JavaScript je dinamičan skriptni jezik sa mekim tipovima podataka (eng. \textit{soft-typed}) kojeg podržava svaki moderan web preglednik. Za sam jezik JavaScript postoji napisano puno javno dostupnih biblioteka koje olakšavaju ostvarivanje raznih funkcionalnosti u kodu i potiču ponovnu uporabu postojećeg koda. Iako je Javascript de facto standard za razvoj frontend dijela aplikacije, također se može koristiti i za razvoj backend dijela aplikacije.
 			
 			Za brži i lakši razvoj frontend dijela aplikacije korištena je vrlo popularna biblioteka  \href{https://react.dev/}{\textbf{React}}\footnote{https://react.dev/} razvijena od tvrtke Meta (nekada Facebook). Aplikacije napravljene u Reactu koriste komponente koje se mogu koristiti na više mjesta. React koristi virtualni DOM (Document Object Model) te se pomoću Reacta grade jednostranične web aplikacije koje osvježavaju samo komponente koje je potrebno mijenjati. Time se značajno poboljšavaju performanse web aplikacije.
 			
@@ -19,7 +17,9 @@
 			
 			Za razvoj frontend dijela aplikacije korišteno je razvojno okruženje \href{https://code.visualstudio.com/}{\textbf{Visual Studio Code}}\footnote{https://code.visualstudio.com/} tvrtke Microsoft. Visual Studio Code je moguće nadograđivati raznim proširenjima pomoću kojih se može stvoriti razvojno okruženje za gotovo svaki programski jezik kao što je C, C++, Java, JavaScript, Python, Go, itd. Zbog te fleksibilnosti se Visual Studio Code može koristiti u gotovo svakoj domeni koja uključuje neku vrstu programiranja.
 			
-			Baza podataka je napravljena u sustavu \href{https://www.postgresql.org/}{\textbf{PostgreSQL}}\footnote{https://www.postgresql.org/}. PostgreSQL je jedan od najraširenijih sustava za upravljanje relacijskim bazama podataka temeljen na SQL-u (Structured Query Language). PostgreSQL omogućuje izradu baza podataka sa raznim funkcionalnostima kao što su okidači, transakcije, procedure, mogćnost paralelnog pristupa više korisnika istovremeno, konzistencija i sigurnost podataka, itd.
+			Baza podataka je napravljena u sustavu \href{https://www.postgresql.org/}{\textbf{PostgreSQL}}\footnote{https://www.postgresql.org/}. PostgreSQL je jedan od najraširenijih sustava za upravljanje relacijskim bazama podataka temeljen na SQL-u (Structured Query Language). PostgreSQL omogućuje izradu baza podataka sa raznim funkcionalnostima kao što su okidači, transakcije, procedure, mogućnost paralelnog pristupa više korisnika istovremeno, konzistencija i sigurnost podataka, itd.
+			
+			Za spremanje slika oštećenja koristili smo \href{https://firebase.google.com/}{\textbf{Firebase}}\footnote{https://firebase.google.com/}. Firebase je platforma za razvoj web i mobilnih aplikacija. Također nudi uslugu pohrane datoteka u oblaku što je i nama trebalo u ovom projektu.
 			
 			Svi dijagrami za opis sustava napravljeni su u \href{https://www.uml.org/}{\textbf{UML-u}}\footnote{https://www.uml.org/} (Unified Modeling Language). UML je generički jezik za vizualno modeliranje. Napravljen je kako bi pružao standard za dizajniranje sustava. Taj standard omogućava bolju vizualizaciju, specifikaciju, oblikovanje i dokumentiranje artefakata programske potpore. U svrhu vizualizacije pojedinog aspekta sustava definiran je veliki broj vrsta dijagrama koji omogućuju različite poglede na pojedini dio sustava.
 			
@@ -43,7 +43,7 @@
 			
 			Članovi tima su međusobno komunicirali preko društvenih mreža \href{https://discord.com/}{\textbf{Discord}}\footnote{https://discord.com/} i \href{https://www.messenger.com/}{\textbf{Messenger}}\footnote{https://www.messenger.com/}. Messenger je jednostavna društvena mreža koja kao glavni način komunikacije koristi izmjenu poruka između dva korisnika ili unutar grupe korisnika. Discord je društvena mreža u kojoj korisnici mogu komunicirati porukama, glasovnim pozivima i video pozivima. Korisnici mogu komunicirati unutar širih zajednica koje se nazivaju serveri. Unutar servera postoje tekstualni kanali kao i glasovni kanali za glasovne pozive sa više korisnika.
 			
-			Za ispitivanje sustava u cjelini korišten je radni okvir \href{https://www.selenium.dev/}{\textbf{Selenium}}\footnote{https://www.selenium.dev/}. Selenium je alat koji služi za testiranje web aplikacija pomoću web preglednika. Skripte za testiranje se mogu pisati u raznim programskim jezicima. 
+			Za ispitivanje sustava u cjelini korišten je radni okvir \href{https://www.selenium.dev/}{\textbf{Selenium}}\footnote{https://www.selenium.dev/}. Selenium je alat za automatizaciju web preglednika. Stoga dobro služi za testiranje web aplikacija kao sustava preko web preglednika. Skripte za testiranje se mogu pisati u raznim programskim jezicima. 
 			
 			Za testiranje pojedinih komponenti sustava korišten je radni okvir \href{https://junit.org/junit5/}{\textbf{JUnit}}\footnote{https://junit.org/junit5/}. JUnit je radni okvir koji služi za testiranje funkcionalnosti pojedinih dijelova programskog koda pisanog u programskom jeziku Java.
 			
@@ -52,11 +52,9 @@
 	
 		\section{Ispitivanje programskog rješenja}
 			
-			\textbf{\textit{dio 2. revizije}}\\
-			
 			\subsection{Ispitivanje komponenti}
 			
-			Ispitivanje komponenti vrši se radi provjeravanja ispravnosti pojedinih klasa i metoda sustava. Testovi se izvode tako što se ispitivaoj metodi šalje neki ulaz i provjerava se ponašanje metode na dobivenu ulaz sa očekivanim.
+			Ispitivanje komponenti vrši se radi provjeravanja ispravnosti pojedinih klasa i metoda sustava. Testovi se izvode tako što se ispitivanoj metodi šalje neki ulaz i provjerava se ponašanje metode na dobivenu ulaz sa očekivanim.
 			
 			Za ispitivanje komponenti sustava koristili smo JUnit testove. Svi testovi su bili uspješni, kao što je prikazano na slici \ref{fig:JUnitTestovi}.
 			
@@ -70,13 +68,13 @@
 			
 			\begin{figure}[H]
 				\includegraphics[width=\textwidth]{slike/JUnitTestoviPomocneMetode.png} %veličina u odnosu na širinu linije
-				\caption{Pomocne metode u testovima komponenti}
+				\caption{Pomoćne metode u testovima komponenti}
 				\label{fig:JUnitTestoviPomocne} %label mora biti drugaciji za svaku sliku
 			\end{figure}
 			
 			\textbf{Test 1:}
 			
-			U ovom testu se prvo provjerava ako se prilikom stvaranja nove prijave njezin status automatski postavlja na "neobraden". Zatim se provjerava ako se status prijave ispravno mijenja u "uProcesu".
+			U ovom testu se prvo provjerava ako se prilikom stvaranja nove prijave njezin status automatski postavlja na "neobrađen". Zatim se provjerava ako se status prijave ispravno mijenja u "uProcesu".
 			
 			\begin{figure}[H]
 				\includegraphics[width=\textwidth]{slike/JUnitTest1.png} %veličina u odnosu na širinu linije
@@ -176,7 +174,7 @@
 			
 			\textbf{Test 11:}
 			
-			U ovom testu se provjerava ispravnost promjene statusa povezanih prijava. Prvo se provjerava ako prijave imaju status "neobraden". Zatim se druga prijava nadovezuje na prvu te se prvoj prijavi mijenja status u "uProcesu". Očekuje se da promjena nad glavnom prijavom rezultira istom promjenom i u svim nadovezanim prijavama. Stoga se na kraju provjerava ako obje prijave imaju promjenjen status u "uProcesu".
+			U ovom testu se provjerava ispravnost promjene statusa povezanih prijava. Prvo se provjerava ako prijave imaju status "neobrađen". Zatim se druga prijava nadovezuje na prvu te se prvoj prijavi mijenja status u "uProcesu". Očekuje se da promjena nad glavnom prijavom rezultira istom promjenom i u svim nadovezanim prijavama. Stoga se na kraju provjerava ako obje prijave imaju promijenjen status u "uProcesu".
 			
 			\begin{figure}[H]
 				\includegraphics[width=\textwidth]{slike/JUnitTest11.png} %veličina u odnosu na širinu linije
@@ -199,7 +197,7 @@
 		 	
 		 	\begin{figure}[H]
 		 		\includegraphics[width=\textwidth]{slike/SeleniumTestoviPomocneMetode.png} %veličina u odnosu na širinu linije
-		 		\caption{Pomočne metode za ispitivanje sustava}
+		 		\caption{Pomoćne metode za ispitivanje sustava}
 		 		\label{fig:SeleniumTestoviPomocneMetode} %label mora biti drugaciji za svaku sliku
 		 	\end{figure}
 		 	
@@ -245,7 +243,7 @@
 		 	
 		 	\textbf{Test 5:}
 		 	
-		 	U ovom testu se pokušava izbrisati korisnika iz sustava. Simulira se prijava korisnika u sustav sa podacima "novi.user.1@gmail.com" za e-mail i "lozinka123" (korisnik koji se registrirao u ranijem testu) kao što je opisano u testu 1. Zatim se klikom na gumb sa korisnikovim e-mailom i odabirom profilne stranice odlazi na stranicu korisnikovog profila. Tamo se simulira klik na gumb za brisanje računa nakon čega se prikazuje prozor sa porukom "Profile successfully deleted" i pripadnim gumbom. Pritiskom na gumb se korisnika treba preusmjeriti na glavnu stranicu.
+		 	U ovom testu se pokušava izbrisati korisnika iz sustava. Simulira se prijava korisnika u sustav sa podacima "novi.user.1@gmail.com" za e-mail i "lozinka123" (korisnik koji se registrirao u ranijem testu) kao što je opisano u testu 1. Zatim se klikom na gumb sa korisnikovim e-mailom i odabirom profilne stranice odlazi na stranicu korisnikovog profila. Tamo se simulira klik na gumb za brisanje računa nakon čega se prikazuje prozor sa porukom "Korisnički račun uspješno izbrisan!" i pripadnim gumbom. Pritiskom na gumb se korisnika treba preusmjeriti na glavnu stranicu.
 		 	
 		 	\begin{figure}[H]
 		 		\includegraphics[width=\textwidth]{slike/SeleniumTest5.png} %veličina u odnosu na širinu linije
@@ -268,9 +266,7 @@
 		
 		\section{Dijagram razmještaja}
 			
-			\textbf{\textit{dio 2. revizije}}
-			
-			Dijagram razmještaja je statički strukturni dijagram koji opisuje topologiju sutava i usredotočen je na odnos sklopovskih i programskih dijelova. Osnovni elementi dijagrama su čvorovi, artefakti i spojevi.
+			Dijagram razmještaja je statički strukturni dijagram koji opisuje topologiju sustava i usredotočen je na odnos sklopovskih i programskih dijelova. Osnovni elementi dijagrama su čvorovi, artefakti i spojevi.
 			
 			Dijagram \ref{fig:dijagramRazmjestaja} prikazuje topologiju sustava za prijavljivanje oštećenja na javnim površinama. Sustav je napravljen na temelju arhitekture klijent-poslužitelj u kojoj klijent i poslužitelj komuniciraju HTTPS protokolom. Sustav je stavljen u pogon pomoću dva odvojena servisa na usluzi Render, jedan za aplikaciju i jedan za bazu podataka. Na Render servisu za bazu podataka postoji instanca PostgreSQL baze podataka te taj servis prima zahtjeve za bazu podataka na standardnom portu 5432. Na Render servisu za web aplikaciju je pokrenut Docker kontejner unutar kojeg su upogonjeni React frontend i Spring Boot backend dijelovi aplikacije. Spring Boot backend po potrebi komunicira sa bazom podataka slanjem SQL querryja na port 5432 Render servisa za bazu podataka. Render servis za web aplikaciju sluša HTTPS zahtjeve na portu 443. Zaprimljene HTTPS zahtjeve Render servis prosljeđuje na port 8080 Docker kontejnera kao HTTP zahtjeve. Klijentski uređaj na sebi ima pokrenuti web preglednik pomoću kojeg šalje HTTPS zahtjeve na port 443 Render servisa za web aplikaciju.
 			
@@ -283,8 +279,6 @@
 			\eject 
 		
 		\section{Upute za puštanje u pogon}
-		
-			\textbf{\textit{dio 2. revizije}}\\
 			
 			Ovaj sustav je pušten u pogon pomoću online servisa Render pa se u uputama za puštanje u pogon pretpostavlja korištenje istog. Za tu svrhu potrebno je napraviti korisnički račun na Renderu. 
 			
@@ -307,7 +301,7 @@
 				\label{fig:konfiguriranjeBaze} %label mora biti drugaciji za svaku sliku
 			\end{figure}
 			
-			Za ime instance baze podataka, ime same baze i ime korisnika se mogu unesti proizvoljna imena. Za regiju je poželjno odabrati geografski najbližu regiju, s obzirom da će to rezultirati najmanjom latencijom. U našem slučaju najbliža regija bila je \textit{Frankfurt (EU Central)}. Ostale parametre nije potrebno mijenjati.
+			Za ime instance baze podataka, ime same baze i ime korisnika se mogu unijeti proizvoljna imena. Za regiju je poželjno odabrati geografski najbližu regiju, s obzirom da će to rezultirati najmanjom latencijom. U našem slučaju najbliža regija bila je \textit{Frankfurt (EU Central)}. Ostale parametre nije potrebno mijenjati.
 			
 			\begin{figure}[H]
 				\includegraphics[width=\textwidth]{slike/upute/bazaPlacanje.png} %veličina u odnosu na širinu linije
@@ -315,13 +309,13 @@
 				\label{fig:bazaPlacanje} %label mora biti drugaciji za svaku sliku
 			\end{figure}
 			
-			Sljedeće je potrebno odabrati vrstu instance baze podataka, odnosno cjenovni rang baze. Ovo je isključivo pitanje preference osobe koja pušta sustav u pogon, odnosno koliko je spremna platiti za puštanje baze podataka u pogon. Za naše potrebe bilo je dovoljna besplatna opcija te smo istu i odabrali.
+			Sljedeće je potrebno odabrati vrstu instance baze podataka, odnosno cjenovni rang baze. Ovo je isključivo pitanje preferencije osobe koja pušta sustav u pogon, odnosno koliko je spremna platiti za puštanje baze podataka u pogon. Za naše potrebe bilo je dovoljna besplatna opcija te smo istu i odabrali.
 			
 			Nakon toga treba kliknuti na \textit{Create Database} i time će baza biti puštena u pogon.
 			
 			\subsection{Konfiguracija poslužitelja web aplikacije}
 			
-			Prije puštanja aplikacije u pogon potrebno je u Git repozitoriju ažurirati podatke za spajanje s bazom podataka. Za to je potrebno izmjeniti vrijednosti varijabli \textit{spring.datasource.url}, \textit{spring.datasource.username} i \textit{spring.datasource.password} u datoteci \textit{IzvorniKod/server/src/main/resources/application.properties} u \textit{main} grani repozitorija. 
+			Prije puštanja aplikacije u pogon potrebno je u Git repozitoriju ažurirati podatke za spajanje s bazom podataka. Za to je potrebno izmijeniti vrijednosti varijabli \textit{spring.datasource.url}, \textit{spring.datasource.username} i \textit{spring.datasource.password} u datoteci \textit{IzvorniKod/server/src/main/resources/application.properties} u \textit{main} grani repozitorija. 
 			
 			\begin{figure}[H]
 				\includegraphics[width=\textwidth]{slike/upute/applicationProperties.png} %veličina u odnosu na širinu linije
@@ -362,7 +356,7 @@
 				\label{fig:konfiguriranjeWebServisa} %label mora biti drugaciji za svaku sliku
 			\end{figure}
 			
-			Za \textit{Name} je potrebno unesti proizvoljan naziv web servisa. Uneseno ime će biti dio URL-a samog web servisa preko kojeg će mu se moći pristupiti. Za regiju je ponovno poželjno odabrati geografski najbližu regiju što je u našem slučaju \textit{Frankfurt (EU Central)}. \textit{Branch} koji se koristi za stvaranje web servisa je potrebno ostaviti na \textit{main}. \textit{Root Directory} je potrebno ostaviti prazno. Za \textit{Runtime} je potrebno odabrati \textit{Docker}.
+			Za \textit{Name} je potrebno unijeti proizvoljan naziv web servisa. Uneseno ime će biti dio URL-a samog web servisa preko kojeg će mu se moći pristupiti. Za regiju je ponovno poželjno odabrati geografski najbližu regiju što je u našem slučaju \textit{Frankfurt (EU Central)}. \textit{Branch} koji se koristi za stvaranje web servisa je potrebno ostaviti na \textit{main}. \textit{Root Directory} je potrebno ostaviti prazno. Za \textit{Runtime} je potrebno odabrati \textit{Docker}.
 			
 			\begin{figure}[H]
 				\includegraphics[width=\textwidth]{slike/upute/webServisPlacanje.png} %veličina u odnosu na širinu linije
@@ -370,7 +364,7 @@
 				\label{fig:webServisPlacanje} %label mora biti drugaciji za svaku sliku
 			\end{figure}
 			
-			Sljedeće je potrebno odabrati vrstu instance web servisa, odnosno njegov cjenovni rang. Ovo je isključivo pitanje preference osobe koja pušta sustav u pogon, odnosno koliko je spremna platiti za puštanje web serivsa u pogon. Za naše potrebe bilo je dovoljna besplatna opcija te smo istu i odabrali.
+			Sljedeće je potrebno odabrati vrstu instance web servisa, odnosno njegov cjenovni rang. Ovo je isključivo pitanje preferencije osobe koja pušta sustav u pogon, odnosno koliko je spremna platiti za puštanje web servisa u pogon. Za naše potrebe bilo je dovoljna besplatna opcija te smo istu i odabrali.
 			
 			Nakon treba kliknuti na \textit{Create Web Service} i time će web servis biti puštena u pogon. Prilikom prvog pokretanja web servisa baza podataka će se napuniti inicijalnim podacima.
 			
@@ -414,7 +408,7 @@
 					\item riječ: Mito, kategorija: institucionalna korupcija
 					\item riječ: Korupcija, kategorija: institucionalna korupcija
 				\end{packed_item}
-				\item jedna prijava ruoe na cesti na lokaciju kod koncertne dvorane Vatroslava Lisinskog sa priloženom slikom
+				\item jedna prijava rupe na cesti na lokaciju kod koncertne dvorane Vatroslava Lisinskog sa priloženom slikom
 			\end{packed_item}
 			
 			\eject 
