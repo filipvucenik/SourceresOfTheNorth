@@ -46,6 +46,7 @@ const Profile = () => {
     navigate("/");
       } else {
         console.error("Error logging out");
+        customAlertUpdate("Greška pri odjavljivanju!");
       }
     } catch (error) {
       console.error("Error logging out:", error);
@@ -161,6 +162,7 @@ const Profile = () => {
         }
       } catch (error) {
         console.error("Greška pri dohvaćanju podataka:", error);
+        customAlertUpdate("Greška pri dohvaćanju podataka");
       }
     };
     fetchDataFromDatabase();
@@ -177,6 +179,7 @@ const Profile = () => {
         console.log(data.reports);
       } catch (error) {
         console.error("Error fetching data:", error);
+        customAlertUpdate("Greška pri dohvaćanju podataka");
       }
     };
     fetchDataFromDatabase2();
@@ -202,6 +205,7 @@ const Profile = () => {
         customAlert("Korisnički račun uspješno izbrisan!");
       } else {
         console.error("Error deleting profile");
+        customAlertUpdate("Greška prilikom brisanja profila!");
       }
     } catch (error) {
       console.error("Error deleting profile:", error);
@@ -235,6 +239,7 @@ const Profile = () => {
         customAlertUpdate("Podaci uspješno ažurirani!");
       } else {
         console.error("Greška prilikom ažuriranja podataka.");
+        customAlertUpdate("Greška prilikom ažuriranja podataka.");
       }
     } catch (error) {
       console.error("Greška pri ažuriranju podataka:", error);
