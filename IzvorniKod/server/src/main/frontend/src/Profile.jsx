@@ -158,6 +158,7 @@ const Profile = () => {
         const data = await response.json();
         setFilteredData(data);
         setFilteredReportsData(data.reports);
+        console.log(data);
         console.log(data.reports);
       } catch (error) {
         console.error("Error fetching data:", error);

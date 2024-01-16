@@ -3,10 +3,12 @@ const API_BASE_URL = "https://progi-testing-v2.onrender.com";
 export default {
   getUrl: `${API_BASE_URL}`,
   getLoginUrl: `${API_BASE_URL}/auth/userLogin`,
+  getLogoutUrl: `${API_BASE_URL}/auth/userLogout`,
   getRegisterUrl: `${API_BASE_URL}/auth/userRegister`,
   getReportUrl: `${API_BASE_URL}/reports`,
   getUserInfoUrl: `${API_BASE_URL}/users`,
   getOfficeLoginUrl: `${API_BASE_URL}/auth/officeLogin`,
+  getOfficeLogoutUrl: `${API_BASE_URL}/auth/officeLogout`,
   getOfficeRegisterUrl: `${API_BASE_URL}/auth/officeRegister`,
   getCategory: `${API_BASE_URL}/category`,
   getKeyword: `${API_BASE_URL}/keywords`,
