@@ -52,7 +52,7 @@ function Admin() {
         }
         setData([...data, ...reports]);
       }
-      const response1 = await fetch(apiConfig.getReportUrl + "/neobraden");
+      const response1 = await fetch(apiConfig.getReportUrl + "/neobrađen");
       const reports1 = await response1.json();
       if (reports1.length > 0) {
         for (const r of reports1) {
@@ -60,7 +60,7 @@ function Admin() {
         }
         setData([...data, ...reports1]);
       }
-      const response2 = await fetch(apiConfig.getReportUrl + "/obraden");
+      const response2 = await fetch(apiConfig.getReportUrl + "/obrađen");
       const reports2 = await response2.json();
       if (reports2.length > 0) {
         for (const r of reports2) {
@@ -134,7 +134,6 @@ function Admin() {
         body: formData,
       });
       set_transfer([]);
-      fetchReports();
     } catch (error) {
       console.error("Error updating report:", error);
     }
@@ -189,7 +188,6 @@ function Admin() {
       }
 
       set_update([]);
-      fetchReports();
     } catch (error) {
       console.error("Error updating report:", error);
     }
@@ -233,7 +231,6 @@ function Admin() {
         body: formData,
       });
       set_group([]);
-      fetchReports();
     } catch (error) {
       console.error("Error updating report:", error);
     }
@@ -278,10 +275,10 @@ function Admin() {
               <option key="U Procesu" value="uProcesu">
                 U Procesu
               </option>
-              <option key="Neobrađeno" value="neobraden">
+              <option key="Neobrađeno" value="neobrađen">
                 Neobrađeno
               </option>
-              <option key="Obrađeno" value="obraden">
+              <option key="Obrađeno" value="obrađen">
                 Obrađeno
               </option>
             </select>
