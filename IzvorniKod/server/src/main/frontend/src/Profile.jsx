@@ -8,6 +8,7 @@ import FooterComponent from "./FooterComponent";
 
 const server = apiConfig.getUserInfoUrl;
 const server2 = apiConfig.getReportUrl;
+const server3 = apiConfig.getLogoutUrl;
 var id;
 
 const Profile = () => {
@@ -28,13 +29,27 @@ const Profile = () => {
     setShowPasswordDiv(!showPasswordDiv);
   };
 
-  const handleLogout = () => {
-    Cookies.remove("name");
+  const handleLogout = async() => {
+    try {
+      const response = await fetch(`${server3}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        Cookies.remove("name");
     Cookies.remove("id");
     Cookies.remove("JSESSIONID");
     postaviPostojiKolacic(false);
     console.log("Korisnik odjavljen!");
     navigate("/");
+      } else {
+        console.error("Error logging out");
+      }
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
   };
 
   const customAlert = (message) => {
