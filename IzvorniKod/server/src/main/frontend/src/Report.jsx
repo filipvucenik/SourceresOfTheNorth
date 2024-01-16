@@ -50,23 +50,30 @@ function Reports() {
         <>
           <div className="container">
             <div className="card h-100 border border-2 rounded">
-              <img
-                src={data.images[0].url}
-                class="card-img-top"
-                alt="glavna slika"
-              ></img>
+              if (data.images[0]){" "}
+              {
+                <img
+                  src={data.images[0].url}
+                  class="card-img-top"
+                  alt="glavna slika"
+                ></img>
+              }
               <div className="card-body">
-                <h5 className="card-title">{data.report.reportHeadline}</h5>
+                <h5 className="card-title">
+                  <b>{data.report.reportHeadline}</b>
+                </h5>
                 <hr />
-                <p className="card-text">Opis: {data.report.description}</p>
                 <p className="card-text">
-                  Datum:{" "}
+                  <b>Opis:</b> {data.report.description}
+                </p>
+                <p className="card-text">
+                  <b>Datum:</b>{" "}
                   {new Date(data.report.reportTS).toLocaleString("de-DE", {
                     timeZone: "UTC",
                   })}
                 </p>
                 <p className="card-text">
-                  Kategorija: {categoryData[data.report.categoryID]}
+                  <b>Kategorija:</b> {categoryData[data.report.categoryID]}
                 </p>
               </div>
             </div>
