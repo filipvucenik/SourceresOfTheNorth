@@ -70,7 +70,7 @@ class ReportControllerTest {
 
     @Test
     public void updateStatusTest(){
-        assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(), "neobraden");
+        assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(), "neobrađen");
         reportController.changeStatus(saved1.getReportID(), "uProcesu");
         assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(), "uProcesu");
     }
@@ -125,8 +125,8 @@ class ReportControllerTest {
 
     @Test
     public void updateGroupStatusTest(){
-        assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(),"neobraden");
-        assertEquals(reportController.getStatus(saved2.getReportID()).getKey().getStatus(),"neobraden");
+        assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(),"neobrađen");
+        assertEquals(reportController.getStatus(saved2.getReportID()).getKey().getStatus(),"neobrađen");
         reportController.groupReports(saved1.getReportID(), List.of(new Long[]{saved2.getReportID()}));
         reportController.changeStatus(saved1.getReportID(), "uProcesu");
         assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(),"uProcesu");
