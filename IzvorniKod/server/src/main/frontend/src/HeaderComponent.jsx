@@ -31,6 +31,7 @@ const HeaderComponent = () => {
         Cookies.remove("name");
         Cookies.remove("role");
         Cookies.remove("id");
+        Cookies.remove("JSESSIONID");
         postaviPostojiKolacic(false);
         console.log("Korisnik odjavljen!");
         navigate("/");

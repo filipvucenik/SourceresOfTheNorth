@@ -101,11 +101,11 @@ function Admin() {
   };
 
   const addToTransfer = (id) => {
-    const reportToAdd = data.find((repo) => repo.report.reportID === id);
+    const reportToAdd = data.find((repo) => repo.reportID === id);
     if (reportToAdd) {
       set_transfer([...transfer, reportToAdd]);
-      setData(data.filter((repo) => repo.report.reportID !== id));
-      set_display(displaied_data.filter((repo) => repo.report.reportID !== id));
+      setData(data.filter((repo) => repo.reportID !== id));
+      set_display(displaied_data.filter((repo) => repo.reportID !== id));
     }
   };
 
@@ -114,7 +114,7 @@ function Admin() {
     formData.append("CatID", selectedCategoryID);
     formData.append(
       "reports",
-      transfer.map((repo) => repo.report.reportID)
+      transfer.map((repo) => repo.reportID)
     );
     console.log(formData);
     try {
@@ -140,19 +140,19 @@ function Admin() {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       });
-      setData(data.filter((repo) => repo.report.reportID !== id));
-      set_display(displaied_data.filter((repo) => repo.report.reportID !== id));
+      setData(data.filter((repo) => repo.reportID !== id));
+      set_display(displaied_data.filter((repo) => repo.reportID !== id));
     } catch (error) {
       console.error("Error removing report:", error);
     }
   };
 
   const addToUpdate = (id) => {
-    const reportToAdd = data.find((repo) => repo.report.reportID === id);
+    const reportToAdd = data.find((repo) => repo.reportID === id);
     if (reportToAdd) {
       set_update([...update, reportToAdd]);
-      setData(data.filter((repo) => repo.report.reportID !== id));
-      set_display(displaied_data.filter((repo) => repo.report.reportID !== id));
+      setData(data.filter((repo) => repo.reportID !== id));
+      set_display(displaied_data.filter((repo) => repo.reportID !== id));
     }
   };
 
@@ -189,11 +189,11 @@ function Admin() {
   };
 
   const addToGroup = async (id) => {
-    const reportToAdd = data.find((repo) => repo.report.reportID === id);
+    const reportToAdd = data.find((repo) => repo.reportID === id);
     if (reportToAdd) {
       set_group([...group, reportToAdd]);
-      setData(data.filter((repo) => repo.report.reportID !== id));
-      set_display(displaied_data.filter((repo) => repo.report.reportID !== id));
+      setData(data.filter((repo) => repo.reportID !== id));
+      set_display(displaied_data.filter((repo) => repo.reportID !== id));
     }
   };
 
@@ -209,7 +209,7 @@ function Admin() {
     formData.append("mainReportID", group[0].report.reportID);
     formData.append(
       "reports",
-      group.slice(1).map((repo) => repo.report.reportID)
+      group.slice(1).map((repo) => repo.reportID)
     );
 
     console.log(formData);
