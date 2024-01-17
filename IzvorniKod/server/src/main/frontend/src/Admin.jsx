@@ -34,22 +34,12 @@ function Admin() {
 
   const fetchReports = async () => {
     try {
-      const response = await fetch(apiConfig.getReportUrl + "/unhandled");
-      const reports = await response.json();
-      console.log(reports);
-      setData(reports);
-    } catch (error) {
-      console.error("Error fetching reports:", error);
-    }
-
-    try {
       const response = await fetch(apiConfig.getReportUrl + "/status/uProcesu");
       const reports = await response.json();
       if (reports.length > 0) {
         for (const r of reports) {
           r.status = "U Procesu";
         }
-        setData([...data, ...reports]);
       }
       const response1 = await fetch(
         apiConfig.getReportUrl + "/status/neobrađen"
@@ -59,7 +49,6 @@ function Admin() {
         for (const r of reports1) {
           r.status = "Neobrađeno";
         }
-        setData([...data, ...reports1]);
       }
       const response2 = await fetch(apiConfig.getReportUrl + "/status/obrađen");
       const reports2 = await response2.json();
@@ -67,8 +56,8 @@ function Admin() {
         for (const r of reports2) {
           r.status = "Obrađeno";
         }
-        setData([...data, ...reports2]);
       }
+      setData([...reports, ...reports1, ...reports2]);
     } catch (error) {
       console.error("Error fetching reports:", error);
     } finally {
@@ -257,10 +246,10 @@ function Admin() {
               {update.map((repo) => {
                 return (
                   <tr>
-                    <td>{repo.report.reportID}</td>
-                    <td>{repo.report.reportHeadline}</td>
-                    <td>{repo.report.status}</td>
-                    <td>{categoryData[repo.report.categoryID]}</td>
+                    <td>{repo.reportID}</td>
+                    <td>{repo.reportHeadline}</td>
+                    <td>{repo.status}</td>
+                    <td>{categoryData[repo.categoryID]}</td>
                   </tr>
                 );
               })}
@@ -310,10 +299,10 @@ function Admin() {
               {transfer.map((repo) => {
                 return (
                   <tr>
-                    <td>{repo.report.reportID}</td>
-                    <td>{repo.report.reportHeadline}</td>
+                    <td>{repo.reportID}</td>
+                    <td>{repo.reportHeadline}</td>
 
-                    <td>{categoryData[repo.report.categoryID]}</td>
+                    <td>{categoryData[repo.categoryID]}</td>
                   </tr>
                 );
               })}
@@ -360,10 +349,10 @@ function Admin() {
               {group.map((repo) => {
                 return (
                   <tr>
-                    <td>{repo.report.reportID}</td>
-                    <td>{repo.report.reportHeadline}</td>
+                    <td>{repo.reportID}</td>
+                    <td>{repo.reportHeadline}</td>
 
-                    <td>{categoryData[repo.report.categoryID]}</td>
+                    <td>{categoryData[repo.categoryID]}</td>
                   </tr>
                 );
               })}
@@ -411,38 +400,35 @@ function Admin() {
               return (
                 <div className="card h-100 border border-2 rounded">
                   <div className="card-body">
-                    <h5 className="card-title">{repo.report.reportHeadline}</h5>
+                    <h5 className="card-title">{repo.reportHeadline}</h5>
                     <hr />
-                    <p className="card-text">{repo.report.description}</p>
-                    <p className="card-text">
-                      {categoryData[repo.report.categoryID]}
-                    </p>
-                    <p className="card-text">{repo.report.status}</p>
-                    <ul className="list-group list-group-flush">
-                      {data.map((miniR) => {
-                        if (miniR.report.group === repo.report.reportID) {
+                    <p className="card-text">{repo.description}</p>
+                    <p className="card-text">{categoryData[repo.categoryID]}</p>
+                    <p className="card-text">{repo.status}</p>
+                    {repo.group.length > 0 && (
+                      <ul className="list-group list-group-flush">
+                        {repo.group.map((miniR) => {
                           return (
                             <li className="list-group-item">
-                              <Link to={`/report/${miniR.report.reportID}`}>
-                                {miniR.report.reportHeadline}
+                              <Link to={`/report/${miniR.reportID}`}>
+                                {miniR.reportHeadline}
                               </Link>
                             </li>
                           );
-                        }
-                        return null;
-                      })}
-                    </ul>
+                        })}
+                      </ul>
+                    )}
 
                     <div className="btn-group">
                       <button
                         className="btn btn-primary"
-                        onClick={() => redirect(repo.report.reportID)}
+                        onClick={() => redirect(repo.reportID)}
                       >
                         Pregled
                       </button>
                       <button
                         className="btn btn-danger"
-                        onClick={() => remove(repo.report.reportID)}
+                        onClick={() => remove(repo.reportID)}
                       >
                         Obrisi
                       </button>
@@ -464,9 +450,7 @@ function Admin() {
                           <li>
                             <button
                               className="dropdown-item"
-                              onClick={() =>
-                                addToTransfer(repo.report.reportID)
-                              }
+                              onClick={() => addToTransfer(repo.reportID)}
                             >
                               Proslijedi
                             </button>
@@ -474,7 +458,7 @@ function Admin() {
                           <li>
                             <button
                               className="dropdown-item"
-                              onClick={() => addToUpdate(repo.report.reportID)}
+                              onClick={() => addToUpdate(repo.reportID)}
                             >
                               Ažuriraj
                             </button>
@@ -482,7 +466,7 @@ function Admin() {
                           <li>
                             <button
                               className="dropdown-item"
-                              onClick={() => addToGroup(repo.report.reportID)}
+                              onClick={() => addToGroup(repo.reportID)}
                             >
                               Grupiraj
                             </button>
