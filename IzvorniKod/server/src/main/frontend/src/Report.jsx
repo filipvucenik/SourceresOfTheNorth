@@ -43,7 +43,7 @@ function Reports() {
   }, []);
 
   return (
-    <div>
+    <>
       <HeaderComponent />
 
       {data.report && (
@@ -93,7 +93,7 @@ function Reports() {
       )}
 
       <FooterComponent />
-    </div>
+    </>
   );
 }
 
