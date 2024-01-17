@@ -7,7 +7,7 @@ import FooterComponent from "../FooterComponent";
 
 const Office_LoginComponent = () => {
   const customAlert = (message) => {
-    const alertContainer = document.createElement('div');
+    const alertContainer = document.createElement("div");
     alertContainer.style.cssText = `
       position: fixed;
       top: 20px; /* Adjust the top distance as needed */
@@ -20,16 +20,16 @@ const Office_LoginComponent = () => {
       text-align: center;
       z-index: 9999; /* Set a high z-index to ensure it's on top */
     `;
-  
-    const alertText = document.createElement('p');
+
+    const alertText = document.createElement("p");
     alertText.style.cssText = `
       font-weight: bold;
       font-size: 16px;
     `;
     alertText.textContent = message;
-  
-    const closeButton = document.createElement('button');
-    closeButton.textContent = 'OK';
+
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "OK";
     closeButton.style.cssText = `
       margin-top: 10px;
       padding: 5px 10px;
@@ -39,11 +39,13 @@ const Office_LoginComponent = () => {
       border: none;
       border-radius: 3px;
     `;
-    closeButton.addEventListener('click', () => document.body.removeChild(alertContainer));
-  
+    closeButton.addEventListener("click", () =>
+      document.body.removeChild(alertContainer)
+    );
+
     alertContainer.appendChild(alertText);
     alertContainer.appendChild(closeButton);
-  
+
     document.body.appendChild(alertContainer);
   };
   const [password, setPassword] = useState("");
@@ -66,7 +68,7 @@ const Office_LoginComponent = () => {
       email: email,
       password: password,
     };
-    if(email == "" || password ==""){
+    if (email == "" || password == "") {
       customAlert("Greška kod prijave: neispravan mail ili lozinka!");
       return;
     }
@@ -85,6 +87,7 @@ const Office_LoginComponent = () => {
 
       if (response.status === 200) {
         Cookies.set("name", email);
+        Cookies.set("role", "admin");
         navigate("/admin");
       } else {
         customAlert("Greška kod prijave: neispravan mail ili lozinka!");

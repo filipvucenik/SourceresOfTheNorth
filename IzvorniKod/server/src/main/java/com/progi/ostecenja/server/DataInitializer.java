@@ -56,7 +56,7 @@ public class DataInitializer {
         CityOffice[] offices = new CityOffice[4];
         offices[0] = new CityOffice(null, "Rupasti", "rupasti@gmail.com", "password");
         offices[1] = new CityOffice(null, "Rasvjeta", "rasvjeta@gmail.com", "password");
-        offices[2] = new CityOffice(null, "Smece", "smece@gmail.com", "password");
+        offices[2] = new CityOffice(null, "Smeće", "smece@gmail.com", "password");
         offices[3] = new CityOffice(null, "Korupcija", "korupcija@gmail.com", "password");
         CityOffice[] offices2 = new CityOffice[4];
         for(int i=0; i<offices.length; i++){
@@ -70,10 +70,10 @@ public class DataInitializer {
         //initial categories
         Category[] categories = new Category[6];
         categories[0] = new Category(null, "rupa na cesti", offices2[0].getCityOfficeId());
-        categories[1] = new Category(null, "rupa na pjesackome", offices2[0].getCityOfficeId());
-        categories[2] = new Category(null, "ulicna rasvjeta", offices2[1].getCityOfficeId());
-        categories[3] = new Category(null, "smece na ulici", offices2[2].getCityOfficeId());
-        categories[4] = new Category(null, "smece u parku", offices2[2].getCityOfficeId());
+        categories[1] = new Category(null, "rupa na pješačkoj stazi", offices2[0].getCityOfficeId());
+        categories[2] = new Category(null, "ulična rasvjeta", offices2[1].getCityOfficeId());
+        categories[3] = new Category(null, "smeće na ulici", offices2[2].getCityOfficeId());
+        categories[4] = new Category(null, "smeće u parku", offices2[2].getCityOfficeId());
         categories[5] = new Category(null, "institucionalna korupcija", offices2[3].getCityOfficeId());
 
         List<Category> categoryList = categoryService.listAll();
@@ -137,17 +137,14 @@ public class DataInitializer {
         images.add(imageMulti);
 
         Report[] reports = {
-                new Report(null, "OGROMANJSKA RUPA NA CESTI",45.8000646, 15.978519, "Tu je neka ogromanjska rupa kod lisinskog", null, null, null,cats.get(0).getCategoryID())
+                new Report(null, "Velika rupa na cesti",45.8000646, 15.978519, "Tu je neka velika rupa na raskrižju kod Lisinskog.", null, null, null, cats.get(0).getCategoryID())
         };
         for(Report report: reports){
             if(!reportService.getHeadlines().contains(report.getReportHeadline())){
                 reportController.createReport(report.getReportID(), report.getReportHeadline(), report.getLat(), report.getLng(), report.getDescription(), report.getReportTS(), report.getUserID(),
-                        report.getGroup().getReportID(),report.getCategoryID(), new StandardSession(null), images, "Lisinski");
+                        report.getGroup() == null ? null : report.getGroup().getReportID(), report.getCategoryID(), new StandardSession(null), images, "Lisinski");
             }
         }
-
-
-
     }
 }
 

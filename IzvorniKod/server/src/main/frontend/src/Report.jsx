@@ -43,21 +43,32 @@ function Reports() {
   }, []);
 
   return (
-    <div>
+    <>
       <HeaderComponent />
 
       {data.report && (
         <>
           <div className="container">
             <div className="card h-100 border border-2 rounded">
-              if (data.images[0]){" "}
-              {
+              {data.images[0] && (
                 <img
                   src={data.images[0].url}
-                  class="card-img-top"
+                  className="card-img-top img-thumbnail mx-auto d-block"
                   alt="glavna slika"
-                ></img>
-              }
+                  onLoad={(e) => {
+                    const img = e.target;
+                    if (img.naturalWidth > img.naturalHeight) {
+                      // Landscape image
+                      img.style.width = "80%";
+                      img.style.height = "auto";
+                    } else {
+                      // Portrait image
+                      img.style.width = "400px";
+                      img.style.height = "100%";
+                    }
+                  }}
+                />
+              )}
               <div className="card-body">
                 <h5 className="card-title">
                   <b>{data.report.reportHeadline}</b>
@@ -82,7 +93,7 @@ function Reports() {
       )}
 
       <FooterComponent />
-    </div>
+    </>
   );
 }
 

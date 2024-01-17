@@ -8,6 +8,7 @@ const server = apiConfig.getLogoutUrl;
 const HeaderComponent = () => {
   const [postojiKolacic, postaviPostojiKolacic] = useState(false);
   const email = Cookies.get("name");
+  const role = Cookies.get("role");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,21 +29,20 @@ const HeaderComponent = () => {
       });
       if (response.ok) {
         Cookies.remove("name");
-    Cookies.remove("id");
-    postaviPostojiKolacic(false);
-    console.log("Korisnik odjavljen!");
-    navigate("/");
+        Cookies.remove("role");
+        Cookies.remove("id");
+        postaviPostojiKolacic(false);
+        console.log("Korisnik odjavljen!");
+        navigate("/");
       } else {
         console.error("Error logging out");
       }
     } catch (error) {
       console.error("Error logging out:", error);
     }
-  
+
     // Clear cookies and navigate logic (your existing code)
-    
   };
-  
 
   return (
     <header className="p-3 text-bg-dark">
@@ -52,19 +52,22 @@ const HeaderComponent = () => {
             <li>
               <Link to="/">
                 <img
-                  src="./conLogo.png"
+                  src="../conLogo.png"
                   alt="logo2"
                   className="mx-4 logo-image"
                 />
               </Link>
             </li>
-            <li>
-              <Link to="/prijava" className="nav-link px-2 text-secondary">
-                <button type="button" className="btn btn-outline-light me-2">
-                  Prijava štete
-                </button>
-              </Link>
-            </li>
+            {role !== "admin" && (
+              <li>
+                <Link to="/prijava" className="nav-link px-2 text-secondary">
+                  <button type="button" className="btn btn-outline-light me-2">
+                    Prijava štete
+                  </button>
+                </Link>
+              </li>
+            )}
+
             <li>
               <Link to="/statistika" className="nav-link px-2 text-white">
                 <button type="button" className="btn btn-outline-light me-2">
@@ -92,12 +95,21 @@ const HeaderComponent = () => {
                   </a>
                   <ul className="dropdown-menu text-small">
                     <li>
-                      <Link
-                        to="/profile"
-                        className="btn btn-outline-dark dropdown-item"
-                      >
-                        Profile
-                      </Link>
+                      {role === "admin" ? (
+                        <Link
+                          to="/admin"
+                          className="btn btn-outline-dark dropdown-item"
+                        >
+                          Ured
+                        </Link>
+                      ) : (
+                        <Link
+                          to="/profile"
+                          className="btn btn-outline-dark dropdown-item"
+                        >
+                          Profile
+                        </Link>
+                      )}
                     </li>
                     <li>
                       <hr className="dropdown-divider" />

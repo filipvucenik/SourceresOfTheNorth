@@ -75,7 +75,7 @@ public class ReportServiceJpa implements ReportService {
 
         List<Report> ret = reportRepo.findAll().stream().filter(r -> {
             Long id = r.getReportID();
-            return !feedbackService.existsFeedback(id, "obraden");
+            return !feedbackService.existsFeedback(id, "obrađen");
         }).toList();
 
         return ret;
