@@ -371,7 +371,7 @@ const Profile = () => {
                 <b>Opis prijave:</b> <br /> {item.report.description}
               </p>
               <p>
-                <b>Status:</b> <nbsp></nbsp>
+                <b>Status:</b> <br />
                 {item.feedback.key.status === "uProcesu" ? (
                   <span>U procesu</span>
                 ) : (
