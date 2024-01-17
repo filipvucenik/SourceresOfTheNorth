@@ -29,6 +29,7 @@ function Admin() {
     if (initialData === "YES") {
       set_display(data);
     }
+    console.log(data);
   }, [initialData]);
 
   const fetchReports = async () => {
@@ -37,8 +38,6 @@ function Admin() {
       const reports = await response.json();
       console.log(reports);
       setData(reports);
-
-      console.log(data);
     } catch (error) {
       console.error("Error fetching reports:", error);
     }
