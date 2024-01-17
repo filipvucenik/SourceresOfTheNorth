@@ -144,7 +144,7 @@ function Admin() {
     try {
       console.log("removing report " + id);
 
-      await fetch(`${server}/delete?repotId=${id}`, {
+      await fetch(`${server}/delete?reportId=${id}`, {
         method: "DELETE",
         credentials: "include",
         headers: {
