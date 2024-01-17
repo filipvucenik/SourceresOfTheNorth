@@ -48,7 +48,7 @@ function Reports() {
 
       {data.report && (
         <>
-          <div className="container">
+          <div className="container m-5">
             <div className="card h-100 border border-2 rounded">
               {data.images[0] && (
                 <img

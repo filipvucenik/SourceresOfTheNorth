@@ -405,7 +405,7 @@ function Admin() {
                     <p className="card-text">{repo.description}</p>
                     <p className="card-text">{categoryData[repo.categoryID]}</p>
                     <p className="card-text">{repo.status}</p>
-                    {repo.group.length > 0 && (
+                    {repo.group !== null && (
                       <ul className="list-group list-group-flush">
                         {repo.group.map((miniR) => {
                           return (
