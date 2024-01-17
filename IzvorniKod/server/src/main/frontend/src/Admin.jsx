@@ -29,6 +29,7 @@ function Admin() {
     if (initialData === "YES") {
       set_display(data);
     }
+    console.log(data);
   }, [initialData]);
 
   const fetchReports = async () => {
@@ -37,8 +38,6 @@ function Admin() {
       const reports = await response.json();
       console.log(reports);
       setData(reports);
-
-      console.log(data);
     } catch (error) {
       console.error("Error fetching reports:", error);
     }
@@ -145,7 +144,7 @@ function Admin() {
     try {
       console.log("removing report " + id);
 
-      await fetch(`${server}/delete?repotId=${id}`, {
+      await fetch(`${server}/delete?reportId=${id}`, {
         method: "DELETE",
         credentials: "include",
         headers: {
