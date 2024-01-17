@@ -201,9 +201,23 @@
 		 		\label{fig:SeleniumTestoviPomocneMetode} %label mora biti drugaciji za svaku sliku
 		 	\end{figure}
 		 	
-		 	\textbf{Test 1:}
+		 	\textbf{Test 1: Prijava postojećeg korisnika}
 		 	
-		 	U ovom testu se ispituje rad sustava tijekom pokušaja prijave korisnika koji postoji u bazi podataka. Simulira se odabir opcije prijave korisnika na korisničkom sučelju. U obrazac za prijavu se upisuju podaci "abc@gmail.com" za e-mail i "pass1234" za lozinku te se klikne na gumb za prijavu. Očekuje se da prijava bude uspješna. To treba rezultirati preusmjeravanjem na glavnu stranicu te prikazom gumba sa korisnikovom e-mail adresom u zaglavlju stranice.
+		 	\begin{packed_item} 
+		 		\item \textbf{Ulaz}:
+		 		\begin{packed_item} 
+		 			\item e-mail adresa: "abc@gmail.com"
+		 			\item lozinka: "pass1234"
+		 		\end{packed_item}
+		 		\item \textbf{Očekivani izlaz}: Nakon uspješne prijave korisnika se preusmjerava na početnu stranicu i u zaglavlju stranice se nalazi gumb sa njegovom e-mail adresom.
+		 		\item \textbf{Koraci}:
+		 		\begin{packed_enum} 
+		 			\item Odabir opcije prijave korisnika u zaglavlju stranice.
+		 			\item Unos e-mail adrese u obrazac prijave.
+		 			\item Unos lozinke u obrazac prijave.
+		 			\item Klik na gumb za prijavu.
+		 		\end{packed_enum}
+		 	\end{packed_item}
 		 	
 		 	\begin{figure}[H]
 		 		\includegraphics[width=\textwidth]{slike/SeleniumTest1.png} %veličina u odnosu na širinu linije
@@ -211,9 +225,23 @@
 		 		\label{fig:SeleniumTest1} %label mora biti drugaciji za svaku sliku
 		 	\end{figure}
 		 	
-		 	\textbf{Test 2:}
+		 	\textbf{Test 2: Prijava postojećeg korisnika korištenjem neispravne lozinke}
 		 	
-		 	Ovaj test je ispitivanje pokušaja prijave korisnika s neispravnom lozinkom. Radnje ovog testa su iste kao i u prethodnom testu. Razlika je što se na kraju ne očekuje preusmjeravanje na glavnu stranicu već prikaz prozora sa porukom "Greška kod prijave: neispravan mail ili lozinka!".
+		 	\begin{packed_item} 
+		 		\item \textbf{Ulaz}:
+		 		\begin{packed_item} 
+		 			\item e-mail adresa: "abc@gmail.com"
+		 			\item lozinka: "pass123456"
+		 		\end{packed_item}
+		 		\item \textbf{Očekivani izlaz}: Nakon neuspješne prijave korisnik dobiva obavijest "Greška kod prijave: neispravan mail ili lozinka!".
+		 		\item \textbf{Koraci}:
+		 		\begin{packed_enum} 
+		 			\item Odabir opcije prijave korisnika u zaglavlju stranice.
+		 			\item Unos e-mail adrese u obrazac prijave.
+		 			\item Unos lozinke u obrazac prijave.
+		 			\item Klik na gumb za prijavu.
+		 		\end{packed_enum}
+		 	\end{packed_item}
 		 	
 		 	\begin{figure}[H]
 		 		\includegraphics[width=\textwidth]{slike/SeleniumTest2.png} %veličina u odnosu na širinu linije
@@ -221,9 +249,27 @@
 		 		\label{fig:SeleniumTest2} %label mora biti drugaciji za svaku sliku
 		 	\end{figure}
 		 	
-		 	\textbf{Test 3:}
+		 	\textbf{Test 3: Registracija novog korisnika}
 		 	
-		 	U ovom se testu ispituje pokušaj registracije novog korisnika. Simulira se odabir opcije registracije novog korisnika. Na novoj se stranici u obrazac upisuju podaci "Ime" za ime, "Prezime" za prezime, "novi.user.1@gmail.com" za e-mail i "lozinka123" za lozinku. Na kraju se registracija dovršava pritiskom gumba za registraciju. Očekuje se uspješna registracija što rezultira preusmjeravanjem na početnu stranicu te prikazom gumba sa korisnikovom e-mail adresom u zaglavlju stranice.
+		 	\begin{packed_item} 
+		 		\item \textbf{Ulaz}: 
+		 		\begin{packed_item} 
+		 			\item ime: "Ime"
+		 			\item prezime: "Prezime"
+		 			\item e-mail adresa: "novi.user.1@gmail.com"
+		 			\item lozinka: "lozinka123"
+		 		\end{packed_item}
+		 		\item \textbf{Očekivani izlaz}: Nakon uspješne registracije korisnika se preusmjerava na početnu stranicu te se u zaglavlju stranice nalazi gumb sa korisnikovom e-mail adresom.
+		 		\item \textbf{Koraci}:
+		 		\begin{packed_enum} 
+		 			\item Odabir opcije registracije korisnika u zaglavlju stranice.
+		 			\item Unos imena u obrazac registracije.
+		 			\item Unos prezimena u obrazac registracije.
+		 			\item Unos e-mail adrese u obrazac registracije.
+		 			\item Unos lozinke u obrazac registracije.
+		 			\item Klik na gumb za registraciju.
+		 		\end{packed_enum}
+		 	\end{packed_item}
 		 	
 		 	\begin{figure}[H]
 		 		\includegraphics[width=\textwidth]{slike/SeleniumTest3.png} %veličina u odnosu na širinu linije
@@ -231,9 +277,28 @@
 		 		\label{fig:SeleniumTest3} %label mora biti drugaciji za svaku sliku
 		 	\end{figure}
 		 	
-		 	\textbf{Test 4:}
+		 	\textbf{Test 4: Registracija postojećeg korisnika}
 		 	
-		 	U ovom testu se ispituje sustav prilikom pokušaja registracije korisnika koji već postoji u sustavu, to jest sa već iskorištenom e-mail adresom. Ponavljaju se radnje iz prošlog testa, ali se u obrazac za registraciju unose drugi podaci. Za ovaj test se unose podaci "xx" za ime, "yy" za prezime, "abc@gmail.com" za e-mail i "pass1234" za lozinku. S obzirom da korisnik s danom e-mail adresom već postoji u sustavu. Aplikacija treba prikazati pripadnu poruku te nakon klika na gumb uz poruku treba ostati na stranici za registraciju.
+		 	\begin{packed_item} 
+		 		\item \textbf{Ulaz}:
+		 		\begin{packed_item} 
+		 			\item ime: "xx"
+		 			\item prezime: "yy"
+		 			\item e-mail adresa: "abc@gmail.com"
+		 			\item lozinka: "pass1234"
+		 		\end{packed_item}
+		 		\item \textbf{Očekivani izlaz}: Nakon neuspješne registracije korisniku se prikazuje poruka o grešci sa potvrdnim gumbom. Pritiskom na gumb korisnik ostaje na stranici za registraciju.
+		 		\item \textbf{Koraci}:
+		 		\begin{packed_enum} 
+		 			\item Odabir opcije registracije korisnika u zaglavlju stranice.
+		 			\item Unos imena u obrazac registracije.
+		 			\item Unos prezimena u obrazac registracije.
+		 			\item Unos e-mail adrese u obrazac registracije.
+		 			\item Unos lozinke u obrazac registracije.
+		 			\item Klik na gumb za registraciju.
+		 			\item Klik na gumb potvrde uz dobivenu poruku.
+		 		\end{packed_enum}
+		 	\end{packed_item}
 		 	
 		 	\begin{figure}[H]
 		 		\includegraphics[width=\textwidth]{slike/SeleniumTest4.png} %veličina u odnosu na širinu linije
@@ -241,9 +306,27 @@
 		 		\label{fig:SeleniumTest4} %label mora biti drugaciji za svaku sliku
 		 	\end{figure}
 		 	
-		 	\textbf{Test 5:}
+		 	\textbf{Test 5: Brisanje korisnika}
 		 	
-		 	U ovom testu se pokušava izbrisati korisnika iz sustava. Simulira se prijava korisnika u sustav sa podacima "novi.user.1@gmail.com" za e-mail i "lozinka123" (korisnik koji se registrirao u ranijem testu) kao što je opisano u testu 1. Zatim se klikom na gumb sa korisnikovim e-mailom i odabirom profilne stranice odlazi na stranicu korisnikovog profila. Tamo se simulira klik na gumb za brisanje računa nakon čega se prikazuje prozor sa porukom "Korisnički račun uspješno izbrisan!" i pripadnim gumbom. Pritiskom na gumb se korisnika treba preusmjeriti na glavnu stranicu.
+		 	\begin{packed_item} 
+		 		\item \textbf{Ulaz}:
+		 		\begin{packed_item} 
+		 			\item e-mail adresa: "novi.user.1@gmail.com"
+		 			\item lozinka: "lozinka123"
+		 		\end{packed_item}
+		 		\item \textbf{Očekivani izlaz}: Nakon uspješnog brisanja računa korisniku se prikazuje poruka ""Korisnički račun uspješno izbrisan!" sa potvrdnim gumbom. Pritiskom na gumb korisnika se preusmjerava na početnu stranicu.
+		 		\item \textbf{Koraci}:
+		 		\begin{packed_enum} 
+		 			\item Odabir opcije prijave korisnika u zaglavlju stranice.
+		 			\item Unos e-mail adrese u obrazac prijave.
+		 			\item Unos lozinke u obrazac prijave.
+		 			\item Klik na gumb za prijavu.
+		 			\item Klik na gumb sa korisnikovom e-mail adresom.
+		 			\item Odabir profilne stranice. 
+		 			\item Klik na gumb za brisanje korisničkog računa.
+		 			\item Klik na gumb potvrde uz dobivenu poruku.
+		 		\end{packed_enum}
+		 	\end{packed_item}
 		 	
 		 	\begin{figure}[H]
 		 		\includegraphics[width=\textwidth]{slike/SeleniumTest5.png} %veličina u odnosu na širinu linije
@@ -251,9 +334,25 @@
 		 		\label{fig:SeleniumTest5} %label mora biti drugaciji za svaku sliku
 		 	\end{figure}
 		 	
-		 	\textbf{Test 6:}
+		 	\textbf{Test 6: Pregled statistike}
 		 	
-		 	U ovom testu se simulira pregledavanje statistike prijava. Klikom na gumb "Statistika" u zaglavlju stranice korisnika se preusmjerava na stranicu za statistiku.  Na prikazanoj stranici se djelomično popunjava obrazac za prikaz statistike. Za kategoriju se odabire prva kategorija koja počinje na "r", za datum početka se odabire 1.1.2024., a za datum završetka intervala se odabire 2.2.2024. Tako popunjen obrazac se šalje na poslužitelja. Nakon toga se ispod filtra očekuje prikaz statističkih podataka o prijavama odabranima poslanim filtrom.
+		 	\begin{packed_item} 
+		 		\item \textbf{Ulaz}:
+		 		\begin{packed_item} 
+		 			\item kategorija: "r"
+		 			\item početni datum: 1.1.2024.
+		 			\item završni datum: 2.2.2024.
+		 		\end{packed_item}
+		 		\item \textbf{Očekivani izlaz}: Nakon uspješnog slanja i obrade obrasca korisniku se ispod obrasca prikazuju statistički podaci o prijavama odabranima poslanim filtrom
+		 		\item \textbf{Koraci}:
+		 		\begin{packed_enum} 
+		 			\item Odabir opcije pregleda statistike u zaglavlju stranice.
+		 			\item Unos kategorije u obrazac.
+		 			\item Unos početnog datuma u obrazac.
+		 			\item Unos završnog datuma u obrazac.
+		 			\item Klik na gumb za filtriranje.
+		 		\end{packed_enum}
+		 	\end{packed_item}
 		 	
 		 	\begin{figure}[H]
 		 		\includegraphics[width=\textwidth]{slike/SeleniumTest6.png} %veličina u odnosu na širinu linije
@@ -381,34 +480,34 @@
 				\begin{packed_item}
 					\item ime: Rupasti, e-mail: rupasti@gmail.com, lozinka: password
 					\item ime: Rasvjeta, e-mail: rasvjeta@gmail.com, lozinka: password
-					\item ime: Smece, e-mail: smece@gmail.com, lozinka: password
+					\item ime: Smeće, e-mail: smece@gmail.com, lozinka: password
 					\item ime: Korupcija, e-mail: korupcija@gmail.com, lozinka: password
 				\end{packed_item}
 				\item Kategorije:
 				\begin{packed_item}
 					\item kategorija: rupa na cesti, ured: Rupasti
-					\item kategorija: rupa na pjesackome, ured: Rupasti
-					\item kategorija: ulicna rasvjeta, ured: Rasvjeta
-					\item kategorija: smece na ulici, ured: Smece
-					\item kategorija: smece u parku, ured: Smece
+					\item kategorija: rupa na pješačkoj stazi, ured: Rupasti
+					\item kategorija: ulična rasvjeta, ured: Rasvjeta
+					\item kategorija: smeće na ulici, ured: Smeće
+					\item kategorija: smeće u parku, ured: Smeće
 					\item kategorija: institucionalna korupcija, ured: Korupcija
 				\end{packed_item}
 				\item Ključne riječi za kategorije:
 				\begin{packed_item}
 					\item riječ: Rupa, kategorija: rupa na cesti
 					\item riječ: Cesta, kategorija: rupa na cesti
-					\item riječ: Pjesacki, kategorija: rupa na pjesackome
-					\item riječ: Pješački, kategorija: rupa na pjesackome
-					\item riječ: Rasvjeta, kategorija: ulicna rasvjeta
-					\item riječ: Lampa, kategorija: ulicna rasvjeta
-					\item riječ: Smeće, kategorija: smece na ulici
-					\item riječ: Smrdi, kategorija: smece na ulici
-					\item riječ: Park, kategorija: smece u parku
-					\item riječ: Otpad, kategorija: smece u parku
+					\item riječ: Pjesacki, kategorija: rupa na pješačkoj stazi
+					\item riječ: Pješački, kategorija: rupa na pješačkoj stazi
+					\item riječ: Rasvjeta, kategorija: ulična rasvjeta
+					\item riječ: Lampa, kategorija: ulična rasvjeta
+					\item riječ: Smeće, kategorija: smeće na ulici
+					\item riječ: Smrdi, kategorija: smeće na ulici
+					\item riječ: Park, kategorija: smeće u parku
+					\item riječ: Otpad, kategorija: smeće u parku
 					\item riječ: Mito, kategorija: institucionalna korupcija
 					\item riječ: Korupcija, kategorija: institucionalna korupcija
 				\end{packed_item}
-				\item jedna prijava rupe na cesti na lokaciju kod koncertne dvorane Vatroslava Lisinskog sa priloženom slikom
+				\item jedna prijava rupe na cesti na lokaciju kod koncertne dvorane Vatroslava Lisinskog
 			\end{packed_item}
 			
 			\eject 
