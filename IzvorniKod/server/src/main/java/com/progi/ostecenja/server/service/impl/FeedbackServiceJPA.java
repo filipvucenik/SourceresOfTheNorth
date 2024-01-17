@@ -21,7 +21,7 @@ public class FeedbackServiceJPA implements FeedbackService {
     private ReportRepository reportRepository;
     @Override
     public Feedback createFeedback(Long groupID, Timestamp changeTS) {
-        return feedbackRepository.save(new Feedback(groupID, "neobraden", changeTS));
+        return feedbackRepository.save(new Feedback(groupID, "neobrađen", changeTS));
     }
 
     @Override
@@ -59,7 +59,7 @@ public class FeedbackServiceJPA implements FeedbackService {
 
     @Override
     public Feedback getLatest(Long reportID) {
-        List<String> stanja = List.of(new String[]{"neobraden","uProcesu","obraden"});
+        List<String> stanja = List.of(new String[]{"neobrađen","uProcesu","obrađen"});
         Feedback ret = null;
         for(String stanje: stanja){
             FeedbackID id = new FeedbackID(reportID, stanje);
