@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/reports")
 @CrossOrigin(origins = "http://localhost:3000/", allowCredentials = "true")
 public class ReportController {
+
     @Autowired
     private UsersService usersService;
     @Autowired

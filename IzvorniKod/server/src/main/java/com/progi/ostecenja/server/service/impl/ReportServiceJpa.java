@@ -233,6 +233,8 @@ public class ReportServiceJpa implements ReportService {
         reportRepo.delete(toBeDeleted);
         Optional<Image> imageDel = imageRepository.findImageByReportID(toBeDeleted.getReportID());
         imageDel.ifPresent(image -> imageRepository.delete(image));
+
+        feedbackRepository.deleteFeedbacksForReportWithID(reportId);
         /*
         String[] statusi = new String[]{"neobraden","uProcesu","obrađen"};
 
@@ -251,8 +253,6 @@ public class ReportServiceJpa implements ReportService {
         feedbackRepository.deleteAll(delFeedbacks);
 
          */
-
-
     }
     public StatisticDTO getReportStatistic(ReportFilterDto reportFilterDto){
         StatisticDTO result = new StatisticDTO();
