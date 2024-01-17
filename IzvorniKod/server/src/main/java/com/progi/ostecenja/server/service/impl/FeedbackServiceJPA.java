@@ -59,14 +59,15 @@ public class FeedbackServiceJPA implements FeedbackService {
 
     @Override
     public Feedback getLatest(Long reportID) {
-        List<String> stanja = List.of(new String[]{"neobrađen","uProcesu","obrađen"});
+     /*   List<String> stanja = List.of(new String[]{"neobrađen","uProcesu","obrađen"});
         Feedback ret = null;
         for(String stanje: stanja){
             FeedbackID id = new FeedbackID(reportID, stanje);
             if(feedbackRepository.existsById(id))
                 ret = feedbackRepository.getReferenceById(id);
         }
-        return ret;
+        return ret;*/
+        return feedbackRepository.getLatest(reportID);
     }
     @Override
     public List<Feedback> getAll(){

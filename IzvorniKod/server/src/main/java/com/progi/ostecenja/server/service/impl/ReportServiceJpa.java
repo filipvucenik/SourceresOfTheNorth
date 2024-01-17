@@ -1,10 +1,7 @@
 package com.progi.ostecenja.server.service.impl;
 
 import com.progi.ostecenja.server.dao.*;
-import com.progi.ostecenja.server.dto.ReportByStatusDTO;
-import com.progi.ostecenja.server.dto.ReportFeedbackJoin;
-import com.progi.ostecenja.server.dto.ReportFilterDto;
-import com.progi.ostecenja.server.dto.StatisticDTO;
+import com.progi.ostecenja.server.dto.*;
 import com.progi.ostecenja.server.repo.*;
 import com.progi.ostecenja.server.service.EntityMissingException;
 import com.progi.ostecenja.server.service.FeedbackService;

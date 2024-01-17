@@ -3,6 +3,7 @@ package com.progi.ostecenja.server.controler;
 import com.progi.ostecenja.server.Utils.Pair;
 import com.progi.ostecenja.server.dto.ReportByStatusDTO;
 import com.progi.ostecenja.server.dto.ReportFilterDto;
+import com.progi.ostecenja.server.dto.ReportImageFeedback;
 import com.progi.ostecenja.server.dto.StatisticDTO;
 import com.progi.ostecenja.server.repo.*;
 import com.progi.ostecenja.server.service.*;
@@ -10,6 +11,8 @@ import com.progi.ostecenja.server.service.impl.StorageService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -183,7 +186,8 @@ public class ReportController {
     public ReportImageFeedback getReport(@PathVariable Long id)
     {
         Report report = reportService.getReport(id);
-        return new ReportImageFeedback(report, imageService.listAllId(report.getReportID()), feedbackService.getLatest(report.getReportID()));
+
+       return new ReportImageFeedback(report, imageService.listAllId(report.getReportID()), feedbackService.getLatest(report.getReportID()));
     }
 
     @PutMapping("/updateStatus")
@@ -323,17 +327,7 @@ class ReportImage{
     }
 }
 
-@Getter
-class ReportImageFeedback{
-    private Report report;
-    private List<Image> images;
-    private Feedback feedback;
-    public ReportImageFeedback(Report report, List<Image> images, Feedback feedback) {
-        this.report = report;
-        this.images = images;
-        this.feedback = feedback;
-    }
-}
+
 
 @Getter
 class ReportCategory {
