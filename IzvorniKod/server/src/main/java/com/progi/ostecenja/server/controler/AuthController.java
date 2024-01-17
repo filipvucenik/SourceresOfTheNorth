@@ -70,6 +70,11 @@ public class AuthController {
         return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping("/userLogout")
+    public ResponseEntity<String> userLogout(HttpSession session){
+        session.removeAttribute("USER");
+        return new ResponseEntity<String>("User logged out successfully", HttpStatus.OK);
+    }
 
     @PostMapping("/officeLogin")
     public ResponseEntity<String> officeAuth(HttpSession session, @RequestBody LoginCredentials loginCredentials){
@@ -107,7 +112,13 @@ public class AuthController {
         }
         return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
     }
-    
+
+    @GetMapping("/officeLogout")
+    public ResponseEntity<String> officeLogout(HttpSession session){
+        session.removeAttribute("OFFICE");
+        return new ResponseEntity<String>("Office logged out successfully", HttpStatus.OK);
+    }
+
     @PostMapping("/userRegister")
     public ResponseEntity<String> userRegister(HttpSession session, @RequestBody Users user) {
         if (session.getAttribute("USER") != null){

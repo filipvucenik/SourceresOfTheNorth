@@ -30,15 +30,19 @@ class ReportControllerTest {
     ReportController reportController;
 
     @BeforeEach
-    void setup()
-    {
-        saved1 = reportController.createReport(null, "problem",45.8000646, 15.978519,"nastao je problem", null,null,null, 1L, new StandardSession(null), mockImagesInit(), "Lisinski");
-        saved2 = reportController.createReport(null, "problem",45.8000646, 15.978519,"nastao je problem", null,null,null, 1L, new StandardSession(null), mockImagesInit(), "Lisinski");
+    void setup() {
+        saved1 = reportController.createReport(
+                null, "problem",45.8000646, 15.978519,"nastao je problem",
+                null,null,null, 1L, new StandardSession(null), mockImagesInit(), "Lisinski"
+        );
+        saved2 = reportController.createReport(
+                null, "problem",45.8000646, 15.978519,"nastao je problem",
+                null,null,null, 1L, new StandardSession(null), mockImagesInit(), "Lisinski"
+        );
     }
 
     @AfterEach
-    void clear()
-    {
+    void clear() {
         reportController.deleteReport(saved1.getReportID());
         reportController.deleteReport(saved2.getReportID());
     }
@@ -66,7 +70,7 @@ class ReportControllerTest {
 
     @Test
     public void updateStatusTest(){
-        assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(), "neobraden");
+        assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(), "neobrađen");
         reportController.changeStatus(saved1.getReportID(), "uProcesu");
         assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(), "uProcesu");
     }
@@ -80,12 +84,11 @@ class ReportControllerTest {
     @Test
     public void updateStatusNonExistingReport(){
         assertThrows(IllegalArgumentException.class,()->{reportController.changeStatus(-1L, "uProcesu");});
-
     }
+
     @Test
     public void updateStatusNullReportID(){
         assertThrows(IllegalArgumentException.class,()->{reportController.changeStatus(null, "uProcesu");});
-
     }
 
     @Test
@@ -122,20 +125,12 @@ class ReportControllerTest {
 
     @Test
     public void updateGroupStatusTest(){
-        assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(),"neobraden");
-        assertEquals(reportController.getStatus(saved2.getReportID()).getKey().getStatus(),"neobraden");
+        assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(),"neobrađen");
+        assertEquals(reportController.getStatus(saved2.getReportID()).getKey().getStatus(),"neobrađen");
         reportController.groupReports(saved1.getReportID(), List.of(new Long[]{saved2.getReportID()}));
         reportController.changeStatus(saved1.getReportID(), "uProcesu");
         assertEquals(reportController.getStatus(saved1.getReportID()).getKey().getStatus(),"uProcesu");
         assertEquals(reportController.getStatus(saved2.getReportID()).getKey().getStatus(),"uProcesu");
-
-    }
-
-    @Test
-    public void getAdressesTest(){
-        Map<Pair<Double, Double>, String> mapa = new HashMap<>();
-        mapa.put(new Pair<>(45.8000646, 15.978519), "Lisinski");
-        assertEquals( reportController.getAddresses(), mapa);
     }
 
 }

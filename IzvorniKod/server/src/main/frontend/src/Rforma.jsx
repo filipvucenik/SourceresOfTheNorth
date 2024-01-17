@@ -28,7 +28,7 @@ try {
   );
 } catch (error) {
   console.error(error);
-  alert("Greška prilikom dohvaćanja kategorija, molimo osvježite stranicu");
+  alert("Greška prilikom dohvaćanja kategorija, molimo osvježite stranicu!");
 }
 
 let keyWordData = "";
@@ -43,7 +43,7 @@ try {
   );
 } catch (error) {
   alert(
-    "Greška prilikom učitavanja stranice.\n Automatski odabir kategorije neće raditi"
+    "Greška prilikom učitavanja stranice.\n Automatski odabir kategorije neće raditi!"
   );
 }
 const pinpointIconUrl = markerIcon;
@@ -194,7 +194,7 @@ const ReportCard = () => {
 
       }
     } catch(error){
-      customAlert("Greška prilikom dohvaćanja API-ja za adrese")
+      customAlert("Greška prilikom dohvaćanja API-ja za adrese!")
     }
 
   };
@@ -339,7 +339,7 @@ const ReportCard = () => {
       
       isLink ? customAlertReturn("Vaša prijava je nadovezana!\nKod vaše prijave je: "+returnReport.reportID) : customAlertReturn("Vaša prijava je podnešena!\nKod vaše prijave je: "+returnReport.reportID); 
     } else {
-      customAlert("Server trenutno nije dostupan, molimo pričekajte ili pokušajte ponovo");
+      customAlert("Server trenutno nije dostupan, molimo pričekajte ili pokušajte ponovo!");
     }
   }
 
@@ -366,7 +366,7 @@ const ReportCard = () => {
       jsonServerSendData.description === "" ||
       jsonServerSendData.categoryID === ""
     ) {
-      customAlert("Molimo popunite SVA polja!!");
+      customAlert("Molimo popunite SVA polja!");
     }
     
     let testUrl = apiConfig.getTestReport;
@@ -399,7 +399,7 @@ const ReportCard = () => {
         }
         setSimilarReport(simReportJson)
         setOriginalReport(simReportJson)
-        customAlert("U blizini vaše lokacije detekriano je nekoliko sličnih prijava, molimo pogledajte odnosili se koja na istu stvar, ako se odnosi pritisnite na tu prijavu te nadoveži, ako ne pritisnite predaj novu");
+        customAlert("U blizini vaše lokacije detekriano je nekoliko sličnih prijava, molimo pogledajte odnosili se koja na istu stvar, ako se odnosi pritisnite na tu prijavu te nadoveži, ako ne pritisnite predaj novu.");
         setDisplayTable(true);
         return;
       }
@@ -415,10 +415,10 @@ const ReportCard = () => {
       if (submitResponse.status === 200) {
         customAlertReturn("Vaša prijava je podnešena!\n Kod vaše prijave: "+returnReport.reportID);
       } else {
-        customAlert("Server trenutno nije dostupan, molimo pričekajte ili pokušajte ponovo");
+        customAlert("Server trenutno nije dostupan, molimo pričekajte ili pokušajte ponovo!");
       }
     } catch (error) {
-      customAlert("Server trenutno nije dostupan, molimo pričekajte ili pokušajte ponovo");
+      customAlert("Server trenutno nije dostupan, molimo pričekajte ili pokušajte ponovo!");
     }
   };
 
@@ -549,7 +549,7 @@ const ReportCard = () => {
                       <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.report.reportHeadline}</td>
                       <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.report.description}</td>
                       <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.report.address}</td>
-                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.image && <img src={apiConfig.getUrl + report.image.url.substring(1)} alt="Report Image" style={{ width: "50%", height: "50%" }}/>}</td>
+                      <td style={{ padding: '10px', border: '1px solid #dddddd' }}>{report.image && <img src={report.image.url} alt="Report Image" style={{ width: "50%", height: "50%" }}/>}</td>
                     </tr>
                   </React.Fragment>
                 ))}
@@ -560,7 +560,7 @@ const ReportCard = () => {
             <div style={{ textAlign: 'center' }}>
             {selectedReport !== null && (
               <button onClick={() => sendReport(true)} style={{ marginRight: '10px' }}>
-                Nadovezi
+                Nadoveži
               </button>
               )}
               <button onClick={() => sendReport(false)}>Predaj novu</button>

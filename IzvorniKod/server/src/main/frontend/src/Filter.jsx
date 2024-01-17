@@ -12,6 +12,7 @@ function Filter() {
   const [selectedCategoryID, setSelectedCategoryID] = useState("");
   const [showMap, setShowMap] = useState(false);
   const navigate = useNavigate();
+  var server = apiConfig.getUrl;
 
   const getCategory = async () => {
     let url = apiConfig.getCategory
@@ -51,7 +52,7 @@ function Filter() {
     };
     console.log(dataForSend);
     try {
-      const response = await fetch(`https://progi-projekt-test.onrender.com/reports/filtered`, {
+      const response = await fetch(`${server}/reports/filtered`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

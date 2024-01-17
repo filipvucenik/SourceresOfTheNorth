@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import React, { useState, useEffect } from "react";
+import apiConfig from "./apiConfig";
+
+const server = apiConfig.getLogoutUrl;
 
 const HeaderComponent = () => {
   const [postojiKolacic, postaviPostojiKolacic] = useState(false);
@@ -15,13 +18,31 @@ const HeaderComponent = () => {
     }
   }, []);
 
-  const handleLogout = () => {
-    Cookies.remove("name");
+  const handleLogout = async () => {
+    try {
+      const response = await fetch(`${server}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        Cookies.remove("name");
     Cookies.remove("id");
     postaviPostojiKolacic(false);
     console.log("Korisnik odjavljen!");
     navigate("/");
+      } else {
+        console.error("Error logging out");
+      }
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  
+    // Clear cookies and navigate logic (your existing code)
+    
   };
+  
 
   return (
     <header className="p-3 text-bg-dark">

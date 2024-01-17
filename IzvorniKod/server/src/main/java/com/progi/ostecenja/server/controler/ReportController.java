@@ -218,6 +218,20 @@ public class ReportController {
 
     @PutMapping("/changeOffice")
     public void changeOffice(@RequestParam("CatID") Long categoryId, @RequestParam("reports") List<Long> reportIds){
+        Category category = categoryService.findByCategoryId(categoryId).isPresent() ? categoryService.findByCategoryId(categoryId).get() : null;
+        if(category==null) return;
+        for(Long reportId : reportIds){
+            Report report = reportService.getReport(reportId);
+            if(report.getUserID()==null) continue;
+            Users user = usersService.findByUserId(report.getUserID()).isPresent() ? usersService.findByUserId(report.getUserID()).get() : null;
+            if(user==null) continue;
+            try {
+                emailService.sendRequestCategoryChange(user.getEmail(), reportId, category.getCategoryName());
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }
+
         reportService.changeOffice(categoryId, reportIds);
     }
 
@@ -226,8 +240,19 @@ public class ReportController {
     }
 
     @DeleteMapping("/delete")
-    public void deleteReport(@RequestParam Long repotId){
-        reportService.delete(repotId);
+    public void deleteReport(@RequestParam Long reportId){
+        Report report = reportService.getReport(reportId);
+        if(report.getUserID()!=null){
+            Users user = usersService.findByUserId(report.getUserID()).isPresent()?usersService.findByUserId(report.getUserID()).get():null;
+            if(user!=null) {
+                try {
+                    emailService.sendRequestDeleted(user.getEmail(), reportId);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        reportService.delete(reportId);
     }
 
     @PostMapping("/filtered")

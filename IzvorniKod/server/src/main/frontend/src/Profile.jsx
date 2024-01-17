@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
 import HeaderComponent from "./HeaderComponent";
 import Cookies from "js-cookie";
 import apiConfig from "./apiConfig";
@@ -8,6 +8,7 @@ import FooterComponent from "./FooterComponent";
 
 const server = apiConfig.getUserInfoUrl;
 const server2 = apiConfig.getReportUrl;
+const server3 = apiConfig.getLogoutUrl;
 var id;
 
 const Profile = () => {
@@ -28,13 +29,28 @@ const Profile = () => {
     setShowPasswordDiv(!showPasswordDiv);
   };
 
-  const handleLogout = () => {
-    Cookies.remove("name");
+  const handleLogout = async() => {
+    try {
+      const response = await fetch(`${server3}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        Cookies.remove("name");
     Cookies.remove("id");
     Cookies.remove("JSESSIONID");
     postaviPostojiKolacic(false);
     console.log("Korisnik odjavljen!");
     navigate("/");
+      } else {
+        console.error("Error logging out");
+        customAlertUpdate("Greška pri odjavljivanju!");
+      }
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
   };
 
   const customAlert = (message) => {
@@ -82,6 +98,49 @@ const Profile = () => {
     document.body.appendChild(alertContainer);
   };
 
+  const customAlertUpdate = (message) => {
+    const alertContainer = document.createElement("div");
+    alertContainer.style.cssText = `
+      position: fixed;
+      top: 20px; /* Adjust the top distance as needed */
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      border-radius: 5px;
+      text-align: center;
+      z-index: 9999; /* Set a high z-index to ensure it's on top */
+    `;
+
+    const alertText = document.createElement("p");
+    alertText.style.cssText = `
+      font-weight: bold;
+      font-size: 16px;
+    `;
+    alertText.textContent = message;
+
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "OK";
+    closeButton.style.cssText = `
+      margin-top: 10px;
+      padding: 5px 10px;
+      cursor: pointer;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 3px;
+    `;
+    closeButton.addEventListener("click", () => {
+      document.body.removeChild(alertContainer);
+    });
+
+    alertContainer.appendChild(alertText);
+    alertContainer.appendChild(closeButton);
+
+    document.body.appendChild(alertContainer);
+  };
+
   useEffect(() => {
     const kolacici = Cookies.get();
     console.log(kolacici);
@@ -103,6 +162,7 @@ const Profile = () => {
         }
       } catch (error) {
         console.error("Greška pri dohvaćanju podataka:", error);
+        customAlertUpdate("Greška pri dohvaćanju podataka");
       }
     };
     fetchDataFromDatabase();
@@ -115,9 +175,11 @@ const Profile = () => {
         const data = await response.json();
         setFilteredData(data);
         setFilteredReportsData(data.reports);
+        console.log(data);
         console.log(data.reports);
       } catch (error) {
         console.error("Error fetching data:", error);
+        customAlertUpdate("Greška pri dohvaćanju podataka");
       }
     };
     fetchDataFromDatabase2();
@@ -140,9 +202,10 @@ const Profile = () => {
         },
       });
       if (response.ok) {
-        customAlert("Profile successfully deleted");
+        customAlert("Korisnički račun uspješno izbrisan!");
       } else {
         console.error("Error deleting profile");
+        customAlertUpdate("Greška prilikom brisanja profila!");
       }
     } catch (error) {
       console.error("Error deleting profile:", error);
@@ -173,9 +236,10 @@ const Profile = () => {
 
       if (response.ok) {
         setUserData(userData);
-        customAlert("Podaci uspješno ažurirani!");
+        customAlertUpdate("Podaci uspješno ažurirani!");
       } else {
         console.error("Greška prilikom ažuriranja podataka.");
+        customAlertUpdate("Greška prilikom ažuriranja podataka.");
       }
     } catch (error) {
       console.error("Greška pri ažuriranju podataka:", error);
@@ -296,31 +360,33 @@ const Profile = () => {
               <h2>
                 <b>{item.report.reportHeadline}</b>
               </h2>
-              <p>ID prijave: {item.report.reportID}</p>
-              <p>Kategorija: {item.category.categoryName}</p>
+              <p><b>ID prijave:</b> {item.report.reportID}</p>
+              <p><b>Kategorija:</b> {item.category.categoryName}</p>
               <p>
-                Vrijeme prijave: <br />
+                <b>Vrijeme prijave:</b> <br />
                 {item.report.reportTS.split("T")[0]}{" "}
                 {item.report.reportTS.split("T")[1].split(".")[0]}
               </p>
               <p>
-                Opis prijave: <br /> {item.report.description}
+                <b>Opis prijave:</b> <br /> {item.report.description}
               </p>
               <p>
-                Status: <nbsp></nbsp>
+                <b>Status:</b> <nbsp></nbsp>
                 {item.feedback.key.status === "uProcesu" ? (
                   <span>U procesu</span>
                 ) : (
-                  item.feedback.key.status
+                  item.feedback.key.status === "neobraden" ? (<span>Neobrađen</span>) : (<span>Obrađen</span>)
                 )}
               </p>
 
-              <p>Lokacija:</p>
-              <p>Link na stranicu prijave</p>
+              {/* <p>Lokacija:</p> */}
+              <Link to={`/report/${item.report.reportID}`}>
+                stranica prijave
+              </Link>
             </li>
           ))
         ) : (
-          <p>No data available</p>
+          <p>Nema podataka</p>
         )}
       </ul>
       <FooterComponent />

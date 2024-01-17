@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import markerIcon from './marker.svg';
-import apiConfig from './apiConfig';
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import markerIcon from "./marker.svg";
+import apiConfig from "./apiConfig";
 
 const server = apiConfig.getReportUrl;
 
@@ -16,12 +16,11 @@ const MapComponent = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [filteredDataFromEndpoint, setFilteredDataFromEndpoint] = useState([]);
   const [categoryData, setCategoryData] = useState({});
-  const [selectedCategoryID, setSelectedCategoryID] = useState('');
+  const [selectedCategoryID, setSelectedCategoryID] = useState("");
   const [showFilterDiv, setShowFilterDiv] = useState(false);
 
   const customAlertReturn = (message, onOk) => {
-
-    const overlay = document.createElement('div');
+    const overlay = document.createElement("div");
     overlay.style.cssText = `
       position: fixed;
       top: 0;
@@ -32,9 +31,8 @@ const MapComponent = () => {
       z-index: 9998; 
     `;
     document.body.appendChild(overlay);
-  
 
-    const alertContainer = document.createElement('div');
+    const alertContainer = document.createElement("div");
     alertContainer.style.cssText = `
       position: fixed;
       top: 50%;
@@ -47,16 +45,16 @@ const MapComponent = () => {
       text-align: center;
       z-index: 9999; 
     `;
-  
-    const alertText = document.createElement('p');
+
+    const alertText = document.createElement("p");
     alertText.style.cssText = `
       font-weight: bold;
       font-size: 16px;
     `;
     alertText.textContent = message;
-  
-    const closeButton = document.createElement('button');
-    closeButton.textContent = 'OK';
+
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "OK";
     closeButton.style.cssText = `
       margin-top: 10px;
       padding: 5px 10px;
@@ -66,13 +64,13 @@ const MapComponent = () => {
       border: none;
       border-radius: 3px;
     `;
-  
-    closeButton.addEventListener('click', () => {
+
+    closeButton.addEventListener("click", () => {
       document.body.removeChild(overlay);
       document.body.removeChild(alertContainer);
       navigate("/");
     });
-  
+
     alertContainer.appendChild(alertText);
     alertContainer.appendChild(closeButton);
     document.body.appendChild(alertContainer);
@@ -84,24 +82,29 @@ const MapComponent = () => {
 
   const handleSearch = async () => {
     // Assuming you have a reportId state variable for the input value
-    const ReportId = document.getElementById('kodtrazilica').value;
-    if (ReportId.trim() !== '') {
-    try {
-      const response = await fetch(`${server}/${ReportId}`);
-      const data = await response.json();
-      var trazilicaData = data;
-      // Clear existing markers
-      clearMarkers();
-      createMarker(trazilicaData.report.lat, trazilicaData.report.lng);
-
-    } catch (error) {
-      console.error('Error fetching data:', error);
+    const ReportId = document.getElementById("kodtrazilica").value;
+    if (ReportId.trim() !== "") {
+      try {
+        const response = await fetch(`${server}/${ReportId}`);
+        const data = await response.json();
+        var trazilicaData = data;
+        // Clear existing markers
+        clearMarkers();
+        createMarker(
+          trazilicaData.report.lat,
+          trazilicaData.report.lng,
+          trazilicaData.report.reportID
+        );
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    } else {
+      // Handle the case when ReportId is an empty string
+      customAlertReturn(
+        "Niste unijeli kod prijave. Molimo unesite validan kod prijave."
+      );
+      // You might want to clear existing markers or handle it as per your requirements
     }
-  } else {
-    // Handle the case when ReportId is an empty string
-    customAlertReturn("ReportId is empty. Please enter a valid value.");
-    // You might want to clear existing markers or handle it as per your requirements
-  }
   };
 
   const getCategory = async () => {
@@ -135,10 +138,11 @@ const MapComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Check if "Obriši filter" button is clicked
-    const isDeleteFilterClicked = e.nativeEvent.submitter.textContent === 'Obriši filter';
-  
+    const isDeleteFilterClicked =
+      e.nativeEvent.submitter.textContent === "Obriši filter";
+
     // If "Obriši filter" button is clicked, show all locations
     if (isDeleteFilterClicked) {
       renderMarkers(filteredData);
@@ -149,32 +153,31 @@ const MapComponent = () => {
         categoryId: selectedCategoryID,
         startDate: e.target.elements.fromDateTime.value,
         endDate: e.target.elements.toDateTime.value,
-        lat: '',
-        lng: '',
-        status: '',
-        radius: '',
+        lat: "",
+        lng: "",
+        status: "",
+        radius: "",
       };
-  
+
       try {
         const response = await fetch(`${server}/filtered`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(dataForSend),
         });
-  
+
         const data = await response.json();
         setFilteredDataFromEndpoint(data);
         handleClick();
       } catch (error) {
-        console.error('Greška prilikom slanja koordinata:', error);
+        console.error("Greška prilikom slanja koordinata:", error);
       }
     }
   };
-  
 
-  const createMarker = (lat, lng) => {
+  const createMarker = (lat, lng, id) => {
     const customIcon = new L.Icon({
       iconUrl: markerIcon,
       iconSize: [32, 32],
@@ -190,18 +193,19 @@ const MapComponent = () => {
 
       let popupIsOpen = false;
 
-      marker.on('click', () => {
+      marker.on("click", () => {
         if (popupIsOpen) {
           marker.closePopup();
           popupIsOpen = false;
         } else {
-          marker.bindPopup(
-            `Naslov prijave, kratki opis bude tu + <br/><a href=''>Otvori stranicu prijave</a>`
-          ).openPopup();
+          marker
+            .bindPopup(
+              `Naslov prijave, kratki opis bude tu + <br/><a href='${apiConfig.getUrl}/report/${id}'>Otvori stranicu prijave</a>`
+            )
+            .openPopup();
           popupIsOpen = true;
         }
       });
-
     }
   };
 
@@ -212,12 +216,12 @@ const MapComponent = () => {
       setFilteredData(data);
       renderMarkers(data);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
   const clearMarkers = () => {
-    markersRef.current.forEach(marker => marker.remove());
+    markersRef.current.forEach((marker) => marker.remove());
     markersRef.current.length = 0;
   };
 
@@ -227,9 +231,17 @@ const MapComponent = () => {
     if (dataToUse && dataToUse.length > 0) {
       for (const lokacija of dataToUse) {
         if (lokacija.lat && lokacija.lng) {
-          createMarker(lokacija.lat, lokacija.lng);
-        } else if (lokacija.report && lokacija.report.lat && lokacija.report.lng) {
-          createMarker(lokacija.report.lat, lokacija.report.lng);
+          createMarker(lokacija.lat, lokacija.lng, lokacija.reportID);
+        } else if (
+          lokacija.report &&
+          lokacija.report.lat &&
+          lokacija.report.lng
+        ) {
+          createMarker(
+            lokacija.report.lat,
+            lokacija.report.lng,
+            lokacija.report.reportID
+          );
         }
       }
     }
@@ -237,8 +249,8 @@ const MapComponent = () => {
 
   useEffect(() => {
     if (!mapRef.current) {
-      const map = L.map(uniqueMapId).setView([45.800, 15.967], 13);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      const map = L.map(uniqueMapId).setView([45.8, 15.967], 13);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
       }).addTo(map);
       mapRef.current = map;
@@ -258,12 +270,28 @@ const MapComponent = () => {
 
   return (
     <>
-      <div className='title'>
-        <button className="btn btn-outline-dark m-2" onClick={handleClick}>Filter prijava</button>
-        <input type="text" name="kodtrazilica" id="kodtrazilica" className='customPosition2' placeholder='Traži prijavu po kodu'/>
-        <button className="btn btn-outline-dark m-2 customPosition" onClick={handleSearch}>Traži</button>
+      <div className="title">
+        <button className="btn btn-outline-dark m-2" onClick={handleClick}>
+          Filter prijava
+        </button>
+        <input
+          type="text"
+          name="kodtrazilica"
+          id="kodtrazilica"
+          className="customPosition2"
+          placeholder="Traži prijavu po kodu"
+        />
+        <button
+          className="btn btn-outline-dark m-2 customPosition"
+          onClick={handleSearch}
+        >
+          Traži
+        </button>
       </div>
-      <div id={uniqueMapId} style={{ width: '90%', height: '70vh', marginLeft: '5%', zIndex: 0 }}></div>
+      <div
+        id={uniqueMapId}
+        style={{ width: "90%", height: "70vh", marginLeft: "5%", zIndex: 0 }}
+      ></div>
       {showFilterDiv && (
         <div className="col-lg-6 col-md-10 col-sm-12 report-card2">
           <h1>Filter prijava</h1>
@@ -271,7 +299,10 @@ const MapComponent = () => {
             <label>
               ID Kategorije:
               <select name="categoryID" onChange={handleCategoryChange}>
-                <option key="default" value="default"> Izaberite kategoriju</option>
+                <option key="default" value="default">
+                  {" "}
+                  Izaberite kategoriju
+                </option>
                 {Object.keys(categoryData).map((key) => (
                   <option key={key} value={key}>
                     {categoryData[key]}
