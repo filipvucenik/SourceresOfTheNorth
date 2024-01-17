@@ -375,7 +375,7 @@ const Profile = () => {
                 {item.feedback.key.status === "uProcesu" ? (
                   <span>U procesu</span>
                 ) : (
-                  item.feedback.key.status === "neobraden" ? (<span>Neobrađen</span>) : (<span>Obrađen</span>)
+                  item.feedback.key.status === "neobrađen" ? (<span>Neobrađen</span>) : (<span>Obrađen</span>)
                 )}
               </p>
 
