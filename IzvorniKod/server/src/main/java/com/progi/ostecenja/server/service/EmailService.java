@@ -9,4 +9,8 @@ public interface EmailService {
     public void sendRequestSubmittedEmail(String to, Long id) throws MessagingException;
 
     public void sendRequestStatusChange(String to, Long id, String newStatus) throws MessagingException;
+
+    public void sendRequestCategoryChange(String to, Long id, String newCategoryName) throws MessagingException;
+
+    public void sendRequestDeleted(String to, Long id) throws MessagingException;
 }

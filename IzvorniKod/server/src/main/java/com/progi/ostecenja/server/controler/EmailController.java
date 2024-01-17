@@ -21,6 +21,8 @@ public class EmailController {
 
         emailService.sendRequestSubmittedEmail(jsonRequest.get("to"), (long)1234);
         emailService.sendRequestStatusChange(jsonRequest.get("to"), (long)1234, "U obradi");
+        emailService.sendRequestCategoryChange(jsonRequest.get("to"),(long)1234, "Oštećenje kolnika");
+        emailService.sendRequestDeleted(jsonRequest.get("to"), (long)1234);
         return "Email sent!";
     }
 

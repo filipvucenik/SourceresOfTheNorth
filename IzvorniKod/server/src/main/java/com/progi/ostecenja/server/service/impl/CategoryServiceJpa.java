@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceJpa implements CategoryService {
@@ -24,5 +25,10 @@ public class CategoryServiceJpa implements CategoryService {
     @Override
     public Category createCategory(Category category) {
         return categoryRepo.save(category);
+    }
+
+    @Override
+    public Optional<Category> findByCategoryId(Long categoryID){
+        return categoryRepo.findById(categoryID);
     }
 }
