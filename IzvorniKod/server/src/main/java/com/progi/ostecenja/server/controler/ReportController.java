@@ -180,10 +180,10 @@ public class ReportController {
      */
 
     @GetMapping("/{id}")
-    public ReportImage getReport(@PathVariable Long id)
+    public ReportImageFeedback getReport(@PathVariable Long id)
     {
         Report report = reportService.getReport(id);
-        return new ReportImage(report, imageService.listAllId(report.getReportID()));
+        return new ReportImageFeedback(report, imageService.listAllId(report.getReportID()), feedbackService.getLatest(report.getReportID()));
     }
 
     @PutMapping("/updateStatus")
@@ -320,6 +320,18 @@ class ReportImage{
     public ReportImage(Report report, List<Image> images) {
         this.report = report;
         this.images = images;
+    }
+}
+
+@Getter
+class ReportImageFeedback{
+    private Report report;
+    private List<Image> images;
+    private Feedback feedback;
+    public ReportImageFeedback(Report report, List<Image> images, Feedback feedback) {
+        this.report = report;
+        this.images = images;
+        this.feedback = feedback;
     }
 }
 
