@@ -44,7 +44,7 @@ function Admin() {
     }
 
     try {
-      const response = await fetch(apiConfig.getReportUrl + "/uProcesu");
+      const response = await fetch(apiConfig.getReportUrl + "/status/uProcesu");
       const reports = await response.json();
       if (reports.length > 0) {
         for (const r of reports) {
@@ -52,7 +52,9 @@ function Admin() {
         }
         setData([...data, ...reports]);
       }
-      const response1 = await fetch(apiConfig.getReportUrl + "/neobrađen");
+      const response1 = await fetch(
+        apiConfig.getReportUrl + "/status/neobrađen"
+      );
       const reports1 = await response1.json();
       if (reports1.length > 0) {
         for (const r of reports1) {
@@ -60,7 +62,7 @@ function Admin() {
         }
         setData([...data, ...reports1]);
       }
-      const response2 = await fetch(apiConfig.getReportUrl + "/obrađen");
+      const response2 = await fetch(apiConfig.getReportUrl + "/status/obrađen");
       const reports2 = await response2.json();
       if (reports2.length > 0) {
         for (const r of reports2) {

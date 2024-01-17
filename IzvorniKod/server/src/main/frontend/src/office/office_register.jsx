@@ -100,7 +100,8 @@ const OfficeRegister = () => {
     if (backFetch.status == 200) {
       Cookies.set("name", mail);
       Cookies.set("id", dataFetched.userId);
-      navigate("/");
+      Cookies.set("role", "admin");
+      navigate("/admin");
     } else {
       customAlert("Registracija nije uspjela!");
     }
