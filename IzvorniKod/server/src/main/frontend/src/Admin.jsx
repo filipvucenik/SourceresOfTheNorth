@@ -405,16 +405,18 @@ function Admin() {
                     <p className="card-text">{repo.description}</p>
                     <p className="card-text">{categoryData[repo.categoryID]}</p>
                     <p className="card-text">{repo.status}</p>
-                    {repo.group !== null && (
+                    {repo.group === null && (
                       <ul className="list-group list-group-flush">
-                        {repo.group.map((miniR) => {
-                          return (
-                            <li className="list-group-item">
-                              <Link to={`/report/${miniR.reportID}`}>
-                                {miniR.reportHeadline}
-                              </Link>
-                            </li>
-                          );
+                        {data.map((miniR) => {
+                          if (miniR.group === repo.reportID) {
+                            return (
+                              <li className="list-group-item">
+                                <Link to={`/report/${miniR.reportID}`}>
+                                  {miniR.reportHeadline}
+                                </Link>
+                              </li>
+                            );
+                          }
                         })}
                       </ul>
                     )}
