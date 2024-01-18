@@ -32,6 +32,16 @@ function Admin() {
     console.log(data);
   }, [initialData]);
 
+  const refreshReports = () => {
+    var oldBtn = document.getElementById("activated");
+    if (oldBtn) {
+      oldBtn.removeAttribute("id");
+      oldBtn.classList.remove("active");
+    }
+    setInitialData("NO");
+    fetchReports();
+  };
+
   const fetchReports = async () => {
     try {
       const response = await fetch(apiConfig.getReportUrl + "/status/uProcesu");
@@ -80,7 +90,14 @@ function Admin() {
     setSelectedCategoryID(selectedID);
   };
 
-  const updateDisplay = (status) => {
+  const updateDisplay = (status, event) => {
+    var oldBtn = document.getElementById("activated");
+    if (oldBtn) {
+      oldBtn.removeAttribute("id");
+      oldBtn.classList.remove("active");
+    }
+    event.target.setAttribute("id", "activated");
+    event.target.classList.add("active");
     set_display(
       data.filter((repo) => {
         if (repo.status === status) {
@@ -167,7 +184,7 @@ function Admin() {
       for (const r of update) {
         var formData = new FormData();
         formData.append("status", newStatus);
-        formData.append("reports", r.report.reportID);
+        formData.append("reports", r.reportID);
 
         const response = await fetch(`${server}/updateStatus`, {
           method: "PUT",
@@ -206,7 +223,7 @@ function Admin() {
   const confirmGroup = async () => {
     console.log(group);
     var formData = new FormData();
-    formData.append("mainReportID", group[0].report.reportID);
+    formData.append("mainReportID", group[0].reportID);
     formData.append(
       "reports",
       group.slice(1).map((repo) => repo.reportID)
@@ -291,7 +308,7 @@ function Admin() {
               <tr>
                 <th>Id</th>
                 <th>Name</th>
-
+                <th>Status</th>
                 <th>Kategorija</th>
               </tr>
             </thead>
@@ -301,7 +318,7 @@ function Admin() {
                   <tr>
                     <td>{repo.reportID}</td>
                     <td>{repo.reportHeadline}</td>
-
+                    <td>{repo.status}</td>
                     <td>{categoryData[repo.categoryID]}</td>
                   </tr>
                 );
@@ -341,6 +358,7 @@ function Admin() {
               <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Status</th>
 
                 <th>Kategorija</th>
               </tr>
@@ -351,7 +369,7 @@ function Admin() {
                   <tr>
                     <td>{repo.reportID}</td>
                     <td>{repo.reportHeadline}</td>
-
+                    <td>{repo.status}</td>
                     <td>{categoryData[repo.categoryID]}</td>
                   </tr>
                 );
@@ -377,23 +395,27 @@ function Admin() {
         <div className="btn-group btn-group-toggle m-1 p-1">
           <button
             className="btn btn-lg btn-primary"
-            onClick={() => updateDisplay("U Procesu")}
+            onClick={(event) => updateDisplay("U Procesu", event)}
           >
             U procesu
           </button>
           <button
             className="btn btn-lg btn-primary"
-            onClick={() => updateDisplay("Neobrađeno")}
+            onClick={(event) => updateDisplay("Neobrađeno", event)}
           >
             Neobrađene
           </button>
           <button
             className="btn btn-lg btn-primary"
-            onClick={() => updateDisplay("Obrađeno")}
+            onClick={(event) => updateDisplay("Obrađeno", event)}
           >
             Obrađene
           </button>
         </div>
+        <button className="btn btn-secondary btn-lg" onClick={refreshReports}>
+          Osvježi
+        </button>
+
         {displaied_data.length > 0 && (
           <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
             {displaied_data.map((repo) => {

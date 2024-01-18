@@ -84,6 +84,16 @@ function Reports() {
                   })}
                 </p>
                 <p className="card-text">
+                  <b>Status:</b> <br />
+                  {data.feedback.key.status === "uProcesu" ? (
+                    <span>U procesu</span>
+                  ) : data.feedback.key.status === "neobrađen" ? (
+                    <span>Neobrađen</span>
+                  ) : (
+                    <span>Obrađen</span>
+                  )}
+                </p>
+                <p className="card-text">
                   <b>Kategorija:</b> {categoryData[data.report.categoryID]}
                 </p>
               </div>
