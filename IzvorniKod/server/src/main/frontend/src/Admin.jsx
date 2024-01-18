@@ -430,14 +430,16 @@ function Admin() {
                     {repo.group === null && (
                       <ul className="list-group list-group-flush">
                         {data.map((miniR) => {
-                          if (miniR.group === repo.reportID) {
-                            return (
-                              <li className="list-group-item">
-                                <Link to={`/report/${miniR.reportID}`}>
-                                  {miniR.reportHeadline}
-                                </Link>
-                              </li>
-                            );
+                          if (miniR.group !== null) {
+                            if (miniR.group.reportID === repo.reportID) {
+                              return (
+                                <li className="list-group-item">
+                                  <Link to={`/report/${miniR.reportID}`}>
+                                    {miniR.reportHeadline}
+                                  </Link>
+                                </li>
+                              );
+                            }
                           }
                         })}
                       </ul>
@@ -454,7 +456,7 @@ function Admin() {
                         className="btn btn-danger"
                         onClick={() => remove(repo.reportID)}
                       >
-                        Obrisi
+                        Obriši
                       </button>
 
                       <div className="dropdown">
