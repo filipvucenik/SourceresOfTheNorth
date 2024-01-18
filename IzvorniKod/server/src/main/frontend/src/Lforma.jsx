@@ -89,6 +89,7 @@ const LoginComponent = () => {
       .then((response) => {
         //console.log(response);
 
+
         if (response.status === 200) {
           isValid = true;
           return response.text();
@@ -104,6 +105,7 @@ const LoginComponent = () => {
           navigate("/");
         }
       });
+
   };
 
   const handleLoginInputChange = (e) => {

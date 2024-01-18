@@ -141,12 +141,15 @@ public class DataInitializer {
         Report[] reports = {
                 new Report(null, "Velika rupa na cesti",45.8000646, 15.978519, "Tu je neka velika rupa na raskrižju kod Lisinskog.", null, null, null, cats.get(0).getCategoryID())
         };
+
         for(Report report: reports){
             if(!reportService.getHeadlines().contains(report.getReportHeadline())){
                 reportController.createReport(report.getReportID(), report.getReportHeadline(), report.getLat(), report.getLng(), report.getDescription(), report.getReportTS(), report.getUserID(),
                         report.getGroup() == null ? null : report.getGroup().getReportID(), report.getCategoryID(), new StandardSession(null), null, "Lisinski");
             }
         }
+
+
     }
 }
 

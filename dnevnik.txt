@@ -4,4 +4,39 @@
 	- rasprava o zadatku:
 		- definirani ključni nefunkcijski i funkcijski zahtjevi
 		- razmjena ideja oko aplikacije
-	- podjela poslova (opis zadatka, UML dijagrami, zahtjevi u tekstualnom obliku, opis zadatka i drugo)
+	- podjela poslova (opis zadatka, UML dijagrami, zapisivanje zahtjeva i drugo)
+
+2. SASTANAK (30.10.2023)
+----------------------------------------
+	- razrađen dizajn baze podataka
+	- rasprava o dizajnu aplikacije
+	- razrađena neka svojstva aplikacije
+
+3. SASTANAK (6.11.2023.)
+----------------------------------------
+	- izvještaj svakog dijela tima o napretku
+	- rad na dizajnu aplikacije
+
+
+4. SASTANAK (13.11.2023.)
+----------------------------------------
+	- izvještaj svakog dijela tima o napretku
+	- korekcije na pojedinim komponentama
+	- rad na povezivanju komponenti sustava
+
+
+5. SASTANAK (15.11.2023.)
+----------------------------------------
+	- rad na spajanju frontend i backend dijelova aplikacije
+
+
+6. SASTANAK (16.11.2023.)
+----------------------------------------
+	- rad na deploymentu aplikacije
+	– definiranje zavrsnih zadataka prije prve predaje 
+
+
+7. SASTANAK (11.12.2023.)
+----------------------------------------
+	- kratka evaulacija dosadašnjeg rada, dogovor o raspodijeli bodova
+	- pregled nedovršenog posla, daljnjih obaveza i zadataka kod dokumentacije i same aplikacije

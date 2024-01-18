@@ -15,4 +15,5 @@ public class CategoryKeywordsServiceJpa implements CategoryKeywordsService {
     @Override
     public List<CategoryKeywords> listAll(){return categoryKeywordsRepo.findAll();}
 
+
 }

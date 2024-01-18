@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import "./Lforma.css";
 import { useNavigate } from "react-router-dom";
+import apiConfig from "./apiConfig";
 import FooterComponent from "./FooterComponent";
 import apiConfig from "./apiConfig";
 
 const LoginComponent2 = () => {
+
   const customAlert = (message) => {
     const alertContainer = document.createElement('div');
     alertContainer.style.cssText = `
@@ -46,6 +48,7 @@ const LoginComponent2 = () => {
   
     document.body.appendChild(alertContainer);
   };
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,7 +59,9 @@ const LoginComponent2 = () => {
     }
   }, [navigate]);
 
+
   const handleBuildRegJson = async() => {
+
     let url = apiConfig.getRegisterUrl;
     let pass = document.getElementById("passReg").value;
     let name = document.getElementById("imeReg").value;
@@ -69,6 +74,7 @@ const LoginComponent2 = () => {
       lastName: surr,
       password: pass,
     };
+
     let errorMsg = "";
     if (mail === "") {
       errorMsg = errorMsg + "Mail ne može biti prazan!\n";
@@ -98,6 +104,7 @@ const LoginComponent2 = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(jsonData),
+
     })
     const dataFetched= await backFetch.json()
     console.log(dataFetched);
@@ -108,11 +115,11 @@ const LoginComponent2 = () => {
     }else{
       customAlert("Registracija nije uspjela!");
     }
-
   };
 
   return (
     <>
+
       <header className="p-3 text-bg-dark">
         <div className="container">
           <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -166,6 +173,7 @@ const LoginComponent2 = () => {
           </div>
         </div>
       </header>
+
       <div className="form-container">
         <form className="register-form">
           <h2>Registracija</h2>
@@ -182,5 +190,6 @@ const LoginComponent2 = () => {
     </>
   );
 };
+
 
 export default LoginComponent2;

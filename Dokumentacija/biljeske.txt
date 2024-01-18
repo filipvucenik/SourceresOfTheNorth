@@ -1,0 +1,3 @@
+Treba dodati Gradsku službu kao aktora ako je u dijagramu?
+
+Razrada nefunkcionalnih zahtjeva.

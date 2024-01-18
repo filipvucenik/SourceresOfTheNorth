@@ -1,0 +1,19 @@
+\babel@toc {croatian}{}\relax 
+\contentsline {chapter}{\numberline {1}Dnevnik promjena dokumentacije}{2}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Opis projektnog zadatka}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Postojeća rješenja za slični problem}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Mogućnosti nadogradnje i skaliranja rješenja}{8}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Specifikacija programske potpore}{9}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Funkcionalni zahtjevi}{9}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Obrasci uporabe}{12}{subsection.3.1.1}%
+\contentsline {subsubsection}{Dijagrami obrazaca uporabe}{19}{subsubsection*.2}%
+\contentsline {subsection}{\numberline {3.1.2}Sekvencijski dijagrami}{21}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}Ostali zahtjevi}{27}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Arhitektura i dizajn sustava}{28}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Baza podataka}{30}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Opis tablica}{30}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Dijagram baze podataka}{34}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Dijagram razreda}{35}{section.4.2}%
+\contentsline {chapter}{Popis literature}{39}{chapter*.3}%
+\contentsline {chapter}{Indeks slika i dijagrama}{40}{chapter*.4}%
+\contentsline {chapter}{Dodatak: Prikaz aktivnosti grupe}{41}{chapter*.5}%

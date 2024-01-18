@@ -9,6 +9,18 @@ import FilterComponent from "./Filter.jsx";
 import "./Main.css";
 
 function Main() {
+  const [postojiKolacic, postaviPostojiKolacic] = useState(false);
+  const email = Cookies.get("mail");
+
+  useEffect(() => {
+    const kolacici = Cookies.get(); // Dohvaćanje svih kolačića
+    console.log(kolacici);
+
+    if (Object.keys(kolacici).length > 0) {
+      postaviPostojiKolacic(true);
+    }
+  }, []);
+
   //const signedIn = false;
   
   return (
