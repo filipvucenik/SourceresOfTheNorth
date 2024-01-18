@@ -210,10 +210,14 @@ public class ReportController {
         Report groupLeader = null;
         try {
              groupLeader = reportService.getReport(groupLeaderId);
+             if (groupLeader.getGroup().getReportID() != null) {
+                 groupLeader = groupLeader.getGroup();
+             }
              List<Report> groupedReports = new ArrayList<>();
              for(Long id:groupMembers){
                  Report report = reportService.getReport(id);
-                 groupedReports.add(report);
+                 if (!groupLeader.getReportID().equals(report.getReportID()))
+                    groupedReports.add(report);
              }
              emailService.sendReportGroupedMain(groupLeader,groupedReports);
         }catch (com.progi.ostecenja.server.service.EntityMissingException e){

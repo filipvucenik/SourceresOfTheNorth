@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Link, useNavigate } from "react-router-dom";
 import "./admin_view.css";
 import HeaderComponent from "./HeaderComponent";
+import FooterComponent from "./FooterComponent";
 import apiConfig from "./apiConfig";
 
 function Admin() {
@@ -507,6 +508,8 @@ function Admin() {
           </div>
         )}
       </div>
+
+      <FooterComponent />
     </>
   );
 }
