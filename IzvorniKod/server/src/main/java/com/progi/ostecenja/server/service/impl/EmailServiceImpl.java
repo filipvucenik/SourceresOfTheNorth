@@ -370,6 +370,7 @@ public class EmailServiceImpl implements EmailService {
         StringBuilder detailsBuilder = new StringBuilder();
         detailsBuilder.append("<div class='report-details'>");
         detailsBuilder.append("<p><strong>Naslov:</strong> ").append(groupLeader.getReportHeadline()).append("</p>");
+        detailsBuilder.append("<p><strong>ID prijave:</strong> ").append(groupLeader.getReportID()).append("</p>");
         detailsBuilder.append("<p><strong>Opis:</strong> ").append(groupLeader.getDescription()).append("</p>");
         detailsBuilder.append("<p><strong>Kategorija:</strong> ").append(categoryService.findByCategoryId(groupLeader.getCategoryID()).get().getCategoryName()).append("</p>");
         detailsBuilder.append("</div>");
@@ -383,6 +384,7 @@ public class EmailServiceImpl implements EmailService {
             detailsBuilder.append("<div class='report'>");
             detailsBuilder.append("<div class='report-details'>");
             detailsBuilder.append("<p><strong>Naslov:</strong> ").append(report.getReportHeadline()).append("</p>");
+            detailsBuilder.append("<p><strong>ID prijave:</strong> ").append(report.getReportID()).append("</p>");
             detailsBuilder.append("<p><strong>Opis:</strong> ").append(report.getDescription()).append("</p>");
             detailsBuilder.append("<p><strong>Kategorija:</strong> ").append(categoryService.findByCategoryId(report.getCategoryID()).get().getCategoryName()).append("</p>");
             detailsBuilder.append("</div>");
@@ -498,7 +500,7 @@ public class EmailServiceImpl implements EmailService {
                 "            border-radius: 4px;\n" +
                 "            background-color: #ffe6e6;\n" +
                 "            border: 1px solid #ff6666;\n" +
-                "            color: #ff3333;\n" +
+                /*"            color: #ff3333;\n" +*/
                 "        }\n" +
                 "\n" +
                 "        .footer {\n" +
