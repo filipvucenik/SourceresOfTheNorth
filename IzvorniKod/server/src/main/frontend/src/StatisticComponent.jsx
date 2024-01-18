@@ -164,7 +164,11 @@ function StatisticComponent() {
     }
   }, [selectedMarker, lat, lng]);
 
-  
+  function convertTimeToHours(time) {
+    const [days, hours, minutes] = time.split(',').map(Number);
+    const totalHours = days * 24 + hours + minutes / 60;
+    return totalHours.toFixed(2);
+  }
   
 
   return (
@@ -210,29 +214,57 @@ function StatisticComponent() {
         </form>
         <hr />
         {trueFalse && (
-  <ul className="statistika">
-    {renderData ? (
-      <li className="statistika-child">
-        {Object.entries(renderData).map(([key, value]) => (
-          <p key={key}>
-            {key === "avgReportsByDay" ? "Prosječni broj podnesenih prijava po danu" : ""} 
-            {key === "avgTimeInProgress" ? `Prosječno vrijeme prijave provedeno u statusu 'u procesu' (u satima): ${value !== null ? value : "-"}` : ""}
-            {key === "avgTimeWaiting" ? `Prosječno vrijeme prijave provedeno u statusu 'na čekanju' (u satima): ${value !== null ? value : "-"}` : ""}
-            {key === "reportCount" ? "Ukupan broj prijava" : ""} 
-            {key === "reportInProgressCount" ? "Broj prijava sa statusom 'u procesu'" : ""}
-            {key === "reportInProgressShare" ? "Postotak prijava sa statusom 'u tijeku'" : ""}
-            {key === "reportSolvedCount" ? "Broj prijava sa statusom 'riješeno'" : ""}
-            {key === "reportSolvedShare" ? "Postotak prijava sa statusom 'riješeno'" : ""}
-            {key === "reportWaitingCount" ? "Broj prijava sa statusom 'na čekanju'" : ""} 
-            {key === "reportWaitingShare" ? "Postotak prijava sa statusom 'na čekanju'" : ""}
-            : {key.includes("Share") ? `${(value * 100).toFixed(2)}%` : value}
-          </p>
-        ))}
-      </li>
-    ) : (
-      <p>Nema dostupnih podataka</p>
-    )}
-  </ul>
+ <ul className="statistika">
+ {renderData ? (
+   <li className="statistika-child">
+     {Object.entries(renderData).map(([key, value]) => {
+       let label = "";
+       let content = "";
+
+       if (key === "avgReportsByDay") {
+         label = "Prosječni broj podnesenih prijava po danu";
+         content = value;
+       } else if (key === "avgTimeInProgress") {
+         label = "Prosječno vrijeme prijave provedeno u statusu 'u procesu' (u satima)";
+         content = value !== null ? convertTimeToHours(value) : "-";
+       } else if (key === "avgTimeWaiting") {
+         label = "Prosječno vrijeme prijave provedeno u statusu 'na čekanju' (u satima)";
+         content = value !== null ? convertTimeToHours(value) : "-";
+       } else if (key === "reportCount") {
+         label = "Ukupan broj prijava";
+         content = value;
+       } else if (key === "reportInProgressCount") {
+         label = "Broj prijava sa statusom 'u procesu'";
+         content = value;
+       } else if (key === "reportInProgressShare") {
+         label = "Postotak prijava sa statusom 'u tijeku'";
+         content = `${(value * 100).toFixed(2)}%`;
+       } else if (key === "reportSolvedCount") {
+         label = "Broj prijava sa statusom 'riješeno'";
+         content = value;
+       } else if (key === "reportSolvedShare") {
+         label = "Postotak prijava sa statusom 'riješeno'";
+         content = `${(value * 100).toFixed(2)}%`;
+       } else if (key === "reportWaitingCount") {
+         label = "Broj prijava sa statusom 'na čekanju'";
+         content = value;
+       } else if (key === "reportWaitingShare") {
+         label = "Postotak prijava sa statusom 'na čekanju'";
+         content = `${(value * 100).toFixed(2)}%`;
+       }
+
+       return (
+         <p key={key}>
+           {label && `${label}:`} {content}
+         </p>
+       );
+     })}
+   </li>
+ ) : (
+   <p>Nema dostupnih podataka</p>
+ )}
+</ul>
+
 )}
 <hr />
       </div>
