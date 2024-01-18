@@ -438,7 +438,7 @@ const ReportCard = () => {
     <>
       <HeaderComponent />
       <div className="col-lg-6 col-md-10 col-sm-12 report-card">
-        <h2>Prijava oštečenja</h2>
+        <h2>Prijava oštećenja</h2>
 
         <label htmlFor="title">Naslov:</label>
         <input
