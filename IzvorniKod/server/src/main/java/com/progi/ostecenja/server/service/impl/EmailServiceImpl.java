@@ -498,8 +498,8 @@ public class EmailServiceImpl implements EmailService {
                 "            margin-top: 20px;\n" +
                 "            padding: 10px;\n" +
                 "            border-radius: 4px;\n" +
-                "            background-color: #ffe6e6;\n" +
-                "            border: 1px solid #ff6666;\n" +
+                /*"            background-color: #ffe6e6;\n" +*/
+                /*"            border: 1px solid #ff6666;\n" + */
                 /*"            color: #ff3333;\n" +*/
                 "        }\n" +
                 "\n" +
