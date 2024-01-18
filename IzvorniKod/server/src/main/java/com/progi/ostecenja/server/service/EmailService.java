@@ -1,6 +1,9 @@
 package com.progi.ostecenja.server.service;
 
+import com.progi.ostecenja.server.repo.Report;
 import jakarta.mail.MessagingException;
+
+import java.util.List;
 
 public interface EmailService {
 
@@ -13,4 +16,6 @@ public interface EmailService {
     public void sendRequestCategoryChange(String to, Long id, String newCategoryName) throws MessagingException;
 
     public void sendRequestDeleted(String to, Long id) throws MessagingException;
+
+    void sendReportGroupedMain(Report groupLeader, List<Report> groupedReports) throws MessagingException;
 }
