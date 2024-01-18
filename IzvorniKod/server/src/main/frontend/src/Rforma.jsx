@@ -326,7 +326,7 @@ const ReportCard = () => {
     jsonServerSendData.append("images",picture.target.files[0])
     }
     if(isLink){
-      jsonServerSendData.append("groupID",originalReport[selectedReport].report.groupID) ;
+      jsonServerSendData.append("groupID",originalReport[selectedReport].report.reportID) ;
     }
 
     let url = apiConfig.getReportUrl;
@@ -399,7 +399,7 @@ const ReportCard = () => {
         }
         setSimilarReport(simReportJson)
         setOriginalReport(simReportJson)
-        customAlert("U blizini vaše lokacije detekriano je nekoliko sličnih prijava, molimo pogledajte odnosili se koja na istu stvar, ako se odnosi pritisnite na tu prijavu te nadoveži, ako ne pritisnite predaj novu.");
+        customAlert("U blizini vaše lokacije detekriano je nekoliko sličnih prijava. Molimo pogledajte odnosili se koja na istu stvar. Ako se odnosi, pritisnite na tu prijavu te nadoveži. Ako ne, pritisnite predaj novu.");
         setDisplayTable(true);
         return;
       }
