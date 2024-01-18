@@ -75,6 +75,9 @@ function Reports() {
                 </h5>
                 <hr />
                 <p className="card-text">
+                  <b>ID prijave:</b> {data.report.reportID}
+                </p>
+                <p className="card-text">
                   <b>Opis:</b> {data.report.description}
                 </p>
                 <p className="card-text">

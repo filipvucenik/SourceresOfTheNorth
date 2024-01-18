@@ -210,7 +210,7 @@ public class ReportController {
         Report groupLeader = null;
         try {
              groupLeader = reportService.getReport(groupLeaderId);
-             if (groupLeader.getGroup().getReportID() != null) {
+             if (groupLeader.getGroup() != null && groupLeader.getGroup().getReportID() != null) {
                  groupLeader = groupLeader.getGroup();
              }
              List<Report> groupedReports = new ArrayList<>();
