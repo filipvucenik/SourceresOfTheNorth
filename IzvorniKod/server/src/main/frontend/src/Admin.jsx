@@ -420,90 +420,109 @@ function Admin() {
         {displaied_data.length > 0 && (
           <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
             {displaied_data.map((repo) => {
-              return (
-                <div className="card h-100 border border-2 rounded">
-                  <div className="card-body">
-                    <h5 className="card-title">{repo.reportHeadline}</h5>
-                    <hr />
-                    <p className="card-text">{repo.description}</p>
-                    <p className="card-text">{categoryData[repo.categoryID]}</p>
-                    <p className="card-text">{repo.status}</p>
-                    {repo.group === null && (
-                      <ul className="list-group list-group-flush">
-                        {data.map((miniR) => {
-                          if (miniR.group !== null) {
-                            if (miniR.group.reportID === repo.reportID) {
-                              return (
-                                <li className="list-group-item">
-                                  <Link to={`/report/${miniR.reportID}`}>
-                                    {miniR.reportHeadline}
-                                  </Link>
-                                </li>
-                              );
-                            }
-                          }
-                        })}
-                      </ul>
-                    )}
+              if (repo.group === null) {
+                return (
+                  <div className="card h-100 border border-2 rounded">
+                    <div className="card-body">
+                      <h5 className="card-title">
+                        <b>Naslov: </b>
+                        {repo.reportHeadline}
+                      </h5>
+                      <hr />
+                      <p className="card-text">
+                        <b>Opis :</b> <br />
+                        {repo.description}
+                      </p>
+                      <p className="card-text">
+                        <b>Kategorija: </b>
+                        {categoryData[repo.categoryID]}
+                      </p>
+                      <p className="card-text">
+                        <b>Status :</b>
+                        {repo.status}
+                      </p>
+                      {repo.group === null && (
+                        <>
+                          <p>
+                            <b>Povezane prijave:</b>
+                          </p>
+                          <ul className="list-group list-group-flush">
+                            {data.map((miniR) => {
+                              if (miniR.group !== null) {
+                                if (miniR.group.reportID === repo.reportID) {
+                                  return (
+                                    <li className="list-group-item">
+                                      <Link to={`/report/${miniR.reportID}`}>
+                                        {miniR.reportHeadline}
+                                      </Link>
+                                    </li>
+                                  );
+                                }
+                              }
+                            })}
+                          </ul>
+                        </>
+                      )}
 
-                    <div className="btn-group">
-                      <button
-                        className="btn btn-primary"
-                        onClick={() => redirect(repo.reportID)}
-                      >
-                        Pregled
-                      </button>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => remove(repo.reportID)}
-                      >
-                        Obriši
-                      </button>
-
-                      <div className="dropdown">
+                      <div className="btn-group">
                         <button
-                          className="btn btn-warning dropdown-toggle"
-                          type="button"
-                          id="actionsDropdown"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
+                          className="btn btn-primary"
+                          onClick={() => redirect(repo.reportID)}
                         >
-                          Actions
+                          Pregled
                         </button>
-                        <ul
-                          className="dropdown-menu"
-                          aria-labelledby="actionsDropdown"
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => remove(repo.reportID)}
                         >
-                          <li>
-                            <button
-                              className="dropdown-item"
-                              onClick={() => addToTransfer(repo.reportID)}
-                            >
-                              Proslijedi
-                            </button>
-                          </li>
-                          <li>
-                            <button
-                              className="dropdown-item"
-                              onClick={() => addToUpdate(repo.reportID)}
-                            >
-                              Ažuriraj
-                            </button>
-                          </li>
-                          <li>
-                            <button
-                              className="dropdown-item"
-                              onClick={() => addToGroup(repo.reportID)}
-                            >
-                              Grupiraj
-                            </button>
-                          </li>
-                        </ul>
+                          Obriši
+                        </button>
+
+                        <div className="dropdown">
+                          <button
+                            className="btn btn-warning dropdown-toggle"
+                            type="button"
+                            id="actionsDropdown"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                          >
+                            Actions
+                          </button>
+                          <ul
+                            className="dropdown-menu"
+                            aria-labelledby="actionsDropdown"
+                          >
+                            <li>
+                              <button
+                                className="dropdown-item"
+                                onClick={() => addToTransfer(repo.reportID)}
+                              >
+                                Proslijedi
+                              </button>
+                            </li>
+                            <li>
+                              <button
+                                className="dropdown-item"
+                                onClick={() => addToUpdate(repo.reportID)}
+                              >
+                                Ažuriraj
+                              </button>
+                            </li>
+                            <li>
+                              <button
+                                className="dropdown-item"
+                                onClick={() => addToGroup(repo.reportID)}
+                              >
+                                Grupiraj
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
+                );
+              }
             })}
           </div>
         )}
