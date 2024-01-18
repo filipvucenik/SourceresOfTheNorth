@@ -394,25 +394,25 @@ function Admin() {
 
         <div className="btn-group btn-group-toggle m-1 p-1">
           <button
-            className="btn btn-lg btn-primary"
+            className="btn btn-primary"
             onClick={(event) => updateDisplay("U Procesu", event)}
           >
             U procesu
           </button>
           <button
-            className="btn btn-lg btn-primary"
+            className="btn btn-primary"
             onClick={(event) => updateDisplay("Neobrađeno", event)}
           >
             Neobrađene
           </button>
           <button
-            className="btn btn-lg btn-primary"
+            className="btn btn-primary"
             onClick={(event) => updateDisplay("Obrađeno", event)}
           >
             Obrađene
           </button>
         </div>
-        <button className="btn btn-secondary btn-lg" onClick={refreshReports}>
+        <button className="btn btn-secondary" onClick={refreshReports}>
           Osvježi
         </button>
 
