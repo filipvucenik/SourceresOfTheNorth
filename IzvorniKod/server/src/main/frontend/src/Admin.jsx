@@ -424,29 +424,44 @@ function Admin() {
                 return (
                   <div className="card h-100 border border-2 rounded">
                     <div className="card-body">
-                      <h5 className="card-title">{repo.reportHeadline}</h5>
+                      <h5 className="card-title">
+                        <b>Naslov: </b>
+                        {repo.reportHeadline}
+                      </h5>
                       <hr />
-                      <p className="card-text">{repo.description}</p>
                       <p className="card-text">
+                        <b>Opis :</b> <br />
+                        {repo.description}
+                      </p>
+                      <p className="card-text">
+                        <b>Kategorija: </b>
                         {categoryData[repo.categoryID]}
                       </p>
-                      <p className="card-text">{repo.status}</p>
+                      <p className="card-text">
+                        <b>Status :</b>
+                        {repo.status}
+                      </p>
                       {repo.group === null && (
-                        <ul className="list-group list-group-flush">
-                          {data.map((miniR) => {
-                            if (miniR.group !== null) {
-                              if (miniR.group.reportID === repo.reportID) {
-                                return (
-                                  <li className="list-group-item">
-                                    <Link to={`/report/${miniR.reportID}`}>
-                                      {miniR.reportHeadline}
-                                    </Link>
-                                  </li>
-                                );
+                        <>
+                          <p>
+                            <b>Povezane prijave:</b>
+                          </p>
+                          <ul className="list-group list-group-flush">
+                            {data.map((miniR) => {
+                              if (miniR.group !== null) {
+                                if (miniR.group.reportID === repo.reportID) {
+                                  return (
+                                    <li className="list-group-item">
+                                      <Link to={`/report/${miniR.reportID}`}>
+                                        {miniR.reportHeadline}
+                                      </Link>
+                                    </li>
+                                  );
+                                }
                               }
-                            }
-                          })}
-                        </ul>
+                            })}
+                          </ul>
+                        </>
                       )}
 
                       <div className="btn-group">
