@@ -93,7 +93,9 @@ const MapComponent = () => {
         createMarker(
           trazilicaData.report.lat,
           trazilicaData.report.lng,
-          trazilicaData.report.reportID
+          trazilicaData.report.reportID,
+          trazilicaData.report.reportHeadline,
+          trazilicaData.report.description,
         );
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -177,7 +179,7 @@ const MapComponent = () => {
     }
   };
 
-  const createMarker = (lat, lng, id) => {
+  const createMarker = (lat, lng, id,headline,description) => {
     const customIcon = new L.Icon({
       iconUrl: markerIcon,
       iconSize: [32, 32],
@@ -200,7 +202,9 @@ const MapComponent = () => {
         } else {
           marker
             .bindPopup(
-              `Naslov prijave, kratki opis bude tu + <br/><a href='${apiConfig.getUrl}/report/${id}'>Otvori stranicu prijave</a>`
+              `<b><h5>${headline}</h5></b>
+              ${description} <br/>
+              <a href='${apiConfig.getUrl}/report/${id}'>Otvori stranicu prijave</a>`
             )
             .openPopup();
           popupIsOpen = true;
@@ -231,7 +235,7 @@ const MapComponent = () => {
     if (dataToUse && dataToUse.length > 0) {
       for (const lokacija of dataToUse) {
         if (lokacija.lat && lokacija.lng) {
-          createMarker(lokacija.lat, lokacija.lng, lokacija.reportID);
+          createMarker(lokacija.lat, lokacija.lng, lokacija.reportID, lokacija.reportHeadline,lokacija.description);
         } else if (
           lokacija.report &&
           lokacija.report.lat &&
@@ -240,7 +244,9 @@ const MapComponent = () => {
           createMarker(
             lokacija.report.lat,
             lokacija.report.lng,
-            lokacija.report.reportID
+            lokacija.report.reportID,
+            lokacija.report.reportHeadline,
+            lokacija.report.description
           );
         }
       }
