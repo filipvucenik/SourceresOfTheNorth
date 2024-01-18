@@ -184,7 +184,7 @@ function Admin() {
       for (const r of update) {
         var formData = new FormData();
         formData.append("status", newStatus);
-        formData.append("reports", r.reportID);
+        formData.append("reportID", r.reportID);
 
         const response = await fetch(`${server}/updateStatus`, {
           method: "PUT",
