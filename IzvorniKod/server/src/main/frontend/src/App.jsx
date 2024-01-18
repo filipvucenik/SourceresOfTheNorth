@@ -7,10 +7,12 @@ import StatisticComponent from "./StatisticComponent.jsx";
 import Main from "./Main.jsx";
 import Reports from "./Report.jsx";
 import Admin from "./Admin.jsx";
-import LoginComponent2 from "./Regforma.jsx"
+import LoginComponent2 from "./Regforma.jsx";
 import "./App.css";
 import Filter from "./Filter.jsx";
 import Profile from "./Profile.jsx";
+import Office_LoginComponent from "./office/office_login.jsx";
+import OfficeRegister from "./office/office_register.jsx";
 
 function App() {
   return (
@@ -18,13 +20,15 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/prijava" element={<ReportCard />} />
-        <Route path="/login" element={<LoginComponent />} />
-        <Route path="/registracija" element={<LoginComponent2 />} />
+        <Route path="/user-login" element={<LoginComponent />} />
+        <Route path="/user-register" element={<LoginComponent2 />} />
         <Route path="/statistika" element={<StatisticComponent />} />
         <Route path="/report/:id" element={<Reports />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/filter" element={<Filter />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/office-login" element={<Office_LoginComponent />} />
+        <Route path="/office-register" element={<OfficeRegister />} />
 
         {/*}<Route path="/registracija" element={<RegisterComponent />} />
           <Route path="/profile" element={<ProfilePage />} />{*/}

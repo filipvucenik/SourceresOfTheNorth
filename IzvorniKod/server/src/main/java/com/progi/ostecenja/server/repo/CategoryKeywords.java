@@ -15,7 +15,7 @@ public class CategoryKeywords {
     private String keyword;
 
     @JoinColumn
-    private long categoryID;
+    private Long categoryID;
 
     public CategoryKeywords(){}
 

@@ -4,53 +4,26 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
+
+@NoArgsConstructor
+@Getter
 @Entity(name ="Feedback")
 public class Feedback {
-    /*
-    @Id
-    @JoinColumn(name ="groupID")
-    private Long groupID;
-    */
 
     @Id
     private FeedbackID key;
     @Column
     private Timestamp changeTS;
 
-    public Feedback(Long groupID, String status, Timestamp changeTS) {
-        this.key = new FeedbackID(groupID, status);
+    public Feedback(Long reportID, String status, Timestamp changeTS) {
+        this.key = new FeedbackID(reportID, status);
         this.changeTS = changeTS;
     }
 
-    public Feedback(){
-
-    }
-
-    public Long getGroupID() {
-        return key.getGroupID();
-    }
-
-    public void setGroupID(Long groupID) {
-        key.setGroupID(groupID);
-    }
-
-
-    public String getStatus() {
-        return key.getStatus();
-    }
-
-    public void setStatus(String status) {
-        key.setStatus(status);
-    }
-
-    public Timestamp getChangeTS() {
-        return changeTS;
-    }
-
-    public void setChangeTS(Timestamp changeTS) {
-        this.changeTS = changeTS;
-    }
 }

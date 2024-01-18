@@ -19,4 +19,6 @@ public interface CityOfficeService {
     CityOffice deleteCityOffice(long officeId);
 
     Optional<CityOffice> findByCityOfficeEmail(String email);
+
+    Optional<CityOffice> findByCityOfficeId(long id);
 }

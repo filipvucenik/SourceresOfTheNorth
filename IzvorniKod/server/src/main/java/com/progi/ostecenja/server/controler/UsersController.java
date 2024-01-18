@@ -3,6 +3,10 @@ package com.progi.ostecenja.server.controler;
 import com.progi.ostecenja.server.repo.Users;
 import com.progi.ostecenja.server.service.RequestDeniedException;
 import com.progi.ostecenja.server.service.UsersService;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +43,11 @@ public class UsersController {
     public Users createUser(@RequestBody Users user) { return usersService.createUser(user); }
 
     @GetMapping("/{id}")
-    public Users getUser(@PathVariable("id") long id){ return usersService.fetch(id); }
+    public UserNoPass getUser(@PathVariable("id") long id){
+        Users user = usersService.fetch(id);
+        UserNoPass noPass = new UserNoPass(id, user.getEmail(), user.getFirstName(), user.getLastName());
+        return noPass;
+    }
 
     @PutMapping("/{id}")
     public Users updateUser(@PathVariable("id") long id, @RequestBody Users user){
@@ -52,4 +60,50 @@ public class UsersController {
 
     @DeleteMapping("/{id}")
     public Users deleteUser(@PathVariable("id") long id) { return usersService.deleteUser(id); }
+}
+
+class UserNoPass {
+    private Long userId;
+    private String email;
+    private String firstName;
+    private String lastName;
+
+    public UserNoPass(Long userId, String email, String firstName, String lastName) {
+        this.userId = userId;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }

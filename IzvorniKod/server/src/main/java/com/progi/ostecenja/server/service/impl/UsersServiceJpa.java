@@ -61,7 +61,7 @@ public class UsersServiceJpa implements UsersService {
 
     @Override
     public Users updateUser(Users user) {
-        validate(user);
+        //validate(user);
         Long userId = user.getUserId();
 
         //Id doesn't exist
@@ -72,7 +72,20 @@ public class UsersServiceJpa implements UsersService {
         if(usersRepo.existsByEmailAndUserIdNot(user.getEmail(),userId)){
             throw new RequestDeniedException("User with Email " + user.getEmail() + " already exists");
         }
-        user.setPassword(pswdEncoder.encode(user.getPassword()));
+
+        //ako je postavljena lozinka promijeni lozinku
+        if(user.getPassword()!=null){
+            String password = user.getPassword();
+            Assert.hasText(password, "Password can't be empty");
+            if(password.length()<8){
+                Assert.isTrue(false,"Password must have at least 8 characters");
+            }else if(password.length()>100){
+                Assert.isTrue(false, "Password can't be longer than 100 characters");
+            }
+            user.setPassword(pswdEncoder.encode(user.getPassword()));
+        }else{
+            user.setPassword(usersRepo.findByUserId(user.getUserId()).get().getPassword());
+        }
 
         return usersRepo.save(user);
     }
@@ -98,7 +111,7 @@ public class UsersServiceJpa implements UsersService {
 
         //password validation
         String password = user.getPassword();
-        Assert.hasText(password, "Password name can't be empty");
+        Assert.hasText(password, "Password can't be empty");
         if(password.length()<8){
             Assert.isTrue(false,"Password must have at least 8 characters");
         }else if(password.length()>100){

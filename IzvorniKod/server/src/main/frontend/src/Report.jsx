@@ -7,23 +7,32 @@ import HeaderComponent from "./HeaderComponent";
 
 const server = apiConfig.getUrl;
 
-const Report = ({ id }) => {
-  console.log(id.id);
-
-  const [value, setValue] = useState();
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
+function Reports() {
+  const iddd = useParams();
 
   const [data, setData] = useState({});
+  const [categoryData, setCategoryData] = useState({});
+
+  useEffect(() => {
+    getCategory();
+  }, []);
+
+  const getCategory = async () => {
+    let url = apiConfig.getCategory;
+    const fetchCategory = await fetch(url);
+    const fetchData = await fetchCategory.json();
+    const transformedData = Object.fromEntries(
+      fetchData.map((item) => [item.categoryID, item.categoryName])
+    );
+    setCategoryData(transformedData);
+  };
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${server}reports/${id.id}`);
+      const response = await fetch(`${server}/reports/${iddd.id}`);
       const result = await response.json();
       setData(result);
       console.log(result);
-      setValue(result.trStatus);
     } catch (error) {
       console.log(error);
     }
@@ -35,60 +44,69 @@ const Report = ({ id }) => {
 
   return (
     <>
-    <HeaderComponent/>
-    <div className="Report">
-      <div className="report-left">
-        <div>
-          <img src="https://picsum.photos/400/300" />
-        </div>
-        <div>Naslov: {data.reportHeadline}</div>
-        <div>
-          <p>Opis: {data.description}</p>
-        </div>
-        <div>Datum: {data.reportTS}</div>
-      </div>
-      <div className="report-right">
-        <div>
-          <img src="https://picsum.photos/300/300" />
-          {data.location}
-        </div>
-        <div>
-          <select value={value} onChange={handleChange}>
-            <option value="aktivno">Aktivno</option>
-            <option value="neobrađeno">Neobrađeno</option>
-            <option value="obrađeno">Odrađeno</option>
-          </select>
-        </div>
-        <button>Update status</button>
-        <button>Delete report</button>
-      </div>
-    </div>
-    <FooterComponent/>
+      <HeaderComponent />
+
+      {data.report && (
+        <>
+          <div className="container m-4">
+            <div className="card h-100 border border-2 rounded">
+              {data.images[0] && (
+                <img
+                  src={data.images[0].url}
+                  className="card-img-top img-thumbnail mx-auto d-block"
+                  alt="glavna slika"
+                  onLoad={(e) => {
+                    const img = e.target;
+                    if (img.naturalWidth > img.naturalHeight) {
+                      // Landscape image
+                      img.style.width = "80%";
+                      img.style.height = "auto";
+                    } else {
+                      // Portrait image
+                      img.style.width = "400px";
+                      img.style.height = "100%";
+                    }
+                  }}
+                />
+              )}
+              <div className="card-body">
+                <h5 className="card-title">
+                  <b>{data.report.reportHeadline}</b>
+                </h5>
+                <hr />
+                <p className="card-text">
+                  <b>ID prijave:</b> {data.report.reportID}
+                </p>
+                <p className="card-text">
+                  <b>Opis:</b> {data.report.description}
+                </p>
+                <p className="card-text">
+                  <b>Datum:</b>{" "}
+                  {new Date(data.report.reportTS).toLocaleString("de-DE", {
+                    timeZone: "UTC",
+                  })}
+                </p>
+                <p className="card-text">
+                  <b>Status:</b> <br />
+                  {data.feedback.key.status === "uProcesu" ? (
+                    <span>U procesu</span>
+                  ) : data.feedback.key.status === "neobrađen" ? (
+                    <span>Neobrađen</span>
+                  ) : (
+                    <span>Obrađen</span>
+                  )}
+                </p>
+                <p className="card-text">
+                  <b>Kategorija:</b> {categoryData[data.report.categoryID]}
+                </p>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      <FooterComponent />
     </>
-  );
-};
-
-function Reports() {
-  const testerData = {
-    naslov: "Problem s kanalizacijom",
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-   Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
-    date: "13.11.2023.",
-    location: "ulica ta i ta ili kak bi vec bilo",
-    status: "aktivna",
-  };
-
-  const iddd = useParams();
-
-  console.log(iddd);
-
-  return (
-    <div>
-      <h1>REPORT</h1>
-      <div className="page">
-        <Report id={iddd}></Report>
-      </div>
-    </div>
   );
 }
 

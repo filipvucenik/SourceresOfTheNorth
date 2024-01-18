@@ -1,9 +1,3 @@
-.report-columns {
-  display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
-  padding: 10px;
-}
-
 .report {
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;

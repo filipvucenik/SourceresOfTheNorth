@@ -27,4 +27,5 @@ public class ImageServiceJpa implements ImageService {
     public List<Image> listAllId(Long reportID) {
         return imageRepo.findAll().stream().filter(im -> im.getReportID().equals(reportID)).toList();
     }
+
 }
