@@ -454,7 +454,7 @@ function Admin() {
                         className="btn btn-danger"
                         onClick={() => remove(repo.reportID)}
                       >
-                        Obrisi
+                        Obriši
                       </button>
 
                       <div className="dropdown">

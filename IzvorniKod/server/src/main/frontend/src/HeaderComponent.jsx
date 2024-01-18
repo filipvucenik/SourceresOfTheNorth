@@ -108,7 +108,7 @@ const HeaderComponent = () => {
                           to="/profile"
                           className="btn btn-outline-dark dropdown-item"
                         >
-                          Profile
+                          Profil
                         </Link>
                       )}
                     </li>
