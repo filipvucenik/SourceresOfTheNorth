@@ -7,6 +7,8 @@ import FilterComponent from "./Filter.jsx";
 // import PrijavaSteteComponent from "./PrijavaSteteComponent.jsx";
 // import LoginComponent from "./LoginComponent.jsx";
 import "./Main.css";
+import Cookies from "js-cookie";
+
 
 function Main() {
   const [postojiKolacic, postaviPostojiKolacic] = useState(false);

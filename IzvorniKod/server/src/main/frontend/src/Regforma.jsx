@@ -4,7 +4,6 @@ import "./Lforma.css";
 import { useNavigate } from "react-router-dom";
 import apiConfig from "./apiConfig";
 import FooterComponent from "./FooterComponent";
-import apiConfig from "./apiConfig";
 
 const LoginComponent2 = () => {
 
