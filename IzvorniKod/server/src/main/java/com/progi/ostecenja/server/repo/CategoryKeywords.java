@@ -9,6 +9,7 @@ public class CategoryKeywords {
     @Column
     private String keyword;
 
+
     @JoinColumn
     private Long categoryID;
 
