@@ -5,13 +5,8 @@ import jakarta.persistence.*;
 @Entity(name="categoryKeywords")
 public class CategoryKeywords {
     @Id @GeneratedValue
-<<<<<<< HEAD
     private Long keywordID;
-
-=======
-    private long keywordID;
     @Column
->>>>>>> develop
     private String keyword;
 
     @JoinColumn
