@@ -1,3 +1,5 @@
-Treba dodati Gradsku službu kao aktora ako je u dijagramu?
-
-Razrada nefunkcionalnih zahtjeva.
+filtar prijava
+izbor jezika
+prava baza podataka
+prikaz koda nakon podnošenja prijave i odlazak na glavnu stranicu
+u dijagramima dodati nadovezivanje prijava!
