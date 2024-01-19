@@ -40,3 +40,21 @@
 ----------------------------------------
 	- kratka evaulacija dosadašnjeg rada, dogovor o raspodijeli bodova
 	- pregled nedovršenog posla, daljnjih obaveza i zadataka kod dokumentacije i same aplikacije
+
+8. SASTANAK (18.12.2023.)
+----------------------------------------
+	- redovna kontrola napravljenog posla
+	- pregled nedovršenog posla
+	- rasprava o implementaciji višejezičnosti
+
+9. SASTANAK (8.1.2024.)
+----------------------------------------
+	- redovna kontrola napravljenog posla
+	- pregled nedovršenog posla
+	- rasprava oko nekoliko endpointova i povezivanja frontenda i backenda
+	- dogovor oko promjene načina spremanja lokacije oštećenja u bazi podataka
+
+10. SASTANAK (11.1.2024.)
+----------------------------------------
+	- kratka rasprava oko promjene načina nadovezivanja prijava
+	- razrješavanje problema vezanih uz povezivanje frontenda i backenda
